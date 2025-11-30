@@ -1,0 +1,12 @@
+# Development files
+players.db
+test-results/
+.claude/
+
+# OS files
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~

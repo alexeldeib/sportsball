@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL 2025 Roster Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050816;
+      color: #e5e7eb;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      line-height: 1.5;
+    }
+    .app {
+      max-width: 500px;
+      width: 100%;
+      background: radial-gradient(circle at top left, #1f2937, #020617);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-size: 1.4rem;
+      margin: 0;
+    }
+    .gear-btn {
+      background: transparent;
+      border: none;
+      color: #9ca3af;
+      font-size: 1.3rem;
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+    }
+    .gear-btn:hover { color: #e5e7eb; }
+
+    /* Stats row */
+    .stats {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+    }
+    .stats strong {
+      color: #e5e7eb;
+    }
+
+    /* Settings panel */
+    .settings {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease-out;
+      background: rgba(15,23,42,0.8);
+      border-radius: 12px;
+      margin-bottom: 0;
+    }
+    .settings.open {
+      max-height: 200px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px solid #4b5563;
+    }
+    .settings-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .settings-row:last-child {
+      margin-bottom: 0;
+    }
+    .settings label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .settings select, .settings input[type="file"] {
+      background: #020617;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
+      padding: 0.4rem 0.8rem;
+      font-size: 0.85rem;
+    }
+
+    /* Question card */
+    .question-card {
+      padding: 1.25rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(30,64,175,0.85), rgba(15,23,42,0.98));
+      border: 1px solid rgba(129,140,248,0.85);
+    }
+    .question-main {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    .answer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .field {
+      flex: 1 1 140px;
+    }
+    input[type="text"] {
+      width: 100%;
+      box-sizing: border-box;
+      background: #020617;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
+      padding: 0.6rem 1rem;
+      font-size: 1rem;
+      outline: none;
+    }
+    input[type="text"]:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 2px rgba(99,102,241,0.4);
+    }
+    button.primary {
+      width: 100%;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow: 0 8px 20px rgba(79,70,229,0.4);
+    }
+    button.ghost {
+      background: transparent;
+      color: #9ca3af;
+      border: 1px solid #4b5563;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    button.ghost:hover {
+      background: rgba(107,114,128,0.2);
+    }
+    button.danger {
+      background: rgba(220,38,38,0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239,68,68,0.5);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    button.danger:hover {
+      background: rgba(220,38,38,0.4);
+    }
+    input.snap-input {
+      width: 4rem;
+      text-align: center;
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 999px;
+      color: #e5e7eb;
+      padding: 0.3rem 0.5rem;
+      font-size: 0.85rem;
+    }
+    input.snap-input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+
+    /* Feedback */
+    .feedback {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      display: none;
+    }
+    .feedback.visible { display: block; }
+    .feedback.correct {
+      background: rgba(22,163,74,0.2);
+      border: 1px solid rgba(74,222,128,0.7);
+      color: #bbf7d0;
+    }
+    .feedback.incorrect {
+      background: rgba(220,38,38,0.2);
+      border: 1px solid rgba(248,113,113,0.8);
+      color: #fecaca;
+    }
+    .feedback.partial {
+      background: rgba(234,179,8,0.2);
+      border: 1px solid rgba(250,204,21,0.7);
+      color: #fef08a;
+    }
+    .feedback-title { font-weight: 600; }
+    .feedback-answer { margin-top: 0.25rem; color: #e5e7eb; }
+
+    /* Footer */
+    .footer {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .footer a {
+      color: #818cf8;
+      text-decoration: none;
+    }
+
+    @media (max-width: 400px) {
+      .app { padding: 16px; }
+      .question-main { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>NFL Quiz</h1>
+    <button class="gear-btn" id="gear-btn" title="Settings">⚙</button>
+  </div>
+
+  <div class="stats">
+    <span><strong id="seen-count">0</strong> seen</span> ·
+    <span><strong id="correct-count">0</strong> correct</span> ·
+    <span><strong id="accuracy">0%</strong></span>
+  </div>
+
+  <div class="settings" id="settings">
+    <div class="settings-row">
+      <label for="mode">Mode:</label>
+      <select id="mode">
+        <option value="name_to_teampos">Name → Team & Position</option>
+        <option value="teampos_to_name">Team & Position → Name</option>
+        <option value="mixed">Mixed (random)</option>
+      </select>
+    </div>
+    <div class="settings-row">
+      <label>Min snaps:</label>
+      <button class="ghost" id="snap-minus">−</button>
+      <input type="number" class="snap-input" id="snap-value" value="0" min="0" />
+      <button class="ghost" id="snap-plus">+</button>
+      <span style="color:#9ca3af;font-size:0.8rem;margin-left:0.5rem;">(<span id="player-count">0</span> players)</span>
+    </div>
+    <div class="settings-row">
+      <label for="file-input">Custom deck:</label>
+      <input id="file-input" type="file" accept=".json" />
+    </div>
+    <div class="settings-row">
+      <button class="danger" id="btn-reset">Reset stats</button>
+    </div>
+  </div>
+
+  <div class="question-card">
+    <div class="question-main" id="question-main">Loading...</div>
+
+    <div class="answer-row">
+      <div class="field" id="field-name" style="display:none;">
+        <input id="input-name" type="text" placeholder="Player name" />
+      </div>
+      <div class="field" id="field-team" style="display:none;">
+        <input id="input-team" type="text" placeholder="Team" />
+      </div>
+      <div class="field" id="field-pos" style="display:none;">
+        <input id="input-pos" type="text" placeholder="Position" />
+      </div>
+    </div>
+
+    <button class="primary" id="btn-main">Check</button>
+
+    <div class="feedback" id="feedback">
+      <div class="feedback-title" id="feedback-title"></div>
+      <div class="feedback-answer" id="feedback-answer"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="game.html">Daily Challenge</a> · <a href="stats.html">Stats Explorer</a>
+  </div>
+</div>
+
+<script>
+  const POSITION_MAP = {
+    QB: "Quarterback", RB: "Running Back", FB: "Fullback", WR: "Wide Receiver",
+    TE: "Tight End", OL: "Offensive Lineman", OT: "Offensive Tackle", OG: "Offensive Guard", C: "Center",
+    G: "Guard", T: "Tackle", DL: "Defensive Lineman", DE: "Defensive End",
+    DT: "Defensive Tackle", NT: "Nose Tackle", EDGE: "Edge Rusher", LB: "Linebacker",
+    OLB: "Outside Linebacker", ILB: "Inside Linebacker", MLB: "Middle Linebacker",
+    DB: "Defensive Back", CB: "Cornerback", S: "Safety", FS: "Free Safety",
+    SS: "Strong Safety", K: "Kicker", P: "Punter", LS: "Long Snapper"
+  };
+
+  const POS_CANON = {
+    qb: "QB", quarterback: "QB", rb: "RB", runningback: "RB", fb: "FB", fullback: "FB",
+    wr: "WR", widereceiver: "WR", receiver: "WR", te: "TE", tightend: "TE",
+    ol: "OL", offensivelineman: "OL", ot: "OT", offensivetackle: "OT", og: "OG", offensiveguard: "OG", c: "C", center: "C",
+    g: "G", guard: "G", t: "T", tackle: "T", dl: "DL", defensivelineman: "DL",
+    de: "DE", defensiveend: "DE", dt: "DT", defensivetackle: "DT", nt: "NT", nosetackle: "NT",
+    edge: "EDGE", edgerusher: "EDGE", lb: "LB", linebacker: "LB",
+    olb: "OLB", outsidelinebacker: "OLB", ilb: "ILB", insidelinebacker: "ILB",
+    mlb: "MLB", middlelinebacker: "MLB", db: "DB", defensiveback: "DB",
+    cb: "CB", cornerback: "CB", s: "S", safety: "S", fs: "FS", freesafety: "FS",
+    ss: "SS", strongsafety: "SS", k: "K", kicker: "K", p: "P", punter: "P",
+    ls: "LS", longsnapper: "LS"
+  };
+
+  const STORAGE_KEY_STATS = "nflQuizStats_v1";
+  const STORAGE_KEY_GLOBAL = "nflQuizGlobal_v1";
+  const STORAGE_KEY_MODE = "nflQuizMode_v1";
+  const STORAGE_KEY_MINSNAPS = "nflQuizMinSnaps_v1";
+
+  let allPlayers = [];  // unfiltered
+  let players = [];     // filtered by minSnaps
+  let minSnaps = 0;
+  let stats = {};
+  let globalStats = { seen: 0, correct: 0 };
+  let currentCard = null;
+  let currentQuestionMode = "name_to_teampos"; // actual mode for current question (resolves "mixed")
+  let awaitingAnswer = true;
+
+  const gearBtn = document.getElementById("gear-btn");
+  const settingsEl = document.getElementById("settings");
+  const modeSelect = document.getElementById("mode");
+  const fileInput = document.getElementById("file-input");
+  const seenEl = document.getElementById("seen-count");
+  const correctEl = document.getElementById("correct-count");
+  const accuracyEl = document.getElementById("accuracy");
+  const questionMain = document.getElementById("question-main");
+  const fieldName = document.getElementById("field-name");
+  const fieldTeam = document.getElementById("field-team");
+  const fieldPos = document.getElementById("field-pos");
+  const inputName = document.getElementById("input-name");
+  const inputTeam = document.getElementById("input-team");
+  const inputPos = document.getElementById("input-pos");
+  const btnMain = document.getElementById("btn-main");
+  const btnReset = document.getElementById("btn-reset");
+  const feedbackEl = document.getElementById("feedback");
+  const feedbackTitle = document.getElementById("feedback-title");
+  const feedbackAnswer = document.getElementById("feedback-answer");
+  const snapMinus = document.getElementById("snap-minus");
+  const snapPlus = document.getElementById("snap-plus");
+  const snapValueEl = document.getElementById("snap-value");
+  const playerCountEl = document.getElementById("player-count");
+
+  function normalizeString(str) {
+    return String(str || "").trim().toLowerCase().replace(/\s+/g, "");
+  }
+
+  function getPlayerSnaps(p) {
+    const s = p.stats || {};
+    return (s.off_snp || 0) + (s.def_snp || 0);
+  }
+
+  function filterPlayers() {
+    players = allPlayers.filter(p => getPlayerSnaps(p) >= minSnaps);
+    playerCountEl.textContent = players.length;
+  }
+
+  function updateMinSnaps(delta) {
+    minSnaps = Math.max(0, minSnaps + delta);
+    snapValueEl.value = minSnaps;
+    filterPlayers();
+    try { localStorage.setItem(STORAGE_KEY_MINSNAPS, minSnaps); } catch(e) {}
+  }
+
+  function setMinSnaps(val) {
+    minSnaps = Math.max(0, parseInt(val, 10) || 0);
+    snapValueEl.value = minSnaps;
+    filterPlayers();
+    try { localStorage.setItem(STORAGE_KEY_MINSNAPS, minSnaps); } catch(e) {}
+  }
+
+  function canonicalizePosition(input) {
+    const trimmed = normalizeString(input);
+    if (!trimmed) return "";
+    if (POS_CANON[trimmed]) return POS_CANON[trimmed];
+    const abbr = input.toUpperCase().replace(/[^A-Z]/g, "");
+    if (POSITION_MAP[abbr]) return abbr;
+    return abbr;
+  }
+
+  function displayPosition(abbr) {
+    const key = String(abbr || "").toUpperCase();
+    return POSITION_MAP[key] ? key + " — " + POSITION_MAP[key] : key;
+  }
+
+  function loadStats() {
+    try {
+      const s = localStorage.getItem(STORAGE_KEY_STATS);
+      if (s) stats = JSON.parse(s);
+      const g = localStorage.getItem(STORAGE_KEY_GLOBAL);
+      if (g) globalStats = JSON.parse(g);
+      const m = localStorage.getItem(STORAGE_KEY_MODE);
+      if (m) modeSelect.value = m;
+      const snap = localStorage.getItem(STORAGE_KEY_MINSNAPS);
+      if (snap) {
+        minSnaps = parseInt(snap, 10) || 0;
+        snapValueEl.value = minSnaps;
+      }
+    } catch (e) {}
+    updateStatsUI();
+  }
+
+  function saveStats() {
+    try {
+      localStorage.setItem(STORAGE_KEY_STATS, JSON.stringify(stats));
+      localStorage.setItem(STORAGE_KEY_GLOBAL, JSON.stringify(globalStats));
+      localStorage.setItem(STORAGE_KEY_MODE, modeSelect.value);
+    } catch (e) {}
+  }
+
+  function cardKey(card) {
+    return ((card.name || "") + "|" + (card.team || "") + "|" + (card.position || "")).toLowerCase();
+  }
+
+  function updateStatsUI() {
+    seenEl.textContent = globalStats.seen;
+    // Show half points nicely (e.g., 5.5 instead of 5.5000001)
+    correctEl.textContent = Number.isInteger(globalStats.correct) ? globalStats.correct : globalStats.correct.toFixed(1);
+    const acc = globalStats.seen > 0 ? Math.round((globalStats.correct / globalStats.seen) * 100) : 0;
+    accuracyEl.textContent = acc + "%";
+  }
+
+  function pickNextCard() {
+    if (!players.length) return null;
+    const now = Date.now();
+    let best = null, bestScore = Infinity;
+    for (const p of players) {
+      const s = stats[cardKey(p)] || { correct: 0, wrong: 0, lastSeen: 0 };
+      const mastery = s.correct - s.wrong;
+      const daysSince = s.lastSeen ? (now - s.lastSeen) / 86400000 : 999;
+      const score = mastery - daysSince + Math.random() * 0.5;
+      if (score < bestScore) { bestScore = score; best = p; }
+    }
+    return best;
+  }
+
+  function setModeFields() {
+    inputName.value = ""; inputTeam.value = ""; inputPos.value = "";
+    if (currentQuestionMode === "name_to_teampos") {
+      fieldName.style.display = "none";
+      fieldTeam.style.display = "block";
+      fieldPos.style.display = "block";
+    } else {
+      fieldName.style.display = "block";
+      fieldTeam.style.display = "none";
+      fieldPos.style.display = "none";
+    }
+  }
+
+  function resolveMode() {
+    const mode = modeSelect.value;
+    if (mode === "mixed") {
+      return Math.random() < 0.5 ? "name_to_teampos" : "teampos_to_name";
+    }
+    return mode;
+  }
+
+  function showQuestion(card) {
+    if (!card) {
+      questionMain.textContent = "No players loaded";
+      return;
+    }
+    if (currentQuestionMode === "name_to_teampos") {
+      questionMain.textContent = card.name;
+    } else {
+      questionMain.textContent = card.team + " — " + displayPosition(card.position);
+    }
+  }
+
+  function updateStatForCard(card, isCorrect, isPartial = false) {
+    if (!card) return;
+    const key = cardKey(card);
+    if (!stats[key]) stats[key] = { correct: 0, wrong: 0, lastSeen: 0 };
+    if (isCorrect) {
+      stats[key].correct++;
+      globalStats.correct++;
+    } else if (isPartial) {
+      stats[key].correct += 0.5;
+      stats[key].wrong += 0.5;
+      globalStats.correct += 0.5;
+    } else {
+      stats[key].wrong++;
+    }
+    stats[key].lastSeen = Date.now();
+    globalStats.seen++;
+    saveStats();
+    updateStatsUI();
+  }
+
+  function getValidNamesForTeamPos(team, position) {
+    const teamNorm = normalizeString(team);
+    const posNorm = canonicalizePosition(position);
+    return players
+      .filter(p => normalizeString(p.team) === teamNorm &&
+                   canonicalizePosition(p.position) === posNorm)
+      .map(p => normalizeString(p.name));
+  }
+
+  function checkAnswer() {
+    if (!currentCard) return;
+    let result = "incorrect"; // "correct", "partial", "incorrect"
+
+    if (currentQuestionMode === "name_to_teampos") {
+      const teamGuess = normalizeString(inputTeam.value);
+      const posGuess = canonicalizePosition(inputPos.value);
+      const teamCorrect = teamGuess && teamGuess === normalizeString(currentCard.team);
+      const posCorrect = posGuess && posGuess === canonicalizePosition(currentCard.position);
+
+      if (teamCorrect && posCorrect) result = "correct";
+      else if (teamCorrect || posCorrect) result = "partial";
+    } else {
+      // Team & Position → Name: accept any player matching that team+position
+      const nameGuess = normalizeString(inputName.value);
+      const validNames = getValidNamesForTeamPos(currentCard.team, currentCard.position);
+      if (nameGuess && validNames.includes(nameGuess)) result = "correct";
+    }
+
+    feedbackEl.className = "feedback visible " + result;
+    if (result === "correct") feedbackTitle.textContent = "✔ Correct";
+    else if (result === "partial") feedbackTitle.textContent = "½ Half right";
+    else feedbackTitle.textContent = "✘ Wrong";
+
+    feedbackAnswer.textContent = currentCard.name + " · " + currentCard.team + " · " + displayPosition(currentCard.position);
+    updateStatForCard(currentCard, result === "correct", result === "partial");
+  }
+
+  function nextQuestion() {
+    feedbackEl.className = "feedback";
+    awaitingAnswer = true;
+    btnMain.textContent = "Check";
+    currentCard = pickNextCard();
+    currentQuestionMode = resolveMode();
+    setModeFields();
+    showQuestion(currentCard);
+    if (currentQuestionMode === "name_to_teampos") inputTeam.focus();
+    else inputName.focus();
+  }
+
+  function handleMain() {
+    if (!currentCard && players.length) { nextQuestion(); return; }
+    if (awaitingAnswer) {
+      checkAnswer();
+      awaitingAnswer = false;
+      btnMain.textContent = "Next";
+      document.activeElement.blur();
+    } else {
+      nextQuestion();
+    }
+  }
+
+  async function loadPlayers() {
+    try {
+      const resp = await fetch("players-with-stats-2025.json", { cache: "no-store" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const parsed = await resp.json();
+      allPlayers = parsed
+        .map(p => ({
+          name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
+          team: String(p.team || "").trim(),
+          position: String(p.position || "").trim(),
+          stats: p.stats || {}
+        }))
+        .filter(p => p.name && p.team && p.position);
+      filterPlayers();
+      if (players.length) nextQuestion();
+      else questionMain.textContent = "No players found";
+    } catch (err) {
+      questionMain.textContent = "Could not load players";
+    }
+  }
+
+  // Events
+  gearBtn.addEventListener("click", () => settingsEl.classList.toggle("open"));
+
+  modeSelect.addEventListener("change", () => {
+    currentQuestionMode = resolveMode();
+    setModeFields();
+    showQuestion(currentCard);
+    saveStats();
+  });
+
+  btnMain.addEventListener("click", handleMain);
+
+  btnReset.addEventListener("click", () => {
+    if (!confirm("Reset all stats?")) return;
+    stats = {}; globalStats = { seen: 0, correct: 0 };
+    saveStats(); updateStatsUI();
+  });
+
+  snapMinus.addEventListener("click", () => updateMinSnaps(-10));
+  snapPlus.addEventListener("click", () => updateMinSnaps(10));
+  snapValueEl.addEventListener("change", (e) => setMinSnaps(e.target.value));
+
+  fileInput.addEventListener("change", (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (evt) => {
+      try {
+        const parsed = JSON.parse(evt.target.result);
+        players = parsed
+          .map(p => ({
+            name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
+            team: String(p.team || "").trim(),
+            position: String(p.position || "").trim()
+          }))
+          .filter(p => p.name && p.team && p.position);
+        if (players.length) nextQuestion();
+      } catch (err) { alert("Could not parse JSON"); }
+    };
+    reader.readAsText(file);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    // Enter in snap input: set value and blur
+    if (e.key === "Enter" && e.target === snapValueEl) {
+      e.preventDefault();
+      setMinSnaps(snapValueEl.value);
+      snapValueEl.blur();
+      return;
+    }
+    // Enter elsewhere: advances (check or next)
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleMain();
+      return;
+    }
+    // Arrow keys for rapid fire (when not typing in input)
+    if ((e.key === "ArrowRight" || e.key === "ArrowDown") &&
+        (e.target.tagName !== "INPUT" || !awaitingAnswer)) {
+      e.preventDefault();
+      handleMain();
+    }
+  });
+
+  // Init
+  loadStats();
+  currentQuestionMode = resolveMode();
+  setModeFields();
+  loadPlayers();
+</script>
+</body>
+</html>

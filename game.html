@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL Roster Quiz - Daily Challenge</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050816;
+      color: #e5e7eb;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    .app {
+      max-width: 600px;
+      width: 100%;
+      background: radial-gradient(circle at top left, #1f2937, #020617);
+      border-radius: 26px;
+      padding: 28px 26px 30px;
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(148,163,184,0.25);
+      border: 1px solid rgba(148,163,184,0.35);
+    }
+    h1 {
+      font-size: 1.7rem;
+      margin: 0 0 0.4rem;
+    }
+    .subtitle {
+      margin: 0 0 1.4rem;
+      color: #9ca3af;
+      font-size: 0.95rem;
+    }
+    .progress {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .progress-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #1f2937;
+      border: 2px solid #4b5563;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .progress-dot.current {
+      border-color: #6366f1;
+      background: rgba(99,102,241,0.2);
+    }
+    .progress-dot.correct {
+      border-color: #22c55e;
+      background: rgba(34,197,94,0.2);
+    }
+    .progress-dot.wrong {
+      border-color: #ef4444;
+      background: rgba(239,68,68,0.2);
+    }
+    .question-card {
+      padding: 1.2rem 1.2rem 1.1rem;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(30,64,175,0.85), rgba(15,23,42,0.98));
+      border: 1px solid rgba(129,140,248,0.85);
+      margin-bottom: 1rem;
+    }
+    .question-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #c7d2fe;
+      margin-bottom: 0.3rem;
+    }
+    .question-main {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .question-sub {
+      font-size: 0.95rem;
+      color: #e5e7eb;
+      opacity: 0.9;
+      margin-bottom: 0.9rem;
+    }
+    label {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    input[type="text"] {
+      background: #020617;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      color: #e5e7eb;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.9rem;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 1px rgba(99,102,241,0.6);
+    }
+    .answer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .field {
+      flex: 1 1 180px;
+    }
+    button {
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    button.primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow:
+        0 8px 20px rgba(79,70,229,0.5),
+        0 0 0 1px rgba(191,219,254,0.2);
+    }
+    button.secondary {
+      background: rgba(15,23,42,0.96);
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+    .feedback-card {
+      margin-top: 0.5rem;
+      padding: 0.9rem 1rem;
+      border-radius: 16px;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+      display: none;
+    }
+    .feedback-card.visible {
+      display: block;
+    }
+    .feedback-card.correct {
+      background: rgba(22,163,74,0.18);
+      border-color: rgba(74,222,128,0.75);
+      color: #bbf7d0;
+    }
+    .feedback-card.incorrect {
+      background: rgba(220,38,38,0.16);
+      border-color: rgba(248,113,113,0.85);
+      color: #fecaca;
+    }
+    .feedback-title {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .feedback-answer {
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    /* Results screen */
+    .results {
+      text-align: center;
+      display: none;
+    }
+    .results.visible {
+      display: block;
+    }
+    .results h2 {
+      font-size: 1.5rem;
+      margin: 0 0 0.5rem;
+    }
+    .results-score {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 1rem 0;
+    }
+    .results-emoji {
+      font-size: 1.5rem;
+      letter-spacing: 0.2rem;
+      margin-bottom: 1.5rem;
+      word-break: break-all;
+    }
+    .share-box {
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      text-align: left;
+    }
+    .buttons-row {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .copied {
+      color: #22c55e;
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+    a {
+      color: #818cf8;
+    }
+    .footer {
+      margin-top: 1rem;
+      font-size: 0.76rem;
+      color: #6b7280;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <h1>NFL Daily Challenge</h1>
+  <p class="subtitle" id="subtitle">10 questions, same for everyone today. How well do you know the roster?</p>
+
+  <div class="progress" id="progress"></div>
+
+  <div id="game-area">
+    <div class="question-card" id="question-card">
+      <div class="question-label" id="question-label">Question 1 of 10</div>
+      <div class="question-main" id="question-main">Loading...</div>
+      <div class="question-sub" id="question-sub"></div>
+
+      <div class="answer-row">
+        <div class="field" id="field-name" style="display:none;">
+          <label for="input-name">Player name</label>
+          <input id="input-name" type="text" placeholder="e.g. Patrick Mahomes" />
+        </div>
+        <div class="field" id="field-team" style="display:none;">
+          <label for="input-team">Team</label>
+          <input id="input-team" type="text" placeholder="e.g. Kansas City Chiefs" />
+        </div>
+        <div class="field" id="field-pos" style="display:none;">
+          <label for="input-pos">Position</label>
+          <input id="input-pos" type="text" placeholder="e.g. QB" />
+        </div>
+      </div>
+
+      <button class="primary" id="btn-submit">Submit</button>
+
+      <div class="feedback-card" id="feedback-card">
+        <div class="feedback-title" id="feedback-title"></div>
+        <div class="feedback-answer" id="feedback-answer"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="results">
+    <h2>Daily Challenge Complete!</h2>
+    <div class="results-score" id="results-score">0/10</div>
+    <div class="results-emoji" id="results-emoji"></div>
+    <div class="share-box" id="share-box"></div>
+    <div class="buttons-row">
+      <button class="primary" id="btn-copy">Copy Results</button>
+      <button class="secondary" id="btn-practice"><a href="index.html" style="color:inherit;text-decoration:none;">Practice Mode</a></button>
+    </div>
+    <div class="copied" id="copied" style="display:none;">Copied to clipboard!</div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">Practice Mode</a> · <a href="stats.html">Stats Explorer</a>
+  </div>
+</div>
+
+<script>
+  const POSITION_MAP = {
+    QB: "Quarterback",
+    RB: "Running Back",
+    FB: "Fullback",
+    WR: "Wide Receiver",
+    TE: "Tight End",
+    OL: "Offensive Lineman",
+    OT: "Offensive Tackle",
+    C:  "Center",
+    G:  "Guard",
+    T:  "Tackle",
+    DL: "Defensive Lineman",
+    DE: "Defensive End",
+    DT: "Defensive Tackle",
+    NT: "Nose Tackle",
+    EDGE: "Edge Rusher",
+    LB: "Linebacker",
+    OLB: "Outside Linebacker",
+    ILB: "Inside Linebacker",
+    MLB: "Middle Linebacker",
+    DB: "Defensive Back",
+    CB: "Cornerback",
+    S:  "Safety",
+    FS: "Free Safety",
+    SS: "Strong Safety",
+    K:  "Kicker",
+    P:  "Punter",
+    LS: "Long Snapper"
+  };
+
+  const POS_CANON = {
+    qb: "QB", quarterback: "QB",
+    rb: "RB", runningback: "RB",
+    fb: "FB", fullback: "FB",
+    wr: "WR", widereceiver: "WR", receiver: "WR",
+    te: "TE", tightend: "TE",
+    ol: "OL", offensivelineman: "OL", offensiveline: "OL",
+    ot: "OT", offensivetackle: "OT",
+    c: "C", center: "C",
+    g: "G", guard: "G",
+    t: "T", tackle: "T",
+    dl: "DL", defensivelineman: "DL", defensiveline: "DL",
+    de: "DE", defensiveend: "DE",
+    dt: "DT", defensivetackle: "DT",
+    nt: "NT", nosetackle: "NT",
+    edge: "EDGE", edgerusher: "EDGE",
+    lb: "LB", linebacker: "LB",
+    olb: "OLB", outsidelinebacker: "OLB",
+    ilb: "ILB", insidelinebacker: "ILB",
+    mlb: "MLB", middlelinebacker: "MLB",
+    db: "DB", defensiveback: "DB",
+    cb: "CB", cornerback: "CB",
+    s: "S", safety: "S",
+    fs: "FS", freesafety: "FS",
+    ss: "SS", strongsafety: "SS",
+    k: "K", kicker: "K",
+    p: "P", punter: "P",
+    ls: "LS", longsnapper: "LS"
+  };
+
+  const TOTAL_QUESTIONS = 10;
+  const DEFAULT_JSON_URL = "players-with-stats-2025.json";
+  const MIN_SNAPS = 2;
+
+  let players = [];
+  let gameQuestions = [];
+  let currentIndex = 0;
+  let results = []; // true/false for each question
+  let awaitingNext = false;
+
+  // DOM elements
+  const progressEl = document.getElementById("progress");
+  const questionLabel = document.getElementById("question-label");
+  const questionMain = document.getElementById("question-main");
+  const questionSub = document.getElementById("question-sub");
+  const fieldName = document.getElementById("field-name");
+  const fieldTeam = document.getElementById("field-team");
+  const fieldPos = document.getElementById("field-pos");
+  const inputName = document.getElementById("input-name");
+  const inputTeam = document.getElementById("input-team");
+  const inputPos = document.getElementById("input-pos");
+  const btnSubmit = document.getElementById("btn-submit");
+  const feedbackCard = document.getElementById("feedback-card");
+  const feedbackTitle = document.getElementById("feedback-title");
+  const feedbackAnswer = document.getElementById("feedback-answer");
+  const gameArea = document.getElementById("game-area");
+  const resultsEl = document.getElementById("results");
+  const resultsScore = document.getElementById("results-score");
+  const resultsEmoji = document.getElementById("results-emoji");
+  const shareBox = document.getElementById("share-box");
+  const btnCopy = document.getElementById("btn-copy");
+  const copiedEl = document.getElementById("copied");
+
+  function normalizeString(str) {
+    return String(str || "").trim().toLowerCase().replace(/\s+/g, "");
+  }
+
+  function canonicalizePosition(input) {
+    const trimmed = normalizeString(input);
+    if (!trimmed) return "";
+    if (POS_CANON[trimmed]) return POS_CANON[trimmed];
+    const abbr = input.toUpperCase().replace(/[^A-Z]/g, "");
+    if (POSITION_MAP[abbr]) return abbr;
+    return abbr;
+  }
+
+  function displayPosition(abbr) {
+    const key = String(abbr || "").toUpperCase();
+    const full = POSITION_MAP[key];
+    return full ? key + " — " + full : key;
+  }
+
+  // Seeded random number generator
+  function seededRandom(seed) {
+    const x = Math.sin(seed++) * 10000;
+    return x - Math.floor(x);
+  }
+
+  function getDaySeed() {
+    const now = new Date();
+    // Use UTC date for consistency across timezones
+    return now.getUTCFullYear() * 10000 + (now.getUTCMonth() + 1) * 100 + now.getUTCDate();
+  }
+
+  function shuffleWithSeed(array, seed) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      seed++;
+      const j = Math.floor(seededRandom(seed) * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  function generateDailyQuestions() {
+    const seed = getDaySeed();
+    const shuffled = shuffleWithSeed(players, seed);
+    const selected = shuffled.slice(0, TOTAL_QUESTIONS);
+
+    // Determine question types with seed
+    gameQuestions = selected.map((player, i) => {
+      const typeSeed = seed + 1000 + i;
+      const isNameToTeam = seededRandom(typeSeed) > 0.5;
+      return {
+        player,
+        mode: isNameToTeam ? "name_to_teampos" : "teampos_to_name"
+      };
+    });
+  }
+
+  function renderProgress() {
+    progressEl.innerHTML = "";
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+      const dot = document.createElement("div");
+      dot.className = "progress-dot";
+      dot.textContent = i + 1;
+      if (i < results.length) {
+        dot.classList.add(results[i] ? "correct" : "wrong");
+      } else if (i === currentIndex) {
+        dot.classList.add("current");
+      }
+      progressEl.appendChild(dot);
+    }
+  }
+
+  function showQuestion() {
+    if (currentIndex >= TOTAL_QUESTIONS) {
+      showResults();
+      return;
+    }
+
+    const q = gameQuestions[currentIndex];
+    questionLabel.textContent = `Question ${currentIndex + 1} of ${TOTAL_QUESTIONS}`;
+
+    feedbackCard.className = "feedback-card";
+    inputName.value = "";
+    inputTeam.value = "";
+    inputPos.value = "";
+    awaitingNext = false;
+    btnSubmit.textContent = "Submit";
+
+    if (q.mode === "name_to_teampos") {
+      questionMain.textContent = q.player.name;
+      questionSub.textContent = "What team and position?";
+      fieldName.style.display = "none";
+      fieldTeam.style.display = "block";
+      fieldPos.style.display = "block";
+      inputTeam.focus();
+    } else {
+      questionMain.textContent = q.player.team + " — " + displayPosition(q.player.position);
+      questionSub.textContent = "Who is this player?";
+      fieldName.style.display = "block";
+      fieldTeam.style.display = "none";
+      fieldPos.style.display = "none";
+      inputName.focus();
+    }
+
+    renderProgress();
+  }
+
+  function getValidNamesForTeamPos(team, position) {
+    const teamNorm = normalizeString(team);
+    const posNorm = canonicalizePosition(position);
+    return players
+      .filter(p => normalizeString(p.team) === teamNorm &&
+                   canonicalizePosition(p.position) === posNorm)
+      .map(p => normalizeString(p.name));
+  }
+
+  function checkAnswer() {
+    const q = gameQuestions[currentIndex];
+    let isCorrect = false;
+
+    if (q.mode === "name_to_teampos") {
+      const teamGuess = normalizeString(inputTeam.value);
+      const posGuess = canonicalizePosition(inputPos.value);
+      const teamTrue = normalizeString(q.player.team);
+      const posTrue = canonicalizePosition(q.player.position);
+      isCorrect = teamGuess && posGuess && (teamGuess === teamTrue) && (posGuess === posTrue);
+    } else {
+      // Team & Position → Name: accept any player matching that team+position
+      const nameGuess = normalizeString(inputName.value);
+      const validNames = getValidNamesForTeamPos(q.player.team, q.player.position);
+      isCorrect = nameGuess && validNames.includes(nameGuess);
+    }
+
+    results.push(isCorrect);
+
+    feedbackCard.className = "feedback-card visible " + (isCorrect ? "correct" : "incorrect");
+    feedbackTitle.textContent = isCorrect ? "Correct! ✔" : "Wrong ✘";
+    feedbackAnswer.textContent = q.player.name + " — " + q.player.team + " — " + displayPosition(q.player.position);
+
+    renderProgress();
+    awaitingNext = true;
+    btnSubmit.textContent = currentIndex < TOTAL_QUESTIONS - 1 ? "Next" : "See Results";
+    document.activeElement.blur();
+  }
+
+  function showResults() {
+    gameArea.style.display = "none";
+    resultsEl.classList.add("visible");
+
+    const correct = results.filter(r => r).length;
+    resultsScore.textContent = `${correct}/${TOTAL_QUESTIONS}`;
+
+    const emoji = results.map(r => r ? "🟩" : "🟥").join("");
+    resultsEmoji.textContent = emoji;
+
+    const today = new Date();
+    const dateStr = today.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+
+    const shareText = `NFL Roster Quiz ${dateStr}\n${correct}/${TOTAL_QUESTIONS}\n${emoji}`;
+    shareBox.textContent = shareText;
+  }
+
+  btnSubmit.addEventListener("click", () => {
+    if (awaitingNext) {
+      currentIndex++;
+      showQuestion();
+    } else {
+      checkAnswer();
+    }
+  });
+
+  btnCopy.addEventListener("click", () => {
+    navigator.clipboard.writeText(shareBox.textContent).then(() => {
+      copiedEl.style.display = "block";
+      setTimeout(() => { copiedEl.style.display = "none"; }, 2000);
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (awaitingNext) {
+        currentIndex++;
+        showQuestion();
+      } else {
+        checkAnswer();
+      }
+    }
+    if (e.target.tagName === "INPUT") return;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      e.preventDefault();
+      if (awaitingNext) {
+        currentIndex++;
+        showQuestion();
+      } else {
+        checkAnswer();
+      }
+    }
+  });
+
+  function getPlayerSnaps(p) {
+    const stats = p.stats || {};
+    return (stats.off_snp || 0) + (stats.def_snp || 0) + (stats.st_snp || 0);
+  }
+
+  async function loadPlayers() {
+    try {
+      const resp = await fetch(DEFAULT_JSON_URL, { cache: "no-store" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const parsed = await resp.json();
+      if (!Array.isArray(parsed)) throw new Error("JSON must be an array");
+
+      players = parsed
+        .map(p => ({
+          name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
+          team: String(p.team || p.team_name || "").trim(),
+          position: String(p.position || p.position_abbreviation || "").trim(),
+          stats: p.stats || {}
+        }))
+        .filter(p => p.name && p.team && p.position && getPlayerSnaps(p) >= MIN_SNAPS);
+
+      if (players.length < TOTAL_QUESTIONS) {
+        throw new Error("Not enough players in roster");
+      }
+
+      generateDailyQuestions();
+      showQuestion();
+    } catch (err) {
+      questionMain.textContent = "Could not load players";
+      questionSub.textContent = err.message;
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadPlayers();
+  });
+</script>
+</body>
+</html>
