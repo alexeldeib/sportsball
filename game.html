@@ -292,7 +292,7 @@
   </div>
 
   <div class="footer">
-    <a href="easy.html">Easy Mode</a> · <a href="index.html">Practice</a> · <a href="stats.html">Stats</a>
+    <a href="easy.html">Easy</a> · <a href="index.html">Practice</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="stats.html">Explorer</a>
   </div>
 </div>
 
@@ -360,6 +360,7 @@
   const TOTAL_QUESTIONS = 10;
   const DEFAULT_JSON_URL = "players-with-stats-2025.json";
   const STORAGE_KEY_DIFF = "nflGameDiff_v1";
+  const STORAGE_KEY_DAILY = "nflGameDaily_v1";
   const DIFFICULTY_NAMES = {
     "50": "Casual",
     "100": "Easy",
@@ -430,6 +431,28 @@
     const now = new Date();
     // Use UTC date for consistency across timezones
     return now.getUTCFullYear() * 10000 + (now.getUTCMonth() + 1) * 100 + now.getUTCDate();
+  }
+
+  function getDailyKey() {
+    // Key combines date + difficulty so each difficulty is separate
+    return `${getDaySeed()}_${topN}`;
+  }
+
+  function saveDailyResults() {
+    try {
+      const data = { key: getDailyKey(), results: results, completed: results.length === TOTAL_QUESTIONS };
+      localStorage.setItem(STORAGE_KEY_DAILY, JSON.stringify(data));
+    } catch(e) {}
+  }
+
+  function loadDailyResults() {
+    try {
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY_DAILY));
+      if (data && data.key === getDailyKey() && data.completed) {
+        return data.results;
+      }
+    } catch(e) {}
+    return null;
   }
 
   function shuffleWithSeed(array, seed) {
@@ -550,6 +573,9 @@
     gameArea.style.display = "none";
     resultsEl.classList.add("visible");
 
+    // Save completed results
+    saveDailyResults();
+
     const correct = results.filter(r => r).length;
     resultsScore.textContent = `${correct}/${TOTAL_QUESTIONS}`;
 
@@ -621,9 +647,16 @@
       currentIndex = 0;
       results = [];
       generateDailyQuestions();
-      showQuestion();
-      gameArea.style.display = "block";
-      resultsEl.classList.remove("visible");
+      // Check for saved results at this difficulty
+      const savedResults = loadDailyResults();
+      if (savedResults) {
+        results = savedResults;
+        showResults();
+      } else {
+        showQuestion();
+        gameArea.style.display = "block";
+        resultsEl.classList.remove("visible");
+      }
     }
   }
 
@@ -660,7 +693,15 @@
       }
 
       generateDailyQuestions();
-      showQuestion();
+
+      // Check for saved daily results
+      const savedResults = loadDailyResults();
+      if (savedResults) {
+        results = savedResults;
+        showResults();
+      } else {
+        showQuestion();
+      }
     } catch (err) {
       questionMain.textContent = "Could not load players";
       questionSub.textContent = err.message;

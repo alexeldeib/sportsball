@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL Stats Quiz</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #050816;
+      color: #e5e7eb;
+    }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      line-height: 1.5;
+    }
+    .app {
+      max-width: 600px;
+      width: 100%;
+      background: radial-gradient(circle at top left, #1f2937, #020617);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin: 0 0 0.5rem;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      text-align: center;
+      margin: 0 0 1rem;
+    }
+
+    .stats {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .stats strong { color: #e5e7eb; }
+
+    .question-card {
+      padding: 1.25rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(30,64,175,0.85), rgba(15,23,42,0.98));
+      border: 1px solid rgba(129,140,248,0.85);
+      margin-bottom: 1rem;
+    }
+    .question-main {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .answer-input {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .answer-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .rank-label {
+      width: 1.5rem;
+      font-size: 0.9rem;
+      color: #9ca3af;
+      text-align: right;
+    }
+    .answer-row input {
+      flex: 1;
+      background: #020617;
+      border: 1px solid #4b5563;
+      border-radius: 8px;
+      color: #e5e7eb;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.95rem;
+    }
+    .answer-row input:focus {
+      outline: none;
+      border-color: #6366f1;
+    }
+    .answer-row input.correct {
+      border-color: #22c55e;
+      background: rgba(22,163,74,0.2);
+    }
+    .answer-row input.wrong {
+      border-color: #ef4444;
+      background: rgba(220,38,38,0.2);
+    }
+    .answer-row .result {
+      font-size: 0.8rem;
+      min-width: 120px;
+    }
+    .answer-row .result.correct { color: #86efac; }
+    .answer-row .result.wrong { color: #fca5a5; }
+
+    button.primary {
+      width: 100%;
+      border-radius: 999px;
+      padding: 0.7rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: white;
+      box-shadow: 0 8px 20px rgba(79,70,229,0.4);
+    }
+    button.primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .feedback.visible { display: block; }
+    .feedback.good {
+      background: rgba(22,163,74,0.2);
+      border: 1px solid rgba(74,222,128,0.5);
+      color: #bbf7d0;
+    }
+    .feedback.ok {
+      background: rgba(234,179,8,0.2);
+      border: 1px solid rgba(250,204,21,0.5);
+      color: #fef08a;
+    }
+    .feedback.bad {
+      background: rgba(220,38,38,0.2);
+      border: 1px solid rgba(248,113,113,0.5);
+      color: #fecaca;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    .footer a {
+      color: #818cf8;
+      text-decoration: none;
+    }
+
+    @media (max-width: 500px) {
+      .answer-row .result { display: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <h1>NFL Stats Quiz</h1>
+  <p class="subtitle">Name the league leaders</p>
+
+  <div class="stats">
+    <span><strong id="seen-count">0</strong> asked</span> ·
+    <span><strong id="score">0</strong> points</span>
+  </div>
+
+  <div class="question-card">
+    <div class="question-main" id="question-main">Loading...</div>
+    <div class="answer-input" id="answer-input"></div>
+    <button class="primary" id="btn-main">Check</button>
+    <div class="feedback" id="feedback"></div>
+  </div>
+
+  <div class="footer">
+    <a href="easy.html">Easy Mode</a> · <a href="index.html">Practice</a> · <a href="game.html">Daily Challenge</a>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "nflStatsQuiz_v1";
+
+  // Question templates - each generates a question about top N players
+  const QUESTION_TEMPLATES = [
+    {
+      text: "Top 5 QBs by passing yards",
+      filter: p => p.position === "QB" && (p.stats.pass_yd || 0) > 0,
+      sort: p => -(p.stats.pass_yd || 0),
+      count: 5,
+      statLabel: p => `${p.stats.pass_yd} yds`
+    },
+    {
+      text: "Top 5 QBs by passing TDs",
+      filter: p => p.position === "QB" && (p.stats.pass_td || 0) > 0,
+      sort: p => -(p.stats.pass_td || 0),
+      count: 5,
+      statLabel: p => `${p.stats.pass_td} TDs`
+    },
+    {
+      text: "Top 5 RBs by rushing yards",
+      filter: p => p.position === "RB" && (p.stats.rush_yd || 0) > 0,
+      sort: p => -(p.stats.rush_yd || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rush_yd} yds`
+    },
+    {
+      text: "Top 5 RBs by rushing TDs",
+      filter: p => p.position === "RB" && (p.stats.rush_td || 0) > 0,
+      sort: p => -(p.stats.rush_td || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rush_td} TDs`
+    },
+    {
+      text: "Top 5 WRs by receiving yards",
+      filter: p => p.position === "WR" && (p.stats.rec_yd || 0) > 0,
+      sort: p => -(p.stats.rec_yd || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rec_yd} yds`
+    },
+    {
+      text: "Top 5 WRs by receptions",
+      filter: p => p.position === "WR" && (p.stats.rec || 0) > 0,
+      sort: p => -(p.stats.rec || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rec} rec`
+    },
+    {
+      text: "Top 5 WRs by receiving TDs",
+      filter: p => p.position === "WR" && (p.stats.rec_td || 0) > 0,
+      sort: p => -(p.stats.rec_td || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rec_td} TDs`
+    },
+    {
+      text: "Top 5 TEs by receiving yards",
+      filter: p => p.position === "TE" && (p.stats.rec_yd || 0) > 0,
+      sort: p => -(p.stats.rec_yd || 0),
+      count: 5,
+      statLabel: p => `${p.stats.rec_yd} yds`
+    },
+    {
+      text: "Top 3 players by interceptions thrown",
+      filter: p => p.position === "QB" && (p.stats.pass_int || 0) > 0,
+      sort: p => -(p.stats.pass_int || 0),
+      count: 3,
+      statLabel: p => `${p.stats.pass_int} INTs`
+    },
+    {
+      text: "Top 5 players by total TDs (rush + rec)",
+      filter: p => ((p.stats.rush_td || 0) + (p.stats.rec_td || 0)) > 0,
+      sort: p => -((p.stats.rush_td || 0) + (p.stats.rec_td || 0)),
+      count: 5,
+      statLabel: p => `${(p.stats.rush_td || 0) + (p.stats.rec_td || 0)} TDs`
+    },
+    {
+      text: "Top 5 tacklers (IDP tackles)",
+      filter: p => (p.stats.idp_tkl || 0) > 0,
+      sort: p => -(p.stats.idp_tkl || 0),
+      count: 5,
+      statLabel: p => `${p.stats.idp_tkl} tkl`
+    },
+    {
+      text: "Top 3 players by sacks",
+      filter: p => (p.stats.idp_sack || 0) > 0,
+      sort: p => -(p.stats.idp_sack || 0),
+      count: 3,
+      statLabel: p => `${p.stats.idp_sack} sacks`
+    },
+  ];
+
+  let allPlayers = [];
+  let currentQuestion = null;
+  let currentAnswers = []; // correct answers for current question
+  let answered = false;
+  let globalStats = { seen: 0, score: 0 };
+
+  const questionMain = document.getElementById("question-main");
+  const answerInput = document.getElementById("answer-input");
+  const btnMain = document.getElementById("btn-main");
+  const feedbackEl = document.getElementById("feedback");
+  const seenEl = document.getElementById("seen-count");
+  const scoreEl = document.getElementById("score");
+
+  function normalizeString(str) {
+    return String(str || "").trim().toLowerCase().replace(/[^a-z]/g, "");
+  }
+
+  function loadStats() {
+    try {
+      const s = localStorage.getItem(STORAGE_KEY);
+      if (s) globalStats = JSON.parse(s);
+    } catch(e) {}
+    updateStatsUI();
+  }
+
+  function saveStats() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(globalStats));
+    } catch(e) {}
+  }
+
+  function updateStatsUI() {
+    seenEl.textContent = globalStats.seen;
+    scoreEl.textContent = globalStats.score;
+  }
+
+  function pickQuestion() {
+    // Pick a random question template
+    const template = QUESTION_TEMPLATES[Math.floor(Math.random() * QUESTION_TEMPLATES.length)];
+
+    // Get the top players for this question
+    const filtered = allPlayers.filter(template.filter);
+    filtered.sort((a, b) => template.sort(a) - template.sort(b));
+    const topPlayers = filtered.slice(0, template.count);
+
+    if (topPlayers.length < template.count) {
+      // Not enough data, try another question
+      return pickQuestion();
+    }
+
+    return {
+      text: template.text,
+      answers: topPlayers,
+      statLabel: template.statLabel,
+      count: template.count
+    };
+  }
+
+  function showQuestion() {
+    currentQuestion = pickQuestion();
+    currentAnswers = currentQuestion.answers;
+    answered = false;
+
+    questionMain.textContent = currentQuestion.text;
+
+    // Create input fields
+    answerInput.innerHTML = "";
+    for (let i = 0; i < currentQuestion.count; i++) {
+      const row = document.createElement("div");
+      row.className = "answer-row";
+      row.innerHTML = `
+        <span class="rank-label">${i + 1}.</span>
+        <input type="text" id="answer-${i}" placeholder="Player name" autocomplete="off" />
+        <span class="result" id="result-${i}"></span>
+      `;
+      answerInput.appendChild(row);
+    }
+
+    // Focus first input
+    document.getElementById("answer-0")?.focus();
+
+    btnMain.textContent = "Check";
+    feedbackEl.className = "feedback";
+  }
+
+  function checkAnswers() {
+    if (answered) {
+      showQuestion();
+      return;
+    }
+
+    answered = true;
+    let correctCount = 0;
+    const guessedNames = new Set();
+
+    // Check each answer
+    for (let i = 0; i < currentQuestion.count; i++) {
+      const input = document.getElementById(`answer-${i}`);
+      const resultEl = document.getElementById(`result-${i}`);
+      const guess = normalizeString(input.value);
+      const correctPlayer = currentAnswers[i];
+      const correctName = normalizeString(correctPlayer.name);
+
+      // Check if guess matches any of the correct answers (flexible positioning)
+      const matchedPlayer = currentAnswers.find(p =>
+        normalizeString(p.name) === guess && !guessedNames.has(normalizeString(p.name))
+      );
+
+      if (matchedPlayer) {
+        guessedNames.add(normalizeString(matchedPlayer.name));
+        // Check if it's in the exact right position
+        if (normalizeString(matchedPlayer.name) === correctName) {
+          input.className = "correct";
+          resultEl.className = "result correct";
+          resultEl.textContent = `✓ ${currentQuestion.statLabel(correctPlayer)}`;
+          correctCount++;
+        } else {
+          // Right player, wrong position
+          input.className = "correct";
+          resultEl.className = "result correct";
+          resultEl.textContent = `✓ (wrong spot)`;
+          correctCount += 0.5;
+        }
+      } else {
+        input.className = "wrong";
+        resultEl.className = "result wrong";
+        resultEl.textContent = `✗ ${correctPlayer.name}`;
+      }
+    }
+
+    // Update stats
+    globalStats.seen++;
+    globalStats.score += Math.floor(correctCount);
+    saveStats();
+    updateStatsUI();
+
+    // Show feedback
+    const pct = correctCount / currentQuestion.count;
+    if (pct >= 0.8) {
+      feedbackEl.className = "feedback visible good";
+      feedbackEl.textContent = `Great! ${Math.floor(correctCount)}/${currentQuestion.count} correct`;
+    } else if (pct >= 0.4) {
+      feedbackEl.className = "feedback visible ok";
+      feedbackEl.textContent = `Not bad! ${Math.floor(correctCount)}/${currentQuestion.count} correct`;
+    } else {
+      feedbackEl.className = "feedback visible bad";
+      feedbackEl.textContent = `${Math.floor(correctCount)}/${currentQuestion.count} correct. Keep practicing!`;
+    }
+
+    btnMain.textContent = "Next Question";
+  }
+
+  async function loadPlayers() {
+    try {
+      const resp = await fetch("players-with-stats-2025.json", { cache: "no-store" });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      const parsed = await resp.json();
+
+      allPlayers = parsed
+        .map(p => ({
+          name: String(p.name || "").trim(),
+          team: String(p.team || "").trim(),
+          position: String(p.position || "").trim(),
+          stats: p.stats || {}
+        }))
+        .filter(p => p.name && p.team && p.position);
+
+      showQuestion();
+    } catch (err) {
+      questionMain.textContent = "Could not load players: " + err.message;
+    }
+  }
+
+  // Events
+  btnMain.addEventListener("click", checkAnswers);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      if (answered) {
+        showQuestion();
+      } else {
+        // Move to next input or check
+        const focused = document.activeElement;
+        if (focused && focused.id?.startsWith("answer-")) {
+          const idx = parseInt(focused.id.split("-")[1]);
+          const next = document.getElementById(`answer-${idx + 1}`);
+          if (next) {
+            next.focus();
+          } else {
+            checkAnswers();
+          }
+        } else {
+          checkAnswers();
+        }
+      }
+    }
+  });
+
+  // Init
+  loadStats();
+  loadPlayers();
+</script>
+</body>
+</html>
