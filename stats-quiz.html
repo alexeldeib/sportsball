@@ -160,7 +160,17 @@
     }
 
     @media (max-width: 500px) {
-      .answer-row .result { display: none; }
+      .answer-row {
+        flex-wrap: wrap;
+      }
+      .answer-row input {
+        flex: 1 1 calc(100% - 2rem);
+      }
+      .answer-row .result {
+        width: 100%;
+        padding-left: 2rem;
+        margin-top: 0.25rem;
+      }
     }
   </style>
 </head>
