@@ -148,12 +148,33 @@
       color: #818cf8;
       text-decoration: none;
     }
+
+    .info-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(59,130,246,0.1);
+      border: 1px solid rgba(59,130,246,0.3);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      color: #93c5fd;
+      margin-bottom: 1rem;
+    }
+    .info-box .icon {
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
 <div class="app">
   <h1>NFL Stats Explorer</h1>
   <div class="status loading" id="status">Loading database...</div>
+
+  <div class="info-box">
+    <span class="icon">ℹ️</span>
+    <span>Read-only mode. Changes only affect your view, not the source data.</span>
+  </div>
 
   <div class="query-section">
     <div class="presets">
