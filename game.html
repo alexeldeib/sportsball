@@ -235,6 +235,18 @@
   <h1>NFL Daily Challenge</h1>
   <p class="subtitle" id="subtitle">10 questions, same for everyone today. How well do you know the roster?</p>
 
+  <div style="text-align:center;margin-bottom:1rem;">
+    <label for="difficulty" style="font-size:0.85rem;color:#9ca3af;">Difficulty: </label>
+    <select id="difficulty" style="background:#020617;border:1px solid #4b5563;border-radius:999px;color:#e5e7eb;padding:0.3rem 0.6rem;font-size:0.85rem;">
+      <option value="50">Casual (Top 50)</option>
+      <option value="100">Easy (Top 100)</option>
+      <option value="200" selected>Medium (Top 200)</option>
+      <option value="350">Hard (Top 350)</option>
+      <option value="500">Diehard (Top 500)</option>
+      <option value="750">Insane (Top 750)</option>
+    </select>
+  </div>
+
   <div class="progress" id="progress"></div>
 
   <div id="game-area">
@@ -280,7 +292,7 @@
   </div>
 
   <div class="footer">
-    <a href="index.html">Practice Mode</a> · <a href="stats.html">Stats Explorer</a>
+    <a href="easy.html">Easy Mode</a> · <a href="index.html">Practice</a> · <a href="stats.html">Stats</a>
   </div>
 </div>
 
@@ -347,15 +359,26 @@
 
   const TOTAL_QUESTIONS = 10;
   const DEFAULT_JSON_URL = "players-with-stats-2025.json";
-  const MIN_SNAPS = 2;
+  const STORAGE_KEY_DIFF = "nflGameDiff_v1";
+  const DIFFICULTY_NAMES = {
+    "50": "Casual",
+    "100": "Easy",
+    "200": "Medium",
+    "350": "Hard",
+    "500": "Diehard",
+    "750": "Insane"
+  };
 
+  let allPlayers = [];
   let players = [];
+  let topN = 200;
   let gameQuestions = [];
   let currentIndex = 0;
   let results = []; // true/false for each question
   let awaitingNext = false;
 
   // DOM elements
+  const difficultySelect = document.getElementById("difficulty");
   const progressEl = document.getElementById("progress");
   const questionLabel = document.getElementById("question-label");
   const questionMain = document.getElementById("question-main");
@@ -535,8 +558,9 @@
 
     const today = new Date();
     const dateStr = today.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const diffName = DIFFICULTY_NAMES[String(topN)] || `Top ${topN}`;
 
-    const shareText = `NFL Roster Quiz ${dateStr}\n${correct}/${TOTAL_QUESTIONS}\n${emoji}`;
+    const shareText = `NFL Roster Quiz ${dateStr}\n${diffName} Mode: ${correct}/${TOTAL_QUESTIONS}\n${emoji}`;
     shareBox.textContent = shareText;
   }
 
@@ -580,24 +604,56 @@
 
   function getPlayerSnaps(p) {
     const stats = p.stats || {};
-    return (stats.off_snp || 0) + (stats.def_snp || 0) + (stats.st_snp || 0);
+    return (stats.off_snp || 0) + (stats.def_snp || 0);
+  }
+
+  function filterPlayers() {
+    players = allPlayers.slice(0, topN);
+  }
+
+  function setDifficulty(val) {
+    topN = parseInt(val, 10) || 200;
+    difficultySelect.value = val;
+    filterPlayers();
+    try { localStorage.setItem(STORAGE_KEY_DIFF, val); } catch(e) {}
+    // Regenerate questions with new player pool
+    if (allPlayers.length > 0) {
+      currentIndex = 0;
+      results = [];
+      generateDailyQuestions();
+      showQuestion();
+      gameArea.style.display = "block";
+      resultsEl.classList.remove("visible");
+    }
   }
 
   async function loadPlayers() {
     try {
+      // Load saved difficulty
+      try {
+        const diff = localStorage.getItem(STORAGE_KEY_DIFF);
+        if (diff) {
+          topN = parseInt(diff, 10) || 200;
+          difficultySelect.value = diff;
+        }
+      } catch(e) {}
+
       const resp = await fetch(DEFAULT_JSON_URL, { cache: "no-store" });
       if (!resp.ok) throw new Error("HTTP " + resp.status);
       const parsed = await resp.json();
       if (!Array.isArray(parsed)) throw new Error("JSON must be an array");
 
-      players = parsed
+      allPlayers = parsed
         .map(p => ({
           name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
           team: String(p.team || p.team_name || "").trim(),
           position: String(p.position || p.position_abbreviation || "").trim(),
           stats: p.stats || {}
         }))
-        .filter(p => p.name && p.team && p.position && getPlayerSnaps(p) >= MIN_SNAPS);
+        .filter(p => p.name && p.team && p.position)
+        .sort((a, b) => getPlayerSnaps(b) - getPlayerSnaps(a));
+
+      filterPlayers();
 
       if (players.length < TOTAL_QUESTIONS) {
         throw new Error("Not enough players in roster");
@@ -610,6 +666,8 @@
       questionSub.textContent = err.message;
     }
   }
+
+  difficultySelect.addEventListener("change", (e) => setDifficulty(e.target.value));
 
   document.addEventListener("DOMContentLoaded", () => {
     loadPlayers();
