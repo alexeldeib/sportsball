@@ -581,7 +581,7 @@
       });
 
       statusEl.textContent = "Downloading database...";
-      const response = await fetch("nfl.db");
+      const response = await fetch("nfl.db?v=2");
       if (!response.ok) throw new Error("Could not load nfl.db");
 
       const buffer = await response.arrayBuffer();
