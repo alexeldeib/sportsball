@@ -2,672 +2,442 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NFL 2025 Roster Quiz</title>
+  <title>NFL Roster Quiz</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #050816;
-      color: #e5e7eb;
-    }
-    body {
+    * {
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      line-height: 1.5;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .app {
-      max-width: 500px;
-      width: 100%;
-      background: radial-gradient(circle at top left, #1f2937, #020617);
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.7);
-      border: 1px solid rgba(148,163,184,0.3);
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0f172a;
+      --accent-blue: #3b82f6;
+      --accent-green: #22c55e;
+      --accent-orange: #d97706;
+      --accent-purple: #a855f7;
+      --accent-red: #dc2626;
+      --accent-teal: #0d9488;
+      --accent-cyan: #06b6d4;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --border-subtle: rgba(148, 163, 184, 0.15);
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Dramatic background */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(59, 130, 246, 0.15), transparent),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(34, 197, 94, 0.1), transparent),
+        linear-gradient(to bottom, var(--bg-deep) 0%, #0a0f1a 100%);
+    }
+
+    /* Field lines decoration */
+    .field-lines {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.03;
+      background-image:
+        repeating-linear-gradient(
+          90deg,
+          transparent,
+          transparent 9.09%,
+          rgba(255,255,255,0.5) 9.09%,
+          rgba(255,255,255,0.5) 9.2%
+        );
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
     }
 
     /* Header */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-    h1 {
-      font-size: 1.4rem;
-      margin: 0;
-    }
-    .gear-btn {
-      background: transparent;
-      border: none;
-      color: #9ca3af;
-      font-size: 1.3rem;
-      cursor: pointer;
-      padding: 0.25rem;
-      line-height: 1;
-    }
-    .gear-btn:hover { color: #e5e7eb; }
-
-    /* Stats row */
-    .stats {
-      font-size: 0.85rem;
-      color: #9ca3af;
-      margin-bottom: 1rem;
-    }
-    .stats strong {
-      color: #e5e7eb;
-    }
-
-    /* Settings panel */
-    .settings {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.25s ease-out;
-      background: rgba(15,23,42,0.8);
-      border-radius: 12px;
-      margin-bottom: 0;
-    }
-    .settings.open {
-      max-height: 200px;
-      margin-bottom: 1rem;
-      padding: 1rem;
-      border: 1px solid #4b5563;
-    }
-    .settings-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-      margin-bottom: 0.75rem;
-    }
-    .settings-row:last-child {
-      margin-bottom: 0;
-    }
-    .settings label {
-      font-size: 0.8rem;
-      color: #9ca3af;
-    }
-    .settings select, .settings input[type="file"] {
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      color: #e5e7eb;
-      padding: 0.4rem 0.8rem;
-      font-size: 0.85rem;
-    }
-
-    /* Question card */
-    .question-card {
-      padding: 1.25rem;
-      border-radius: 16px;
-      background: linear-gradient(135deg, rgba(30,64,175,0.85), rgba(15,23,42,0.98));
-      border: 1px solid rgba(129,140,248,0.85);
-    }
-    .question-main {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-    .answer-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-    }
-    .field {
-      flex: 1 1 140px;
-    }
-    input[type="text"] {
-      width: 100%;
-      box-sizing: border-box;
-      background: #020617;
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      color: #e5e7eb;
-      padding: 0.6rem 1rem;
-      font-size: 1rem;
-      outline: none;
-    }
-    input[type="text"]:focus {
-      border-color: #6366f1;
-      box-shadow: 0 0 0 2px rgba(99,102,241,0.4);
-    }
-    button.primary {
-      width: 100%;
-      border-radius: 999px;
-      padding: 0.7rem 1rem;
-      border: none;
-      cursor: pointer;
-      font-size: 1rem;
-      font-weight: 600;
-      background: linear-gradient(135deg, #6366f1, #4f46e5);
-      color: white;
-      box-shadow: 0 8px 20px rgba(79,70,229,0.4);
-    }
-    button.ghost {
-      background: transparent;
-      color: #9ca3af;
-      border: 1px solid #4b5563;
-      padding: 0.4rem 0.8rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    button.ghost:hover {
-      background: rgba(107,114,128,0.2);
-    }
-    button.danger {
-      background: rgba(220,38,38,0.2);
-      color: #fca5a5;
-      border: 1px solid rgba(239,68,68,0.5);
-      padding: 0.4rem 0.8rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      cursor: pointer;
-    }
-    button.danger:hover {
-      background: rgba(220,38,38,0.4);
-    }
-    input.snap-input {
-      width: 4rem;
+    header {
       text-align: center;
-      background: #020617;
-      border: 1px solid #4b5563;
-      border-radius: 999px;
-      color: #e5e7eb;
-      padding: 0.3rem 0.5rem;
-      font-size: 0.85rem;
-    }
-    input.snap-input:focus {
-      outline: none;
-      border-color: #6366f1;
+      margin-bottom: 3rem;
+      padding-top: 1rem;
     }
 
-    /* Feedback */
-    .feedback {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2.5rem;
+      filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5));
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    /* Mode grid */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Mode card */
+    .mode-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
       border-radius: 12px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.25s ease;
+      overflow: hidden;
+    }
+
+    .mode-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .mode-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--card-accent);
+      box-shadow:
+        0 20px 40px -10px rgba(0, 0, 0, 0.5),
+        0 0 0 1px var(--card-accent),
+        0 0 30px -5px var(--card-accent);
+    }
+
+    .mode-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .mode-card[data-accent="blue"] { --card-accent: var(--accent-blue); }
+    .mode-card[data-accent="green"] { --card-accent: var(--accent-green); }
+    .mode-card[data-accent="orange"] { --card-accent: var(--accent-orange); }
+    .mode-card[data-accent="purple"] { --card-accent: var(--accent-purple); }
+    .mode-card[data-accent="red"] { --card-accent: var(--accent-red); }
+    .mode-card[data-accent="teal"] { --card-accent: var(--accent-teal); }
+    .mode-card[data-accent="cyan"] { --card-accent: var(--accent-cyan); }
+
+    .mode-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .mode-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      font-size: 1.25rem;
+    }
+
+    .mode-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .mode-desc {
+      color: var(--text-secondary);
       font-size: 0.95rem;
-      display: none;
+      line-height: 1.6;
+      flex-grow: 1;
     }
-    .feedback.visible { display: block; }
-    .feedback.correct {
-      background: rgba(22,163,74,0.2);
-      border: 1px solid rgba(74,222,128,0.7);
-      color: #bbf7d0;
+
+    .mode-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.3rem 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--card-accent);
     }
-    .feedback.incorrect {
-      background: rgba(220,38,38,0.2);
-      border: 1px solid rgba(248,113,113,0.8);
-      color: #fecaca;
+
+    /* Featured card (Practice) */
+    .mode-card.featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: center;
+      gap: 2rem;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, var(--bg-card) 50%);
     }
-    .feedback.partial {
-      background: rgba(234,179,8,0.2);
-      border: 1px solid rgba(250,204,21,0.7);
-      color: #fef08a;
+
+    @media (max-width: 600px) {
+      .mode-card.featured {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
     }
-    .feedback-title { font-weight: 600; }
-    .feedback-answer { margin-top: 0.25rem; color: #e5e7eb; }
+
+    .featured .mode-content {
+      flex: 1;
+    }
+
+    .featured .mode-cta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent-blue);
+      border-radius: 100px;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: white;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+    }
+
+    .mode-card.featured:hover .mode-cta {
+      background: #2563eb;
+      transform: translateX(4px);
+    }
+
+    .cta-arrow {
+      transition: transform 0.2s ease;
+    }
+
+    .mode-card.featured:hover .cta-arrow {
+      transform: translateX(3px);
+    }
+
+    /* Section divider */
+    .section-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-secondary);
+      margin: 2.5rem 0 1.25rem;
+      padding-left: 0.25rem;
+    }
 
     /* Footer */
-    .footer {
-      margin-top: 1rem;
+    footer {
       text-align: center;
-      font-size: 0.8rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
     }
-    .footer a {
-      color: #818cf8;
+
+    footer a {
+      color: var(--accent-blue);
       text-decoration: none;
     }
 
-    @media (max-width: 400px) {
-      .app { padding: 16px; }
-      .question-main { font-size: 1.3rem; }
+    footer a:hover {
+      text-decoration: underline;
     }
+
+    /* Animations */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    header {
+      animation: fadeUp 0.6s ease backwards;
+    }
+
+    .mode-card {
+      animation: fadeUp 0.6s ease backwards;
+    }
+
+    .mode-card:nth-child(1) { animation-delay: 0.1s; }
+    .mode-card:nth-child(2) { animation-delay: 0.15s; }
+    .mode-card:nth-child(3) { animation-delay: 0.2s; }
+    .mode-card:nth-child(4) { animation-delay: 0.25s; }
+    .mode-card:nth-child(5) { animation-delay: 0.3s; }
+    .mode-card:nth-child(6) { animation-delay: 0.35s; }
+    .mode-card:nth-child(7) { animation-delay: 0.4s; }
   </style>
 </head>
 <body>
-<div class="app">
-  <div class="header">
-    <h1>NFL Quiz</h1>
-    <button class="gear-btn" id="gear-btn" title="Settings">⚙</button>
-  </div>
+  <div class="bg-layer"></div>
+  <div class="field-lines"></div>
 
-  <div class="stats">
-    <span><strong id="seen-count">0</strong> seen</span> ·
-    <span><strong id="correct-count">0</strong> correct</span> ·
-    <span><strong id="accuracy">0%</strong></span>
-  </div>
-
-  <div class="settings" id="settings">
-    <div class="settings-row">
-      <label for="mode">Mode:</label>
-      <select id="mode">
-        <option value="name_to_teampos">Name → Team & Position</option>
-        <option value="teampos_to_name">Team & Position → Name</option>
-        <option value="mixed">Mixed (random)</option>
-      </select>
-    </div>
-    <div class="settings-row">
-      <label for="difficulty">Difficulty:</label>
-      <select id="difficulty">
-        <option value="50">Casual (Top 50)</option>
-        <option value="100">Easy (Top 100)</option>
-        <option value="200" selected>Medium (Top 200)</option>
-        <option value="350">Hard (Top 350)</option>
-        <option value="500">Diehard (Top 500)</option>
-        <option value="750">Insane (Top 750)</option>
-      </select>
-    </div>
-    <div class="settings-row">
-      <label for="file-input">Custom deck:</label>
-      <input id="file-input" type="file" accept=".json" />
-    </div>
-    <div class="settings-row">
-      <button class="danger" id="btn-reset">Reset stats</button>
-    </div>
-  </div>
-
-  <div class="question-card">
-    <div class="question-main" id="question-main">Loading...</div>
-
-    <div class="answer-row">
-      <div class="field" id="field-name" style="display:none;">
-        <input id="input-name" type="text" placeholder="Player name" />
+  <div class="container">
+    <header>
+      <div class="logo">
+        <span class="logo-icon">🏈</span>
       </div>
-      <div class="field" id="field-team" style="display:none;">
-        <input id="input-team" type="text" placeholder="Team" />
+      <h1>NFL Roster Quiz</h1>
+      <p class="tagline">Master every roster in the league</p>
+    </header>
+
+    <main>
+      <!-- Featured: Practice Mode -->
+      <a href="practice.html" class="mode-card featured" data-accent="blue">
+        <div class="mode-content">
+          <div class="mode-header">
+            <div class="mode-icon">📚</div>
+            <div class="mode-title">Practice Mode</div>
+          </div>
+          <p class="mode-desc">
+            Learn player names, teams, and positions with spaced repetition.
+            The smart algorithm focuses on players you struggle with most.
+          </p>
+          <span class="mode-tag">Recommended Start</span>
+        </div>
+        <div class="mode-cta">
+          Start Learning <span class="cta-arrow">→</span>
+        </div>
+      </a>
+
+      <div class="section-label">Quiz Modes</div>
+
+      <div class="modes-grid">
+        <a href="easy.html" class="mode-card" data-accent="green">
+          <div class="mode-header">
+            <div class="mode-icon">✅</div>
+            <div class="mode-title">Multiple Choice</div>
+          </div>
+          <p class="mode-desc">
+            Pick the correct answer from two options. Great for beginners
+            or warming up before harder modes.
+          </p>
+          <span class="mode-tag">Beginner Friendly</span>
+        </a>
+
+        <a href="game.html" class="mode-card" data-accent="orange">
+          <div class="mode-header">
+            <div class="mode-icon">📅</div>
+            <div class="mode-title">Daily Challenge</div>
+          </div>
+          <p class="mode-desc">
+            10 questions, same for everyone each day. Compare your score
+            with friends and track your streak.
+          </p>
+          <span class="mode-tag">Competitive</span>
+        </a>
+
+        <a href="trivia.html" class="mode-card" data-accent="purple">
+          <div class="mode-header">
+            <div class="mode-icon">🧩</div>
+            <div class="mode-title">Trivia Mode</div>
+          </div>
+          <p class="mode-desc">
+            Flexible questions like "Who are Mahomes' receivers?" or
+            "Name a RB with 500+ rushing yards." Multiple valid answers.
+          </p>
+          <span class="mode-tag">Advanced</span>
+        </a>
+
+        <a href="stats-quiz.html" class="mode-card" data-accent="red">
+          <div class="mode-header">
+            <div class="mode-icon">📊</div>
+            <div class="mode-title">Stats Quiz</div>
+          </div>
+          <p class="mode-desc">
+            Name the league leaders. Top 5 QBs by passing yards?
+            Top rushers? Test your statistical knowledge.
+          </p>
+          <span class="mode-tag">Expert</span>
+        </a>
       </div>
-      <div class="field" id="field-pos" style="display:none;">
-        <input id="input-pos" type="text" placeholder="Position" />
+
+      <div class="section-label">Study & Explore</div>
+
+      <div class="modes-grid">
+        <a href="team-study.html" class="mode-card" data-accent="cyan">
+          <div class="mode-header">
+            <div class="mode-icon">📋</div>
+            <div class="mode-title">Depth Charts</div>
+          </div>
+          <p class="mode-desc">
+            Browse any team's roster organized by position. See starters,
+            backups, and key stats at a glance.
+          </p>
+          <span class="mode-tag">Reference</span>
+        </a>
+
+        <a href="explorer.html" class="mode-card" data-accent="teal">
+          <div class="mode-header">
+            <div class="mode-icon">🔍</div>
+            <div class="mode-title">SQL Explorer</div>
+          </div>
+          <p class="mode-desc">
+            Query the full player database with SQL. Build custom reports,
+            find obscure stats, and explore freely.
+          </p>
+          <span class="mode-tag">Power Users</span>
+        </a>
       </div>
-    </div>
+    </main>
 
-    <button class="primary" id="btn-main">Check</button>
-
-    <div class="feedback" id="feedback">
-      <div class="feedback-title" id="feedback-title"></div>
-      <div class="feedback-answer" id="feedback-answer"></div>
-    </div>
+    <footer>
+      <p>Data from <a href="https://sleeper.com" target="_blank">Sleeper API</a> · 2025 Season</p>
+    </footer>
   </div>
-
-  <div class="footer">
-    <a href="easy.html">Multiple Choice</a> · <a href="game.html">Daily</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="stats.html">Explorer</a>
-  </div>
-</div>
-
-<script>
-  const POSITION_MAP = {
-    QB: "Quarterback", RB: "Running Back", FB: "Fullback", WR: "Wide Receiver",
-    TE: "Tight End", OL: "Offensive Lineman", OT: "Offensive Tackle", OG: "Offensive Guard", C: "Center",
-    G: "Guard", T: "Tackle", DL: "Defensive Lineman", DE: "Defensive End",
-    DT: "Defensive Tackle", NT: "Nose Tackle", EDGE: "Edge Rusher", LB: "Linebacker",
-    OLB: "Outside Linebacker", ILB: "Inside Linebacker", MLB: "Middle Linebacker",
-    DB: "Defensive Back", CB: "Cornerback", S: "Safety", FS: "Free Safety",
-    SS: "Strong Safety", K: "Kicker", P: "Punter", LS: "Long Snapper"
-  };
-
-  const POS_CANON = {
-    qb: "QB", quarterback: "QB", rb: "RB", runningback: "RB", fb: "FB", fullback: "FB",
-    wr: "WR", widereceiver: "WR", receiver: "WR", te: "TE", tightend: "TE",
-    ol: "OL", offensivelineman: "OL", ot: "OT", offensivetackle: "OT", og: "OG", offensiveguard: "OG", c: "C", center: "C",
-    g: "G", guard: "G", t: "T", tackle: "T", dl: "DL", defensivelineman: "DL",
-    de: "DE", defensiveend: "DE", dt: "DT", defensivetackle: "DT", nt: "NT", nosetackle: "NT",
-    edge: "EDGE", edgerusher: "EDGE", lb: "LB", linebacker: "LB",
-    olb: "OLB", outsidelinebacker: "OLB", ilb: "ILB", insidelinebacker: "ILB",
-    mlb: "MLB", middlelinebacker: "MLB", db: "DB", defensiveback: "DB",
-    cb: "CB", cornerback: "CB", s: "S", safety: "S", fs: "FS", freesafety: "FS",
-    ss: "SS", strongsafety: "SS", k: "K", kicker: "K", p: "P", punter: "P",
-    ls: "LS", longsnapper: "LS"
-  };
-
-  const STORAGE_KEY_STATS = "nflQuizStats_v1";
-  const STORAGE_KEY_GLOBAL = "nflQuizGlobal_v1";
-  const STORAGE_KEY_MODE = "nflQuizMode_v1";
-  const STORAGE_KEY_DIFF = "nflQuizDiff_v1";
-
-  let allPlayers = [];  // unfiltered, sorted by snaps
-  let players = [];     // filtered to top N
-  let topN = 200;
-  let stats = {};
-  let globalStats = { seen: 0, correct: 0 };
-  let currentCard = null;
-  let currentQuestionMode = "name_to_teampos"; // actual mode for current question (resolves "mixed")
-  let awaitingAnswer = true;
-
-  const gearBtn = document.getElementById("gear-btn");
-  const settingsEl = document.getElementById("settings");
-  const modeSelect = document.getElementById("mode");
-  const fileInput = document.getElementById("file-input");
-  const seenEl = document.getElementById("seen-count");
-  const correctEl = document.getElementById("correct-count");
-  const accuracyEl = document.getElementById("accuracy");
-  const questionMain = document.getElementById("question-main");
-  const fieldName = document.getElementById("field-name");
-  const fieldTeam = document.getElementById("field-team");
-  const fieldPos = document.getElementById("field-pos");
-  const inputName = document.getElementById("input-name");
-  const inputTeam = document.getElementById("input-team");
-  const inputPos = document.getElementById("input-pos");
-  const btnMain = document.getElementById("btn-main");
-  const btnReset = document.getElementById("btn-reset");
-  const feedbackEl = document.getElementById("feedback");
-  const feedbackTitle = document.getElementById("feedback-title");
-  const feedbackAnswer = document.getElementById("feedback-answer");
-  const difficultySelect = document.getElementById("difficulty");
-
-  function normalizeString(str) {
-    return String(str || "").trim().toLowerCase().replace(/\s+/g, "");
-  }
-
-  function levenshtein(a, b) {
-    const m = a.length, n = b.length;
-    const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
-    for (let i = 0; i <= m; i++) dp[i][0] = i;
-    for (let j = 0; j <= n; j++) dp[0][j] = j;
-    for (let i = 1; i <= m; i++) {
-      for (let j = 1; j <= n; j++) {
-        if (a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1];
-        else dp[i][j] = 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
-      }
-    }
-    return dp[m][n];
-  }
-
-  function fuzzyMatch(guess, correct) {
-    if (!guess || !correct) return false;
-    if (guess === correct) return true;
-    if (correct.endsWith(guess) && guess.length >= 5) return true;
-    const len = correct.length;
-    if (len <= 3) return false;
-    const dist = levenshtein(guess, correct);
-    const maxDist = len <= 6 ? 1 : 2;
-    return dist <= maxDist;
-  }
-
-  function getPlayerSnaps(p) {
-    const s = p.stats || {};
-    return (s.off_snp || 0) + (s.def_snp || 0);
-  }
-
-  function filterPlayers() {
-    // allPlayers is already sorted by snaps desc, take top N
-    players = allPlayers.slice(0, topN);
-  }
-
-  function setDifficulty(val) {
-    topN = parseInt(val, 10) || 200;
-    difficultySelect.value = val;
-    filterPlayers();
-    try { localStorage.setItem(STORAGE_KEY_DIFF, val); } catch(e) {}
-  }
-
-  function canonicalizePosition(input) {
-    const trimmed = normalizeString(input);
-    if (!trimmed) return "";
-    if (POS_CANON[trimmed]) return POS_CANON[trimmed];
-    const abbr = input.toUpperCase().replace(/[^A-Z]/g, "");
-    if (POSITION_MAP[abbr]) return abbr;
-    return abbr;
-  }
-
-  function displayPosition(abbr) {
-    const key = String(abbr || "").toUpperCase();
-    return POSITION_MAP[key] ? key + " — " + POSITION_MAP[key] : key;
-  }
-
-  function loadStats() {
-    try {
-      const s = localStorage.getItem(STORAGE_KEY_STATS);
-      if (s) stats = JSON.parse(s);
-      const g = localStorage.getItem(STORAGE_KEY_GLOBAL);
-      if (g) globalStats = JSON.parse(g);
-      const m = localStorage.getItem(STORAGE_KEY_MODE);
-      if (m) modeSelect.value = m;
-      const diff = localStorage.getItem(STORAGE_KEY_DIFF);
-      if (diff) {
-        topN = parseInt(diff, 10) || 200;
-        difficultySelect.value = diff;
-      }
-    } catch (e) {}
-    updateStatsUI();
-  }
-
-  function saveStats() {
-    try {
-      localStorage.setItem(STORAGE_KEY_STATS, JSON.stringify(stats));
-      localStorage.setItem(STORAGE_KEY_GLOBAL, JSON.stringify(globalStats));
-      localStorage.setItem(STORAGE_KEY_MODE, modeSelect.value);
-    } catch (e) {}
-  }
-
-  function cardKey(card) {
-    return ((card.name || "") + "|" + (card.team || "") + "|" + (card.position || "")).toLowerCase();
-  }
-
-  function updateStatsUI() {
-    seenEl.textContent = globalStats.seen;
-    // Show half points nicely (e.g., 5.5 instead of 5.5000001)
-    correctEl.textContent = Number.isInteger(globalStats.correct) ? globalStats.correct : globalStats.correct.toFixed(1);
-    const acc = globalStats.seen > 0 ? Math.round((globalStats.correct / globalStats.seen) * 100) : 0;
-    accuracyEl.textContent = acc + "%";
-  }
-
-  function pickNextCard() {
-    if (!players.length) return null;
-    const now = Date.now();
-    let best = null, bestScore = Infinity;
-    for (const p of players) {
-      const s = stats[cardKey(p)] || { correct: 0, wrong: 0, lastSeen: 0 };
-      const mastery = s.correct - s.wrong;
-      const daysSince = s.lastSeen ? (now - s.lastSeen) / 86400000 : 999;
-      const score = mastery - daysSince + Math.random() * 0.5;
-      if (score < bestScore) { bestScore = score; best = p; }
-    }
-    return best;
-  }
-
-  function setModeFields() {
-    inputName.value = ""; inputTeam.value = ""; inputPos.value = "";
-    if (currentQuestionMode === "name_to_teampos") {
-      fieldName.style.display = "none";
-      fieldTeam.style.display = "block";
-      fieldPos.style.display = "block";
-    } else {
-      fieldName.style.display = "block";
-      fieldTeam.style.display = "none";
-      fieldPos.style.display = "none";
-    }
-  }
-
-  function resolveMode() {
-    const mode = modeSelect.value;
-    if (mode === "mixed") {
-      return Math.random() < 0.5 ? "name_to_teampos" : "teampos_to_name";
-    }
-    return mode;
-  }
-
-  function showQuestion(card) {
-    if (!card) {
-      questionMain.textContent = "No players loaded";
-      return;
-    }
-    if (currentQuestionMode === "name_to_teampos") {
-      questionMain.textContent = card.name;
-    } else {
-      questionMain.textContent = card.team + " — " + displayPosition(card.position);
-    }
-  }
-
-  function updateStatForCard(card, isCorrect, isPartial = false) {
-    if (!card) return;
-    const key = cardKey(card);
-    if (!stats[key]) stats[key] = { correct: 0, wrong: 0, lastSeen: 0 };
-    if (isCorrect) {
-      stats[key].correct++;
-      globalStats.correct++;
-    } else if (isPartial) {
-      stats[key].correct += 0.5;
-      stats[key].wrong += 0.5;
-      globalStats.correct += 0.5;
-    } else {
-      stats[key].wrong++;
-    }
-    stats[key].lastSeen = Date.now();
-    globalStats.seen++;
-    saveStats();
-    updateStatsUI();
-  }
-
-  function getValidNamesForTeamPos(team, position) {
-    const teamNorm = normalizeString(team);
-    const posNorm = canonicalizePosition(position);
-    return players
-      .filter(p => normalizeString(p.team) === teamNorm &&
-                   canonicalizePosition(p.position) === posNorm)
-      .map(p => normalizeString(p.name));
-  }
-
-  function checkAnswer() {
-    if (!currentCard) return;
-    let result = "incorrect"; // "correct", "partial", "incorrect"
-
-    if (currentQuestionMode === "name_to_teampos") {
-      const teamGuess = normalizeString(inputTeam.value);
-      const posGuess = canonicalizePosition(inputPos.value);
-      const teamCorrect = teamGuess && fuzzyMatch(teamGuess, normalizeString(currentCard.team));
-      const posCorrect = posGuess && posGuess === canonicalizePosition(currentCard.position);
-
-      if (teamCorrect && posCorrect) result = "correct";
-      else if (teamCorrect || posCorrect) result = "partial";
-    } else {
-      // Team & Position → Name: accept any player matching that team+position
-      const nameGuess = normalizeString(inputName.value);
-      const validNames = getValidNamesForTeamPos(currentCard.team, currentCard.position);
-      if (nameGuess && validNames.some(n => fuzzyMatch(nameGuess, n))) result = "correct";
-    }
-
-    feedbackEl.className = "feedback visible " + result;
-    if (result === "correct") feedbackTitle.textContent = "✔ Correct";
-    else if (result === "partial") feedbackTitle.textContent = "½ Half right";
-    else feedbackTitle.textContent = "✘ Wrong";
-
-    feedbackAnswer.textContent = currentCard.name + " · " + currentCard.team + " · " + displayPosition(currentCard.position);
-    updateStatForCard(currentCard, result === "correct", result === "partial");
-  }
-
-  function nextQuestion() {
-    feedbackEl.className = "feedback";
-    awaitingAnswer = true;
-    btnMain.textContent = "Check";
-    currentCard = pickNextCard();
-    currentQuestionMode = resolveMode();
-    setModeFields();
-    showQuestion(currentCard);
-    if (currentQuestionMode === "name_to_teampos") inputTeam.focus();
-    else inputName.focus();
-  }
-
-  function handleMain() {
-    if (!currentCard && players.length) { nextQuestion(); return; }
-    if (awaitingAnswer) {
-      checkAnswer();
-      awaitingAnswer = false;
-      btnMain.textContent = "Next";
-      document.activeElement.blur();
-    } else {
-      nextQuestion();
-    }
-  }
-
-  async function loadPlayers() {
-    try {
-      const resp = await fetch("players-with-stats-2025.json", { cache: "no-store" });
-      if (!resp.ok) throw new Error("HTTP " + resp.status);
-      const parsed = await resp.json();
-      allPlayers = parsed
-        .map(p => ({
-          name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
-          team: String(p.team || "").trim(),
-          position: String(p.position || "").trim(),
-          stats: p.stats || {}
-        }))
-        .filter(p => p.name && p.team && p.position)
-        .sort((a, b) => getPlayerSnaps(b) - getPlayerSnaps(a)); // sort by snaps desc
-      filterPlayers();
-      if (players.length) nextQuestion();
-      else questionMain.textContent = "No players found";
-    } catch (err) {
-      questionMain.textContent = "Could not load players";
-    }
-  }
-
-  // Events
-  gearBtn.addEventListener("click", () => settingsEl.classList.toggle("open"));
-
-  modeSelect.addEventListener("change", () => {
-    currentQuestionMode = resolveMode();
-    setModeFields();
-    showQuestion(currentCard);
-    saveStats();
-  });
-
-  btnMain.addEventListener("click", handleMain);
-
-  btnReset.addEventListener("click", () => {
-    if (!confirm("Reset all stats?")) return;
-    stats = {}; globalStats = { seen: 0, correct: 0 };
-    saveStats(); updateStatsUI();
-  });
-
-  difficultySelect.addEventListener("change", (e) => setDifficulty(e.target.value));
-
-  fileInput.addEventListener("change", (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      try {
-        const parsed = JSON.parse(evt.target.result);
-        players = parsed
-          .map(p => ({
-            name: String(p.name || ((p.first_name || "") + " " + (p.last_name || ""))).trim(),
-            team: String(p.team || "").trim(),
-            position: String(p.position || "").trim()
-          }))
-          .filter(p => p.name && p.team && p.position);
-        if (players.length) nextQuestion();
-      } catch (err) { alert("Could not parse JSON"); }
-    };
-    reader.readAsText(file);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    // Enter advances (check or next)
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleMain();
-      return;
-    }
-    // Arrow keys for rapid fire (when not typing in input)
-    if ((e.key === "ArrowRight" || e.key === "ArrowDown") &&
-        (e.target.tagName !== "INPUT" || !awaitingAnswer)) {
-      e.preventDefault();
-      handleMain();
-    }
-  });
-
-  // Init
-  loadStats();
-  currentQuestionMode = resolveMode();
-  setModeFields();
-  loadPlayers();
-</script>
 </body>
 </html>

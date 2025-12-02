@@ -8,12 +8,22 @@ NFL roster quiz app with spaced repetition. Users guess player team/position fro
 
 ## Components
 
+### Data Scripts
 - **main.py** - Fetches NFL player rosters from Sleeper API → `players-2025.json`
 - **fetch_stats.py** - Fetches player stats from Sleeper API → `players-with-stats-{year}.json`
 - **to_sqlite.py** - Converts JSON to SQLite database → `nfl.db`
-- **index.html** - Practice mode quiz UI with spaced repetition
-- **game.html** - Daily challenge mode (same 10 questions for everyone each day)
-- **stats.html** - SQL query interface using sql.js (WASM SQLite in browser)
+
+### Quiz Pages
+- **index.html** - Landing page with links to all modes
+- **practice.html** - Practice mode with spaced repetition
+- **easy.html** - Multiple choice mode
+- **game.html** - Daily challenge (same 10 questions for everyone each day)
+- **trivia.html** - Trivia mode with SQL-powered validation
+- **stats-quiz.html** - Name league stat leaders
+
+### Reference Pages
+- **team-study.html** - Depth charts by team and year
+- **explorer.html** - SQL query interface using sql.js (WASM SQLite in browser)
 
 ## Commands
 

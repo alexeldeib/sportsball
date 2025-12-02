@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL Roster Quiz - Trivia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0f172a;
+      --bg-elevated: #1e293b;
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.4);
+      --accent-subtle: rgba(168, 85, 247, 0.15);
+      --success: #22c55e;
+      --error: #ef4444;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(148, 163, 184, 0.15);
+      --border-accent: rgba(168, 85, 247, 0.5);
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(168, 85, 247, 0.08), transparent 50%),
+        radial-gradient(ellipse 60% 40% at 100% 100%, rgba(168, 85, 247, 0.05), transparent),
+        var(--bg-deep);
+    }
+
+    .container {
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.25rem;
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 0.875rem 1rem;
+      background: var(--bg-card);
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .difficulty-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .difficulty-bar label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .difficulty-bar select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+    }
+
+    .difficulty-bar select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .status.loading { color: #fbbf24; }
+    .status.ready { color: var(--success); }
+    .status.error { color: var(--error); }
+
+    /* Question card */
+    .question-card {
+      position: relative;
+      padding: 1.5rem;
+      border-radius: 14px;
+      background: linear-gradient(145deg, rgba(168, 85, 247, 0.12), var(--bg-card) 40%);
+      border: 1px solid var(--border-accent);
+      box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.3),
+        0 0 40px var(--accent-subtle);
+    }
+
+    .question-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      border-radius: 14px 14px 0 0;
+    }
+
+    .question-type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .question-main {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.01em;
+    }
+
+    .answer-section {
+      margin-bottom: 1rem;
+    }
+
+    .answer-section label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--bg-deep);
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 0.7rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.2s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+    }
+
+    button.primary {
+      width: 100%;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, var(--accent), #9333ea);
+      color: white;
+      box-shadow: 0 4px 15px var(--accent-glow);
+      transition: all 0.2s ease;
+    }
+
+    button.primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px var(--accent-glow);
+    }
+
+    button.primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 0.875rem 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      display: none;
+      border-left: 3px solid;
+    }
+
+    .feedback.visible { display: block; }
+
+    .feedback.correct {
+      background: rgba(34, 197, 94, 0.12);
+      border-left-color: var(--success);
+      color: #bbf7d0;
+    }
+
+    .feedback.incorrect {
+      background: rgba(239, 68, 68, 0.12);
+      border-left-color: var(--error);
+      color: #fecaca;
+    }
+
+    .feedback-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .feedback-detail {
+      margin-top: 0.25rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .valid-answers {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .valid-answers summary {
+      cursor: pointer;
+      color: var(--accent);
+    }
+
+    .valid-answers ul {
+      margin: 0.35rem 0 0 1rem;
+      padding: 0;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .footer a:hover {
+      color: var(--accent);
+    }
+
+    @media (max-width: 500px) {
+      .question-main { font-size: 1.25rem; }
+      .stats-bar { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="bg-layer"></div>
+
+<div class="container">
+  <header>
+    <h1>Trivia Mode</h1>
+    <p class="subtitle">Flexible questions with multiple valid answers</p>
+  </header>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value" id="seen-count">0</div>
+      <div class="stat-label">Asked</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="correct-count">0</div>
+      <div class="stat-label">Correct</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value" id="accuracy">0%</div>
+      <div class="stat-label">Accuracy</div>
+    </div>
+  </div>
+
+  <div class="difficulty-bar">
+    <label for="difficulty">Difficulty:</label>
+    <select id="difficulty">
+      <option value="50">Casual (Top 50)</option>
+      <option value="100">Easy (Top 100)</option>
+      <option value="200" selected>Medium (Top 200)</option>
+      <option value="350">Hard (Top 350)</option>
+      <option value="500">Diehard (Top 500)</option>
+      <option value="750">Insane (Top 750)</option>
+    </select>
+  </div>
+
+  <div class="status loading" id="status">Loading database...</div>
+
+  <div class="question-card">
+    <div class="question-type" id="question-type">Loading</div>
+    <div class="question-main" id="question-main">Please wait...</div>
+
+    <div class="answer-section">
+      <label for="answer-input">Your answer</label>
+      <input type="text" id="answer-input" placeholder="Type a player name..." autocomplete="off" />
+      <div class="hint" id="hint"></div>
+    </div>
+
+    <button class="primary" id="btn-main" disabled>Check</button>
+
+    <div class="feedback" id="feedback">
+      <div class="feedback-title" id="feedback-title"></div>
+      <div class="feedback-detail" id="feedback-detail"></div>
+      <details class="valid-answers" id="valid-answers">
+        <summary>Show all valid answers</summary>
+        <ul id="valid-answers-list"></ul>
+      </details>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">Home</a> · <a href="practice.html">Practice</a> · <a href="easy.html">Multiple Choice</a> · <a href="game.html">Daily</a> · <a href="team-study.html">Depth Charts</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="explorer.html">SQL Explorer</a>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "nflTrivia_v1";
+
+  const POSITION_NAMES = {
+    QB: "Quarterback", RB: "Running Back", WR: "Wide Receiver", TE: "Tight End",
+    FB: "Fullback", OL: "Offensive Lineman", OT: "Offensive Tackle", C: "Center",
+    G: "Guard", T: "Tackle", DL: "Defensive Lineman", DE: "Defensive End",
+    DT: "Defensive Tackle", EDGE: "Edge Rusher", LB: "Linebacker",
+    CB: "Cornerback", S: "Safety", K: "Kicker", P: "Punter", LS: "Long Snapper"
+  };
+
+  const POSITION_PLURAL = {
+    QB: "Quarterbacks", RB: "Running Backs", WR: "Wide Receivers", TE: "Tight Ends",
+    FB: "Fullbacks", DE: "Defensive Ends", DT: "Defensive Tackles", EDGE: "Edge Rushers",
+    LB: "Linebackers", CB: "Cornerbacks", S: "Safeties", K: "Kickers", P: "Punters"
+  };
+
+  const TEAM_NAMES = [
+    "Arizona Cardinals", "Atlanta Falcons", "Baltimore Ravens",
+    "Buffalo Bills", "Carolina Panthers", "Chicago Bears",
+    "Cincinnati Bengals", "Cleveland Browns", "Dallas Cowboys",
+    "Denver Broncos", "Detroit Lions", "Green Bay Packers",
+    "Houston Texans", "Indianapolis Colts", "Jacksonville Jaguars",
+    "Kansas City Chiefs", "Los Angeles Chargers", "Los Angeles Rams",
+    "Las Vegas Raiders", "Miami Dolphins", "Minnesota Vikings",
+    "New England Patriots", "New Orleans Saints", "New York Giants",
+    "New York Jets", "Philadelphia Eagles", "Pittsburgh Steelers",
+    "Seattle Seahawks", "San Francisco 49ers", "Tampa Bay Buccaneers",
+    "Tennessee Titans", "Washington Commanders"
+  ];
+
+  const STORAGE_KEY_DIFF = "nflTrivia_diff_v1";
+  const DATA_YEAR = 2025;
+
+  let db = null;
+  let globalStats = { seen: 0, correct: 0 };
+  let currentQuestion = null;
+  let validAnswers = [];
+  let answered = false;
+  let topN = 200;
+
+  const statusEl = document.getElementById("status");
+  const questionType = document.getElementById("question-type");
+  const questionMain = document.getElementById("question-main");
+  const answerInput = document.getElementById("answer-input");
+  const hintEl = document.getElementById("hint");
+  const btnMain = document.getElementById("btn-main");
+  const feedbackEl = document.getElementById("feedback");
+  const feedbackTitle = document.getElementById("feedback-title");
+  const feedbackDetail = document.getElementById("feedback-detail");
+  const validAnswersEl = document.getElementById("valid-answers");
+  const validAnswersList = document.getElementById("valid-answers-list");
+  const seenEl = document.getElementById("seen-count");
+  const correctEl = document.getElementById("correct-count");
+  const accuracyEl = document.getElementById("accuracy");
+  const difficultySelect = document.getElementById("difficulty");
+
+  function topPlayersFilter() {
+    return `name IN (SELECT name FROM players WHERE year = ${DATA_YEAR} ORDER BY (COALESCE(off_snp, 0) + COALESCE(def_snp, 0)) DESC LIMIT ${topN})`;
+  }
+
+  function normalizeString(str) {
+    return String(str || "").trim().toLowerCase().replace(/[^a-z]/g, "");
+  }
+
+  function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1];
+        else dp[i][j] = 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+      }
+    }
+    return dp[m][n];
+  }
+
+  function fuzzyMatch(guess, correct) {
+    if (!guess || !correct) return false;
+    if (guess === correct) return true;
+    if (correct.endsWith(guess) && guess.length >= 5) return true;
+    const len = correct.length;
+    if (len <= 3) return false;
+    const dist = levenshtein(guess, correct);
+    const maxDist = len <= 6 ? 1 : 2;
+    return dist <= maxDist;
+  }
+
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  function runQuery(sql) {
+    try {
+      const result = db.exec(sql);
+      if (!result.length || !result[0].values.length) return [];
+      return result[0].values.map(row => row[0]);
+    } catch (e) {
+      console.error("SQL error:", e, sql);
+      return [];
+    }
+  }
+
+  function runQueryFull(sql) {
+    try {
+      const result = db.exec(sql);
+      if (!result.length) return [];
+      return result[0].values;
+    } catch (e) {
+      console.error("SQL error:", e, sql);
+      return [];
+    }
+  }
+
+  function generateTeammateQuestion() {
+    const starPlayers = runQueryFull(`
+      SELECT name, team, position FROM players
+      WHERE year = ${DATA_YEAR} AND ${topPlayersFilter()} AND (
+        (position = 'QB' AND pass_yd > 1000) OR
+        (position = 'RB' AND rush_yd > 300) OR
+        (position = 'WR' AND rec_yd > 400)
+      )
+      ORDER BY RANDOM() LIMIT 20
+    `);
+
+    if (!starPlayers.length) return null;
+
+    const [playerName, team, playerPos] = pickRandom(starPlayers);
+    const targetPositions = ['WR', 'RB', 'TE', 'QB'].filter(p => p !== playerPos);
+    const targetPos = pickRandom(targetPositions);
+
+    const teammates = runQuery(`
+      SELECT name FROM players
+      WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${targetPos}' AND ${topPlayersFilter()}
+    `);
+
+    if (!teammates.length) return generateTeammateQuestion();
+
+    const posPlural = POSITION_PLURAL[targetPos] || targetPos + "s";
+
+    return {
+      type: "Teammate",
+      text: `Who are ${playerName}'s ${posPlural}?`,
+      hint: "",
+      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${targetPos}' AND ${topPlayersFilter()}`,
+      validCount: teammates.length
+    };
+  }
+
+  function generateTeamLeaderQuestion() {
+    const team = pickRandom(TEAM_NAMES);
+
+    const statOptions = [
+      { stat: "pass_yd", label: "passing yards", filter: "position = 'QB'" },
+      { stat: "rush_yd", label: "rushing yards", filter: "1=1" },
+      { stat: "rec_yd", label: "receiving yards", filter: "1=1" },
+      { stat: "rec", label: "receptions", filter: "1=1" },
+      { stat: "rush_td + rec_td", label: "touchdowns", filter: "1=1" },
+    ];
+
+    const statChoice = pickRandom(statOptions);
+
+    const leaders = runQueryFull(`
+      SELECT name, ${statChoice.stat} as val FROM players
+      WHERE year = ${DATA_YEAR} AND team = '${team}' AND ${statChoice.filter} AND ${statChoice.stat} > 0 AND ${topPlayersFilter()}
+      ORDER BY ${statChoice.stat} DESC LIMIT 1
+    `);
+
+    if (!leaders.length) return generateTeamLeaderQuestion();
+
+    const [leaderName, leaderVal] = leaders[0];
+
+    return {
+      type: "Team Leader",
+      text: `Who leads the ${team} in ${statChoice.label}?`,
+      hint: "",
+      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND ${statChoice.filter} AND ${statChoice.stat} = ${leaderVal} AND ${topPlayersFilter()}`,
+      validCount: 1
+    };
+  }
+
+  function generateConstraintQuestion() {
+    const filter = topPlayersFilter();
+    const constraints = [
+      {
+        text: "Name a player with fewer than 10 games played who has scored 3 or more touchdowns",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND gp < 10 AND gp > 0 AND (rush_td + rec_td) >= 3 AND ${filter}`
+      },
+      {
+        text: "Name a QB with more passing touchdowns than interceptions (min 10 TDs)",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'QB' AND pass_td >= 10 AND pass_td > pass_int AND ${filter}`
+      },
+      {
+        text: "Name a running back with both 200+ rushing yards and 200+ receiving yards",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'RB' AND rush_yd >= 200 AND rec_yd >= 200 AND ${filter}`
+      },
+      {
+        text: "Name a wide receiver with 5 or more touchdowns",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'WR' AND rec_td >= 5 AND ${filter}`
+      },
+      {
+        text: "Name a tight end with 400+ receiving yards",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'TE' AND rec_yd >= 400 AND ${filter}`
+      },
+      {
+        text: "Name a QB who has thrown for 2000+ yards",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'QB' AND pass_yd >= 2000 AND ${filter}`
+      },
+      {
+        text: "Name a defender with 50+ tackles",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND idp_tkl >= 50 AND ${filter}`
+      },
+      {
+        text: "Name a player with 3+ sacks",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND idp_sack >= 3 AND ${filter}`
+      },
+      {
+        text: "Name a wide receiver with 50+ receptions",
+        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'WR' AND rec >= 50 AND ${filter}`
+      },
+    ];
+
+    const shuffled = [...constraints].sort(() => Math.random() - 0.5);
+
+    for (const c of shuffled) {
+      const answers = runQuery(c.sql);
+      if (answers.length > 0) {
+        return {
+          type: "Constraint",
+          text: c.text,
+          hint: "",
+          sql: c.sql,
+          validCount: answers.length
+        };
+      }
+    }
+
+    return null;
+  }
+
+  function generatePositionOnTeamQuestion() {
+    const team = pickRandom(TEAM_NAMES);
+    const positions = ['QB', 'RB', 'WR', 'TE', 'LB', 'CB', 'S', 'DE', 'DT'];
+    const pos = pickRandom(positions);
+
+    const players = runQuery(`
+      SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${pos}' AND ${topPlayersFilter()}
+    `);
+
+    if (!players.length) return generatePositionOnTeamQuestion();
+
+    const posName = POSITION_NAMES[pos] || pos;
+
+    return {
+      type: "Team Roster",
+      text: `Name 1 ${team} ${posName}`,
+      hint: "",
+      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${pos}' AND ${topPlayersFilter()}`,
+      validCount: players.length
+    };
+  }
+
+  function generateComparisonQuestion() {
+    const comparisons = [
+      { stat: "rush_yd", label: "rushing yards", filter: "rush_yd > 200" },
+      { stat: "rec_yd", label: "receiving yards", filter: "rec_yd > 300" },
+      { stat: "pass_yd", label: "passing yards", filter: "pass_yd > 800" },
+      { stat: "rec", label: "receptions", filter: "rec > 20" },
+    ];
+
+    const comp = pickRandom(comparisons);
+
+    const players = runQueryFull(`
+      SELECT name, ${comp.stat} as val FROM players
+      WHERE year = ${DATA_YEAR} AND ${comp.filter} AND ${topPlayersFilter()}
+      ORDER BY RANDOM() LIMIT 10
+    `);
+
+    if (players.length < 2) return generateComparisonQuestion();
+
+    let p1 = null, p2 = null;
+    for (let i = 0; i < players.length - 1; i++) {
+      for (let j = i + 1; j < players.length; j++) {
+        if (players[i][1] !== players[j][1]) {
+          p1 = players[i];
+          p2 = players[j];
+          break;
+        }
+      }
+      if (p1) break;
+    }
+
+    if (!p1 || !p2) return generateComparisonQuestion();
+
+    const winner = p1[1] > p2[1] ? p1[0] : p2[0];
+
+    return {
+      type: "Comparison",
+      text: `Who has more ${comp.label}: ${p1[0]} or ${p2[0]}?`,
+      hint: "",
+      directAnswers: [winner],
+      validCount: 1
+    };
+  }
+
+  function generateQuestion() {
+    const generators = [
+      { fn: generateTeammateQuestion, weight: 25 },
+      { fn: generateTeamLeaderQuestion, weight: 20 },
+      { fn: generateConstraintQuestion, weight: 25 },
+      { fn: generatePositionOnTeamQuestion, weight: 15 },
+      { fn: generateComparisonQuestion, weight: 15 },
+    ];
+
+    const totalWeight = generators.reduce((a, g) => a + g.weight, 0);
+    let r = Math.random() * totalWeight;
+
+    for (const g of generators) {
+      r -= g.weight;
+      if (r <= 0) {
+        const question = g.fn();
+        if (question) return question;
+        break;
+      }
+    }
+
+    for (const g of generators) {
+      const question = g.fn();
+      if (question) return question;
+    }
+
+    return null;
+  }
+
+  function loadStats() {
+    try {
+      const s = localStorage.getItem(STORAGE_KEY);
+      if (s) globalStats = JSON.parse(s);
+    } catch(e) {}
+    updateStatsUI();
+  }
+
+  function saveStats() {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(globalStats));
+    } catch(e) {}
+  }
+
+  function updateStatsUI() {
+    seenEl.textContent = globalStats.seen;
+    correctEl.textContent = globalStats.correct;
+    const acc = globalStats.seen > 0 ? Math.round((globalStats.correct / globalStats.seen) * 100) : 0;
+    accuracyEl.textContent = acc + "%";
+  }
+
+  function showQuestion() {
+    currentQuestion = generateQuestion();
+
+    if (!currentQuestion) {
+      questionMain.textContent = "Could not generate question. Try refreshing.";
+      return;
+    }
+
+    if (currentQuestion.directAnswers) {
+      validAnswers = currentQuestion.directAnswers;
+    } else {
+      validAnswers = runQuery(currentQuestion.sql);
+    }
+
+    questionType.textContent = currentQuestion.type;
+    questionMain.textContent = `${currentQuestion.text} (${DATA_YEAR})`;
+    hintEl.textContent = currentQuestion.hint || "";
+
+    answerInput.value = "";
+    answerInput.disabled = false;
+    answerInput.focus();
+
+    answered = false;
+    btnMain.textContent = "Check";
+    feedbackEl.className = "feedback";
+  }
+
+  function checkAnswer() {
+    if (answered) {
+      showQuestion();
+      return;
+    }
+
+    const guess = normalizeString(answerInput.value);
+
+    if (!guess) {
+      answerInput.focus();
+      return;
+    }
+
+    answered = true;
+    answerInput.disabled = true;
+
+    const isCorrect = validAnswers.some(name => fuzzyMatch(guess, normalizeString(name)));
+
+    globalStats.seen++;
+    if (isCorrect) globalStats.correct++;
+    saveStats();
+    updateStatsUI();
+
+    feedbackEl.className = "feedback visible " + (isCorrect ? "correct" : "incorrect");
+    feedbackTitle.textContent = isCorrect ? "Correct!" : "Incorrect";
+
+    if (isCorrect) {
+      const matchedName = validAnswers.find(name => fuzzyMatch(guess, normalizeString(name)));
+      feedbackDetail.textContent = matchedName || answerInput.value;
+      validAnswersEl.style.display = "none";
+    } else {
+      if (validAnswers.length === 1) {
+        feedbackDetail.textContent = `The answer was: ${validAnswers[0]}`;
+        validAnswersEl.style.display = "none";
+      } else {
+        feedbackDetail.textContent = `"${answerInput.value}" is not a valid answer.`;
+        validAnswersList.innerHTML = validAnswers.map(name => `<li>${name}</li>`).join("");
+        validAnswersEl.style.display = "block";
+      }
+    }
+
+    btnMain.textContent = "Next Question";
+  }
+
+  function loadDifficulty() {
+    try {
+      const diff = localStorage.getItem(STORAGE_KEY_DIFF);
+      if (diff) {
+        topN = parseInt(diff, 10) || 200;
+        difficultySelect.value = diff;
+      }
+    } catch(e) {}
+  }
+
+  function setDifficulty(val) {
+    topN = parseInt(val, 10) || 200;
+    difficultySelect.value = val;
+    try { localStorage.setItem(STORAGE_KEY_DIFF, val); } catch(e) {}
+  }
+
+  async function initDB() {
+    try {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      statusEl.textContent = "Downloading database...";
+      const response = await fetch("nfl.db");
+      if (!response.ok) throw new Error("Could not load nfl.db - run ./to_sqlite.py first");
+
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      const countResult = db.exec("SELECT COUNT(*) FROM players WHERE year = ${DATA_YEAR}");
+      const playerCount = countResult[0]?.values[0]?.[0] || 0;
+
+      if (playerCount === 0) {
+        throw new Error("No 2025 player data found");
+      }
+
+      statusEl.textContent = `Ready - using top ${topN} players`;
+      statusEl.className = "status ready";
+      btnMain.disabled = false;
+
+      loadStats();
+      loadDifficulty();
+      showQuestion();
+    } catch (err) {
+      statusEl.textContent = "Error: " + err.message;
+      statusEl.className = "status error";
+      console.error(err);
+    }
+  }
+
+  btnMain.addEventListener("click", checkAnswer);
+
+  answerInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      checkAnswer();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (answered && (e.key === "ArrowRight" || e.key === "ArrowDown")) {
+      e.preventDefault();
+      showQuestion();
+    }
+  });
+
+  difficultySelect.addEventListener("change", (e) => {
+    setDifficulty(e.target.value);
+    statusEl.textContent = `Ready - using top ${topN} players`;
+    showQuestion();
+  });
+
+  initDB();
+</script>
+</body>
+</html>
