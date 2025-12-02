@@ -288,10 +288,11 @@
   let sortField = null;
   let sortAscending = false;
 
-  // Each position defines which stat columns to show
+  // Each position group defines which positions to include and stat columns to show
   const POSITIONS = {
     "QB": {
       label: "Quarterbacks",
+      positions: ["QB"],
       columns: [
         { field: "pass_yd", label: "Pass Yds" },
         { field: "pass_td", label: "TD" },
@@ -302,6 +303,7 @@
     },
     "RB": {
       label: "Running Backs",
+      positions: ["RB", "FB"],
       columns: [
         { field: "rush_yd", label: "Rush Yds" },
         { field: "rush_td", label: "Rush TD" },
@@ -312,6 +314,7 @@
     },
     "WR": {
       label: "Wide Receivers",
+      positions: ["WR"],
       columns: [
         { field: "rec_yd", label: "Rec Yds" },
         { field: "rec", label: "Rec" },
@@ -321,6 +324,7 @@
     },
     "TE": {
       label: "Tight Ends",
+      positions: ["TE"],
       columns: [
         { field: "rec_yd", label: "Rec Yds" },
         { field: "rec", label: "Rec" },
@@ -330,6 +334,7 @@
     },
     "LB": {
       label: "Linebackers",
+      positions: ["LB", "OLB", "ILB", "MLB"],
       columns: [
         { field: "idp_tkl", label: "Tackles" },
         { field: "idp_sack", label: "Sacks" },
@@ -339,6 +344,7 @@
     },
     "CB": {
       label: "Cornerbacks",
+      positions: ["CB"],
       columns: [
         { field: "idp_tkl", label: "Tackles" },
         { field: "idp_int", label: "INT" },
@@ -347,6 +353,7 @@
     },
     "S": {
       label: "Safeties",
+      positions: ["S", "SS", "FS", "DB"],
       columns: [
         { field: "idp_tkl", label: "Tackles" },
         { field: "idp_int", label: "INT" },
@@ -354,16 +361,9 @@
       ],
       defaultSort: "idp_tkl"
     },
-    "DE": {
-      label: "Defensive Ends",
-      columns: [
-        { field: "idp_sack", label: "Sacks" },
-        { field: "idp_tkl", label: "Tackles" },
-      ],
-      defaultSort: "idp_sack"
-    },
-    "DT": {
-      label: "Defensive Tackles",
+    "DL": {
+      label: "Defensive Line",
+      positions: ["DL", "DE", "DT", "NT"],
       columns: [
         { field: "idp_tkl", label: "Tackles" },
         { field: "idp_sack", label: "Sacks" },
@@ -372,6 +372,7 @@
     },
     "EDGE": {
       label: "Edge Rushers",
+      positions: ["EDGE"],
       columns: [
         { field: "idp_sack", label: "Sacks" },
         { field: "idp_tkl", label: "Tackles" },
@@ -461,14 +462,18 @@
     // Build SELECT with all column fields
     const selectFields = columns.map(c => `COALESCE(${c.field}, 0) as ${c.field}`).join(', ');
 
+    // Build position IN clause with placeholders
+    const positionList = config.positions;
+    const positionPlaceholders = positionList.map(() => '?').join(', ');
+
     // Note: field names are hardcoded constants, safe to interpolate
     const players = runQueryFullParams(`
-      SELECT name, team, ${selectFields}
+      SELECT name, team, position, ${selectFields}
       FROM players
-      WHERE year = ? AND position = ?
+      WHERE year = ? AND position IN (${positionPlaceholders})
       ORDER BY COALESCE(${sortField}, 0) ${sortOrder}
       LIMIT 50
-    `, [selectedYear, position]);
+    `, [selectedYear, ...positionList]);
 
     if (players.length === 0) {
       leadersContent.innerHTML = `
@@ -500,12 +505,14 @@
         return `<div class="col-stat${isActive ? ' active' : ''}">${val.toLocaleString()}</div>`;
       }).join('');
 
+      // Show specific position if there are multiple in the group
+      const showPos = positionList.length > 1 ? ` · ${p.position}` : '';
       return `
         <div class="player-row ${rankClass}" style="grid-template-columns: ${gridCols}">
           <div class="col-rank">${rank}</div>
           <div class="col-player">
             <div class="player-name">${p.name}</div>
-            <div class="player-team">${p.team}</div>
+            <div class="player-team">${p.team}${showPos}</div>
           </div>
           ${statCols}
         </div>
