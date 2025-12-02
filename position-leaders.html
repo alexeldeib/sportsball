@@ -290,6 +290,7 @@
 
   let db = null;
   let selectedYear = 2025;
+  let sortColumn = 'primary'; // 'primary' or 'secondary'
   let sortAscending = false;
 
   const POSITIONS = {
@@ -445,13 +446,14 @@
 
     const sortOrder = sortAscending ? "ASC" : "DESC";
     const sortIndicator = sortAscending ? "&#9650;" : "&#9660;";
+    const sortBy = sortColumn === 'primary' ? statConfig.value : statConfig.secondary;
 
     // Note: stat columns are hardcoded constants, safe to interpolate
     const players = runQueryFullParams(`
       SELECT name, team, ${statConfig.value} as main_stat, ${statConfig.secondary} as secondary_stat
       FROM players
       WHERE year = ? AND position = ? AND ${statConfig.value} > 0
-      ORDER BY ${statConfig.value} ${sortOrder}
+      ORDER BY ${sortBy} ${sortOrder}
       LIMIT 50
     `, [selectedYear, position]);
 
@@ -481,23 +483,35 @@
       `;
     }).join("");
 
+    const primaryIndicator = sortColumn === 'primary' ? `<span class="sort-indicator">${sortIndicator}</span>` : '';
+    const secondaryIndicator = sortColumn === 'secondary' ? `<span class="sort-indicator">${sortIndicator}</span>` : '';
+
     leadersContent.innerHTML = `
       <div class="leaders-table">
         <div class="table-header">
           <div>Rank</div>
           <div>Player</div>
-          <div class="stat-col sortable" id="sort-toggle">${statConfig.label}<span class="sort-indicator">${sortIndicator}</span></div>
-          <div class="stat-col secondary-col">${statConfig.secondaryLabel}</div>
+          <div class="stat-col sortable" data-col="primary">${statConfig.label}${primaryIndicator}</div>
+          <div class="stat-col sortable secondary-col" data-col="secondary">${statConfig.secondaryLabel}${secondaryIndicator}</div>
         </div>
         ${rows}
       </div>
     `;
 
-    document.getElementById("sort-toggle").addEventListener("click", toggleSort);
+    leadersContent.querySelectorAll('.stat-col.sortable').forEach(col => {
+      col.addEventListener('click', () => handleSort(col.dataset.col));
+    });
   }
 
-  function toggleSort() {
-    sortAscending = !sortAscending;
+  function handleSort(column) {
+    if (sortColumn === column) {
+      // Same column - toggle direction
+      sortAscending = !sortAscending;
+    } else {
+      // Different column - switch to it, descending first
+      sortColumn = column;
+      sortAscending = false;
+    }
     renderLeaders();
   }
 
@@ -584,15 +598,18 @@
     try { localStorage.setItem(STORAGE_KEY_POS, pos); } catch(e) {}
     populateStats(pos);
 
-    // Clear stat selection and reset sort order
+    // Clear stat selection and reset sort
     try { localStorage.removeItem(STORAGE_KEY_STAT); } catch(e) {}
+    sortColumn = 'primary';
     sortAscending = false;
     renderLeaders();
   });
 
   statSelect.addEventListener("change", (e) => {
     try { localStorage.setItem(STORAGE_KEY_STAT, e.target.value); } catch(e) {}
-    sortAscending = false; // Reset to descending (highest first) on stat change
+    // Reset to primary column, descending on stat change
+    sortColumn = 'primary';
+    sortAscending = false;
     renderLeaders();
   });
 
