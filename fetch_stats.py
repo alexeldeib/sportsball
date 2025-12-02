@@ -157,6 +157,7 @@ def main():
             "team": TEAM_MAP[team_code],
             "team_code": team_code,
             "position": position,
+            "number": p.get("number"),  # Jersey number
         }
 
         # Add stats if any exist

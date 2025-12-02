@@ -36,6 +36,7 @@ def create_table(conn, stat_keys):
         "team TEXT NOT NULL",
         "team_code TEXT",
         "position TEXT NOT NULL",
+        "number INTEGER",  # Jersey number
         "year INTEGER",
     ]
 
@@ -52,7 +53,7 @@ def create_table(conn, stat_keys):
 def insert_players(conn, players, stat_keys, year):
     """Insert players into database."""
     # Build column list
-    base_cols = ["name", "team", "team_code", "position", "year"]
+    base_cols = ["name", "team", "team_code", "position", "number", "year"]
     all_cols = base_cols + stat_keys
 
     placeholders = ", ".join(["?"] * len(all_cols))
@@ -66,6 +67,7 @@ def insert_players(conn, players, stat_keys, year):
             p["team"],
             p.get("team_code"),
             p["position"],
+            p.get("number"),  # Jersey number
             year,
         ]
         # Add stat values (None if not present)
