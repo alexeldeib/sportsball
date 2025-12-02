@@ -102,12 +102,17 @@
       border-color: #ef4444;
       background: rgba(220,38,38,0.2);
     }
+    .answer-row input.partial {
+      border-color: #eab308;
+      background: rgba(234,179,8,0.2);
+    }
     .answer-row .result {
       font-size: 0.8rem;
       min-width: 120px;
     }
     .answer-row .result.correct { color: #86efac; }
     .answer-row .result.wrong { color: #fca5a5; }
+    .answer-row .result.partial { color: #fde047; }
 
     button.primary {
       width: 100%;
@@ -430,9 +435,9 @@
           correctCount++;
         } else {
           // Right player, wrong position
-          input.className = "correct";
-          resultEl.className = "result correct";
-          resultEl.textContent = `✓ (wrong spot)`;
+          input.className = "partial";
+          resultEl.className = "result partial";
+          resultEl.textContent = `~ wrong spot (+0.5)`;
           correctCount += 0.5;
         }
       } else {
