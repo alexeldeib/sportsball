@@ -389,7 +389,7 @@
   </div>
 
   <div class="footer">
-    <a href="index.html">Home</a> · <a href="practice.html">Practice</a> · <a href="easy.html">Multiple Choice</a> · <a href="game.html">Daily</a> · <a href="team-study.html">Depth Charts</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="explorer.html">SQL Explorer</a>
+    <a href="index.html">Home</a> · <a href="practice.html">Practice</a> · <a href="easy.html">Multiple Choice</a> · <a href="game.html">Daily</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="team-study.html">Depth Charts</a> · <a href="position-leaders.html">Position Leaders</a> · <a href="explorer.html">SQL Explorer</a>
   </div>
 </div>
 
@@ -450,8 +450,13 @@
   const accuracyEl = document.getElementById("accuracy");
   const difficultySelect = document.getElementById("difficulty");
 
+  // Returns SQL fragment and params for top players filter
+  // Usage: const {sql, params} = topPlayersFilter(); then append params to your query params
   function topPlayersFilter() {
-    return `name IN (SELECT name FROM players WHERE year = ${DATA_YEAR} ORDER BY (COALESCE(off_snp, 0) + COALESCE(def_snp, 0)) DESC LIMIT ${topN})`;
+    return {
+      sql: `name IN (SELECT name FROM players WHERE year = ? ORDER BY (COALESCE(off_snp, 0) + COALESCE(def_snp, 0)) DESC LIMIT ?)`,
+      params: [DATA_YEAR, topN]
+    };
   }
 
   function normalizeString(str) {
@@ -487,38 +492,49 @@
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  function runQuery(sql) {
+  function runQuery(sql, params = []) {
     try {
-      const result = db.exec(sql);
-      if (!result.length || !result[0].values.length) return [];
-      return result[0].values.map(row => row[0]);
+      const stmt = db.prepare(sql);
+      if (params.length) stmt.bind(params);
+      const results = [];
+      while (stmt.step()) {
+        results.push(stmt.get()[0]);
+      }
+      stmt.free();
+      return results;
     } catch (e) {
-      console.error("SQL error:", e, sql);
+      console.error("SQL error:", e, sql, params);
       return [];
     }
   }
 
-  function runQueryFull(sql) {
+  function runQueryFull(sql, params = []) {
     try {
-      const result = db.exec(sql);
-      if (!result.length) return [];
-      return result[0].values;
+      const stmt = db.prepare(sql);
+      if (params.length) stmt.bind(params);
+      const results = [];
+      while (stmt.step()) {
+        results.push(stmt.get());
+      }
+      stmt.free();
+      return results;
     } catch (e) {
-      console.error("SQL error:", e, sql);
+      console.error("SQL error:", e, sql, params);
       return [];
     }
   }
 
   function generateTeammateQuestion() {
+    const filter = topPlayersFilter();
     const starPlayers = runQueryFull(`
       SELECT name, team, position FROM players
-      WHERE year = ${DATA_YEAR} AND ${topPlayersFilter()} AND (
+      WHERE year = ? AND ${filter.sql} AND (
         (position = 'QB' AND pass_yd > 1000) OR
         (position = 'RB' AND rush_yd > 300) OR
         (position = 'WR' AND rec_yd > 400)
       )
       ORDER BY RANDOM() LIMIT 20
-    `);
+    `, [DATA_YEAR, ...filter.params]);
 
     if (!starPlayers.length) return null;
 
@@ -526,10 +542,10 @@
     const targetPositions = ['WR', 'RB', 'TE', 'QB'].filter(p => p !== playerPos);
     const targetPos = pickRandom(targetPositions);
 
-    const teammates = runQuery(`
-      SELECT name FROM players
-      WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${targetPos}' AND ${topPlayersFilter()}
-    `);
+    const filter2 = topPlayersFilter();
+    const teammatesSql = `SELECT name FROM players WHERE year = ? AND team = ? AND position = ? AND ${filter2.sql}`;
+    const teammatesParams = [DATA_YEAR, team, targetPos, ...filter2.params];
+    const teammates = runQuery(teammatesSql, teammatesParams);
 
     if (!teammates.length) return generateTeammateQuestion();
 
@@ -539,7 +555,8 @@
       type: "Teammate",
       text: `Who are ${playerName}'s ${posPlural}?`,
       hint: "",
-      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${targetPos}' AND ${topPlayersFilter()}`,
+      validationSql: teammatesSql,
+      validationParams: teammatesParams,
       validCount: teammates.length
     };
   }
@@ -547,6 +564,7 @@
   function generateTeamLeaderQuestion() {
     const team = pickRandom(TEAM_NAMES);
 
+    // Note: stat columns are hardcoded constants, not user input, so safe to interpolate
     const statOptions = [
       { stat: "pass_yd", label: "passing yards", filter: "position = 'QB'" },
       { stat: "rush_yd", label: "rushing yards", filter: "1=1" },
@@ -556,22 +574,28 @@
     ];
 
     const statChoice = pickRandom(statOptions);
+    const filter = topPlayersFilter();
 
     const leaders = runQueryFull(`
       SELECT name, ${statChoice.stat} as val FROM players
-      WHERE year = ${DATA_YEAR} AND team = '${team}' AND ${statChoice.filter} AND ${statChoice.stat} > 0 AND ${topPlayersFilter()}
+      WHERE year = ? AND team = ? AND ${statChoice.filter} AND ${statChoice.stat} > 0 AND ${filter.sql}
       ORDER BY ${statChoice.stat} DESC LIMIT 1
-    `);
+    `, [DATA_YEAR, team, ...filter.params]);
 
     if (!leaders.length) return generateTeamLeaderQuestion();
 
     const [leaderName, leaderVal] = leaders[0];
 
+    const filter2 = topPlayersFilter();
+    const validationSql = `SELECT name FROM players WHERE year = ? AND team = ? AND ${statChoice.filter} AND ${statChoice.stat} = ? AND ${filter2.sql}`;
+    const validationParams = [DATA_YEAR, team, leaderVal, ...filter2.params];
+
     return {
       type: "Team Leader",
       text: `Who leads the ${team} in ${statChoice.label}?`,
       hint: "",
-      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND ${statChoice.filter} AND ${statChoice.stat} = ${leaderVal} AND ${topPlayersFilter()}`,
+      validationSql,
+      validationParams,
       validCount: 1
     };
   }
@@ -581,52 +605,62 @@
     const constraints = [
       {
         text: "Name a player with fewer than 10 games played who has scored 3 or more touchdowns",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND gp < 10 AND gp > 0 AND (rush_td + rec_td) >= 3 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND gp < 10 AND gp > 0 AND (rush_td + rec_td) >= 3 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a QB with more passing touchdowns than interceptions (min 10 TDs)",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'QB' AND pass_td >= 10 AND pass_td > pass_int AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'QB' AND pass_td >= 10 AND pass_td > pass_int AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a running back with both 200+ rushing yards and 200+ receiving yards",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'RB' AND rush_yd >= 200 AND rec_yd >= 200 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'RB' AND rush_yd >= 200 AND rec_yd >= 200 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a wide receiver with 5 or more touchdowns",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'WR' AND rec_td >= 5 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'WR' AND rec_td >= 5 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a tight end with 400+ receiving yards",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'TE' AND rec_yd >= 400 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'TE' AND rec_yd >= 400 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a QB who has thrown for 2000+ yards",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'QB' AND pass_yd >= 2000 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'QB' AND pass_yd >= 2000 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a defender with 50+ tackles",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND idp_tkl >= 50 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND idp_tkl >= 50 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a player with 3+ sacks",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND idp_sack >= 3 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND idp_sack >= 3 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
       {
         text: "Name a wide receiver with 50+ receptions",
-        sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND position = 'WR' AND rec >= 50 AND ${filter}`
+        sql: `SELECT name FROM players WHERE year = ? AND position = 'WR' AND rec >= 50 AND ${filter.sql}`,
+        params: [DATA_YEAR, ...filter.params]
       },
     ];
 
     const shuffled = [...constraints].sort(() => Math.random() - 0.5);
 
     for (const c of shuffled) {
-      const answers = runQuery(c.sql);
+      const answers = runQuery(c.sql, c.params);
       if (answers.length > 0) {
         return {
           type: "Constraint",
           text: c.text,
           hint: "",
-          sql: c.sql,
+          validationSql: c.sql,
+          validationParams: c.params,
           validCount: answers.length
         };
       }
@@ -640,9 +674,11 @@
     const positions = ['QB', 'RB', 'WR', 'TE', 'LB', 'CB', 'S', 'DE', 'DT'];
     const pos = pickRandom(positions);
 
-    const players = runQuery(`
-      SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${pos}' AND ${topPlayersFilter()}
-    `);
+    const filter = topPlayersFilter();
+    const sql = `SELECT name FROM players WHERE year = ? AND team = ? AND position = ? AND ${filter.sql}`;
+    const params = [DATA_YEAR, team, pos, ...filter.params];
+
+    const players = runQuery(sql, params);
 
     if (!players.length) return generatePositionOnTeamQuestion();
 
@@ -652,12 +688,14 @@
       type: "Team Roster",
       text: `Name 1 ${team} ${posName}`,
       hint: "",
-      sql: `SELECT name FROM players WHERE year = ${DATA_YEAR} AND team = '${team}' AND position = '${pos}' AND ${topPlayersFilter()}`,
+      validationSql: sql,
+      validationParams: params,
       validCount: players.length
     };
   }
 
   function generateComparisonQuestion() {
+    // Note: stat columns and filters are hardcoded constants, not user input
     const comparisons = [
       { stat: "rush_yd", label: "rushing yards", filter: "rush_yd > 200" },
       { stat: "rec_yd", label: "receiving yards", filter: "rec_yd > 300" },
@@ -666,12 +704,13 @@
     ];
 
     const comp = pickRandom(comparisons);
+    const filter = topPlayersFilter();
 
     const players = runQueryFull(`
       SELECT name, ${comp.stat} as val FROM players
-      WHERE year = ${DATA_YEAR} AND ${comp.filter} AND ${topPlayersFilter()}
+      WHERE year = ? AND ${comp.filter} AND ${filter.sql}
       ORDER BY RANDOM() LIMIT 10
-    `);
+    `, [DATA_YEAR, ...filter.params]);
 
     if (players.length < 2) return generateComparisonQuestion();
 
@@ -761,7 +800,7 @@
     if (currentQuestion.directAnswers) {
       validAnswers = currentQuestion.directAnswers;
     } else {
-      validAnswers = runQuery(currentQuestion.sql);
+      validAnswers = runQuery(currentQuestion.validationSql, currentQuestion.validationParams);
     }
 
     questionType.textContent = currentQuestion.type;
@@ -850,8 +889,12 @@
       const buffer = await response.arrayBuffer();
       db = new SQL.Database(new Uint8Array(buffer));
 
-      const countResult = db.exec("SELECT COUNT(*) FROM players WHERE year = ${DATA_YEAR}");
-      const playerCount = countResult[0]?.values[0]?.[0] || 0;
+      const countStmt = db.prepare("SELECT COUNT(*) FROM players WHERE year = ?");
+      countStmt.bind([DATA_YEAR]);
+      countStmt.step();
+      const countResult = countStmt.get();
+      countStmt.free();
+      const playerCount = countResult?.[0] || 0;
 
       if (playerCount === 0) {
         throw new Error("No 2025 player data found");

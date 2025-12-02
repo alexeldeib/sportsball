@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL Position Leaders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-row-top: rgba(234, 179, 8, 0.1);
+      --bg-row-hover: rgba(255, 255, 255, 0.03);
+      --border-gold: #eab308;
+      --border-silver: #94a3b8;
+      --border-bronze: #d97706;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-primary: #3b82f6;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .controls select {
+      background: var(--bg-card);
+      border: 1px solid #374151;
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.6rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      min-width: 140px;
+    }
+
+    .controls select:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+    }
+
+    .status {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .status.loading { color: #fbbf24; }
+    .status.ready { color: #22c55e; }
+    .status.error { color: #dc2626; }
+
+    .leaders-table {
+      background: var(--bg-card);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 50px 1fr 100px 100px;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .table-header .stat-col {
+      text-align: right;
+    }
+
+    .table-header .stat-col.sortable {
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.15s ease;
+    }
+
+    .table-header .stat-col.sortable:hover {
+      color: var(--accent-primary);
+    }
+
+    .sort-indicator {
+      display: inline-block;
+      margin-left: 0.25rem;
+      opacity: 0.7;
+    }
+
+    .player-row {
+      display: grid;
+      grid-template-columns: 50px 1fr 100px 100px;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.6rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.15s ease;
+    }
+
+    .player-row:last-child {
+      border-bottom: none;
+    }
+
+    .player-row:hover {
+      background: var(--bg-row-hover);
+    }
+
+    .player-row.rank-1 {
+      background: var(--bg-row-top);
+    }
+
+    .rank {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    .player-row.rank-1 .rank { color: var(--border-gold); }
+    .player-row.rank-2 .rank { color: var(--border-silver); }
+    .player-row.rank-3 .rank { color: var(--border-bronze); }
+
+    .player-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .player-name {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .player-team {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .stat-value {
+      text-align: right;
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .player-row.rank-1 .stat-value {
+      color: var(--border-gold);
+    }
+
+    .secondary-stat {
+      text-align: right;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .no-data-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      opacity: 0.5;
+    }
+
+    .footer {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 500px) {
+      .table-header,
+      .player-row {
+        grid-template-columns: 40px 1fr 80px;
+      }
+      .table-header .secondary-col,
+      .player-row .secondary-stat {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Position Leaders</h1>
+    <p class="subtitle">Compare players by position and stats</p>
+  </header>
+
+  <div class="controls">
+    <select id="year-select">
+      <option value="">Loading...</option>
+    </select>
+    <select id="position-select">
+      <option value="">Select position...</option>
+    </select>
+    <select id="stat-select">
+      <option value="">Select stat...</option>
+    </select>
+  </div>
+
+  <div class="status loading" id="status">Loading database...</div>
+
+  <div id="leaders-content">
+    <div class="no-data">
+      <div class="no-data-icon">🏈</div>
+      <div>Select a position and stat to view leaders</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="index.html">Home</a> · <a href="practice.html">Practice</a> · <a href="easy.html">Multiple Choice</a> · <a href="game.html">Daily</a> · <a href="trivia.html">Trivia</a> · <a href="stats-quiz.html">Stats Quiz</a> · <a href="team-study.html">Depth Charts</a> · <a href="explorer.html">SQL Explorer</a>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY_YEAR = "nflPositionLeaders_year_v1";
+  const STORAGE_KEY_POS = "nflPositionLeaders_pos_v1";
+  const STORAGE_KEY_STAT = "nflPositionLeaders_stat_v1";
+
+  let db = null;
+  let selectedYear = 2025;
+  let sortAscending = false;
+
+  const POSITIONS = {
+    "QB": { label: "Quarterbacks", stats: [
+      { value: "pass_yd", label: "Passing Yards", secondary: "pass_td", secondaryLabel: "TD" },
+      { value: "pass_td", label: "Passing TDs", secondary: "pass_yd", secondaryLabel: "Yds" },
+      { value: "rush_yd", label: "Rushing Yards", secondary: "rush_td", secondaryLabel: "TD" },
+      { value: "pass_int", label: "Interceptions", secondary: "pass_yd", secondaryLabel: "Yds", ascending: true },
+    ]},
+    "RB": { label: "Running Backs", stats: [
+      { value: "rush_yd", label: "Rushing Yards", secondary: "rush_td", secondaryLabel: "TD" },
+      { value: "rush_td", label: "Rushing TDs", secondary: "rush_yd", secondaryLabel: "Yds" },
+      { value: "rec", label: "Receptions", secondary: "rec_yd", secondaryLabel: "Yds" },
+      { value: "rec_yd", label: "Receiving Yards", secondary: "rec", secondaryLabel: "Rec" },
+      { value: "rush_yd + rec_yd", label: "Total Yards", secondary: "rush_td + rec_td", secondaryLabel: "TD" },
+    ]},
+    "WR": { label: "Wide Receivers", stats: [
+      { value: "rec_yd", label: "Receiving Yards", secondary: "rec_td", secondaryLabel: "TD" },
+      { value: "rec", label: "Receptions", secondary: "rec_yd", secondaryLabel: "Yds" },
+      { value: "rec_td", label: "Receiving TDs", secondary: "rec_yd", secondaryLabel: "Yds" },
+    ]},
+    "TE": { label: "Tight Ends", stats: [
+      { value: "rec_yd", label: "Receiving Yards", secondary: "rec_td", secondaryLabel: "TD" },
+      { value: "rec", label: "Receptions", secondary: "rec_yd", secondaryLabel: "Yds" },
+      { value: "rec_td", label: "Receiving TDs", secondary: "rec_yd", secondaryLabel: "Yds" },
+    ]},
+    "LB": { label: "Linebackers", stats: [
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_sack", secondaryLabel: "Sacks" },
+      { value: "idp_sack", label: "Sacks", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+      { value: "idp_int", label: "Interceptions", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+    ]},
+    "CB": { label: "Cornerbacks", stats: [
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_int", secondaryLabel: "INT" },
+      { value: "idp_int", label: "Interceptions", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+    ]},
+    "S": { label: "Safeties", stats: [
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_int", secondaryLabel: "INT" },
+      { value: "idp_int", label: "Interceptions", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+      { value: "idp_sack", label: "Sacks", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+    ]},
+    "DE": { label: "Defensive Ends", stats: [
+      { value: "idp_sack", label: "Sacks", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_sack", secondaryLabel: "Sacks" },
+    ]},
+    "DT": { label: "Defensive Tackles", stats: [
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_sack", secondaryLabel: "Sacks" },
+      { value: "idp_sack", label: "Sacks", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+    ]},
+    "EDGE": { label: "Edge Rushers", stats: [
+      { value: "idp_sack", label: "Sacks", secondary: "idp_tkl", secondaryLabel: "Tkl" },
+      { value: "idp_tkl", label: "Tackles", secondary: "idp_sack", secondaryLabel: "Sacks" },
+    ]},
+  };
+
+  const statusEl = document.getElementById("status");
+  const yearSelect = document.getElementById("year-select");
+  const positionSelect = document.getElementById("position-select");
+  const statSelect = document.getElementById("stat-select");
+  const leadersContent = document.getElementById("leaders-content");
+
+  function runQueryParams(sql, params = []) {
+    try {
+      const stmt = db.prepare(sql);
+      if (params.length) stmt.bind(params);
+      const results = [];
+      while (stmt.step()) {
+        const row = stmt.get();
+        results.push(row);
+      }
+      stmt.free();
+      return results;
+    } catch (e) {
+      console.error("SQL error:", e, sql, params);
+      return [];
+    }
+  }
+
+  function runQueryFullParams(sql, params = []) {
+    try {
+      const stmt = db.prepare(sql);
+      if (params.length) stmt.bind(params);
+      const results = [];
+      const cols = stmt.getColumnNames();
+      while (stmt.step()) {
+        const row = stmt.get();
+        const obj = {};
+        cols.forEach((c, i) => obj[c] = row[i]);
+        results.push(obj);
+      }
+      stmt.free();
+      return results;
+    } catch (e) {
+      console.error("SQL error:", e, sql, params);
+      return [];
+    }
+  }
+
+  function populatePositions() {
+    positionSelect.innerHTML = '<option value="">Select position...</option>';
+    for (const [pos, config] of Object.entries(POSITIONS)) {
+      const opt = document.createElement("option");
+      opt.value = pos;
+      opt.textContent = config.label;
+      positionSelect.appendChild(opt);
+    }
+
+    try {
+      const savedPos = localStorage.getItem(STORAGE_KEY_POS);
+      if (savedPos && POSITIONS[savedPos]) {
+        positionSelect.value = savedPos;
+        populateStats(savedPos);
+      }
+    } catch(e) {}
+  }
+
+  function populateStats(position) {
+    statSelect.innerHTML = '<option value="">Select stat...</option>';
+    if (!position || !POSITIONS[position]) return;
+
+    const stats = POSITIONS[position].stats;
+    stats.forEach((s, i) => {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.textContent = s.label;
+      statSelect.appendChild(opt);
+    });
+
+    try {
+      const savedStat = localStorage.getItem(STORAGE_KEY_STAT);
+      if (savedStat !== null && stats[parseInt(savedStat)]) {
+        statSelect.value = savedStat;
+        renderLeaders();
+      }
+    } catch(e) {}
+  }
+
+  function renderLeaders() {
+    const position = positionSelect.value;
+    const statIndex = statSelect.value;
+
+    if (!position || statIndex === "") {
+      leadersContent.innerHTML = `
+        <div class="no-data">
+          <div class="no-data-icon">🏈</div>
+          <div>Select a position and stat to view leaders</div>
+        </div>
+      `;
+      return;
+    }
+
+    const statConfig = POSITIONS[position].stats[parseInt(statIndex)];
+    if (!statConfig) return;
+
+    const sortOrder = sortAscending ? "ASC" : "DESC";
+    const sortIndicator = sortAscending ? "&#9650;" : "&#9660;";
+
+    // Note: stat columns are hardcoded constants, safe to interpolate
+    const players = runQueryFullParams(`
+      SELECT name, team, ${statConfig.value} as main_stat, ${statConfig.secondary} as secondary_stat
+      FROM players
+      WHERE year = ? AND position = ? AND ${statConfig.value} > 0
+      ORDER BY ${statConfig.value} ${sortOrder}
+      LIMIT 50
+    `, [selectedYear, position]);
+
+    if (players.length === 0) {
+      leadersContent.innerHTML = `
+        <div class="no-data">
+          <div class="no-data-icon">🚫</div>
+          <div>No players found with this stat</div>
+        </div>
+      `;
+      return;
+    }
+
+    const rows = players.map((p, i) => {
+      const rank = i + 1;
+      const rankClass = rank <= 3 ? `rank-${rank}` : '';
+      return `
+        <div class="player-row ${rankClass}">
+          <div class="rank">${rank}</div>
+          <div class="player-info">
+            <span class="player-name">${p.name}</span>
+            <span class="player-team">${p.team}</span>
+          </div>
+          <div class="stat-value">${p.main_stat.toLocaleString()}</div>
+          <div class="secondary-stat">${p.secondary_stat || 0} ${statConfig.secondaryLabel}</div>
+        </div>
+      `;
+    }).join("");
+
+    leadersContent.innerHTML = `
+      <div class="leaders-table">
+        <div class="table-header">
+          <div>Rank</div>
+          <div>Player</div>
+          <div class="stat-col sortable" id="sort-toggle">${statConfig.label}<span class="sort-indicator">${sortIndicator}</span></div>
+          <div class="stat-col secondary-col">${statConfig.secondaryLabel}</div>
+        </div>
+        ${rows}
+      </div>
+    `;
+
+    document.getElementById("sort-toggle").addEventListener("click", toggleSort);
+  }
+
+  function toggleSort() {
+    sortAscending = !sortAscending;
+    renderLeaders();
+  }
+
+  function loadYears() {
+    const years = runQueryFullParams(`SELECT DISTINCT year FROM players ORDER BY year DESC`);
+
+    yearSelect.innerHTML = '';
+    years.forEach(y => {
+      const opt = document.createElement("option");
+      opt.value = y.year;
+      opt.textContent = y.year;
+      yearSelect.appendChild(opt);
+    });
+
+    try {
+      const savedYear = localStorage.getItem(STORAGE_KEY_YEAR);
+      if (savedYear && years.some(y => String(y.year) === savedYear)) {
+        selectedYear = parseInt(savedYear);
+        yearSelect.value = savedYear;
+      } else if (years.length > 0) {
+        selectedYear = years[0].year;
+        yearSelect.value = selectedYear;
+      }
+    } catch(e) {
+      if (years.length > 0) {
+        selectedYear = years[0].year;
+        yearSelect.value = selectedYear;
+      }
+    }
+  }
+
+  async function initDB() {
+    try {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      statusEl.textContent = "Downloading database...";
+      const response = await fetch("nfl.db");
+      if (!response.ok) throw new Error("Could not load nfl.db");
+
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      loadYears();
+      populatePositions();
+
+      const countStmt = db.prepare("SELECT COUNT(*) FROM players WHERE year = ?");
+      countStmt.bind([selectedYear]);
+      countStmt.step();
+      const playerCount = countStmt.get()[0] || 0;
+      countStmt.free();
+
+      statusEl.textContent = `${playerCount} players (${selectedYear})`;
+      statusEl.className = "status ready";
+
+      // Trigger render if we have saved selections
+      if (positionSelect.value && statSelect.value !== "") {
+        renderLeaders();
+      }
+    } catch (err) {
+      statusEl.textContent = "Error: " + err.message;
+      statusEl.className = "status error";
+      console.error(err);
+    }
+  }
+
+  yearSelect.addEventListener("change", (e) => {
+    selectedYear = parseInt(e.target.value);
+    try { localStorage.setItem(STORAGE_KEY_YEAR, String(selectedYear)); } catch(e) {}
+
+    const countStmt = db.prepare("SELECT COUNT(*) FROM players WHERE year = ?");
+    countStmt.bind([selectedYear]);
+    countStmt.step();
+    const playerCount = countStmt.get()[0] || 0;
+    countStmt.free();
+    statusEl.textContent = `${playerCount} players (${selectedYear})`;
+
+    renderLeaders();
+  });
+
+  positionSelect.addEventListener("change", (e) => {
+    const pos = e.target.value;
+    try { localStorage.setItem(STORAGE_KEY_POS, pos); } catch(e) {}
+    populateStats(pos);
+
+    // Clear stat selection and reset sort order
+    try { localStorage.removeItem(STORAGE_KEY_STAT); } catch(e) {}
+    sortAscending = false;
+    renderLeaders();
+  });
+
+  statSelect.addEventListener("change", (e) => {
+    try { localStorage.setItem(STORAGE_KEY_STAT, e.target.value); } catch(e) {}
+    sortAscending = false; // Reset to descending (highest first) on stat change
+    renderLeaders();
+  });
+
+  initDB();
+</script>
+</body>
+</html>
