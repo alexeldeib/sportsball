@@ -575,7 +575,7 @@
       const posGuess = canonicalizePosition(inputPos.value);
       const teamTrue = normalizeString(q.player.team);
       const posTrue = canonicalizePosition(q.player.position);
-      isCorrect = teamGuess && posGuess && (teamGuess === teamTrue) && (posGuess === posTrue);
+      isCorrect = teamGuess && posGuess && fuzzyMatch(teamGuess, teamTrue) && (posGuess === posTrue);
     } else {
       // Team & Position → Name: accept any player matching that team+position
       const nameGuess = normalizeString(inputName.value);

@@ -541,7 +541,7 @@
     if (currentQuestionMode === "name_to_teampos") {
       const teamGuess = normalizeString(inputTeam.value);
       const posGuess = canonicalizePosition(inputPos.value);
-      const teamCorrect = teamGuess && teamGuess === normalizeString(currentCard.team);
+      const teamCorrect = teamGuess && fuzzyMatch(teamGuess, normalizeString(currentCard.team));
       const posCorrect = posGuess && posGuess === canonicalizePosition(currentCard.position);
 
       if (teamCorrect && posCorrect) result = "correct";
