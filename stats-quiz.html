@@ -304,6 +304,31 @@
     return String(str || "").trim().toLowerCase().replace(/[^a-z]/g, "");
   }
 
+  function levenshtein(a, b) {
+    const m = a.length, n = b.length;
+    const dp = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    for (let i = 0; i <= m; i++) dp[i][0] = i;
+    for (let j = 0; j <= n; j++) dp[0][j] = j;
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (a[i-1] === b[j-1]) dp[i][j] = dp[i-1][j-1];
+        else dp[i][j] = 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+      }
+    }
+    return dp[m][n];
+  }
+
+  function fuzzyMatch(guess, correct) {
+    if (!guess || !correct) return false;
+    if (guess === correct) return true;
+    if (correct.endsWith(guess) && guess.length >= 5) return true;
+    const len = correct.length;
+    if (len <= 3) return false;
+    const dist = levenshtein(guess, correct);
+    const maxDist = len <= 6 ? 1 : 2;
+    return dist <= maxDist;
+  }
+
   function loadStats() {
     try {
       const s = localStorage.getItem(STORAGE_KEY);
@@ -392,7 +417,7 @@
 
       // Check if guess matches any of the correct answers (flexible positioning)
       const matchedPlayer = currentAnswers.find(p =>
-        normalizeString(p.name) === guess && !guessedNames.has(normalizeString(p.name))
+        fuzzyMatch(guess, normalizeString(p.name)) && !guessedNames.has(normalizeString(p.name))
       );
 
       if (matchedPlayer) {
