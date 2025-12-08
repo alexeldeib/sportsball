@@ -918,6 +918,16 @@
       stat: 'all'
     };
 
+    // Debounce timer for input changes
+    let renderDebounceTimer = null;
+    function debouncedRenderLegs(delay = 300) {
+      if (renderDebounceTimer) clearTimeout(renderDebounceTimer);
+      renderDebounceTimer = setTimeout(() => {
+        renderDebounceTimer = null;
+        renderLegs();
+      }, delay);
+    }
+
     async function initDB() {
       const SQL = await initSqlJs({
         locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
@@ -1567,9 +1577,25 @@
       return Math.round(n * 2) / 2;
     }
 
-    function renderLegs() {
+    function renderLegs(preserveFocus = true) {
       const container = document.getElementById('legs-container');
       document.getElementById('legs-section').style.display = 'block';
+
+      // Save focus state before re-render
+      let focusInfo = null;
+      if (preserveFocus && document.activeElement && container.contains(document.activeElement)) {
+        const el = document.activeElement;
+        focusInfo = {
+          className: el.className,
+          propId: el.dataset?.propId,
+          superlativeId: el.dataset?.superlativeId,
+          player: el.dataset?.player,
+          isSpread: el.classList.contains('spread-line-input') || el.classList.contains('spread-home-odds-input') || el.classList.contains('spread-away-odds-input'),
+          isTotal: el.classList.contains('total-line-input') || el.classList.contains('total-over-odds-input') || el.classList.contains('total-under-odds-input'),
+          selectionStart: el.selectionStart,
+          selectionEnd: el.selectionEnd
+        };
+      }
 
       // Check if anything passes filters
       const showGame = filters.type === 'all' || filters.type === 'game';
@@ -1977,7 +2003,7 @@
           const value = e.target.value.trim();
           if (!propInputs[propId]) propInputs[propId] = {};
           propInputs[propId].line = value ? parseFloat(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -1987,7 +2013,7 @@
           const value = e.target.value.trim();
           if (!propInputs[propId]) propInputs[propId] = {};
           propInputs[propId].overOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -1997,7 +2023,7 @@
           const value = e.target.value.trim();
           if (!propInputs[propId]) propInputs[propId] = {};
           propInputs[propId].underOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2022,7 +2048,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.spread) gameInputs.spread = {};
           gameInputs.spread.line = value !== '' ? parseFloat(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2031,7 +2057,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.spread) gameInputs.spread = {};
           gameInputs.spread.homeOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2040,7 +2066,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.spread) gameInputs.spread = {};
           gameInputs.spread.awayOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2050,7 +2076,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.total) gameInputs.total = {};
           gameInputs.total.line = value !== '' ? parseFloat(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2059,7 +2085,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.total) gameInputs.total = {};
           gameInputs.total.overOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2068,7 +2094,7 @@
           const value = e.target.value.trim();
           if (!gameInputs.total) gameInputs.total = {};
           gameInputs.total.underOdds = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2080,7 +2106,7 @@
           const value = e.target.value.trim();
           if (!superlativeInputs[supId]) superlativeInputs[supId] = {};
           superlativeInputs[supId][player] = value ? parseInt(value) : null;
-          renderLegs();
+          debouncedRenderLegs(150);
         });
       });
 
@@ -2092,6 +2118,29 @@
           toggleSuperlativeLeg(supId, playerName);
         });
       });
+
+      // Restore focus after re-render
+      if (focusInfo) {
+        let targetEl = null;
+        if (focusInfo.propId) {
+          // Find input with matching propId and class
+          targetEl = container.querySelector(`input[data-prop-id="${focusInfo.propId}"].${focusInfo.className.split(' ').find(c => c.includes('input'))}`);
+        } else if (focusInfo.superlativeId && focusInfo.player) {
+          targetEl = container.querySelector(`input[data-superlative-id="${focusInfo.superlativeId}"][data-player="${focusInfo.player}"]`);
+        } else if (focusInfo.isSpread) {
+          const cls = focusInfo.className.split(' ').find(c => c.startsWith('spread-'));
+          if (cls) targetEl = container.querySelector(`.${cls}`);
+        } else if (focusInfo.isTotal) {
+          const cls = focusInfo.className.split(' ').find(c => c.startsWith('total-'));
+          if (cls) targetEl = container.querySelector(`.${cls}`);
+        }
+        if (targetEl) {
+          targetEl.focus();
+          if (focusInfo.selectionStart !== undefined) {
+            targetEl.setSelectionRange(focusInfo.selectionStart, focusInfo.selectionEnd);
+          }
+        }
+      }
     }
 
     function togglePropLeg(propId, side) {
