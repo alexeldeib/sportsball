@@ -7,11 +7,13 @@
 # ///
 """
 Fetch NFL game scores and schedules from ESPN API.
-Usage: ./fetch_games.py [year]
+Usage: ./fetch_games.py [year]       # Fetch single year
+       ./fetch_games.py --all        # Fetch 2020-2025 (all historical)
   year defaults to 2024
 """
 import json
 import sys
+import time
 import requests
 
 ESPN_SCOREBOARD_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard"
@@ -36,8 +38,10 @@ ESPN_TEAM_MAP = {
     "JAX": "JAX",
     "KC": "KC",
     "LV": "LV",
+    "OAK": "LV",   # Oakland Raiders -> Las Vegas (historical)
     "LAC": "LAC",
     "LAR": "LAR",
+    "LA": "LAR",   # Sometimes ESPN uses just "LA" for Rams
     "MIA": "MIA",
     "MIN": "MIN",
     "NE": "NE",
@@ -51,6 +55,7 @@ ESPN_TEAM_MAP = {
     "TB": "TB",
     "TEN": "TEN",
     "WSH": "WAS",  # ESPN uses WSH, we use WAS
+    "WAS": "WAS",  # Sometimes ESPN uses WAS directly
 }
 
 
@@ -199,18 +204,21 @@ def fetch_week(year, week):
     return games
 
 
-def main():
-    year = sys.argv[1] if len(sys.argv) > 1 else "2024"
-
+def fetch_season(year, rate_limit=0.5):
+    """Fetch all games for a single season."""
     print(f"Fetching {year} NFL game data from ESPN...")
 
     all_games = []
 
-    # Regular season: weeks 1-18
-    for week in range(1, 19):
+    # 2020 had 17 weeks, 2021+ has 18 weeks
+    max_week = 17 if int(year) == 2020 else 18
+
+    for week in range(1, max_week + 1):
         games = fetch_week(year, week)
         all_games.extend(games)
         print(f"    Week {week}: {len(games)} games")
+        if rate_limit > 0:
+            time.sleep(rate_limit)
 
     # Sort by week, then date
     all_games.sort(key=lambda g: (g["week"], g["game_date"]))
@@ -221,9 +229,29 @@ def main():
 
     # Summary stats
     completed = sum(1 for g in all_games if g.get("is_completed"))
-    print(f"\nSaved {len(all_games)} games to {output_file}")
-    print(f"  - {completed} completed games with scores")
-    print(f"  - {len(all_games) - completed} upcoming/in-progress games")
+    print(f"  Saved {len(all_games)} games to {output_file}")
+    print(f"    - {completed} completed games with scores")
+
+    return len(all_games)
+
+
+def main():
+    args = sys.argv[1:]
+
+    if "--all" in args:
+        # Fetch all historical seasons 2020-2025
+        print("Fetching all seasons (2020-2025)...")
+        total = 0
+        for year in range(2020, 2026):
+            print(f"\n{'='*40}")
+            count = fetch_season(str(year), rate_limit=0.3)
+            total += count
+        print(f"\n{'='*40}")
+        print(f"Total: {total} games across 6 seasons")
+    else:
+        # Single year mode
+        year = args[0] if args else "2024"
+        fetch_season(year, rate_limit=0)
 
 
 if __name__ == "__main__":
