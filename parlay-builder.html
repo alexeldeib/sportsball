@@ -436,6 +436,160 @@
       font-size: 0.85rem;
       color: var(--warning);
     }
+
+    /* Matchup indicators */
+    .matchup-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+    }
+    .matchup-badge.smash {
+      background: rgba(34, 197, 94, 0.2);
+      color: var(--positive);
+    }
+    .matchup-badge.tough {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--negative);
+    }
+    .matchup-badge.neutral {
+      background: rgba(148, 163, 184, 0.15);
+      color: var(--text-muted);
+    }
+
+    /* Trend indicators */
+    .trend-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      margin-left: 0.25rem;
+    }
+    .trend-badge.hot {
+      background: rgba(239, 68, 68, 0.15);
+      color: #f97316;
+    }
+    .trend-badge.cold {
+      background: rgba(59, 130, 246, 0.15);
+      color: #3b82f6;
+    }
+
+    /* Confidence indicator */
+    .confidence-badge {
+      display: inline-block;
+      font-size: 0.6rem;
+      font-weight: 700;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      margin-left: 0.25rem;
+      background: rgba(168, 85, 247, 0.2);
+      color: var(--purple);
+    }
+
+    /* Correlation details */
+    .correlation-details {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+    }
+    .correlation-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .correlation-row:last-child { border-bottom: none; }
+    .correlation-boost {
+      color: var(--positive);
+      font-weight: 600;
+    }
+    .correlation-conflict {
+      color: var(--negative);
+      font-weight: 600;
+    }
+
+    /* H2H context */
+    .h2h-context {
+      background: rgba(59, 130, 246, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0.6rem 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.8rem;
+    }
+    .h2h-context-title {
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .h2h-context-stat {
+      color: var(--text-secondary);
+    }
+    .h2h-context-stat span {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Leg detail enhancement */
+    .leg-detail {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Market odds input in slip */
+    .slip-leg-market {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+    }
+    .slip-leg-market label {
+      color: var(--text-muted);
+    }
+    .slip-leg-market input {
+      width: 60px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-primary);
+      padding: 0.2rem 0.35rem;
+      font-family: inherit;
+      font-size: 0.75rem;
+      text-align: center;
+    }
+    .slip-leg-market input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .edge-indicator {
+      font-weight: 600;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+    }
+    .edge-indicator.positive {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--positive);
+    }
+    .edge-indicator.negative {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--negative);
+    }
   </style>
 </head>
 <body>
@@ -515,6 +669,9 @@
     let currentMatchup = null;
     let selectedLegs = [];
     let availableLegs = [];
+    let defenseRankings = {};  // position -> stat -> { team: rank }
+    let h2hData = null;
+    let marketOdds = {};  // legId -> market odds entered by user
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -528,7 +685,158 @@
       // Load advanced stats for odds engine
       await OddsEngine.loadAdvancedStats(2025);
 
+      // Calculate defense rankings
+      calculateDefenseRankings();
+
       loadMatchups();
+    }
+
+    function calculateDefenseRankings() {
+      // Calculate how much each defense allows by position/stat
+      // Lower rank = tougher defense, Higher rank = easier matchup
+      const stats = ['pass_yd', 'rush_yd', 'rec_yd', 'rec'];
+      const positions = ['QB', 'RB', 'WR', 'TE'];
+
+      positions.forEach(pos => {
+        defenseRankings[pos] = {};
+        stats.forEach(stat => {
+          defenseRankings[pos][stat] = {};
+        });
+      });
+
+      // Query average stats allowed by each defense, grouped by position
+      const result = db.exec(`
+        SELECT
+          opponent as team,
+          position,
+          AVG(pass_yd) as avg_pass_yd,
+          AVG(rush_yd) as avg_rush_yd,
+          AVG(rec_yd) as avg_rec_yd,
+          AVG(rec) as avg_rec,
+          COUNT(DISTINCT player_id) as players
+        FROM player_weekly_stats
+        WHERE season = 2025 AND position IN ('QB', 'RB', 'WR', 'TE')
+        GROUP BY opponent, position
+        HAVING players >= 3
+      `);
+
+      if (!result.length) return;
+
+      const cols = result[0].columns;
+      const byPosTeam = {};
+
+      result[0].values.forEach(vals => {
+        const row = {};
+        cols.forEach((c, i) => row[c] = vals[i]);
+        const key = `${row.position}_${row.team}`;
+        byPosTeam[key] = row;
+      });
+
+      // Rank each team for each position/stat
+      positions.forEach(pos => {
+        stats.forEach(stat => {
+          const teams = Object.values(byPosTeam)
+            .filter(r => r.position === pos && r[`avg_${stat}`] != null)
+            .sort((a, b) => (b[`avg_${stat}`] || 0) - (a[`avg_${stat}`] || 0)); // Higher allowed = easier
+
+          teams.forEach((t, idx) => {
+            defenseRankings[pos][stat][t.team] = {
+              rank: idx + 1,
+              allowed: t[`avg_${stat}`],
+              total: teams.length
+            };
+          });
+        });
+      });
+    }
+
+    function getMatchupQuality(position, stat, opponent) {
+      if (!defenseRankings[position] || !defenseRankings[position][stat]) return null;
+
+      const data = defenseRankings[position][stat][opponent];
+      if (!data) return null;
+
+      const pct = data.rank / data.total;  // Lower = easier (allows more)
+      return {
+        rank: data.rank,
+        total: data.total,
+        quality: pct <= 0.25 ? 'smash' : pct >= 0.75 ? 'tough' : 'neutral',
+        allowed: data.allowed
+      };
+    }
+
+    function getPlayerTrend(playerName) {
+      // Get last 3 games and compare to season average
+      const result = db.exec(`
+        SELECT
+          pts_ppr,
+          week,
+          (SELECT AVG(pts_ppr) FROM player_weekly_stats WHERE player_name = p.player_name AND season = 2025) as season_avg
+        FROM player_weekly_stats p
+        WHERE player_name = '${playerName.replace(/'/g, "''")}' AND season = 2025
+        ORDER BY week DESC
+        LIMIT 3
+      `);
+
+      if (!result.length || result[0].values.length < 3) return null;
+
+      const cols = result[0].columns;
+      const games = result[0].values.map(vals => {
+        const obj = {};
+        cols.forEach((c, i) => obj[c] = vals[i]);
+        return obj;
+      });
+
+      const last3Avg = games.reduce((s, g) => s + (g.pts_ppr || 0), 0) / games.length;
+      const seasonAvg = games[0].season_avg || 0;
+
+      if (seasonAvg === 0) return null;
+
+      const diff = (last3Avg - seasonAvg) / seasonAvg;
+      if (diff >= 0.15) return { trend: 'hot', pct: diff };
+      if (diff <= -0.15) return { trend: 'cold', pct: diff };
+      return null;
+    }
+
+    function loadH2HContext(home, away) {
+      // Get historical matchup data for game totals context
+      const result = db.exec(`
+        SELECT
+          home_score + away_score as total,
+          home_score,
+          away_score,
+          season,
+          week
+        FROM games
+        WHERE ((home_team = '${home}' AND away_team = '${away}')
+           OR (home_team = '${away}' AND away_team = '${home}'))
+          AND is_completed = 1
+        ORDER BY season DESC, week DESC
+        LIMIT 10
+      `);
+
+      if (!result.length || !result[0].values.length) {
+        h2hData = null;
+        return;
+      }
+
+      const cols = result[0].columns;
+      const games = result[0].values.map(vals => {
+        const obj = {};
+        cols.forEach((c, i) => obj[c] = vals[i]);
+        return obj;
+      });
+
+      const totals = games.map(g => g.total).filter(t => t > 0);
+      const avgTotal = totals.length ? totals.reduce((a, b) => a + b, 0) / totals.length : 0;
+      const overCount = totals.filter(t => t > 44).length;  // League avg ~44
+
+      h2hData = {
+        games: games.length,
+        avgTotal: avgTotal.toFixed(1),
+        overRate: totals.length ? ((overCount / totals.length) * 100).toFixed(0) : 0,
+        lastGame: games[0]
+      };
     }
 
     function loadMatchups() {
@@ -556,6 +864,9 @@
       currentMatchup = { home, away, week };
       availableLegs = [];
 
+      // Load H2H context for game totals
+      loadH2HContext(home, away);
+
       // Get team stats
       const homeStats = getTeamStats(home);
       const awayStats = getTeamStats(away);
@@ -566,7 +877,7 @@
       // Build game legs
       const gameLegs = buildGameLegs(home, away, gameOdds);
 
-      // Get player props
+      // Get player props (pass opponent for matchup adjustment)
       const playerLegs = buildPlayerLegs(home, away);
 
       availableLegs = [...gameLegs, ...playerLegs];
@@ -715,10 +1026,25 @@
         // Skip players with low volume
         if (p.games < 4) return;
 
+        // Determine opponent for this player
+        const opponent = p.team === home ? away : home;
+
+        // Get player trend
+        const trend = getPlayerTrend(p.player_name);
+
         // QB passing yards
         if (p.position === 'QB' && p.avg_pass_yd > 150) {
+          const matchup = getMatchupQuality('QB', 'pass_yd', opponent);
           const line = roundToHalf(p.avg_pass_yd);
-          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_pass_yd, p.std_pass_yd || 50, line);
+          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_pass_yd, p.std_pass_yd || 50, line);
+
+          // Adjust probability based on matchup quality
+          if (matchup) {
+            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
+            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
+            overOdds = probToOdds(overProb);
+            underOdds = probToOdds(1 - overProb);
+          }
 
           legs.push({
             id: `pass_yd_over_${p.player_name}`,
@@ -730,7 +1056,10 @@
             prob: overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'pass_yd'
+            stat: 'pass_yd',
+            position: 'QB',
+            matchup: matchup,
+            trend: trend
           });
 
           legs.push({
@@ -743,14 +1072,20 @@
             prob: 1 - overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'pass_yd'
+            stat: 'pass_yd',
+            position: 'QB',
+            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
+            trend: trend
           });
 
           // Passing TDs
           const tdRate = p.total_pass_td / p.games;
           if (tdRate > 1) {
             const tdLine = 1.5;
-            const tdProb = tdRate > tdLine ? 0.55 + (tdRate - tdLine) * 0.1 : 0.45;
+            let tdProb = tdRate > tdLine ? 0.55 + (tdRate - tdLine) * 0.1 : 0.45;
+            if (matchup && matchup.quality === 'smash') tdProb = Math.min(0.75, tdProb + 0.05);
+            if (matchup && matchup.quality === 'tough') tdProb = Math.max(0.3, tdProb - 0.05);
+
             legs.push({
               id: `pass_td_over_${p.player_name}`,
               type: 'player',
@@ -761,15 +1096,26 @@
               prob: tdProb,
               team: p.team,
               player: p.player_name,
-              stat: 'pass_td'
+              stat: 'pass_td',
+              position: 'QB',
+              matchup: matchup,
+              trend: trend
             });
           }
         }
 
         // RB rushing yards
         if ((p.position === 'RB' || p.position === 'QB') && p.avg_rush_yd > 30) {
+          const matchup = getMatchupQuality(p.position === 'RB' ? 'RB' : 'QB', 'rush_yd', opponent);
           const line = roundToHalf(p.avg_rush_yd);
-          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rush_yd, p.std_rush_yd || 20, line);
+          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rush_yd, p.std_rush_yd || 20, line);
+
+          if (matchup) {
+            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
+            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
+            overOdds = probToOdds(overProb);
+            underOdds = probToOdds(1 - overProb);
+          }
 
           legs.push({
             id: `rush_yd_over_${p.player_name}`,
@@ -781,7 +1127,10 @@
             prob: overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'rush_yd'
+            stat: 'rush_yd',
+            position: p.position,
+            matchup: matchup,
+            trend: trend
           });
 
           legs.push({
@@ -794,14 +1143,25 @@
             prob: 1 - overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'rush_yd'
+            stat: 'rush_yd',
+            position: p.position,
+            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
+            trend: trend
           });
         }
 
         // WR/TE/RB receiving yards
         if (p.avg_rec_yd > 25) {
+          const matchup = getMatchupQuality(p.position, 'rec_yd', opponent);
           const line = roundToHalf(p.avg_rec_yd);
-          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec_yd, p.std_rec_yd || 25, line);
+          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec_yd, p.std_rec_yd || 25, line);
+
+          if (matchup) {
+            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
+            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
+            overOdds = probToOdds(overProb);
+            underOdds = probToOdds(1 - overProb);
+          }
 
           legs.push({
             id: `rec_yd_over_${p.player_name}`,
@@ -813,7 +1173,10 @@
             prob: overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'rec_yd'
+            stat: 'rec_yd',
+            position: p.position,
+            matchup: matchup,
+            trend: trend
           });
 
           legs.push({
@@ -826,14 +1189,24 @@
             prob: 1 - overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'rec_yd'
+            stat: 'rec_yd',
+            position: p.position,
+            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
+            trend: trend
           });
         }
 
         // Receptions
         if (p.avg_rec > 3) {
+          const matchup = getMatchupQuality(p.position, 'rec', opponent);
           const line = roundToHalf(p.avg_rec);
-          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec, 2, line);
+          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec, 2, line);
+
+          if (matchup) {
+            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.06);
+            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.06);
+            overOdds = probToOdds(overProb);
+          }
 
           legs.push({
             id: `rec_over_${p.player_name}`,
@@ -845,14 +1218,22 @@
             prob: overProb,
             team: p.team,
             player: p.player_name,
-            stat: 'rec'
+            stat: 'rec',
+            position: p.position,
+            matchup: matchup,
+            trend: trend
           });
         }
 
         // Anytime TD scorer
         const tdRate = (p.total_rush_td + p.total_rec_td) / p.games;
         if (tdRate > 0.3 && (p.position === 'RB' || p.position === 'WR' || p.position === 'TE')) {
-          const tdProb = Math.min(0.85, tdRate * 0.7 + 0.1);
+          let tdProb = Math.min(0.85, tdRate * 0.7 + 0.1);
+          // Boost TD prob slightly for good matchups
+          const matchup = getMatchupQuality(p.position, p.position === 'RB' ? 'rush_yd' : 'rec_yd', opponent);
+          if (matchup && matchup.quality === 'smash') tdProb = Math.min(0.85, tdProb + 0.05);
+          if (matchup && matchup.quality === 'tough') tdProb = Math.max(0.2, tdProb - 0.05);
+
           legs.push({
             id: `atd_${p.player_name}`,
             type: 'player',
@@ -863,7 +1244,10 @@
             prob: tdProb,
             team: p.team,
             player: p.player_name,
-            stat: 'td'
+            stat: 'td',
+            position: p.position,
+            matchup: matchup,
+            trend: trend
           });
         }
       });
@@ -925,6 +1309,17 @@
         return;
       }
 
+      // Show H2H context if available (before game legs)
+      let html = '';
+      if (h2hData && h2hData.games > 0) {
+        html += `
+          <div class="h2h-context">
+            <div class="h2h-context-title">H2H History (${h2hData.games} games)</div>
+            <div class="h2h-context-stat">Avg Total: <span>${h2hData.avgTotal} pts</span> | Over 44 rate: <span>${h2hData.overRate}%</span></div>
+          </div>
+        `;
+      }
+
       // Group by category
       const groups = {};
       availableLegs.forEach(leg => {
@@ -932,18 +1327,35 @@
         groups[leg.category].push(leg);
       });
 
-      let html = '';
       for (const [category, legs] of Object.entries(groups)) {
         html += `<div class="leg-group">
           <div class="leg-group-title">${category}</div>`;
 
         legs.forEach(leg => {
           const isSelected = selectedLegs.some(l => l.id === leg.id);
+
+          // Build badges
+          let badges = '';
+          if (leg.matchup) {
+            const label = leg.matchup.quality === 'smash' ? 'Smash'
+                        : leg.matchup.quality === 'tough' ? 'Tough' : '';
+            if (label) {
+              badges += `<span class="matchup-badge ${leg.matchup.quality}">${label}</span>`;
+            }
+          }
+          if (leg.trend) {
+            const icon = leg.trend.trend === 'hot' ? '🔥' : '❄️';
+            badges += `<span class="trend-badge ${leg.trend.trend}">${icon} ${leg.trend.trend.toUpperCase()}</span>`;
+          }
+          if (leg.prob >= 0.62) {
+            badges += `<span class="confidence-badge">HIGH CONF</span>`;
+          }
+
           html += `
             <div class="leg-item ${isSelected ? 'selected' : ''}" data-leg-id="${leg.id}">
               <div class="leg-checkbox">${isSelected ? '✓' : ''}</div>
               <div class="leg-info">
-                <div class="leg-name">${leg.name}</div>
+                <div class="leg-name">${leg.name}${badges}</div>
                 <div class="leg-detail">${leg.detail}</div>
               </div>
               <div>
@@ -1016,10 +1428,26 @@
 
       let html = '';
       selectedLegs.forEach(leg => {
+        const mktOdds = marketOdds[leg.id];
+        const edge = mktOdds ? calculateEdge(leg.prob, mktOdds) : null;
+        const edgeHtml = edge !== null
+          ? `<span class="edge-indicator ${edge >= 0 ? 'positive' : 'negative'}">${edge >= 0 ? '+' : ''}${edge.toFixed(1)}%</span>`
+          : '';
+
         html += `
           <div class="slip-leg">
-            <span class="slip-leg-name">${leg.name}</span>
-            <span class="slip-leg-odds">${formatOdds(leg.odds)}</span>
+            <div style="flex: 1; min-width: 0;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="slip-leg-name">${leg.name}</span>
+                <span class="slip-leg-odds">${formatOdds(leg.odds)}</span>
+              </div>
+              <div class="slip-leg-market">
+                <label>Market:</label>
+                <input type="text" class="market-odds-input" data-leg-id="${leg.id}"
+                       value="${mktOdds || ''}" placeholder="+/-odds">
+                ${edgeHtml}
+              </div>
+            </div>
             <button class="slip-leg-remove" data-leg-id="${leg.id}">&times;</button>
           </div>
         `;
@@ -1032,7 +1460,22 @@
           e.stopPropagation();
           const legId = btn.dataset.legId;
           selectedLegs = selectedLegs.filter(l => l.id !== legId);
+          delete marketOdds[legId];
           renderLegs();
+          renderSlip();
+        });
+      });
+
+      // Add market odds input handlers
+      legsContainer.querySelectorAll('.market-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const legId = e.target.dataset.legId;
+          const value = e.target.value.trim();
+          if (value && !isNaN(parseInt(value))) {
+            marketOdds[legId] = parseInt(value);
+          } else {
+            delete marketOdds[legId];
+          }
           renderSlip();
         });
       });
@@ -1051,9 +1494,26 @@
 
       summary.style.display = selectedLegs.length >= 2 ? 'block' : 'none';
 
-      // Check for correlations
-      const hasCorrelation = checkCorrelations();
-      warning.style.display = hasCorrelation ? 'block' : 'none';
+      // Check for correlations and show details
+      const { hasCorrelation, correlations } = checkCorrelations();
+      if (hasCorrelation && correlations.length > 0) {
+        let corrHtml = '<div class="correlation-warning">Correlated legs detected:</div>';
+        corrHtml += '<div class="correlation-details">';
+        correlations.forEach(c => {
+          const effectClass = c.effect === 'boost' ? 'correlation-boost' : 'correlation-conflict';
+          corrHtml += `
+            <div class="correlation-row">
+              <span>${c.description}</span>
+              <span class="${effectClass}">${c.adjustment}</span>
+            </div>
+          `;
+        });
+        corrHtml += '</div>';
+        warning.innerHTML = corrHtml;
+        warning.style.display = 'block';
+      } else {
+        warning.style.display = 'none';
+      }
     }
 
     function calculateParlay() {
@@ -1086,14 +1546,8 @@
     }
 
     function checkCorrelations() {
-      // Check for correlated legs
-      const teams = new Set();
-      const players = new Set();
-
-      selectedLegs.forEach(leg => {
-        if (leg.team) teams.add(leg.team);
-        if (leg.player) players.add(leg.player);
-      });
+      // Returns object with hasCorrelation flag and detailed analysis
+      const correlations = [];
 
       // Multiple legs from same player
       const playerLegs = selectedLegs.filter(l => l.player);
@@ -1101,14 +1555,90 @@
       playerLegs.forEach(l => {
         playerCounts[l.player] = (playerCounts[l.player] || 0) + 1;
       });
-      if (Object.values(playerCounts).some(c => c > 1)) return true;
+      Object.entries(playerCounts).forEach(([player, count]) => {
+        if (count > 1) {
+          const legs = playerLegs.filter(l => l.player === player);
+          correlations.push({
+            type: 'same-player',
+            description: `${player}: ${legs.map(l => l.stat).join(' + ')}`,
+            effect: 'boost',
+            adjustment: '+5-10%'
+          });
+        }
+      });
 
-      // Game total + player yards (correlated)
-      const hasTotal = selectedLegs.some(l => l.id === 'over' || l.id === 'under');
-      const hasYards = selectedLegs.some(l => l.stat && l.stat.includes('yd'));
-      if (hasTotal && hasYards) return true;
+      // Game total + player yards (positive correlation)
+      const hasOver = selectedLegs.some(l => l.id === 'over');
+      const hasUnder = selectedLegs.some(l => l.id === 'under');
+      const yardLegs = selectedLegs.filter(l => l.stat && l.stat.includes('yd') && l.id.includes('over'));
+      const underYardLegs = selectedLegs.filter(l => l.stat && l.stat.includes('yd') && l.id.includes('under'));
 
-      return false;
+      if (hasOver && yardLegs.length > 0) {
+        correlations.push({
+          type: 'total-yards',
+          description: `Over + ${yardLegs.length} yardage overs`,
+          effect: 'boost',
+          adjustment: '+8-12%'
+        });
+      }
+      if (hasUnder && underYardLegs.length > 0) {
+        correlations.push({
+          type: 'total-yards',
+          description: `Under + ${underYardLegs.length} yardage unders`,
+          effect: 'boost',
+          adjustment: '+8-12%'
+        });
+      }
+      if (hasOver && underYardLegs.length > 0) {
+        correlations.push({
+          type: 'conflict',
+          description: `Over + yardage unders conflict`,
+          effect: 'conflict',
+          adjustment: '-10-15%'
+        });
+      }
+      if (hasUnder && yardLegs.length > 0) {
+        correlations.push({
+          type: 'conflict',
+          description: `Under + yardage overs conflict`,
+          effect: 'conflict',
+          adjustment: '-10-15%'
+        });
+      }
+
+      // Team win + team player props (positive correlation)
+      const mlLegs = selectedLegs.filter(l => l.id && l.id.startsWith('ml_'));
+      mlLegs.forEach(ml => {
+        const teamPlayerOvers = selectedLegs.filter(l =>
+          l.type === 'player' && l.team === ml.team && l.id && l.id.includes('over')
+        );
+        if (teamPlayerOvers.length > 0) {
+          correlations.push({
+            type: 'team-player',
+            description: `${ml.team} ML + ${teamPlayerOvers.length} player overs`,
+            effect: 'boost',
+            adjustment: '+5-8%'
+          });
+        }
+      });
+
+      return {
+        hasCorrelation: correlations.length > 0,
+        correlations: correlations
+      };
+    }
+
+    function calculateEdge(modelProb, marketOdds) {
+      // Convert market odds to implied probability
+      let impliedProb;
+      if (marketOdds > 0) {
+        impliedProb = 100 / (marketOdds + 100);
+      } else {
+        impliedProb = Math.abs(marketOdds) / (Math.abs(marketOdds) + 100);
+      }
+
+      // Edge = model probability - implied probability
+      return (modelProb - impliedProb) * 100;
     }
 
     function formatOdds(odds) {
