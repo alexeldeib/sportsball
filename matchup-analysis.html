@@ -253,6 +253,98 @@
       color: var(--text-muted);
     }
 
+    .week-games {
+      margin-bottom: 1.5rem;
+    }
+
+    .week-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .week-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+
+    .week-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.4rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .matchup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .matchup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-align: center;
+    }
+
+    .matchup-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .matchup-card.selected {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .matchup-teams {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+    }
+
+    .matchup-teams .at { color: var(--text-muted); font-weight: 400; }
+
+    .matchup-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .or-divider {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .or-divider::before { left: 0; }
+    .or-divider::after { right: 0; }
+
     @media (max-width: 600px) {
       .team-selectors {
         grid-template-columns: 1fr;
@@ -273,6 +365,20 @@
       <p class="subtitle">Head-to-head team comparison (2020-2025)</p>
     </header>
 
+    <div class="week-games">
+      <div class="week-header">
+        <div class="week-title">This Week's Games</div>
+        <select id="week-select" class="week-select">
+          <option value="">Loading...</option>
+        </select>
+      </div>
+      <div id="matchup-grid" class="matchup-grid">
+        <div class="no-data">Loading games...</div>
+      </div>
+    </div>
+
+    <div class="or-divider">or pick any two teams</div>
+
     <div class="team-selectors">
       <div class="team-selector team1">
         <select id="team1-select">
@@ -288,7 +394,7 @@
     </div>
 
     <div id="matchup-content">
-      <div class="no-data">Select two teams to see their head-to-head history</div>
+      <div class="no-data">Select a matchup above to see head-to-head history</div>
     </div>
   </div>
 
@@ -332,16 +438,19 @@
       { code: 'WAS', name: 'Washington Commanders' }
     ];
 
+    let currentWeek = null;
+
     async function initDB() {
       const SQL = await initSqlJs({
         locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
       });
 
-      const response = await fetch('nfl.db');
+      const response = await fetch('nfl.db?' + Date.now());
       const buffer = await response.arrayBuffer();
       db = new SQL.Database(new Uint8Array(buffer));
 
       populateTeamSelects();
+      populateWeekSelect();
 
       // Check URL params
       const params = new URLSearchParams(window.location.search);
@@ -352,6 +461,76 @@
         document.getElementById('team2-select').value = team2;
         loadMatchup();
       }
+    }
+
+    function populateWeekSelect() {
+      // Get current week (latest week with games)
+      const result = db.exec(`
+        SELECT DISTINCT week FROM games
+        WHERE season = 2025
+        ORDER BY week DESC
+      `);
+
+      const select = document.getElementById('week-select');
+      select.innerHTML = '';
+
+      if (result.length && result[0].values.length) {
+        result[0].values.forEach(([week], idx) => {
+          const opt = document.createElement('option');
+          opt.value = week;
+          opt.textContent = `Week ${week}`;
+          if (idx === 0) opt.selected = true;
+          select.appendChild(opt);
+        });
+
+        currentWeek = result[0].values[0][0];
+        loadWeekGames(currentWeek);
+      }
+    }
+
+    function loadWeekGames(week) {
+      const result = db.exec(`
+        SELECT home_team, away_team, game_date, is_completed
+        FROM games
+        WHERE season = 2025 AND week = ${week}
+        ORDER BY game_date
+      `);
+
+      const grid = document.getElementById('matchup-grid');
+
+      if (!result.length || !result[0].values.length) {
+        grid.innerHTML = '<div class="no-data">No games this week</div>';
+        return;
+      }
+
+      grid.innerHTML = result[0].values.map(([home, away, date, completed]) => {
+        const dateStr = date ? new Date(date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) : '';
+        const status = completed ? ' (Final)' : '';
+        return `
+          <div class="matchup-card" data-home="${home}" data-away="${away}">
+            <div class="matchup-teams">${away} <span class="at">@</span> ${home}</div>
+            <div class="matchup-date">${dateStr}${status}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Add click handlers
+      grid.querySelectorAll('.matchup-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const home = card.dataset.home;
+          const away = card.dataset.away;
+
+          // Update selects
+          document.getElementById('team1-select').value = home;
+          document.getElementById('team2-select').value = away;
+
+          // Highlight selected card
+          grid.querySelectorAll('.matchup-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+
+          loadMatchup();
+        });
+      });
     }
 
     function populateTeamSelects() {
@@ -562,6 +741,9 @@
 
     document.getElementById('team1-select').addEventListener('change', loadMatchup);
     document.getElementById('team2-select').addEventListener('change', loadMatchup);
+    document.getElementById('week-select').addEventListener('change', (e) => {
+      loadWeekGames(parseInt(e.target.value));
+    });
 
     initDB().catch(err => {
       console.error(err);
