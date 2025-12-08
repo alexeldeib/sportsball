@@ -789,12 +789,14 @@
     let db = null;
     let currentMatchup = null;
     let selectedLegs = [];
-    let availableLegs = [];  // Game legs only now
+    let availableLegs = [];  // Moneyline legs only now
     let propCards = [];      // Player prop cards with editable lines
     let defenseRankings = {};  // position -> stat -> { team: rank }
     let h2hData = null;
     let marketOdds = {};  // legId -> market odds entered by user
-    let propInputs = {};  // propId -> { line, odds } user inputs
+    let propInputs = {};  // propId -> { line, overOdds, underOdds } user inputs
+    let gameInputs = {};  // spread/total inputs from user
+    let modelOdds = null; // Store model's predicted spread/total
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -988,6 +990,7 @@
       availableLegs = [];
       propCards = [];
       propInputs = {};
+      gameInputs = {};
 
       // Load H2H context for game totals
       loadH2HContext(home, away);
@@ -996,11 +999,13 @@
       const homeStats = getTeamStats(home);
       const awayStats = getTeamStats(away);
 
-      // Calculate game odds
-      const gameOdds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
+      // Calculate game odds and store model predictions
+      modelOdds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
+      modelOdds.home = home;
+      modelOdds.away = away;
 
-      // Build game legs (moneyline, spread, total)
-      availableLegs = buildGameLegs(home, away, gameOdds);
+      // Build moneyline legs only (spread/total are now editable cards)
+      availableLegs = buildMoneylineLegs(home, away, modelOdds);
 
       // Build player prop cards (with editable lines)
       propCards = buildPropCards(home, away);
@@ -1024,16 +1029,16 @@
       return null;
     }
 
-    function buildGameLegs(home, away, odds) {
+    function buildMoneylineLegs(home, away, odds) {
       const legs = [];
 
-      // Moneyline
+      // Moneyline only - spread/total are now editable cards
       legs.push({
         id: `ml_${home}`,
         type: 'game',
         category: 'Moneyline',
         name: `${home} to win`,
-        detail: 'Moneyline',
+        detail: `Model: ${(odds.homeWinProb * 100).toFixed(0)}%`,
         odds: odds.homeMoneyline,
         prob: odds.homeWinProb,
         team: home
@@ -1044,63 +1049,31 @@
         type: 'game',
         category: 'Moneyline',
         name: `${away} to win`,
-        detail: 'Moneyline',
+        detail: `Model: ${(odds.awayWinProb * 100).toFixed(0)}%`,
         odds: odds.awayMoneyline,
         prob: odds.awayWinProb,
         team: away
       });
 
-      // Spread
-      const homeSpreadOdds = odds.spread <= 0 ? -110 : -110;
-      const awaySpreadOdds = -110;
-      const spreadProb = 0.5; // Simplified
-
-      legs.push({
-        id: `spread_${home}`,
-        type: 'game',
-        category: 'Spread',
-        name: `${home} ${OddsEngine.formatSpread(odds.spread)}`,
-        detail: 'Spread',
-        odds: homeSpreadOdds,
-        prob: spreadProb,
-        team: home
-      });
-
-      legs.push({
-        id: `spread_${away}`,
-        type: 'game',
-        category: 'Spread',
-        name: `${away} ${OddsEngine.formatSpread(-odds.spread)}`,
-        detail: 'Spread',
-        odds: awaySpreadOdds,
-        prob: spreadProb,
-        team: away
-      });
-
-      // Over/Under
-      legs.push({
-        id: 'over',
-        type: 'game',
-        category: 'Total',
-        name: `Over ${odds.overUnder}`,
-        detail: 'Game Total',
-        odds: -110,
-        prob: 0.5,
-        team: null
-      });
-
-      legs.push({
-        id: 'under',
-        type: 'game',
-        category: 'Total',
-        name: `Under ${odds.overUnder}`,
-        detail: 'Game Total',
-        odds: -110,
-        prob: 0.5,
-        team: null
-      });
-
       return legs;
+    }
+
+    // Calculate spread cover probability given expected margin and market spread
+    function calcSpreadProb(expectedMargin, marketSpread, stdDev = 13.5) {
+      // expectedMargin: positive = home favored
+      // marketSpread: negative = home favored (e.g., -3.5)
+      // Home covers if actualMargin > -marketSpread
+      // P(cover) = P(margin > -spread) = 1 - normalCDF((-spread - expectedMargin) / stdDev)
+      const threshold = -marketSpread;
+      const z = (threshold - expectedMargin) / stdDev;
+      return 1 - normalCDF(z);
+    }
+
+    // Calculate total probability given expected total and market line
+    function calcTotalProb(expectedTotal, marketTotal, stdDev = 13) {
+      // P(over) = P(actual > marketTotal) = 1 - normalCDF((marketTotal - expectedTotal) / stdDev)
+      const z = (marketTotal - expectedTotal) / stdDev;
+      return 1 - normalCDF(z);
     }
 
     function buildPropCards(home, away) {
@@ -1354,6 +1327,160 @@
         }
       }
 
+      // Render editable Spread card
+      if (modelOdds) {
+        const spreadInput = gameInputs.spread || {};
+        const spreadLine = spreadInput.line;
+        const homeSpreadOdds = spreadInput.homeOdds;
+        const awaySpreadOdds = spreadInput.awayOdds;
+
+        let homeSpreadProb = null, awaySpreadProb = null;
+        let homeSpreadEdge = null, awaySpreadEdge = null;
+
+        if (spreadLine !== undefined && spreadLine !== null && !isNaN(spreadLine)) {
+          homeSpreadProb = calcSpreadProb(modelOdds.expectedMargin, spreadLine);
+          awaySpreadProb = 1 - homeSpreadProb;
+
+          if (homeSpreadOdds && !isNaN(homeSpreadOdds)) {
+            homeSpreadEdge = calculateEdge(homeSpreadProb, parseInt(homeSpreadOdds));
+          }
+          if (awaySpreadOdds && !isNaN(awaySpreadOdds)) {
+            awaySpreadEdge = calculateEdge(awaySpreadProb, parseInt(awaySpreadOdds));
+          }
+        }
+
+        const isHomeSpreadSelected = selectedLegs.some(l => l.id === 'spread_home');
+        const isAwaySpreadSelected = selectedLegs.some(l => l.id === 'spread_away');
+
+        html += `
+          <div class="leg-group">
+            <div class="leg-group-title">Spread</div>
+            <div class="prop-card" data-game-type="spread">
+              <div class="prop-card-header">
+                <div>
+                  <div class="prop-player-name">${modelOdds.home} vs ${modelOdds.away}</div>
+                  <div class="prop-stat-type">Model expected margin: ${modelOdds.home} ${modelOdds.expectedMargin >= 0 ? '-' : '+'}${Math.abs(modelOdds.expectedMargin).toFixed(1)}</div>
+                </div>
+              </div>
+              <div class="prop-inputs">
+                <div class="prop-input-group">
+                  <label>Line (home):</label>
+                  <input type="text" class="spread-line-input line-input"
+                         value="${spreadLine !== undefined ? spreadLine : ''}" placeholder="${(-modelOdds.expectedMargin).toFixed(1)}">
+                </div>
+                <div class="prop-odds-row">
+                  <div class="prop-input-group">
+                    <label>${modelOdds.home}:</label>
+                    <input type="text" class="spread-home-odds-input"
+                           value="${homeSpreadOdds || ''}" placeholder="-110">
+                  </div>
+                  <div class="prop-input-group">
+                    <label>${modelOdds.away}:</label>
+                    <input type="text" class="spread-away-odds-input"
+                           value="${awaySpreadOdds || ''}" placeholder="-110">
+                  </div>
+                </div>
+              </div>
+              ${spreadLine !== undefined && spreadLine !== null ? `
+                <div class="prop-stats-row" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                  Fair odds at this line: <span>${formatOdds(probToOdds(homeSpreadProb))} / ${formatOdds(probToOdds(awaySpreadProb))}</span>
+                </div>
+                <div class="prop-results">
+                  <div class="prop-bet-option ${isHomeSpreadSelected ? 'selected' : ''} ${homeSpreadEdge !== null && homeSpreadEdge > 3 ? 'has-edge' : ''}"
+                       data-game-type="spread" data-side="home">
+                    <div class="prop-bet-label">${modelOdds.home} ${spreadLine >= 0 ? '+' : ''}${spreadLine}</div>
+                    <div class="prop-bet-prob">${(homeSpreadProb * 100).toFixed(0)}% model</div>
+                    ${homeSpreadEdge !== null ? `<div class="prop-bet-edge ${homeSpreadEdge >= 0 ? 'positive' : 'negative'}">${homeSpreadEdge >= 0 ? '+' : ''}${homeSpreadEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
+                  </div>
+                  <div class="prop-bet-option ${isAwaySpreadSelected ? 'selected' : ''} ${awaySpreadEdge !== null && awaySpreadEdge > 3 ? 'has-edge' : ''}"
+                       data-game-type="spread" data-side="away">
+                    <div class="prop-bet-label">${modelOdds.away} ${-spreadLine >= 0 ? '+' : ''}${-spreadLine}</div>
+                    <div class="prop-bet-prob">${(awaySpreadProb * 100).toFixed(0)}% model</div>
+                    ${awaySpreadEdge !== null ? `<div class="prop-bet-edge ${awaySpreadEdge >= 0 ? 'positive' : 'negative'}">${awaySpreadEdge >= 0 ? '+' : ''}${awaySpreadEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
+                  </div>
+                </div>
+              ` : '<div class="prop-no-line">Enter sportsbook spread to evaluate</div>'}
+            </div>
+          </div>
+        `;
+
+        // Render editable Total card
+        const totalInput = gameInputs.total || {};
+        const totalLine = totalInput.line;
+        const overOdds = totalInput.overOdds;
+        const underOdds = totalInput.underOdds;
+
+        let overProb = null, underProb = null;
+        let overEdge = null, underEdge = null;
+
+        if (totalLine !== undefined && totalLine !== null && !isNaN(totalLine)) {
+          overProb = calcTotalProb(modelOdds.expectedTotal, totalLine);
+          underProb = 1 - overProb;
+
+          if (overOdds && !isNaN(overOdds)) {
+            overEdge = calculateEdge(overProb, parseInt(overOdds));
+          }
+          if (underOdds && !isNaN(underOdds)) {
+            underEdge = calculateEdge(underProb, parseInt(underOdds));
+          }
+        }
+
+        const isOverSelected = selectedLegs.some(l => l.id === 'total_over');
+        const isUnderSelected = selectedLegs.some(l => l.id === 'total_under');
+
+        html += `
+          <div class="leg-group">
+            <div class="leg-group-title">Total Points</div>
+            <div class="prop-card" data-game-type="total">
+              <div class="prop-card-header">
+                <div>
+                  <div class="prop-player-name">Game Total</div>
+                  <div class="prop-stat-type">Model expected: ${modelOdds.expectedTotal.toFixed(1)} points</div>
+                </div>
+              </div>
+              <div class="prop-inputs">
+                <div class="prop-input-group">
+                  <label>Line:</label>
+                  <input type="text" class="total-line-input line-input"
+                         value="${totalLine !== undefined ? totalLine : ''}" placeholder="${modelOdds.expectedTotal.toFixed(1)}">
+                </div>
+                <div class="prop-odds-row">
+                  <div class="prop-input-group">
+                    <label>Over:</label>
+                    <input type="text" class="total-over-odds-input"
+                           value="${overOdds || ''}" placeholder="-110">
+                  </div>
+                  <div class="prop-input-group">
+                    <label>Under:</label>
+                    <input type="text" class="total-under-odds-input"
+                           value="${underOdds || ''}" placeholder="-110">
+                  </div>
+                </div>
+              </div>
+              ${totalLine !== undefined && totalLine !== null ? `
+                <div class="prop-stats-row" style="margin-top: 0.5rem; margin-bottom: 0.5rem;">
+                  Fair odds at this line: <span>O ${formatOdds(probToOdds(overProb))} / U ${formatOdds(probToOdds(underProb))}</span>
+                </div>
+                <div class="prop-results">
+                  <div class="prop-bet-option ${isOverSelected ? 'selected' : ''} ${overEdge !== null && overEdge > 3 ? 'has-edge' : ''}"
+                       data-game-type="total" data-side="over">
+                    <div class="prop-bet-label">Over ${totalLine}</div>
+                    <div class="prop-bet-prob">${(overProb * 100).toFixed(0)}% model</div>
+                    ${overEdge !== null ? `<div class="prop-bet-edge ${overEdge >= 0 ? 'positive' : 'negative'}">${overEdge >= 0 ? '+' : ''}${overEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
+                  </div>
+                  <div class="prop-bet-option ${isUnderSelected ? 'selected' : ''} ${underEdge !== null && underEdge > 3 ? 'has-edge' : ''}"
+                       data-game-type="total" data-side="under">
+                    <div class="prop-bet-label">Under ${totalLine}</div>
+                    <div class="prop-bet-prob">${(underProb * 100).toFixed(0)}% model</div>
+                    ${underEdge !== null ? `<div class="prop-bet-edge ${underEdge >= 0 ? 'positive' : 'negative'}">${underEdge >= 0 ? '+' : ''}${underEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
+                  </div>
+                </div>
+              ` : '<div class="prop-no-line">Enter sportsbook total to evaluate</div>'}
+            </div>
+          </div>
+        `;
+      }
+
       // Render prop cards grouped by team
       if (propCards.length > 0) {
         const byTeam = {};
@@ -1448,6 +1575,9 @@
                   </div>
                 </div>
                 ${line ? `
+                  <div class="prop-stats-row" style="margin-top: 0.25rem; margin-bottom: 0.5rem;">
+                    Fair odds: <span>O ${formatOdds(probToOdds(overProb))} / U ${formatOdds(probToOdds(underProb))}</span>
+                  </div>
                   <div class="prop-results">
                     <div class="prop-bet-option ${isOverSelected ? 'selected' : ''} ${overEdge !== null && overEdge > 3 ? 'has-edge' : ''}"
                          data-prop-id="${card.id}" data-side="over">
@@ -1515,9 +1645,71 @@
       // Add click handlers for prop bet options
       container.querySelectorAll('.prop-bet-option').forEach(el => {
         el.addEventListener('click', () => {
-          const propId = el.dataset.propId;
+          const gameType = el.dataset.gameType;
           const side = el.dataset.side;
-          togglePropLeg(propId, side);
+
+          if (gameType === 'spread' || gameType === 'total') {
+            toggleGameLeg(gameType, side);
+          } else {
+            const propId = el.dataset.propId;
+            togglePropLeg(propId, side);
+          }
+        });
+      });
+
+      // Add input handlers for spread card
+      container.querySelectorAll('.spread-line-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.spread) gameInputs.spread = {};
+          gameInputs.spread.line = value !== '' ? parseFloat(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.spread-home-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.spread) gameInputs.spread = {};
+          gameInputs.spread.homeOdds = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.spread-away-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.spread) gameInputs.spread = {};
+          gameInputs.spread.awayOdds = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      // Add input handlers for total card
+      container.querySelectorAll('.total-line-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.total) gameInputs.total = {};
+          gameInputs.total.line = value !== '' ? parseFloat(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.total-over-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.total) gameInputs.total = {};
+          gameInputs.total.overOdds = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.total-under-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const value = e.target.value.trim();
+          if (!gameInputs.total) gameInputs.total = {};
+          gameInputs.total.underOdds = value ? parseInt(value) : null;
+          renderLegs();
         });
       });
     }
@@ -1569,6 +1761,82 @@
           marketLine: input.line,
           marketOdds: sideOdds
         });
+      }
+
+      renderLegs();
+      renderSlip();
+    }
+
+    function toggleGameLeg(gameType, side) {
+      if (!modelOdds) return;
+
+      if (gameType === 'spread') {
+        const input = gameInputs.spread;
+        if (!input || input.line === null || input.line === undefined) return;
+
+        const homeId = 'spread_home';
+        const awayId = 'spread_away';
+        const legId = side === 'home' ? homeId : awayId;
+        const oppositeId = side === 'home' ? awayId : homeId;
+
+        // Remove opposite side if selected
+        selectedLegs = selectedLegs.filter(l => l.id !== oppositeId);
+
+        const idx = selectedLegs.findIndex(l => l.id === legId);
+        if (idx >= 0) {
+          selectedLegs.splice(idx, 1);
+        } else {
+          const homeProb = calcSpreadProb(modelOdds.expectedMargin, input.line);
+          const prob = side === 'home' ? homeProb : 1 - homeProb;
+          const sideOdds = side === 'home' ? input.homeOdds : input.awayOdds;
+          const spreadVal = side === 'home' ? input.line : -input.line;
+          const team = side === 'home' ? modelOdds.home : modelOdds.away;
+
+          selectedLegs.push({
+            id: legId,
+            type: 'game',
+            category: 'Spread',
+            name: `${team} ${spreadVal >= 0 ? '+' : ''}${spreadVal}`,
+            detail: `Model: ${(prob * 100).toFixed(0)}%`,
+            odds: sideOdds ? sideOdds : probToOdds(prob),
+            prob: prob,
+            team: team,
+            marketLine: input.line,
+            marketOdds: sideOdds
+          });
+        }
+      } else if (gameType === 'total') {
+        const input = gameInputs.total;
+        if (!input || input.line === null || input.line === undefined) return;
+
+        const overId = 'total_over';
+        const underId = 'total_under';
+        const legId = side === 'over' ? overId : underId;
+        const oppositeId = side === 'over' ? underId : overId;
+
+        // Remove opposite side if selected
+        selectedLegs = selectedLegs.filter(l => l.id !== oppositeId);
+
+        const idx = selectedLegs.findIndex(l => l.id === legId);
+        if (idx >= 0) {
+          selectedLegs.splice(idx, 1);
+        } else {
+          const overProb = calcTotalProb(modelOdds.expectedTotal, input.line);
+          const prob = side === 'over' ? overProb : 1 - overProb;
+          const sideOdds = side === 'over' ? input.overOdds : input.underOdds;
+
+          selectedLegs.push({
+            id: legId,
+            type: 'game',
+            category: 'Total',
+            name: `${side === 'over' ? 'Over' : 'Under'} ${input.line}`,
+            detail: `Model: ${(prob * 100).toFixed(0)}%`,
+            odds: sideOdds ? sideOdds : probToOdds(prob),
+            prob: prob,
+            marketLine: input.line,
+            marketOdds: sideOdds
+          });
+        }
       }
 
       renderLegs();
