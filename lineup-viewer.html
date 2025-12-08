@@ -590,13 +590,23 @@
       loadYears();
       loadTeams();
 
-      // Restore saved selections
-      try {
-        const savedOff = localStorage.getItem(STORAGE_KEY_OFF);
-        const savedDef = localStorage.getItem(STORAGE_KEY_DEF);
-        if (savedOff) offenseTeamSelect.value = savedOff;
-        if (savedDef) defenseTeamSelect.value = savedDef;
-      } catch(e) {}
+      // Check URL params first, then localStorage
+      const params = new URLSearchParams(window.location.search);
+      const urlOff = params.get('offense') || params.get('away');
+      const urlDef = params.get('defense') || params.get('home');
+
+      if (urlOff) offenseTeamSelect.value = urlOff;
+      if (urlDef) defenseTeamSelect.value = urlDef;
+
+      // Fall back to localStorage if no URL params
+      if (!urlOff && !urlDef) {
+        try {
+          const savedOff = localStorage.getItem(STORAGE_KEY_OFF);
+          const savedDef = localStorage.getItem(STORAGE_KEY_DEF);
+          if (savedOff) offenseTeamSelect.value = savedOff;
+          if (savedDef) defenseTeamSelect.value = savedDef;
+        } catch(e) {}
+      }
 
       statusEl.textContent = `Ready (${selectedYear})`;
       statusEl.className = "status ready";

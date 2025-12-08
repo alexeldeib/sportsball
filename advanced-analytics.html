@@ -382,6 +382,34 @@
       padding: 2rem;
     }
 
+    .detail-links {
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .detail-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.15s ease;
+    }
+
+    .detail-link:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
     @media (max-width: 600px) {
       .matchup-grid { grid-template-columns: 1fr; }
       .h2h-summary { grid-template-columns: 1fr 1fr; }
@@ -477,6 +505,10 @@
           <div id="h2h-content">
             <div class="no-data">No historical games found</div>
           </div>
+        </div>
+
+        <div class="detail-links">
+          <a href="#" id="lineup-link" class="detail-link">🏟️ View Lineups</a>
         </div>
       </div>
     </div>
@@ -810,6 +842,10 @@
 
       // H2H history
       loadH2HHistory(g.home_team, g.away_team);
+
+      // Set lineup viewer link
+      document.getElementById('lineup-link').href =
+        `lineup-viewer.html?away=${g.away_team}&home=${g.home_team}`;
 
       section.scrollIntoView({ behavior: 'smooth' });
     }
