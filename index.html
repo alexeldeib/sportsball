@@ -211,33 +211,51 @@
       color: var(--card-accent);
     }
 
-    /* Featured card (Practice) */
+    /* Featured cards (top betting tools) */
     .mode-card.featured {
-      grid-column: 1 / -1;
-      flex-direction: row;
-      align-items: center;
-      gap: 2rem;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, var(--bg-card) 50%);
+      flex-direction: column;
+      align-items: stretch;
+      background: linear-gradient(135deg, rgba(var(--card-accent-rgb, 59, 130, 246), 0.15) 0%, var(--bg-card) 60%);
+      border-width: 2px;
     }
 
-    @media (max-width: 600px) {
-      .mode-card.featured {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-      }
+    .mode-card.featured[data-accent="purple"] {
+      --card-accent-rgb: 168, 85, 247;
+    }
+
+    .mode-card.featured[data-accent="green"] {
+      --card-accent-rgb: 34, 197, 94;
     }
 
     .featured .mode-content {
       flex: 1;
     }
 
+    .featured .mode-header {
+      margin-bottom: 1rem;
+    }
+
+    .featured .mode-icon {
+      width: 48px;
+      height: 48px;
+      font-size: 1.5rem;
+    }
+
+    .featured .mode-title {
+      font-size: 1.5rem;
+    }
+
+    .featured .mode-desc {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
     .featured .mode-cta {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: var(--accent-blue);
+      background: var(--card-accent);
       border-radius: 100px;
       font-family: 'Oswald', sans-serif;
       font-size: 1rem;
@@ -247,10 +265,12 @@
       color: white;
       white-space: nowrap;
       transition: all 0.2s ease;
+      margin-top: auto;
+      align-self: flex-start;
     }
 
     .mode-card.featured:hover .mode-cta {
-      background: #2563eb;
+      filter: brightness(1.1);
       transform: translateX(4px);
     }
 
@@ -260,6 +280,13 @@
 
     .mode-card.featured:hover .cta-arrow {
       transform: translateX(3px);
+    }
+
+    @media (max-width: 600px) {
+      .mode-card.featured .mode-cta {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* Section divider */
@@ -333,31 +360,114 @@
         <span class="logo-icon">🏈</span>
       </div>
       <h1>NFL Knowledge Hub</h1>
-      <p class="tagline">Quiz, study, and explore NFL stats</p>
+      <p class="tagline">Matchup analysis, prop evaluation, and NFL stats</p>
     </header>
 
     <main>
-      <!-- Featured: Practice Mode -->
-      <a href="practice.html" class="mode-card featured" data-accent="blue">
-        <div class="mode-content">
+      <!-- Featured: Betting Tools -->
+      <div class="modes-grid">
+        <a href="advanced-analytics.html" class="mode-card featured" data-accent="purple">
+          <div class="mode-content">
+            <div class="mode-header">
+              <div class="mode-icon">📊</div>
+              <div class="mode-title">Matchup Predictions</div>
+            </div>
+            <p class="mode-desc">
+              Model-based win probabilities, spreads, and totals using SRS ratings.
+              Weekly game cards with H2H history and situational insights.
+            </p>
+            <span class="mode-tag">Featured</span>
+          </div>
+          <div class="mode-cta">
+            View Matchups <span class="cta-arrow">→</span>
+          </div>
+        </a>
+
+        <a href="parlay-builder.html" class="mode-card featured" data-accent="green">
+          <div class="mode-content">
+            <div class="mode-header">
+              <div class="mode-icon">🎯</div>
+              <div class="mode-title">Prop Evaluator</div>
+            </div>
+            <p class="mode-desc">
+              Enter sportsbook lines to find edge. Defense rankings, hot/cold trends,
+              and correlation analysis. Calculate model probability vs market implied.
+            </p>
+            <span class="mode-tag">New</span>
+          </div>
+          <div class="mode-cta">
+            Evaluate Props <span class="cta-arrow">→</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="section-label">Analysis Tools</div>
+
+      <div class="modes-grid">
+        <a href="player-analysis.html" class="mode-card" data-accent="blue">
+          <div class="mode-header">
+            <div class="mode-icon">📈</div>
+            <div class="mode-title">Player Analysis</div>
+          </div>
+          <p class="mode-desc">
+            Weekly trends, prop hit rates, and vs opponent splits.
+            Season totals and performance charts.
+          </p>
+          <span class="mode-tag">Players</span>
+        </a>
+
+        <a href="team-trends.html" class="mode-card" data-accent="red">
+          <div class="mode-header">
+            <div class="mode-icon">📉</div>
+            <div class="mode-title">Team Trends</div>
+          </div>
+          <p class="mode-desc">
+            Team statistics and splits. PPG, home/away performance,
+            quarter trends, and recent games.
+          </p>
+          <span class="mode-tag">Teams</span>
+        </a>
+
+        <a href="position-leaders.html" class="mode-card" data-accent="orange">
+          <div class="mode-header">
+            <div class="mode-icon">🏆</div>
+            <div class="mode-title">Position Leaders</div>
+          </div>
+          <p class="mode-desc">
+            Compare players by position. See top QBs by passing yards,
+            leading rushers, reception leaders, and more.
+          </p>
+          <span class="mode-tag">Leaderboards</span>
+        </a>
+
+        <a href="lineup-viewer.html" class="mode-card" data-accent="cyan">
+          <div class="mode-header">
+            <div class="mode-icon">🏟️</div>
+            <div class="mode-title">Lineup Viewer</div>
+          </div>
+          <p class="mode-desc">
+            Visual matchup formations with starters positioned
+            on the field. Jersey numbers and key player info.
+          </p>
+          <span class="mode-tag">Visual</span>
+        </a>
+      </div>
+
+      <div class="section-label">Quiz Modes</div>
+
+      <div class="modes-grid">
+        <a href="practice.html" class="mode-card" data-accent="blue">
           <div class="mode-header">
             <div class="mode-icon">📚</div>
             <div class="mode-title">Practice Mode</div>
           </div>
           <p class="mode-desc">
             Learn player names, teams, and positions with spaced repetition.
-            The smart algorithm focuses on players you struggle with most.
+            Smart algorithm focuses on players you struggle with.
           </p>
-          <span class="mode-tag">Recommended Start</span>
-        </div>
-        <div class="mode-cta">
-          Start Learning <span class="cta-arrow">→</span>
-        </div>
-      </a>
+          <span class="mode-tag">Learning</span>
+        </a>
 
-      <div class="section-label">Quiz Modes</div>
-
-      <div class="modes-grid">
         <a href="easy.html" class="mode-card" data-accent="green">
           <div class="mode-header">
             <div class="mode-icon">✅</div>
@@ -367,7 +477,7 @@
             Pick the correct answer from two options. Great for beginners
             or warming up before harder modes.
           </p>
-          <span class="mode-tag">Beginner Friendly</span>
+          <span class="mode-tag">Beginner</span>
         </a>
 
         <a href="game.html" class="mode-card" data-accent="orange">
@@ -389,14 +499,14 @@
           </div>
           <p class="mode-desc">
             Flexible questions like "Who are Mahomes' receivers?" or
-            "Name a RB with 500+ rushing yards." Multiple valid answers.
+            "Name a RB with 500+ rushing yards."
           </p>
           <span class="mode-tag">Advanced</span>
         </a>
 
         <a href="stats-quiz.html" class="mode-card" data-accent="red">
           <div class="mode-header">
-            <div class="mode-icon">📊</div>
+            <div class="mode-icon">🎯</div>
             <div class="mode-title">Stats Quiz</div>
           </div>
           <p class="mode-desc">
@@ -407,7 +517,7 @@
         </a>
       </div>
 
-      <div class="section-label">Study & Explore</div>
+      <div class="section-label">Reference</div>
 
       <div class="modes-grid">
         <a href="team-study.html" class="mode-card" data-accent="cyan">
@@ -419,79 +529,7 @@
             Browse any team's roster organized by position. See starters,
             backups, and key stats at a glance.
           </p>
-          <span class="mode-tag">Reference</span>
-        </a>
-
-        <a href="position-leaders.html" class="mode-card" data-accent="orange">
-          <div class="mode-header">
-            <div class="mode-icon">🏆</div>
-            <div class="mode-title">Position Leaders</div>
-          </div>
-          <p class="mode-desc">
-            Compare players by position. See top QBs by passing yards,
-            leading rushers, reception leaders, and more.
-          </p>
-          <span class="mode-tag">Leaderboards</span>
-        </a>
-
-        <a href="lineup-viewer.html" class="mode-card" data-accent="green">
-          <div class="mode-header">
-            <div class="mode-icon">🏟️</div>
-            <div class="mode-title">Lineup Viewer</div>
-          </div>
-          <p class="mode-desc">
-            View team matchups with visual formations. See starters positioned
-            on the field with jersey numbers and names.
-          </p>
-          <span class="mode-tag">Visual</span>
-        </a>
-
-        <a href="player-analysis.html" class="mode-card" data-accent="blue">
-          <div class="mode-header">
-            <div class="mode-icon">📈</div>
-            <div class="mode-title">Player Analysis</div>
-          </div>
-          <p class="mode-desc">
-            Trends, props, weekly stats, and vs opponent splits.
-            Season totals, hit rates, and performance charts.
-          </p>
-          <span class="mode-tag">Players</span>
-        </a>
-
-        <a href="team-trends.html" class="mode-card" data-accent="red">
-          <div class="mode-header">
-            <div class="mode-icon">📉</div>
-            <div class="mode-title">Team Trends</div>
-          </div>
-          <p class="mode-desc">
-            Team statistics and splits. PPG, home/away performance,
-            quarter trends, and recent games.
-          </p>
-          <span class="mode-tag">Analysis</span>
-        </a>
-
-        <a href="advanced-analytics.html" class="mode-card" data-accent="purple">
-          <div class="mode-header">
-            <div class="mode-icon">📊</div>
-            <div class="mode-title">Matchup Predictions</div>
-          </div>
-          <p class="mode-desc">
-            Model-based odds with SRS ratings, strength of schedule, and
-            Monte Carlo simulations. Spread, O/U, and confidence levels.
-          </p>
-          <span class="mode-tag">Betting</span>
-        </a>
-
-        <a href="parlay-builder.html" class="mode-card" data-accent="green">
-          <div class="mode-header">
-            <div class="mode-icon">🎰</div>
-            <div class="mode-title">Parlay Builder</div>
-          </div>
-          <p class="mode-desc">
-            Build multi-leg parlays with game and player props.
-            Passing, rushing, receiving yards and touchdowns.
-          </p>
-          <span class="mode-tag">Parlays</span>
+          <span class="mode-tag">Rosters</span>
         </a>
 
         <a href="explorer.html" class="mode-card" data-accent="teal">
