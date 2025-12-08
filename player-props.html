@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Player Props</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --warning: #d97706;
+      --purple: #a855f7;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header { text-align: center; margin-bottom: 1.5rem; }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-box input, .search-box select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .search-box input {
+      flex: 1;
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .search-results {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      max-height: 250px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.active { display: block; }
+
+    .search-result {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-result:last-child { border-bottom: none; }
+    .search-result:hover { background: var(--bg-hover); }
+
+    .player-name { font-weight: 600; }
+    .player-meta { color: var(--text-muted); font-size: 0.85rem; }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .section-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-positive { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
+    .badge-warning { background: rgba(217, 119, 6, 0.2); color: var(--warning); }
+    .badge-accent { background: rgba(59, 130, 246, 0.2); color: var(--accent); }
+
+    .props-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .prop-card {
+      background: var(--bg-card);
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .prop-card:hover { background: var(--bg-hover); }
+
+    .prop-info h4 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .prop-stats {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .prop-line {
+      text-align: center;
+    }
+
+    .line-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .line-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .prop-hit-rate {
+      text-align: right;
+    }
+
+    .hit-rate-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .hit-rate-value.over-60 { color: var(--positive); }
+    .hit-rate-value.under-40 { color: var(--negative); }
+
+    .hit-rate-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .value-indicator {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+
+    .value-over { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
+    .value-under { background: rgba(239, 68, 68, 0.2); color: var(--negative); }
+    .value-push { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
+
+    .weekly-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .weekly-table th, .weekly-table td {
+      padding: 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .weekly-table th {
+      background: rgba(255, 255, 255, 0.02);
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .weekly-table td {
+      font-size: 0.9rem;
+    }
+
+    .weekly-table tr:hover td {
+      background: var(--bg-hover);
+    }
+
+    .hit { color: var(--positive); }
+    .miss { color: var(--negative); }
+
+    .stat-cell {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .chart-container {
+      height: 180px;
+      padding: 1rem;
+    }
+
+    .prop-inputs {
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .prop-inputs label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .prop-inputs input {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 0.5rem;
+      width: 80px;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .prop-inputs button {
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+    }
+
+    .prop-inputs button:hover {
+      background: #2563eb;
+    }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+    }
+
+    .summary-stat {
+      text-align: center;
+    }
+
+    .summary-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .summary-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .prop-card {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .prop-line, .prop-hit-rate {
+        text-align: left;
+      }
+      .summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Player Props</h1>
+      <p class="subtitle">Analyze prop bet value based on historical performance</p>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="player-search" placeholder="Search for a player..." autocomplete="off" />
+      <select id="season-select">
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
+
+    <div id="search-results" class="search-results"></div>
+
+    <div id="player-section" style="display: none;">
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title" id="player-title">Player Stats</div>
+          <span id="player-badge" class="section-badge badge-accent">--</span>
+        </div>
+        <div id="player-summary" class="summary-grid">
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Prop Analysis</div>
+          <span class="section-badge badge-warning">Set Lines</span>
+        </div>
+        <div class="prop-inputs">
+          <div>
+            <label>Pass Yds</label>
+            <input type="number" id="line-pass-yd" value="225" step="5" />
+          </div>
+          <div>
+            <label>Rush Yds</label>
+            <input type="number" id="line-rush-yd" value="60" step="5" />
+          </div>
+          <div>
+            <label>Rec Yds</label>
+            <input type="number" id="line-rec-yd" value="50" step="5" />
+          </div>
+          <div>
+            <label>Receptions</label>
+            <input type="number" id="line-rec" value="4" step="0.5" />
+          </div>
+          <div>
+            <label>Total TDs</label>
+            <input type="number" id="line-td" value="0.5" step="0.5" />
+          </div>
+          <button onclick="analyzeProps()">Analyze</button>
+        </div>
+        <div id="props-list" class="props-grid">
+          <div class="no-data">Set lines above and click Analyze</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">Weekly Performance</div>
+          <span id="games-badge" class="section-badge badge-accent">0 Games</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="weekly-chart"></canvas>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="weekly-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Opp</th>
+                <th>Pass Yd</th>
+                <th>Rush Yd</th>
+                <th>Rec</th>
+                <th>Rec Yd</th>
+                <th>TDs</th>
+                <th>PPR</th>
+              </tr>
+            </thead>
+            <tbody id="weekly-body">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let currentPlayer = null;
+    let weeklyData = [];
+    let weeklyChart = null;
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db?' + Date.now());
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+    }
+
+    function searchPlayers(query) {
+      if (!db || query.length < 2) {
+        document.getElementById('search-results').classList.remove('active');
+        return;
+      }
+
+      const season = document.getElementById('season-select').value;
+      const result = db.exec(`
+        SELECT DISTINCT player_name, team, position
+        FROM player_weekly_stats
+        WHERE player_name LIKE '%${query}%' AND season = ${season}
+        ORDER BY player_name
+        LIMIT 20
+      `);
+
+      const container = document.getElementById('search-results');
+
+      if (!result.length || !result[0].values.length) {
+        container.classList.remove('active');
+        return;
+      }
+
+      container.innerHTML = result[0].values.map(([name, team, pos]) => `
+        <div class="search-result" onclick="selectPlayer('${name.replace(/'/g, "\\'")}', '${team}', '${pos}')">
+          <span class="player-name">${name}</span>
+          <span class="player-meta">${pos} | ${team}</span>
+        </div>
+      `).join('');
+
+      container.classList.add('active');
+    }
+
+    function selectPlayer(name, team, position) {
+      currentPlayer = { name, team, position };
+      document.getElementById('search-results').classList.remove('active');
+      document.getElementById('player-search').value = name;
+
+      loadPlayerData();
+    }
+
+    function loadPlayerData() {
+      if (!currentPlayer || !db) return;
+
+      const season = document.getElementById('season-select').value;
+
+      // Get weekly stats
+      const result = db.exec(`
+        SELECT week, opponent, pass_yd, rush_yd, rec, rec_yd, rec_td, rush_td, pass_td, pts_ppr
+        FROM player_weekly_stats
+        WHERE player_name = '${currentPlayer.name.replace(/'/g, "''")}' AND season = ${season}
+        ORDER BY week
+      `);
+
+      if (!result.length || !result[0].values.length) {
+        document.getElementById('player-section').style.display = 'none';
+        return;
+      }
+
+      weeklyData = result[0].values.map(row => ({
+        week: row[0],
+        opponent: row[1],
+        pass_yd: row[2] || 0,
+        rush_yd: row[3] || 0,
+        rec: row[4] || 0,
+        rec_yd: row[5] || 0,
+        rec_td: row[6] || 0,
+        rush_td: row[7] || 0,
+        pass_td: row[8] || 0,
+        pts_ppr: row[9] || 0,
+      }));
+
+      document.getElementById('player-section').style.display = 'block';
+      document.getElementById('player-title').textContent = currentPlayer.name;
+      document.getElementById('player-badge').textContent = `${currentPlayer.position} | ${currentPlayer.team}`;
+      document.getElementById('games-badge').textContent = `${weeklyData.length} Games`;
+
+      renderSummary();
+      renderWeeklyTable();
+      renderWeeklyChart();
+
+      // Auto-analyze with default lines
+      analyzeProps();
+    }
+
+    function renderSummary() {
+      const n = weeklyData.length;
+      if (n === 0) return;
+
+      const avg = (arr, key) => arr.reduce((s, x) => s + (x[key] || 0), 0) / n;
+
+      const summaryHtml = [];
+
+      if (currentPlayer.position === 'QB') {
+        summaryHtml.push(`
+          <div class="summary-stat">
+            <div class="summary-label">Avg Pass Yds</div>
+            <div class="summary-value">${avg(weeklyData, 'pass_yd').toFixed(1)}</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-label">Avg Pass TDs</div>
+            <div class="summary-value">${avg(weeklyData, 'pass_td').toFixed(2)}</div>
+          </div>
+        `);
+      }
+
+      if (['RB', 'QB'].includes(currentPlayer.position)) {
+        summaryHtml.push(`
+          <div class="summary-stat">
+            <div class="summary-label">Avg Rush Yds</div>
+            <div class="summary-value">${avg(weeklyData, 'rush_yd').toFixed(1)}</div>
+          </div>
+        `);
+      }
+
+      if (['WR', 'TE', 'RB'].includes(currentPlayer.position)) {
+        summaryHtml.push(`
+          <div class="summary-stat">
+            <div class="summary-label">Avg Receptions</div>
+            <div class="summary-value">${avg(weeklyData, 'rec').toFixed(1)}</div>
+          </div>
+          <div class="summary-stat">
+            <div class="summary-label">Avg Rec Yds</div>
+            <div class="summary-value">${avg(weeklyData, 'rec_yd').toFixed(1)}</div>
+          </div>
+        `);
+      }
+
+      const totalTDs = weeklyData.map(w => (w.pass_td || 0) + (w.rush_td || 0) + (w.rec_td || 0));
+      summaryHtml.push(`
+        <div class="summary-stat">
+          <div class="summary-label">Avg TDs</div>
+          <div class="summary-value">${(totalTDs.reduce((a,b) => a+b, 0) / n).toFixed(2)}</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-label">Avg PPR</div>
+          <div class="summary-value">${avg(weeklyData, 'pts_ppr').toFixed(1)}</div>
+        </div>
+      `);
+
+      document.getElementById('player-summary').innerHTML = summaryHtml.join('');
+    }
+
+    function renderWeeklyTable() {
+      const tbody = document.getElementById('weekly-body');
+      tbody.innerHTML = weeklyData.map(w => {
+        const totalTDs = (w.pass_td || 0) + (w.rush_td || 0) + (w.rec_td || 0);
+        return `
+          <tr>
+            <td>${w.week}</td>
+            <td>${w.opponent || '-'}</td>
+            <td class="stat-cell">${w.pass_yd || '-'}</td>
+            <td class="stat-cell">${w.rush_yd || '-'}</td>
+            <td class="stat-cell">${w.rec || '-'}</td>
+            <td class="stat-cell">${w.rec_yd || '-'}</td>
+            <td class="stat-cell">${totalTDs || '-'}</td>
+            <td class="stat-cell">${w.pts_ppr.toFixed(1)}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderWeeklyChart() {
+      if (weeklyChart) {
+        weeklyChart.destroy();
+      }
+
+      const ctx = document.getElementById('weekly-chart');
+
+      // Pick the main stat based on position
+      let dataKey, label;
+      if (currentPlayer.position === 'QB') {
+        dataKey = 'pass_yd';
+        label = 'Pass Yards';
+      } else if (currentPlayer.position === 'RB') {
+        dataKey = 'rush_yd';
+        label = 'Rush Yards';
+      } else {
+        dataKey = 'rec_yd';
+        label = 'Rec Yards';
+      }
+
+      weeklyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: weeklyData.map(w => `Wk ${w.week}`),
+          datasets: [{
+            label: label,
+            data: weeklyData.map(w => w[dataKey] || 0),
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+            tension: 0.3,
+            fill: true,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8' }
+            },
+            y: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8' },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    function analyzeProps() {
+      if (!weeklyData.length) return;
+
+      const lines = {
+        pass_yd: parseFloat(document.getElementById('line-pass-yd').value) || 225,
+        rush_yd: parseFloat(document.getElementById('line-rush-yd').value) || 60,
+        rec_yd: parseFloat(document.getElementById('line-rec-yd').value) || 50,
+        rec: parseFloat(document.getElementById('line-rec').value) || 4,
+        td: parseFloat(document.getElementById('line-td').value) || 0.5,
+      };
+
+      const n = weeklyData.length;
+      const props = [];
+
+      // Analyze each prop based on position
+      if (currentPlayer.position === 'QB') {
+        const hitRate = calculateHitRate(weeklyData, 'pass_yd', lines.pass_yd);
+        const avg = weeklyData.reduce((s, w) => s + (w.pass_yd || 0), 0) / n;
+        props.push(createPropCard('Passing Yards', 'pass_yd', lines.pass_yd, hitRate, avg, weeklyData));
+      }
+
+      if (['RB', 'QB'].includes(currentPlayer.position)) {
+        const hitRate = calculateHitRate(weeklyData, 'rush_yd', lines.rush_yd);
+        const avg = weeklyData.reduce((s, w) => s + (w.rush_yd || 0), 0) / n;
+        props.push(createPropCard('Rushing Yards', 'rush_yd', lines.rush_yd, hitRate, avg, weeklyData));
+      }
+
+      if (['WR', 'TE', 'RB'].includes(currentPlayer.position)) {
+        // Receiving yards
+        let hitRate = calculateHitRate(weeklyData, 'rec_yd', lines.rec_yd);
+        let avg = weeklyData.reduce((s, w) => s + (w.rec_yd || 0), 0) / n;
+        props.push(createPropCard('Receiving Yards', 'rec_yd', lines.rec_yd, hitRate, avg, weeklyData));
+
+        // Receptions
+        hitRate = calculateHitRate(weeklyData, 'rec', lines.rec);
+        avg = weeklyData.reduce((s, w) => s + (w.rec || 0), 0) / n;
+        props.push(createPropCard('Receptions', 'rec', lines.rec, hitRate, avg, weeklyData));
+      }
+
+      // Total TDs (all positions)
+      const tdData = weeklyData.map(w => ({
+        ...w,
+        total_td: (w.pass_td || 0) + (w.rush_td || 0) + (w.rec_td || 0)
+      }));
+      const tdHitRate = calculateHitRate(tdData, 'total_td', lines.td);
+      const tdAvg = tdData.reduce((s, w) => s + w.total_td, 0) / n;
+      props.push(createPropCard('Total TDs', 'total_td', lines.td, tdHitRate, tdAvg, tdData));
+
+      document.getElementById('props-list').innerHTML = props.join('');
+    }
+
+    function calculateHitRate(data, key, line) {
+      const n = data.length;
+      const hits = data.filter(w => (w[key] || 0) > line).length;
+      return {
+        over: (hits / n * 100).toFixed(1),
+        under: ((n - hits) / n * 100).toFixed(1),
+        hits,
+        total: n
+      };
+    }
+
+    function createPropCard(name, key, line, hitRate, avg, data) {
+      const hitClass = parseFloat(hitRate.over) >= 60 ? 'over-60' : parseFloat(hitRate.over) < 40 ? 'under-40' : '';
+
+      // Determine value
+      let valueClass, valueText;
+      const diff = avg - line;
+      const diffPct = (diff / line * 100).toFixed(0);
+
+      if (diff > 0 && parseFloat(hitRate.over) >= 55) {
+        valueClass = 'value-over';
+        valueText = `+${diffPct}% vs line`;
+      } else if (diff < 0 && parseFloat(hitRate.under) >= 55) {
+        valueClass = 'value-under';
+        valueText = `${diffPct}% vs line`;
+      } else {
+        valueClass = 'value-push';
+        valueText = 'Close to line';
+      }
+
+      // Calculate recent trend (last 3 games)
+      const recent = data.slice(-3);
+      const recentAvg = recent.reduce((s, w) => s + (w[key] || 0), 0) / recent.length;
+      const recentHits = recent.filter(w => (w[key] || 0) > line).length;
+
+      return `
+        <div class="prop-card">
+          <div class="prop-info">
+            <h4>${name}</h4>
+            <div class="prop-stats">
+              Avg: ${avg.toFixed(1)} | Last 3: ${recentAvg.toFixed(1)} (${recentHits}/3 over)
+            </div>
+            <div class="value-indicator ${valueClass}">${valueText}</div>
+          </div>
+          <div class="prop-line">
+            <div class="line-label">Line</div>
+            <div class="line-value">${line}</div>
+          </div>
+          <div class="prop-hit-rate">
+            <div class="hit-rate-value ${hitClass}">${hitRate.over}%</div>
+            <div class="hit-rate-label">Over Rate (${hitRate.hits}/${hitRate.total})</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Event listeners
+    document.getElementById('player-search').addEventListener('input', (e) => {
+      searchPlayers(e.target.value);
+    });
+
+    document.getElementById('season-select').addEventListener('change', () => {
+      if (currentPlayer) {
+        loadPlayerData();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-box') && !e.target.closest('.search-results')) {
+        document.getElementById('search-results').classList.remove('active');
+      }
+    });
+
+    // Initialize
+    initDB().catch(err => {
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

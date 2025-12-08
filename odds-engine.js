@@ -255,9 +255,298 @@ const OddsEngine = (function() {
     });
   }
 
+  // ============ Monte Carlo Simulation ============
+
+  /**
+   * Generate random sample from normal distribution (Box-Muller)
+   */
+  function sampleNormal(mean, stdDev) {
+    const u1 = Math.random();
+    const u2 = Math.random();
+    const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+    return mean + z * stdDev;
+  }
+
+  /**
+   * Calculate percentile from sorted array
+   */
+  function percentile(arr, p) {
+    const idx = (arr.length - 1) * p;
+    const lower = Math.floor(idx);
+    const upper = Math.ceil(idx);
+    if (lower === upper) return arr[lower];
+    return arr[lower] * (upper - idx) + arr[upper] * (idx - lower);
+  }
+
+  /**
+   * Run Monte Carlo simulation for a matchup
+   * @param {Object} homeStats - Home team statistics
+   * @param {Object} awayStats - Away team statistics
+   * @param {number} iterations - Number of simulations (default 10000)
+   * @returns {Object} Simulation results with distributions
+   */
+  function monteCarloSimulation(homeStats, awayStats, iterations = 10000) {
+    const homePpg = homeStats?.ppg_scored || 21;
+    const awayPpg = awayStats?.ppg_scored || 21;
+    const homeStd = homeStats?.scoring_std_dev || 10;
+    const awayStd = awayStats?.scoring_std_dev || 10;
+
+    // Adjust for matchup (home offense vs away defense, etc)
+    const homeAllowed = homeStats?.ppg_allowed || 21;
+    const awayAllowed = awayStats?.ppg_allowed || 21;
+
+    // Expected scoring adjusted for opponent
+    const homeExpected = (homePpg + awayAllowed) / 2 + 1.25;  // HFA
+    const awayExpected = (awayPpg + homeAllowed) / 2 - 1.25;
+
+    // Simulate games
+    const homeScores = [];
+    const awayScores = [];
+    const totals = [];
+    const margins = [];
+    let homeWins = 0;
+
+    for (let i = 0; i < iterations; i++) {
+      const hs = Math.max(0, sampleNormal(homeExpected, homeStd));
+      const as = Math.max(0, sampleNormal(awayExpected, awayStd));
+      homeScores.push(hs);
+      awayScores.push(as);
+      totals.push(hs + as);
+      margins.push(hs - as);
+      if (hs > as) homeWins++;
+    }
+
+    // Sort for percentiles
+    const sortedMargins = [...margins].sort((a, b) => a - b);
+    const sortedTotals = [...totals].sort((a, b) => a - b);
+
+    return {
+      homeWinProb: homeWins / iterations,
+      spread: {
+        mean: margins.reduce((a, b) => a + b, 0) / iterations,
+        p5: percentile(sortedMargins, 0.05),
+        p25: percentile(sortedMargins, 0.25),
+        median: percentile(sortedMargins, 0.5),
+        p75: percentile(sortedMargins, 0.75),
+        p95: percentile(sortedMargins, 0.95),
+      },
+      total: {
+        mean: totals.reduce((a, b) => a + b, 0) / iterations,
+        p5: percentile(sortedTotals, 0.05),
+        p25: percentile(sortedTotals, 0.25),
+        median: percentile(sortedTotals, 0.5),
+        p75: percentile(sortedTotals, 0.75),
+        p95: percentile(sortedTotals, 0.95),
+      },
+      // Probability of covering various spreads
+      spreadCoverProb: (spread) => margins.filter(m => m > spread).length / iterations,
+      // Probability of hitting over
+      overProb: (total) => totals.filter(t => t > total).length / iterations,
+    };
+  }
+
+  /**
+   * Detect value bets by comparing model probability to market odds
+   * @param {number} modelProb - Model's estimated probability (0-1)
+   * @param {number} marketOdds - Market American odds
+   * @param {number} threshold - Minimum edge to flag (default 5%)
+   * @returns {Object} Value analysis
+   */
+  function detectValue(modelProb, marketOdds, threshold = 0.05) {
+    const impliedProb = oddsToProb(marketOdds);
+    const edge = modelProb - impliedProb;
+    const ev = expectedValue(marketOdds, modelProb);
+
+    return {
+      modelProb: Math.round(modelProb * 1000) / 10,
+      impliedProb: Math.round(impliedProb * 1000) / 10,
+      edge: Math.round(edge * 1000) / 10,
+      ev: Math.round(ev * 1000) / 10,
+      hasValue: edge >= threshold,
+      rating: edge >= 0.10 ? 'strong' : edge >= 0.05 ? 'moderate' : edge > 0 ? 'slight' : 'none',
+    };
+  }
+
+  /**
+   * Calculate enhanced matchup odds with Monte Carlo and advanced factors
+   */
+  function calculateEnhancedOdds(homeStats, awayStats) {
+    // Get base odds
+    const baseOdds = calculateMatchupOdds(homeStats, awayStats);
+
+    // Run Monte Carlo simulation
+    const simulation = monteCarloSimulation(homeStats, awayStats, 5000);
+
+    // Advanced factors
+    const factors = analyzeMatchupFactors(homeStats, awayStats);
+
+    return {
+      ...baseOdds,
+      simulation: {
+        homeWinProb: Math.round(simulation.homeWinProb * 1000) / 1000,
+        spreadRange: {
+          low: Math.round(simulation.spread.p5 * 10) / 10,
+          mid: Math.round(simulation.spread.median * 10) / 10,
+          high: Math.round(simulation.spread.p95 * 10) / 10,
+        },
+        totalRange: {
+          low: Math.round(simulation.total.p5 * 10) / 10,
+          mid: Math.round(simulation.total.median * 10) / 10,
+          high: Math.round(simulation.total.p95 * 10) / 10,
+        },
+      },
+      factors,
+      confidence: calculateConfidence(simulation, factors),
+    };
+  }
+
+  /**
+   * Analyze matchup-specific factors
+   */
+  function analyzeMatchupFactors(homeStats, awayStats) {
+    const factors = [];
+
+    if (!homeStats || !awayStats) return factors;
+
+    // EMA momentum
+    const homeEma = homeStats.ema_differential || 0;
+    const awayEma = awayStats.ema_differential || 0;
+    if (Math.abs(homeEma - awayEma) > 5) {
+      const better = homeEma > awayEma ? 'home' : 'away';
+      factors.push({
+        type: 'momentum',
+        team: better,
+        magnitude: Math.abs(homeEma - awayEma).toFixed(1),
+        description: `${better === 'home' ? homeStats.team_code : awayStats.team_code} has momentum edge (+${Math.abs(homeEma - awayEma).toFixed(1)} EMA diff)`,
+      });
+    }
+
+    // Changepoint detection
+    if (homeStats.scoring_changepoint) {
+      factors.push({
+        type: 'changepoint',
+        team: 'home',
+        direction: homeStats.scoring_changepoint_direction,
+        magnitude: homeStats.scoring_changepoint_magnitude,
+        description: `${homeStats.team_code} trending ${homeStats.scoring_changepoint_direction} (${homeStats.scoring_changepoint_magnitude > 0 ? '+' : ''}${homeStats.scoring_changepoint_magnitude} PPG shift)`,
+      });
+    }
+    if (awayStats.scoring_changepoint) {
+      factors.push({
+        type: 'changepoint',
+        team: 'away',
+        direction: awayStats.scoring_changepoint_direction,
+        magnitude: awayStats.scoring_changepoint_magnitude,
+        description: `${awayStats.team_code} trending ${awayStats.scoring_changepoint_direction} (${awayStats.scoring_changepoint_magnitude > 0 ? '+' : ''}${awayStats.scoring_changepoint_magnitude} PPG shift)`,
+      });
+    }
+
+    // Consistency mismatch
+    const homeConsistency = homeStats.scoring_consistency || 50;
+    const awayConsistency = awayStats.scoring_consistency || 50;
+    if (Math.abs(homeConsistency - awayConsistency) > 15) {
+      const consistent = homeConsistency > awayConsistency ? 'home' : 'away';
+      factors.push({
+        type: 'consistency',
+        team: consistent,
+        description: `${consistent === 'home' ? homeStats.team_code : awayStats.team_code} is more consistent (${Math.max(homeConsistency, awayConsistency).toFixed(0)} vs ${Math.min(homeConsistency, awayConsistency).toFixed(0)})`,
+      });
+    }
+
+    // Game profile clash
+    const homeProfile = homeStats.game_profile || 'balanced';
+    const awayProfile = awayStats.game_profile || 'balanced';
+    if (homeProfile !== awayProfile && homeProfile !== 'balanced' && awayProfile !== 'balanced') {
+      factors.push({
+        type: 'profile_clash',
+        home_profile: homeProfile,
+        away_profile: awayProfile,
+        description: `Style clash: ${homeStats.team_code} (${homeProfile}) vs ${awayStats.team_code} (${awayProfile})`,
+      });
+    }
+
+    // Total points tendency
+    const homeTotal = homeStats.avg_total_points || 43;
+    const awayTotal = awayStats.avg_total_points || 43;
+    const avgTotal = (homeTotal + awayTotal) / 2;
+    if (avgTotal > 48) {
+      factors.push({
+        type: 'high_scoring',
+        description: `Both teams in high-scoring games (avg ${avgTotal.toFixed(1)} total)`,
+      });
+    } else if (avgTotal < 40) {
+      factors.push({
+        type: 'low_scoring',
+        description: `Both teams in low-scoring games (avg ${avgTotal.toFixed(1)} total)`,
+      });
+    }
+
+    return factors;
+  }
+
+  /**
+   * Calculate confidence level for prediction
+   */
+  function calculateConfidence(simulation, factors) {
+    // Base confidence from simulation spread
+    const spreadRange = simulation.spread.p95 - simulation.spread.p5;
+    let confidence = 100 - (spreadRange * 2);  // Wider range = lower confidence
+
+    // Adjust for factors
+    factors.forEach(f => {
+      if (f.type === 'momentum') confidence += 5;
+      if (f.type === 'changepoint') confidence -= 5;  // More uncertainty
+      if (f.type === 'consistency' && f.team) confidence += 5;
+    });
+
+    return Math.max(0, Math.min(100, Math.round(confidence)));
+  }
+
+  /**
+   * Find high-value betting opportunities
+   * @param {Object} db - sql.js database instance
+   * @param {number} season - Season year
+   * @param {number} week - Week number (optional)
+   * @returns {Array} Sorted list of value opportunities
+   */
+  function findValueOpportunities(db, season, week = null) {
+    const matchups = computeAllOdds(db, season, week);
+    const opportunities = [];
+
+    matchups.forEach(matchup => {
+      const enhanced = calculateEnhancedOdds(matchup.homeStats, matchup.awayStats);
+
+      // Check moneyline value
+      const homeValue = detectValue(enhanced.homeWinProb, matchup.homeMoneyline || enhanced.homeMoneyline);
+      const awayValue = detectValue(enhanced.awayWinProb, matchup.awayMoneyline || enhanced.awayMoneyline);
+
+      if (homeValue.hasValue || awayValue.hasValue) {
+        opportunities.push({
+          matchup: `${matchup.away_team} @ ${matchup.home_team}`,
+          week: matchup.week,
+          date: matchup.game_date,
+          bet: homeValue.hasValue ? matchup.home_team : matchup.away_team,
+          betType: 'moneyline',
+          odds: homeValue.hasValue ? enhanced.homeMoneyline : enhanced.awayMoneyline,
+          modelProb: homeValue.hasValue ? homeValue.modelProb : awayValue.modelProb,
+          impliedProb: homeValue.hasValue ? homeValue.impliedProb : awayValue.impliedProb,
+          edge: homeValue.hasValue ? homeValue.edge : awayValue.edge,
+          ev: homeValue.hasValue ? homeValue.ev : awayValue.ev,
+          rating: homeValue.hasValue ? homeValue.rating : awayValue.rating,
+          factors: enhanced.factors,
+          confidence: enhanced.confidence,
+        });
+      }
+    });
+
+    // Sort by edge (highest first)
+    return opportunities.sort((a, b) => b.edge - a.edge);
+  }
+
   // Public API
   return {
     calculateMatchupOdds,
+    calculateEnhancedOdds,
     calculatePowerRating,
     probToAmericanOdds,
     applyVig,
@@ -268,6 +557,10 @@ const OddsEngine = (function() {
     getTeamStats,
     getUpcomingMatchups,
     computeAllOdds,
+    monteCarloSimulation,
+    detectValue,
+    findValueOpportunities,
+    analyzeMatchupFactors,
 
     // Constants exposed for reference
     HOME_FIELD_ADVANTAGE,

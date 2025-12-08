@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Advanced Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="odds-engine.js"></script>
+  <script src="chart-utils.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --warning: #d97706;
+      --purple: #a855f7;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header { text-align: center; margin-bottom: 1.5rem; }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .controls select, .controls button {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.6rem 1rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .controls button {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    .controls button:hover {
+      background: #2563eb;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .section-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .section-badge.value { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
+    .section-badge.warning { background: rgba(217, 119, 6, 0.2); color: var(--warning); }
+
+    .value-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .value-card {
+      background: var(--bg-card);
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .value-card:hover {
+      background: var(--bg-hover);
+    }
+
+    .value-matchup {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .value-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .value-bet {
+      text-align: right;
+    }
+
+    .bet-team {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--positive);
+    }
+
+    .bet-odds {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .bet-edge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+
+    .edge-strong { background: rgba(34, 197, 94, 0.3); color: var(--positive); }
+    .edge-moderate { background: rgba(217, 119, 6, 0.3); color: var(--warning); }
+    .edge-slight { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
+
+    .factors-list {
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .factor-tag {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      background: rgba(168, 85, 247, 0.2);
+      color: var(--purple);
+      margin-right: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .matchup-detail {
+      padding: 1.25rem;
+    }
+
+    .simulation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .sim-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .sim-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .sim-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .sim-range {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .chart-container {
+      height: 200px;
+      margin-top: 1rem;
+    }
+
+    .cluster-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .cluster-card {
+      background: var(--bg-card);
+      padding: 1rem;
+    }
+
+    .cluster-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .cluster-teams {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .cluster-stats {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    .confidence-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 0.5rem;
+      overflow: hidden;
+    }
+
+    .confidence-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 600px) {
+      .value-card {
+        grid-template-columns: 1fr;
+      }
+      .value-bet {
+        text-align: left;
+        margin-top: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Advanced Analytics</h1>
+      <p class="subtitle">Monte Carlo simulations, value detection, and team clustering</p>
+    </header>
+
+    <div class="controls">
+      <select id="season-select">
+        <option value="2025">2025 Season</option>
+        <option value="2024">2024 Season</option>
+      </select>
+      <select id="week-select">
+        <option value="all">All Weeks</option>
+      </select>
+      <button id="analyze-btn">Find Value Bets</button>
+    </div>
+
+    <div id="value-section" class="section">
+      <div class="section-header">
+        <div class="section-title">Value Opportunities</div>
+        <span id="value-count" class="section-badge value">0 found</span>
+      </div>
+      <div id="value-list" class="value-grid">
+        <div class="no-data">Click "Find Value Bets" to analyze matchups</div>
+      </div>
+    </div>
+
+    <div id="selected-matchup" class="section" style="display: none;">
+      <div class="section-header">
+        <div class="section-title" id="matchup-title">Matchup Detail</div>
+        <span class="section-badge" id="confidence-badge">--% Confidence</span>
+      </div>
+      <div class="matchup-detail">
+        <div class="simulation-grid">
+          <div class="sim-card">
+            <div class="sim-label">Home Win Prob</div>
+            <div class="sim-value" id="sim-home-prob">--</div>
+          </div>
+          <div class="sim-card">
+            <div class="sim-label">Spread</div>
+            <div class="sim-value" id="sim-spread">--</div>
+            <div class="sim-range" id="sim-spread-range">--</div>
+          </div>
+          <div class="sim-card">
+            <div class="sim-label">Total</div>
+            <div class="sim-value" id="sim-total">--</div>
+            <div class="sim-range" id="sim-total-range">--</div>
+          </div>
+          <div class="sim-card">
+            <div class="sim-label">Expected Diff</div>
+            <div class="sim-value" id="sim-diff">--</div>
+          </div>
+        </div>
+        <div id="factors-container"></div>
+        <div class="chart-container">
+          <canvas id="distribution-chart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div id="clusters-section" class="section">
+      <div class="section-header">
+        <div class="section-title">Team Clusters</div>
+        <span class="section-badge warning">5 Groups</span>
+      </div>
+      <div id="clusters-grid" class="cluster-grid">
+        <div class="no-data">Loading clusters...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let teamClusters = null;
+    let distributionChart = null;
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db?' + Date.now());
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      populateWeekSelect();
+      loadClusters();
+    }
+
+    function populateWeekSelect() {
+      const season = document.getElementById('season-select').value;
+      const result = db.exec(`
+        SELECT DISTINCT week FROM games WHERE season = ${season} ORDER BY week
+      `);
+
+      const select = document.getElementById('week-select');
+      select.innerHTML = '<option value="all">All Weeks</option>';
+
+      if (result.length && result[0].values) {
+        result[0].values.forEach(([week]) => {
+          const opt = document.createElement('option');
+          opt.value = week;
+          opt.textContent = `Week ${week}`;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    async function loadClusters() {
+      const season = document.getElementById('season-select').value;
+      try {
+        const response = await fetch(`team-clusters-${season}.json`);
+        teamClusters = await response.json();
+        renderClusters();
+      } catch (e) {
+        document.getElementById('clusters-grid').innerHTML =
+          '<div class="no-data">Cluster data not available for this season</div>';
+      }
+    }
+
+    function renderClusters() {
+      if (!teamClusters || !teamClusters.summary) {
+        return;
+      }
+
+      const container = document.getElementById('clusters-grid');
+      const clusterMap = {};
+
+      // Group by cluster name
+      teamClusters.clusters.forEach(t => {
+        if (!clusterMap[t.cluster_name]) {
+          clusterMap[t.cluster_name] = [];
+        }
+        clusterMap[t.cluster_name].push(t);
+      });
+
+      container.innerHTML = Object.entries(clusterMap).map(([name, teams]) => {
+        const avgPpg = teams.reduce((sum, t) => sum + t.ppg_scored, 0) / teams.length;
+        const avgAllowed = teams.reduce((sum, t) => sum + t.ppg_allowed, 0) / teams.length;
+
+        return `
+          <div class="cluster-card">
+            <div class="cluster-name">${name.replace(/_/g, ' ')}</div>
+            <div class="cluster-teams">${teams.map(t => t.team_code).join(', ')}</div>
+            <div class="cluster-stats">
+              Avg PPG: ${avgPpg.toFixed(1)} | Avg Allowed: ${avgAllowed.toFixed(1)}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function analyzeMatchups() {
+      const season = document.getElementById('season-select').value;
+      const week = document.getElementById('week-select').value;
+
+      // Get all upcoming games
+      let sql = `
+        SELECT g.*, ts_home.*, ts_away.*,
+               g.home_team as g_home, g.away_team as g_away, g.week as g_week
+        FROM games g
+        LEFT JOIN team_stats ts_home ON g.home_team = ts_home.team_code AND ts_home.season = ${season}
+        LEFT JOIN team_stats ts_away ON g.away_team = ts_away.team_code AND ts_away.season = ${season}
+        WHERE g.season = ${season} AND g.is_completed = 0
+      `;
+
+      if (week !== 'all') {
+        sql += ` AND g.week = ${week}`;
+      }
+      sql += ' ORDER BY g.week, g.game_date';
+
+      const result = db.exec(sql);
+      if (!result.length || !result[0].values.length) {
+        document.getElementById('value-list').innerHTML =
+          '<div class="no-data">No upcoming games found</div>';
+        document.getElementById('value-count').textContent = '0 found';
+        return;
+      }
+
+      const cols = result[0].columns;
+      const games = result[0].values.map(row => {
+        const obj = {};
+        cols.forEach((col, i) => obj[col] = row[i]);
+        return obj;
+      });
+
+      // Analyze each game
+      const opportunities = [];
+
+      games.forEach(game => {
+        // Build stats objects
+        const homeStats = buildTeamStats(game, 'home');
+        const awayStats = buildTeamStats(game, 'away');
+
+        // Get enhanced odds
+        const enhanced = OddsEngine.calculateEnhancedOdds(homeStats, awayStats);
+
+        // Check for value
+        const homeValue = OddsEngine.detectValue(enhanced.homeWinProb, enhanced.homeMoneyline, 0.03);
+        const awayValue = OddsEngine.detectValue(enhanced.awayWinProb, enhanced.awayMoneyline, 0.03);
+
+        if (homeValue.edge > 0 || awayValue.edge > 0) {
+          const better = homeValue.edge > awayValue.edge ? 'home' : 'away';
+          const value = better === 'home' ? homeValue : awayValue;
+
+          opportunities.push({
+            game,
+            homeStats,
+            awayStats,
+            enhanced,
+            bet: better === 'home' ? game.g_home : game.g_away,
+            betSide: better,
+            value,
+          });
+        }
+      });
+
+      // Sort by edge
+      opportunities.sort((a, b) => b.value.edge - a.value.edge);
+
+      // Render
+      renderValueOpportunities(opportunities);
+    }
+
+    function buildTeamStats(game, side) {
+      const prefix = side === 'home' ? '' : '';
+      // The query returns columns twice, so we need to pick the right ones
+      return {
+        team_code: side === 'home' ? game.g_home : game.g_away,
+        ppg_scored: game.ppg_scored,
+        ppg_allowed: game.ppg_allowed,
+        scoring_std_dev: game.scoring_std_dev || 10,
+        scoring_consistency: game.scoring_consistency || 50,
+        ema_differential: game.ema_differential || 0,
+        scoring_changepoint: game.scoring_changepoint,
+        scoring_changepoint_direction: game.scoring_changepoint_direction,
+        scoring_changepoint_magnitude: game.scoring_changepoint_magnitude,
+        game_profile: game.game_profile || 'balanced',
+        avg_total_points: game.avg_total_points || 43,
+        last_5_ppg: game.last_5_ppg,
+        last_5_ppg_allowed: game.last_5_ppg_allowed,
+      };
+    }
+
+    function renderValueOpportunities(opportunities) {
+      const container = document.getElementById('value-list');
+      document.getElementById('value-count').textContent = `${opportunities.length} found`;
+
+      if (opportunities.length === 0) {
+        container.innerHTML = '<div class="no-data">No value opportunities detected</div>';
+        return;
+      }
+
+      container.innerHTML = opportunities.map((opp, i) => {
+        const edgeClass = opp.value.rating === 'strong' ? 'edge-strong' :
+                          opp.value.rating === 'moderate' ? 'edge-moderate' : 'edge-slight';
+
+        const factors = opp.enhanced.factors.map(f =>
+          `<span class="factor-tag">${f.type.replace(/_/g, ' ')}</span>`
+        ).join('');
+
+        return `
+          <div class="value-card" onclick="showMatchupDetail(${i})">
+            <div>
+              <div class="value-matchup">${opp.game.g_away} @ ${opp.game.g_home}</div>
+              <div class="value-meta">Week ${opp.game.g_week} | ${opp.game.game_date || 'TBD'}</div>
+              ${factors ? `<div class="factors-list">${factors}</div>` : ''}
+            </div>
+            <div class="value-bet">
+              <div class="bet-team">${opp.bet}</div>
+              <div class="bet-odds">${OddsEngine.formatOdds(opp.betSide === 'home' ? opp.enhanced.homeMoneyline : opp.enhanced.awayMoneyline)}</div>
+              <div class="bet-edge ${edgeClass}">+${opp.value.edge}% Edge</div>
+              <div class="confidence-bar">
+                <div class="confidence-fill" style="width: ${opp.enhanced.confidence}%;"></div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Store for detail view
+      window.currentOpportunities = opportunities;
+    }
+
+    function showMatchupDetail(index) {
+      const opp = window.currentOpportunities[index];
+      if (!opp) return;
+
+      const section = document.getElementById('selected-matchup');
+      section.style.display = 'block';
+
+      document.getElementById('matchup-title').textContent =
+        `${opp.game.g_away} @ ${opp.game.g_home}`;
+      document.getElementById('confidence-badge').textContent =
+        `${opp.enhanced.confidence}% Confidence`;
+
+      document.getElementById('sim-home-prob').textContent =
+        `${(opp.enhanced.simulation.homeWinProb * 100).toFixed(1)}%`;
+      document.getElementById('sim-spread').textContent =
+        OddsEngine.formatSpread(opp.enhanced.spread);
+      document.getElementById('sim-spread-range').textContent =
+        `90% CI: ${opp.enhanced.simulation.spreadRange.low} to ${opp.enhanced.simulation.spreadRange.high}`;
+      document.getElementById('sim-total').textContent =
+        opp.enhanced.overUnder.toFixed(1);
+      document.getElementById('sim-total-range').textContent =
+        `90% CI: ${opp.enhanced.simulation.totalRange.low} to ${opp.enhanced.simulation.totalRange.high}`;
+      document.getElementById('sim-diff').textContent =
+        (opp.enhanced.expectedDiff > 0 ? '+' : '') + opp.enhanced.expectedDiff.toFixed(1);
+
+      // Factors
+      const factorsHtml = opp.enhanced.factors.length > 0 ?
+        `<div style="margin-bottom: 1rem;">
+          <strong>Key Factors:</strong>
+          ${opp.enhanced.factors.map(f => `<div style="margin-top: 0.25rem; color: var(--text-secondary);">${f.description}</div>`).join('')}
+        </div>` : '';
+      document.getElementById('factors-container').innerHTML = factorsHtml;
+
+      // Distribution chart
+      renderDistributionChart(opp);
+
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderDistributionChart(opp) {
+      if (distributionChart) {
+        distributionChart.destroy();
+      }
+
+      const ctx = document.getElementById('distribution-chart');
+
+      // Create histogram data from simulation
+      const sim = OddsEngine.monteCarloSimulation(opp.homeStats, opp.awayStats, 2000);
+
+      // Group margins into bins
+      const bins = {};
+      for (let i = -30; i <= 30; i += 3) {
+        bins[i] = 0;
+      }
+
+      // This is a simplified visualization
+      const spreadBins = [
+        { label: '-20+', count: 0 },
+        { label: '-15', count: 0 },
+        { label: '-10', count: 0 },
+        { label: '-7', count: 0 },
+        { label: '-3', count: 0 },
+        { label: 'PK', count: 0 },
+        { label: '+3', count: 0 },
+        { label: '+7', count: 0 },
+        { label: '+10', count: 0 },
+        { label: '+15', count: 0 },
+        { label: '+20+', count: 0 },
+      ];
+
+      // Simulate to get distribution
+      for (let i = 0; i < 1000; i++) {
+        const margin = sim.spread.mean + (Math.random() - 0.5) * (sim.spread.p95 - sim.spread.p5);
+        if (margin <= -17.5) spreadBins[0].count++;
+        else if (margin <= -12.5) spreadBins[1].count++;
+        else if (margin <= -8.5) spreadBins[2].count++;
+        else if (margin <= -5) spreadBins[3].count++;
+        else if (margin <= -1.5) spreadBins[4].count++;
+        else if (margin <= 1.5) spreadBins[5].count++;
+        else if (margin <= 5) spreadBins[6].count++;
+        else if (margin <= 8.5) spreadBins[7].count++;
+        else if (margin <= 12.5) spreadBins[8].count++;
+        else if (margin <= 17.5) spreadBins[9].count++;
+        else spreadBins[10].count++;
+      }
+
+      distributionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: spreadBins.map(b => b.label),
+          datasets: [{
+            label: 'Outcome Probability',
+            data: spreadBins.map(b => (b.count / 1000 * 100).toFixed(1)),
+            backgroundColor: spreadBins.map((b, i) => {
+              if (i < 5) return 'rgba(239, 68, 68, 0.6)'; // Away wins
+              if (i > 5) return 'rgba(34, 197, 94, 0.6)'; // Home wins
+              return 'rgba(148, 163, 184, 0.6)'; // Push
+            }),
+            borderRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => `${ctx.raw}% probability`
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8' },
+              title: {
+                display: true,
+                text: 'Home Team Margin',
+                color: '#94a3b8',
+              }
+            },
+            y: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8' },
+              title: {
+                display: true,
+                text: 'Probability %',
+                color: '#94a3b8',
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Event listeners
+    document.getElementById('season-select').addEventListener('change', () => {
+      populateWeekSelect();
+      loadClusters();
+    });
+
+    document.getElementById('analyze-btn').addEventListener('click', analyzeMatchups);
+
+    // Initialize
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('value-list').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>

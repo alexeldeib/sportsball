@@ -10,8 +10,17 @@ Usage: ./compute_team_stats.py [year]
 
 Reads: games-{year}.json
 Outputs: team-stats-{year}.json
+
+Advanced features:
+- Scoring variance (std deviation)
+- Consistency score
+- EMA (exponential moving average)
+- Changepoint detection
+- Margin analysis
+- Cover rate calculations
 """
 import json
+import math
 import sys
 from collections import defaultdict
 
@@ -27,6 +36,75 @@ TEAM_CODES = [
 def compute_avg(values):
     """Compute average, return 0 if empty."""
     return round(sum(values) / len(values), 1) if values else 0.0
+
+
+def compute_std(values):
+    """Compute standard deviation."""
+    if len(values) < 2:
+        return 0.0
+    avg = sum(values) / len(values)
+    variance = sum((x - avg) ** 2 for x in values) / len(values)
+    return round(math.sqrt(variance), 2)
+
+
+def compute_ema(values, alpha=0.3):
+    """Compute exponential moving average with alpha decay.
+
+    Higher alpha = more weight on recent values.
+    Returns the final EMA value.
+    """
+    if not values:
+        return 0.0
+    ema = values[0]
+    for v in values[1:]:
+        ema = alpha * v + (1 - alpha) * ema
+    return round(ema, 2)
+
+
+def compute_ema_series(values, alpha=0.3):
+    """Compute EMA series (returns list of all EMA values)."""
+    if not values:
+        return []
+    result = [values[0]]
+    for v in values[1:]:
+        result.append(alpha * v + (1 - alpha) * result[-1])
+    return [round(x, 2) for x in result]
+
+
+def detect_changepoint(values, window=3, threshold=5.0):
+    """Detect if recent performance differs significantly from prior.
+
+    Returns: (has_changepoint, direction, magnitude)
+    direction: 'up', 'down', or None
+    """
+    if len(values) < window * 2:
+        return (False, None, 0)
+
+    recent = sum(values[-window:]) / window
+    prior = sum(values[-window*2:-window]) / window
+    diff = recent - prior
+
+    if abs(diff) >= threshold:
+        direction = 'up' if diff > 0 else 'down'
+        return (True, direction, round(diff, 1))
+    return (False, None, 0)
+
+
+def compute_consistency(values):
+    """Compute consistency score (0-100, higher = more consistent).
+
+    Based on coefficient of variation inverted.
+    """
+    if len(values) < 2:
+        return 100.0
+    avg = sum(values) / len(values)
+    if avg == 0:
+        return 0.0
+    std = compute_std(values)
+    cv = std / avg  # coefficient of variation
+    # Invert and scale: CV of 0 = 100, CV of 0.5 = 50, CV of 1+ = 0
+    consistency = max(0, min(100, 100 * (1 - cv)))
+    return round(consistency, 1)
 
 
 def compute_team_stats(games, team_code):
@@ -189,6 +267,82 @@ def compute_team_stats(games, team_code):
         "last_5_ppg_allowed": compute_avg(recent_allowed),
         "last_5_record": f"{recent_wins}-{len(recent_games) - recent_wins}",
     }
+
+    # === Advanced Analytics ===
+
+    # Variance and consistency metrics
+    stats["scoring_std_dev"] = compute_std(points_scored)
+    stats["allowed_std_dev"] = compute_std(points_allowed)
+    stats["scoring_consistency"] = compute_consistency(points_scored)
+
+    # Margin analysis
+    margins = [s - a for s, a in zip(points_scored, points_allowed)]
+    stats["avg_margin"] = compute_avg(margins)
+    stats["margin_std_dev"] = compute_std(margins)
+
+    # Close games (decided by 7 or fewer points)
+    close_games = [m for m in margins if abs(m) <= 7]
+    stats["close_game_pct"] = round(len(close_games) / len(margins) * 100, 1) if margins else 0
+    close_wins = len([m for m in close_games if m > 0])
+    stats["close_game_record"] = f"{close_wins}-{len(close_games) - close_wins}"
+
+    # Blowout rate (won/lost by 14+)
+    blowout_wins = len([m for m in margins if m >= 14])
+    blowout_losses = len([m for m in margins if m <= -14])
+    stats["blowout_win_pct"] = round(blowout_wins / len(team_games) * 100, 1)
+    stats["blowout_loss_pct"] = round(blowout_losses / len(team_games) * 100, 1)
+
+    # Total points analysis (for O/U)
+    total_points = [s + a for s, a in zip(points_scored, points_allowed)]
+    stats["avg_total_points"] = compute_avg(total_points)
+    stats["total_points_std_dev"] = compute_std(total_points)
+
+    # EMA-based trends (more weight on recent games)
+    sorted_games = sorted(team_games, key=lambda g: (g["week"], g["game_date"]))
+    game_scored_ordered = []
+    game_allowed_ordered = []
+    for g in sorted_games:
+        is_home = g["home_team"] == team_code
+        if is_home:
+            game_scored_ordered.append(g["home_score"])
+            game_allowed_ordered.append(g["away_score"])
+        else:
+            game_scored_ordered.append(g["away_score"])
+            game_allowed_ordered.append(g["home_score"])
+
+    stats["ema_ppg"] = compute_ema(game_scored_ordered, alpha=0.3)
+    stats["ema_ppg_allowed"] = compute_ema(game_allowed_ordered, alpha=0.3)
+    stats["ema_differential"] = round(stats["ema_ppg"] - stats["ema_ppg_allowed"], 2)
+
+    # Changepoint detection (significant shift in performance)
+    has_cp, cp_dir, cp_mag = detect_changepoint(game_scored_ordered)
+    stats["scoring_changepoint"] = has_cp
+    stats["scoring_changepoint_direction"] = cp_dir
+    stats["scoring_changepoint_magnitude"] = cp_mag
+
+    # Trend indicators
+    if len(game_scored_ordered) >= 4:
+        first_half_avg = sum(game_scored_ordered[:len(game_scored_ordered)//2]) / (len(game_scored_ordered)//2)
+        second_half_avg = sum(game_scored_ordered[len(game_scored_ordered)//2:]) / (len(game_scored_ordered) - len(game_scored_ordered)//2)
+        stats["season_trend"] = round(second_half_avg - first_half_avg, 1)
+        stats["season_trend_direction"] = "up" if stats["season_trend"] > 2 else "down" if stats["season_trend"] < -2 else "flat"
+    else:
+        stats["season_trend"] = 0
+        stats["season_trend_direction"] = "flat"
+
+    # Quarter differential strength (identifies fast starters vs closers)
+    stats["q1_differential"] = round(stats["q1_ppg"] - stats["q1_ppg_allowed"], 1)
+    stats["q4_differential"] = round(stats["q4_ppg"] - stats["q4_ppg_allowed"], 1)
+    stats["first_half_differential"] = round(stats["first_half_ppg"] - stats["first_half_ppg_allowed"], 1)
+    stats["second_half_differential"] = round(stats["second_half_ppg"] - stats["second_half_ppg_allowed"], 1)
+
+    # Identify team profile
+    if stats["first_half_differential"] > stats["second_half_differential"] + 2:
+        stats["game_profile"] = "fast_starter"
+    elif stats["second_half_differential"] > stats["first_half_differential"] + 2:
+        stats["game_profile"] = "closer"
+    else:
+        stats["game_profile"] = "balanced"
 
     return stats
 

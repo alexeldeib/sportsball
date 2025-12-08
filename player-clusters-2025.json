@@ -1,0 +1,2334 @@
+{
+  "season": 2025,
+  "clusters": [
+    {
+      "player_name": "Jacoby Brissett",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Kirk Cousins",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Lamar Jackson",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "QB",
+      "cluster_id": 2,
+      "cluster_name": "game_manager"
+    },
+    {
+      "player_name": "Josh Allen",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Bryce Young",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Caleb Williams",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Jake Browning",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Joe Flacco",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Dillon Gabriel",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Dak Prescott",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Bo Nix",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Jared Goff",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Jordan Love",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "C.J. Stroud",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Davis Mills",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Daniel Jones",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Trevor Lawrence",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Patrick Mahomes",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Geno Smith",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Justin Herbert",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Matthew Stafford",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Tua Tagovailoa",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "J.J. McCarthy",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Drake Maye",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Spencer Rattler",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Tyler Shough",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Jameis Winston",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Jaxson Dart",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "QB",
+      "cluster_id": 2,
+      "cluster_name": "game_manager"
+    },
+    {
+      "player_name": "Russell Wilson",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Justin Fields",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "QB",
+      "cluster_id": 2,
+      "cluster_name": "game_manager"
+    },
+    {
+      "player_name": "Tyrod Taylor",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Jalen Hurts",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "QB",
+      "cluster_id": 2,
+      "cluster_name": "game_manager"
+    },
+    {
+      "player_name": "Aaron Rodgers",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Brock Purdy",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Mac Jones",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Sam Darnold",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "QB",
+      "cluster_id": 1,
+      "cluster_name": "dual_threat"
+    },
+    {
+      "player_name": "Baker Mayfield",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "QB",
+      "cluster_id": 3,
+      "cluster_name": "gunslinger"
+    },
+    {
+      "player_name": "Cam Ward",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Jayden Daniels",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "QB",
+      "cluster_id": 2,
+      "cluster_name": "game_manager"
+    },
+    {
+      "player_name": "Marcus Mariota",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "QB",
+      "cluster_id": 0,
+      "cluster_name": "elite_passer"
+    },
+    {
+      "player_name": "Emari Demercado",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Michael Carter",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Zonovan Knight",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Bijan Robinson",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "RB",
+      "cluster_id": 3,
+      "cluster_name": "change_of_pace"
+    },
+    {
+      "player_name": "Tyler Allgeier",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Derrick Henry",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Keaton Mitchell",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "James Cook",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Ray Davis",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Chuba Hubbard",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Rico Dowdle",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "D'Andre Swift",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Kyle Monangai",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Chase Brown",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Samaje Perine",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Dylan Sampson",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Quinshon Judkins",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Javonte Williams",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "RJ Harvey",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "David Montgomery",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Jahmyr Gibbs",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "RB",
+      "cluster_id": 3,
+      "cluster_name": "change_of_pace"
+    },
+    {
+      "player_name": "Emanuel Wilson",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Josh Jacobs",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Nick Chubb",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Woody Marks",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Jonathan Taylor",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Bhayshul Tuten",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Travis Etienne",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Isiah Pacheco",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Kareem Hunt",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Ashton Jeanty",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Jaret Patterson",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Kimani Vidal",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Blake Corum",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Kyren Williams",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "De'Von Achane",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "RB",
+      "cluster_id": 3,
+      "cluster_name": "change_of_pace"
+    },
+    {
+      "player_name": "Ollie Gordon",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Aaron Jones",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Jordan Mason",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Rhamondre Stevenson",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "TreVeyon Henderson",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Alvin Kamara",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Devin Neal",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Devin Singletary",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Tyrone Tracy",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Breece Hall",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Isaiah Davis",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Saquon Barkley",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Tank Bigsby",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Jaylen Warren",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Kenneth Gainwell",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Brian Robinson",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Christian McCaffrey",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "RB",
+      "cluster_id": 3,
+      "cluster_name": "change_of_pace"
+    },
+    {
+      "player_name": "Kenneth Walker",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "RB",
+      "cluster_id": 1,
+      "cluster_name": "receiving_back"
+    },
+    {
+      "player_name": "Zach Charbonnet",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Bucky Irving",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Rachaad White",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Sean Tucker",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Tony Pollard",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Tyjae Spears",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Chris Rodriguez",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Jacory Croskey-Merritt",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "RB",
+      "cluster_id": 2,
+      "cluster_name": "goal_line"
+    },
+    {
+      "player_name": "Jeremy McNichols",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "RB",
+      "cluster_id": 0,
+      "cluster_name": "workhorse"
+    },
+    {
+      "player_name": "Greg Dortch",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Marvin Harrison",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Michael Wilson",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Darnell Mooney",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Drake London",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "DeAndre Hopkins",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Rashod Bateman",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Zay Flowers",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Brandin Cooks",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Joshua Palmer",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Keon Coleman",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Khalil Shakir",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Tyrell Shavers",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Brycen Tremayne",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Hunter Renfrow",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jalen Coker",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Tetairoa McMillan",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Xavier Legette",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "DJ Moore",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Luther Burden",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Olamide Zaccheaus",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Rome Odunze",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Andrei Iosivas",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Ja'Marr Chase",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Tee Higgins",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Cedric Tillman",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Isaiah Bond",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Jerry Jeudy",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "CeeDee Lamb",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "George Pickens",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Jalen Tolbert",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "KaVontae Turpin",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Ryan Flournoy",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Courtland Sutton",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Marvin Mims",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Pat Bryant",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Troy Franklin",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Amon-Ra St. Brown",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Jameson Williams",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Kalif Raymond",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Christian Watson",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Dontayvion Wicks",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Matthew Golden",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Romeo Doubs",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Christian Kirk",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jayden Higgins",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jaylin Noel",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Nico Collins",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Xavier Hutchinson",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Alec Pierce",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Josh Downs",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Michael Pittman",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Brian Thomas",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Dyami Brown",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jakobi Meyers",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Parker Washington",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "JuJu Smith-Schuster",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Marquise Brown",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Rashee Rice",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Tyquan Thornton",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Xavier Worthy",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Tre Tucker",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Tyler Lockett",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Keenan Allen",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Ladd McConkey",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Quentin Johnston",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Tre' Harris",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Davante Adams",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Jordan Whittington",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Puka Nacua",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Jaylen Waddle",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Malik Washington",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Nick Westbrook-Ikhine",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jalen Nailor",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Jordan Addison",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Justin Jefferson",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "DeMario Douglas",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Kayshon Boutte",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Mack Hollins",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Stefon Diggs",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Chris Olave",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Devaughn Vele",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Darius Slayton",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Wan'Dale Robinson",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Adonai Mitchell",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "John Metchie",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "A.J. Brown",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "DeVonta Smith",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Jahan Dotson",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Calvin Austin",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "DK Metcalf",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Roman Wilson",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Demarcus Robinson",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Jauan Jennings",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Kendrick Bourne",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Ricky Pearsall",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Cooper Kupp",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Jaxon Smith-Njigba",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "WR",
+      "cluster_id": 1,
+      "cluster_name": "deep_threat"
+    },
+    {
+      "player_name": "Rashid Shaheed",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Chris Godwin",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Emeka Egbuka",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Sterling Shepard",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Tez Johnson",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Chimere Dike",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Elic Ayomanor",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Van Jefferson",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "WR",
+      "cluster_id": 0,
+      "cluster_name": "alpha_wr"
+    },
+    {
+      "player_name": "Deebo Samuel",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "WR",
+      "cluster_id": 2,
+      "cluster_name": "slot_specialist"
+    },
+    {
+      "player_name": "Jaylin Lane",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Terry McLaurin",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "WR",
+      "cluster_id": 3,
+      "cluster_name": "possession_receiver"
+    },
+    {
+      "player_name": "Elijah Higgins",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Trey McBride",
+      "team": "Arizona Cardinals",
+      "team_code": "ARI",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Kyle Pitts",
+      "team": "Atlanta Falcons",
+      "team_code": "ATL",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Isaiah Likely",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Mark Andrews",
+      "team": "Baltimore Ravens",
+      "team_code": "BAL",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Dalton Kincaid",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Dawson Knox",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Jackson Hawes",
+      "team": "Buffalo Bills",
+      "team_code": "BUF",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Ja'Tavion Sanders",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Mitchell Evans",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Tommy Tremble",
+      "team": "Carolina Panthers",
+      "team_code": "CAR",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Cole Kmet",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Colston Loveland",
+      "team": "Chicago Bears",
+      "team_code": "CHI",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Mike Gesicki",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Noah Fant",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Tanner Hudson",
+      "team": "Cincinnati Bengals",
+      "team_code": "CIN",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "David Njoku",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Harold Fannin",
+      "team": "Cleveland Browns",
+      "team_code": "CLE",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Jake Ferguson",
+      "team": "Dallas Cowboys",
+      "team_code": "DAL",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Adam Trautman",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Evan Engram",
+      "team": "Denver Broncos",
+      "team_code": "DEN",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Brock Wright",
+      "team": "Detroit Lions",
+      "team_code": "DET",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Luke Musgrave",
+      "team": "Green Bay Packers",
+      "team_code": "GB",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Dalton Schultz",
+      "team": "Houston Texans",
+      "team_code": "HOU",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Tyler Warren",
+      "team": "Indianapolis Colts",
+      "team_code": "IND",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Brenton Strange",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Hunter Long",
+      "team": "Jacksonville Jaguars",
+      "team_code": "JAX",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Noah Gray",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Travis Kelce",
+      "team": "Kansas City Chiefs",
+      "team_code": "KC",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Brock Bowers",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Ian Thomas",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Michael Mayer",
+      "team": "Las Vegas Raiders",
+      "team_code": "LV",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Oronde Gadsden",
+      "team": "Los Angeles Chargers",
+      "team_code": "LAC",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Colby Parkinson",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Davis Allen",
+      "team": "Los Angeles Rams",
+      "team_code": "LAR",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Darren Waller",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Julian Hill",
+      "team": "Miami Dolphins",
+      "team_code": "MIA",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "T.J. Hockenson",
+      "team": "Minnesota Vikings",
+      "team_code": "MIN",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Austin Hooper",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Hunter Henry",
+      "team": "New England Patriots",
+      "team_code": "NE",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Juwan Johnson",
+      "team": "New Orleans Saints",
+      "team_code": "NO",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Daniel Bellinger",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Theo Johnson",
+      "team": "New York Giants",
+      "team_code": "NYG",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Jeremy Ruckert",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Mason Taylor",
+      "team": "New York Jets",
+      "team_code": "NYJ",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Dallas Goedert",
+      "team": "Philadelphia Eagles",
+      "team_code": "PHI",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Darnell Washington",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Jonnu Smith",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Pat Freiermuth",
+      "team": "Pittsburgh Steelers",
+      "team_code": "PIT",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "George Kittle",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    },
+    {
+      "player_name": "Jake Tonges",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "Luke Farrell",
+      "team": "San Francisco 49ers",
+      "team_code": "SF",
+      "position": "TE",
+      "cluster_id": 3,
+      "cluster_name": "cluster_3"
+    },
+    {
+      "player_name": "AJ Barner",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Elijah Arroyo",
+      "team": "Seattle Seahawks",
+      "team_code": "SEA",
+      "position": "TE",
+      "cluster_id": 0,
+      "cluster_name": "elite_receiving"
+    },
+    {
+      "player_name": "Cade Otton",
+      "team": "Tampa Bay Buccaneers",
+      "team_code": "TB",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Chig Okonkwo",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Gunnar Helm",
+      "team": "Tennessee Titans",
+      "team_code": "TEN",
+      "position": "TE",
+      "cluster_id": 2,
+      "cluster_name": "red_zone_target"
+    },
+    {
+      "player_name": "Zach Ertz",
+      "team": "Washington Commanders",
+      "team_code": "WAS",
+      "position": "TE",
+      "cluster_id": 1,
+      "cluster_name": "blocking_te"
+    }
+  ],
+  "summary": {
+    "QB": {
+      "0": {
+        "count": 14,
+        "sample_players": [
+          "Kirk Cousins",
+          "Jake Browning",
+          "Dillon Gabriel",
+          "C.J. Stroud",
+          "Davis Mills"
+        ]
+      },
+      "1": {
+        "count": 13,
+        "sample_players": [
+          "Jacoby Brissett",
+          "Bryce Young",
+          "Joe Flacco",
+          "Dak Prescott",
+          "Jared Goff"
+        ]
+      },
+      "2": {
+        "count": 5,
+        "sample_players": [
+          "Lamar Jackson",
+          "Jaxson Dart",
+          "Justin Fields",
+          "Jalen Hurts",
+          "Jayden Daniels"
+        ]
+      },
+      "3": {
+        "count": 8,
+        "sample_players": [
+          "Josh Allen",
+          "Caleb Williams",
+          "Bo Nix",
+          "Trevor Lawrence",
+          "Patrick Mahomes"
+        ]
+      }
+    },
+    "RB": {
+      "0": {
+        "count": 18,
+        "sample_players": [
+          "Michael Carter",
+          "Zonovan Knight",
+          "Chuba Hubbard",
+          "Dylan Sampson",
+          "RJ Harvey"
+        ]
+      },
+      "1": {
+        "count": 16,
+        "sample_players": [
+          "Derrick Henry",
+          "James Cook",
+          "Rico Dowdle",
+          "D'Andre Swift",
+          "Chase Brown"
+        ]
+      },
+      "2": {
+        "count": 25,
+        "sample_players": [
+          "Emari Demercado",
+          "Tyler Allgeier",
+          "Keaton Mitchell",
+          "Ray Davis",
+          "Kyle Monangai"
+        ]
+      },
+      "3": {
+        "count": 4,
+        "sample_players": [
+          "Bijan Robinson",
+          "Jahmyr Gibbs",
+          "De'Von Achane",
+          "Christian McCaffrey"
+        ]
+      }
+    },
+    "WR": {
+      "0": {
+        "count": 41,
+        "sample_players": [
+          "Greg Dortch",
+          "Rashod Bateman",
+          "Brandin Cooks",
+          "Keon Coleman",
+          "Brycen Tremayne"
+        ]
+      },
+      "1": {
+        "count": 6,
+        "sample_players": [
+          "Ja'Marr Chase",
+          "George Pickens",
+          "Amon-Ra St. Brown",
+          "Davante Adams",
+          "Puka Nacua"
+        ]
+      },
+      "2": {
+        "count": 36,
+        "sample_players": [
+          "Marvin Harrison",
+          "Michael Wilson",
+          "Drake London",
+          "Zay Flowers",
+          "Khalil Shakir"
+        ]
+      },
+      "3": {
+        "count": 26,
+        "sample_players": [
+          "Darnell Mooney",
+          "DeAndre Hopkins",
+          "Joshua Palmer",
+          "Tyrell Shavers",
+          "Andrei Iosivas"
+        ]
+      }
+    },
+    "TE": {
+      "0": {
+        "count": 14,
+        "sample_players": [
+          "Isaiah Likely",
+          "Dalton Kincaid",
+          "Dawson Knox",
+          "Jackson Hawes",
+          "Cole Kmet"
+        ]
+      },
+      "1": {
+        "count": 11,
+        "sample_players": [
+          "Trey McBride",
+          "Jake Ferguson",
+          "Tyler Warren",
+          "Travis Kelce",
+          "Brock Bowers"
+        ]
+      },
+      "2": {
+        "count": 13,
+        "sample_players": [
+          "Kyle Pitts",
+          "Mark Andrews",
+          "Noah Fant",
+          "David Njoku",
+          "Harold Fannin"
+        ]
+      },
+      "3": {
+        "count": 20,
+        "sample_players": [
+          "Elijah Higgins",
+          "Ja'Tavion Sanders",
+          "Mitchell Evans",
+          "Tommy Tremble",
+          "Mike Gesicki"
+        ]
+      }
+    }
+  }
+}

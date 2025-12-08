@@ -160,6 +160,31 @@ def create_team_stats_table(conn):
             q1_ppg_allowed REAL, q2_ppg_allowed REAL, q3_ppg_allowed REAL, q4_ppg_allowed REAL,
             first_half_ppg_allowed REAL, second_half_ppg_allowed REAL,
             last_5_ppg REAL, last_5_ppg_allowed REAL, last_5_record TEXT,
+            -- Advanced analytics columns
+            scoring_std_dev REAL,
+            allowed_std_dev REAL,
+            scoring_consistency REAL,
+            avg_margin REAL,
+            margin_std_dev REAL,
+            close_game_pct REAL,
+            close_game_record TEXT,
+            blowout_win_pct REAL,
+            blowout_loss_pct REAL,
+            avg_total_points REAL,
+            total_points_std_dev REAL,
+            ema_ppg REAL,
+            ema_ppg_allowed REAL,
+            ema_differential REAL,
+            scoring_changepoint INTEGER,
+            scoring_changepoint_direction TEXT,
+            scoring_changepoint_magnitude REAL,
+            season_trend REAL,
+            season_trend_direction TEXT,
+            q1_differential REAL,
+            q4_differential REAL,
+            first_half_differential REAL,
+            second_half_differential REAL,
+            game_profile TEXT,
             UNIQUE(team_code, season)
         )
     """)
@@ -176,7 +201,17 @@ def insert_team_stats(conn, stats_list):
         "q1_ppg", "q2_ppg", "q3_ppg", "q4_ppg", "first_half_ppg", "second_half_ppg",
         "q1_ppg_allowed", "q2_ppg_allowed", "q3_ppg_allowed", "q4_ppg_allowed",
         "first_half_ppg_allowed", "second_half_ppg_allowed",
-        "last_5_ppg", "last_5_ppg_allowed", "last_5_record"
+        "last_5_ppg", "last_5_ppg_allowed", "last_5_record",
+        # Advanced analytics columns
+        "scoring_std_dev", "allowed_std_dev", "scoring_consistency",
+        "avg_margin", "margin_std_dev", "close_game_pct", "close_game_record",
+        "blowout_win_pct", "blowout_loss_pct",
+        "avg_total_points", "total_points_std_dev",
+        "ema_ppg", "ema_ppg_allowed", "ema_differential",
+        "scoring_changepoint", "scoring_changepoint_direction", "scoring_changepoint_magnitude",
+        "season_trend", "season_trend_direction",
+        "q1_differential", "q4_differential", "first_half_differential", "second_half_differential",
+        "game_profile"
     ]
     placeholders = ", ".join(["?"] * len(cols))
     sql = f"INSERT OR REPLACE INTO team_stats ({', '.join(cols)}) VALUES ({placeholders})"
@@ -229,6 +264,53 @@ def insert_player_weekly_stats(conn, stats_list, stat_keys):
         ]
         for key in stat_keys:
             row.append(stats.get(key))
+        rows.append(row)
+
+    conn.executemany(sql, rows)
+    conn.commit()
+    return len(rows)
+
+
+# ============ Team Clusters Table ============
+
+def create_team_clusters_table(conn):
+    """Create team_clusters table for k-means clustering results."""
+    conn.execute("DROP TABLE IF EXISTS team_clusters")
+    conn.execute("""
+        CREATE TABLE team_clusters (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            team_code TEXT NOT NULL,
+            season INTEGER NOT NULL,
+            cluster_id INTEGER,
+            cluster_name TEXT,
+            ppg_scored REAL,
+            ppg_allowed REAL,
+            consistency REAL,
+            ema_differential REAL,
+            game_profile TEXT,
+            UNIQUE(team_code, season)
+        )
+    """)
+    conn.commit()
+
+
+def insert_team_clusters(conn, clusters_data):
+    """Insert team clusters into database."""
+    cols = [
+        "team_code", "season", "cluster_id", "cluster_name",
+        "ppg_scored", "ppg_allowed", "consistency", "ema_differential", "game_profile"
+    ]
+    placeholders = ", ".join(["?"] * len(cols))
+    sql = f"INSERT OR REPLACE INTO team_clusters ({', '.join(cols)}) VALUES ({placeholders})"
+
+    rows = []
+    season = clusters_data.get("season", 2025)
+    for c in clusters_data.get("clusters", []):
+        row = [
+            c.get("team_code"), season, c.get("cluster_id"), c.get("cluster_name"),
+            c.get("ppg_scored"), c.get("ppg_allowed"), c.get("consistency"),
+            c.get("ema_differential"), c.get("game_profile")
+        ]
         rows.append(row)
 
     conn.executemany(sql, rows)
@@ -429,6 +511,20 @@ def main():
             print(f"  team_stats: {count} for {year}")
         print(f"  → {total} total team stats")
 
+    # ===== Team Clusters =====
+    cluster_files = sorted(Path(".").glob("team-clusters-*.json"))
+    if cluster_files:
+        create_team_clusters_table(conn)
+        total = 0
+        for cf in cluster_files:
+            with open(cf, encoding="utf-8") as f:
+                clusters = json.load(f)
+            count = insert_team_clusters(conn, clusters)
+            total += count
+            year = extract_year_from_filename(cf)
+            print(f"  team_clusters: {count} for {year}")
+        print(f"  → {total} total team clusters")
+
     # ===== Player Weekly Stats =====
     weekly_files = sorted(Path(".").glob("player-weekly-stats-*.json"))
     if weekly_files:
@@ -480,6 +576,8 @@ def main():
         "CREATE INDEX IF NOT EXISTS idx_games_week ON games(week)",
         "CREATE INDEX IF NOT EXISTS idx_games_teams ON games(home_team, away_team)",
         "CREATE INDEX IF NOT EXISTS idx_team_stats_team ON team_stats(team_code)",
+        "CREATE INDEX IF NOT EXISTS idx_clusters_team ON team_clusters(team_code)",
+        "CREATE INDEX IF NOT EXISTS idx_clusters_season ON team_clusters(season)",
         "CREATE INDEX IF NOT EXISTS idx_weekly_player ON player_weekly_stats(player_id)",
         "CREATE INDEX IF NOT EXISTS idx_weekly_week ON player_weekly_stats(season, week)",
         "CREATE INDEX IF NOT EXISTS idx_weekly_opponent ON player_weekly_stats(opponent)",

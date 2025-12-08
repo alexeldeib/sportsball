@@ -1,0 +1,441 @@
+{
+  "season": 2025,
+  "clusters": [
+    {
+      "team_code": "SEA",
+      "cluster_id": 3,
+      "cluster_name": "high_powered",
+      "ppg_scored": 29.8,
+      "ppg_allowed": 17.4,
+      "consistency": 68.9,
+      "ema_differential": 18.09,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "LAR",
+      "cluster_id": 3,
+      "cluster_name": "high_powered",
+      "ppg_scored": 29.2,
+      "ppg_allowed": 17.5,
+      "consistency": 69.8,
+      "ema_differential": 15.77,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "NE",
+      "cluster_id": 3,
+      "cluster_name": "high_powered",
+      "ppg_scored": 27.0,
+      "ppg_allowed": 18.5,
+      "consistency": 72.2,
+      "ema_differential": 11.18,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "IND",
+      "cluster_id": 4,
+      "cluster_name": "high_powered",
+      "ppg_scored": 28.9,
+      "ppg_allowed": 21.9,
+      "consistency": 70.2,
+      "ema_differential": -3.44,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "DET",
+      "cluster_id": 2,
+      "cluster_name": "high_powered",
+      "ppg_scored": 30.3,
+      "ppg_allowed": 23.4,
+      "consistency": 58.8,
+      "ema_differential": 5.25,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "BUF",
+      "cluster_id": 2,
+      "cluster_name": "high_powered",
+      "ppg_scored": 28.9,
+      "ppg_allowed": 22.5,
+      "consistency": 65.8,
+      "ema_differential": 6.43,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "KC",
+      "cluster_id": 3,
+      "cluster_name": "high_powered",
+      "ppg_scored": 25.4,
+      "ppg_allowed": 19.3,
+      "consistency": 78.0,
+      "ema_differential": 2.34,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "GB",
+      "cluster_id": 3,
+      "cluster_name": "defensive",
+      "ppg_scored": 24.8,
+      "ppg_allowed": 19.0,
+      "consistency": 63.1,
+      "ema_differential": 7.25,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "DEN",
+      "cluster_id": 1,
+      "cluster_name": "defensive",
+      "ppg_scored": 23.7,
+      "ppg_allowed": 18.1,
+      "consistency": 64.5,
+      "ema_differential": 4.82,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "HOU",
+      "cluster_id": 1,
+      "cluster_name": "defensive",
+      "ppg_scored": 21.9,
+      "ppg_allowed": 16.5,
+      "consistency": 55.7,
+      "ema_differential": 4.36,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "JAX",
+      "cluster_id": 3,
+      "cluster_name": "high_powered",
+      "ppg_scored": 25.2,
+      "ppg_allowed": 20.9,
+      "consistency": 67.7,
+      "ema_differential": 11.87,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "SF",
+      "cluster_id": 3,
+      "cluster_name": "balanced",
+      "ppg_scored": 23.6,
+      "ppg_allowed": 20.7,
+      "consistency": 69.8,
+      "ema_differential": 9.19,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "LAC",
+      "cluster_id": 3,
+      "cluster_name": "balanced",
+      "ppg_scored": 23.1,
+      "ppg_allowed": 21.0,
+      "consistency": 64.1,
+      "ema_differential": 3.02,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "PHI",
+      "cluster_id": 1,
+      "cluster_name": "balanced",
+      "ppg_scored": 22.5,
+      "ppg_allowed": 20.8,
+      "consistency": 64.2,
+      "ema_differential": -0.8,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "CHI",
+      "cluster_id": 4,
+      "cluster_name": "high_powered",
+      "ppg_scored": 25.7,
+      "ppg_allowed": 25.8,
+      "consistency": 71.4,
+      "ema_differential": 0.73,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "PIT",
+      "cluster_id": 4,
+      "cluster_name": "balanced",
+      "ppg_scored": 23.7,
+      "ppg_allowed": 23.9,
+      "consistency": 66.4,
+      "ema_differential": -1.52,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "DAL",
+      "cluster_id": 4,
+      "cluster_name": "high_powered",
+      "ppg_scored": 29.3,
+      "ppg_allowed": 29.7,
+      "consistency": 69.3,
+      "ema_differential": -2.32,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "BAL",
+      "cluster_id": 2,
+      "cluster_name": "balanced",
+      "ppg_scored": 23.9,
+      "ppg_allowed": 24.6,
+      "consistency": 56.6,
+      "ema_differential": -1.55,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "MIA",
+      "cluster_id": 3,
+      "cluster_name": "balanced",
+      "ppg_scored": 21.6,
+      "ppg_allowed": 22.8,
+      "consistency": 56.0,
+      "ema_differential": 8.48,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "MIN",
+      "cluster_id": 0,
+      "cluster_name": "volatile",
+      "ppg_scored": 19.6,
+      "ppg_allowed": 21.6,
+      "consistency": 38.2,
+      "ema_differential": -0.09,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "TB",
+      "cluster_id": 4,
+      "cluster_name": "balanced",
+      "ppg_scored": 23.0,
+      "ppg_allowed": 25.0,
+      "consistency": 64.3,
+      "ema_differential": -5.34,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "CAR",
+      "cluster_id": 0,
+      "cluster_name": "ground_game",
+      "ppg_scored": 19.0,
+      "ppg_allowed": 22.8,
+      "consistency": 51.9,
+      "ema_differential": -3.32,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "ATL",
+      "cluster_id": 0,
+      "cluster_name": "balanced",
+      "ppg_scored": 19.4,
+      "ppg_allowed": 24.1,
+      "consistency": 53.7,
+      "ema_differential": -8.8,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "ARI",
+      "cluster_id": 4,
+      "cluster_name": "balanced",
+      "ppg_scored": 21.7,
+      "ppg_allowed": 26.8,
+      "consistency": 82.5,
+      "ema_differential": -12.68,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "CLE",
+      "cluster_id": 0,
+      "cluster_name": "ground_game",
+      "ppg_scored": 17.2,
+      "ppg_allowed": 23.2,
+      "consistency": 59.5,
+      "ema_differential": -4.46,
+      "game_profile": "fast_starter"
+    },
+    {
+      "team_code": "NYG",
+      "cluster_id": 4,
+      "cluster_name": "balanced",
+      "ppg_scored": 21.5,
+      "ppg_allowed": 28.2,
+      "consistency": 58.2,
+      "ema_differential": -10.06,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "WAS",
+      "cluster_id": 0,
+      "cluster_name": "balanced",
+      "ppg_scored": 20.2,
+      "ppg_allowed": 27.2,
+      "consistency": 51.2,
+      "ema_differential": -15.3,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "NYJ",
+      "cluster_id": 0,
+      "cluster_name": "balanced",
+      "ppg_scored": 19.7,
+      "ppg_allowed": 26.8,
+      "consistency": 49.8,
+      "ema_differential": -10.06,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "CIN",
+      "cluster_id": 4,
+      "cluster_name": "pass_heavy",
+      "ppg_scored": 24.2,
+      "ppg_allowed": 31.8,
+      "consistency": 52.7,
+      "ema_differential": -2.24,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "NO",
+      "cluster_id": 0,
+      "cluster_name": "ground_game",
+      "ppg_scored": 15.8,
+      "ppg_allowed": 24.2,
+      "consistency": 62.0,
+      "ema_differential": -4.3,
+      "game_profile": "closer"
+    },
+    {
+      "team_code": "LV",
+      "cluster_id": 0,
+      "cluster_name": "ground_game",
+      "ppg_scored": 15.1,
+      "ppg_allowed": 25.5,
+      "consistency": 46.5,
+      "ema_differential": -11.31,
+      "game_profile": "balanced"
+    },
+    {
+      "team_code": "TEN",
+      "cluster_id": 0,
+      "cluster_name": "balanced",
+      "ppg_scored": 15.5,
+      "ppg_allowed": 27.5,
+      "consistency": 47.4,
+      "ema_differential": -8.47,
+      "game_profile": "balanced"
+    }
+  ],
+  "summary": {
+    "0": {
+      "members": [
+        "MIN",
+        "CAR",
+        "ATL",
+        "CLE",
+        "WAS",
+        "NYJ",
+        "NO",
+        "LV",
+        "TEN"
+      ],
+      "avg_ppg": 17.9,
+      "avg_allowed": 24.8,
+      "count": 9
+    },
+    "1": {
+      "members": [
+        "DEN",
+        "HOU",
+        "PHI"
+      ],
+      "avg_ppg": 22.7,
+      "avg_allowed": 18.5,
+      "count": 3
+    },
+    "2": {
+      "members": [
+        "DET",
+        "BUF",
+        "BAL"
+      ],
+      "avg_ppg": 27.7,
+      "avg_allowed": 23.5,
+      "count": 3
+    },
+    "3": {
+      "members": [
+        "SEA",
+        "LAR",
+        "NE",
+        "KC",
+        "GB",
+        "JAX",
+        "SF",
+        "LAC",
+        "MIA"
+      ],
+      "avg_ppg": 25.5,
+      "avg_allowed": 19.7,
+      "count": 9
+    },
+    "4": {
+      "members": [
+        "IND",
+        "CHI",
+        "PIT",
+        "DAL",
+        "TB",
+        "ARI",
+        "NYG",
+        "CIN"
+      ],
+      "avg_ppg": 24.8,
+      "avg_allowed": 26.6,
+      "count": 8
+    }
+  },
+  "centroids": [
+    [
+      -1.2434277290254123,
+      0.45114246232363586,
+      -1.0931809673745003,
+      -0.7560724632072345,
+      -0.5666359378827923,
+      -0.44145218098990957,
+      -0.9051106759348404
+    ],
+    [
+      -0.1047552111909638,
+      -1.2478049923048542,
+      -0.011341861592872734,
+      -1.0918070320480018,
+      0.15221320819407874,
+      1.7816272912134292,
+      0.32990015291082947
+    ],
+    [
+      1.0924472024200218,
+      0.10955514340362191,
+      -0.12301557573807337,
+      1.0726094436701363,
+      -0.9186241404445703,
+      -1.5112439457825957,
+      0.4009555704608542
+    ],
+    [
+      0.5709990400472373,
+      -0.9211995733374725,
+      0.6447412090101787,
+      -0.2179447145688415,
+      0.5265105221858288,
+      -0.041367455945490274,
+      1.1697075165258848
+    ],
+    [
+      0.3860977783895404,
+      0.9556579432285248,
+      0.554878767158963,
+      1.1029684206397803,
+      0.33254519225301804,
+      0.4417783370157595,
+      -0.5717423419293072
+    ]
+  ]
+}
