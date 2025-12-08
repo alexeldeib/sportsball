@@ -27,6 +27,7 @@
       --negative: #ef4444;
       --warning: #d97706;
       --neutral: #94a3b8;
+      --vs-opp: #d97706;
     }
 
     body {
@@ -353,10 +354,94 @@
       color: var(--text-muted);
     }
 
+    /* vs Opponent tab */
+    .opponent-controls {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      flex-wrap: wrap;
+    }
+
+    .opponent-controls select {
+      flex: 1;
+      min-width: 200px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.6rem 1rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .comparison-cell {
+      background: var(--bg-card);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .comparison-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+
+    .comp-stat-item { text-align: center; }
+    .comp-stat-item .label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; }
+    .comp-stat-item .value { font-family: 'Oswald', sans-serif; font-size: 1.1rem; font-weight: 600; }
+    .comp-stat-item .value.season-avg { color: var(--accent); }
+    .comp-stat-item .value.vs-opp { color: var(--vs-opp); }
+    .comp-stat-item .value.better { color: var(--positive); }
+    .comp-stat-item .value.worse { color: var(--negative); }
+
+    .insight-box {
+      padding: 1rem;
+      background: rgba(217, 119, 6, 0.1);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .insight-box strong { color: var(--vs-opp); }
+
+    .vs-chart-container { padding: 1rem; height: 200px; }
+
+    .vs-games-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .vs-games-table th, .vs-games-table td {
+      padding: 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .vs-games-table th {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .vs-games-table tr:hover td { background: var(--bg-hover); }
+
     @media (max-width: 600px) {
       .prop-card { grid-template-columns: 1fr; gap: 0.5rem; }
       .prop-line, .prop-hit-rate { text-align: left; }
       .stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .comparison-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -389,6 +474,42 @@
     let currentPlayer = null;
     let weeklyData = [];
     let trendChart = null;
+    let comparisonChart = null;
+
+    const TEAMS = [
+      { code: 'ARI', name: 'Arizona Cardinals' },
+      { code: 'ATL', name: 'Atlanta Falcons' },
+      { code: 'BAL', name: 'Baltimore Ravens' },
+      { code: 'BUF', name: 'Buffalo Bills' },
+      { code: 'CAR', name: 'Carolina Panthers' },
+      { code: 'CHI', name: 'Chicago Bears' },
+      { code: 'CIN', name: 'Cincinnati Bengals' },
+      { code: 'CLE', name: 'Cleveland Browns' },
+      { code: 'DAL', name: 'Dallas Cowboys' },
+      { code: 'DEN', name: 'Denver Broncos' },
+      { code: 'DET', name: 'Detroit Lions' },
+      { code: 'GB', name: 'Green Bay Packers' },
+      { code: 'HOU', name: 'Houston Texans' },
+      { code: 'IND', name: 'Indianapolis Colts' },
+      { code: 'JAX', name: 'Jacksonville Jaguars' },
+      { code: 'KC', name: 'Kansas City Chiefs' },
+      { code: 'LV', name: 'Las Vegas Raiders' },
+      { code: 'LAC', name: 'Los Angeles Chargers' },
+      { code: 'LAR', name: 'Los Angeles Rams' },
+      { code: 'MIA', name: 'Miami Dolphins' },
+      { code: 'MIN', name: 'Minnesota Vikings' },
+      { code: 'NE', name: 'New England Patriots' },
+      { code: 'NO', name: 'New Orleans Saints' },
+      { code: 'NYG', name: 'New York Giants' },
+      { code: 'NYJ', name: 'New York Jets' },
+      { code: 'PHI', name: 'Philadelphia Eagles' },
+      { code: 'PIT', name: 'Pittsburgh Steelers' },
+      { code: 'SF', name: 'San Francisco 49ers' },
+      { code: 'SEA', name: 'Seattle Seahawks' },
+      { code: 'TB', name: 'Tampa Bay Buccaneers' },
+      { code: 'TEN', name: 'Tennessee Titans' },
+      { code: 'WAS', name: 'Washington Commanders' }
+    ];
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -634,6 +755,7 @@
             <div class="tab active" onclick="switchTab('overview')">Overview</div>
             <div class="tab" onclick="switchTab('props')">Props</div>
             <div class="tab" onclick="switchTab('weekly')">Weekly Log</div>
+            <div class="tab" onclick="switchTab('vs-opponent')">vs Opponent</div>
           </div>
 
           <div id="tab-overview" class="tab-content active">
@@ -655,6 +777,17 @@
           <div id="tab-weekly" class="tab-content">
             <div id="weekly-table-container"></div>
           </div>
+
+          <div id="tab-vs-opponent" class="tab-content">
+            <div class="opponent-controls">
+              <select id="opponent-select" onchange="loadVsOpponent()">
+                <option value="">Select opponent to compare...</option>
+              </select>
+            </div>
+            <div id="vs-opponent-content">
+              <div class="no-data">Select an opponent above to compare performance</div>
+            </div>
+          </div>
         </div>
       `;
 
@@ -664,6 +797,9 @@
       // Render weekly table
       renderWeeklyTable();
 
+      // Populate opponent dropdown
+      populateOpponentDropdown();
+
       // Auto-analyze props
       setTimeout(analyzeProps, 100);
     }
@@ -672,8 +808,196 @@
       document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-      document.querySelector(`.tab:nth-child(${tabName === 'overview' ? 1 : tabName === 'props' ? 2 : 3})`).classList.add('active');
+      const tabIndex = { 'overview': 1, 'props': 2, 'weekly': 3, 'vs-opponent': 4 }[tabName] || 1;
+      document.querySelector(`.tab:nth-child(${tabIndex})`).classList.add('active');
       document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+
+    function populateOpponentDropdown() {
+      if (!currentPlayer || !db) return;
+
+      const name = currentPlayer.name.replace(/'/g, "''");
+      const season = document.getElementById('season-select').value;
+
+      const result = db.exec(`
+        SELECT DISTINCT opponent, COUNT(*) as games
+        FROM player_weekly_stats
+        WHERE player_name = '${name}' AND season = ${season}
+        GROUP BY opponent
+        ORDER BY games DESC
+      `);
+
+      const select = document.getElementById('opponent-select');
+      if (!select) return;
+
+      select.innerHTML = '<option value="">Select opponent to compare...</option>';
+
+      if (result.length && result[0].values.length) {
+        result[0].values.forEach(([opp, games]) => {
+          if (opp) {
+            const teamName = TEAMS.find(t => t.code === opp)?.name || opp;
+            const opt = document.createElement('option');
+            opt.value = opp;
+            opt.textContent = `${opp} - ${teamName} (${games} ${games === 1 ? 'game' : 'games'})`;
+            select.appendChild(opt);
+          }
+        });
+      }
+    }
+
+    function loadVsOpponent() {
+      const opponent = document.getElementById('opponent-select')?.value;
+      const container = document.getElementById('vs-opponent-content');
+
+      if (!opponent || !currentPlayer) {
+        container.innerHTML = '<div class="no-data">Select an opponent above to compare performance</div>';
+        return;
+      }
+
+      const name = currentPlayer.name.replace(/'/g, "''");
+      const season = document.getElementById('season-select').value;
+
+      // Get season averages
+      const seasonResult = db.exec(`
+        SELECT AVG(pts_ppr) as avg_ppr, AVG(pass_yd) as avg_pass_yd, AVG(pass_td) as avg_pass_td,
+               AVG(rush_yd) as avg_rush_yd, AVG(rush_td) as avg_rush_td,
+               AVG(rec) as avg_rec, AVG(rec_yd) as avg_rec_yd, AVG(rec_td) as avg_rec_td,
+               COUNT(*) as total_games
+        FROM player_weekly_stats WHERE player_name = '${name}' AND season = ${season}
+      `);
+
+      // Get vs opponent stats
+      const vsResult = db.exec(`
+        SELECT AVG(pts_ppr) as avg_ppr, AVG(pass_yd) as avg_pass_yd, AVG(pass_td) as avg_pass_td,
+               AVG(rush_yd) as avg_rush_yd, AVG(rush_td) as avg_rush_td,
+               AVG(rec) as avg_rec, AVG(rec_yd) as avg_rec_yd, AVG(rec_td) as avg_rec_td,
+               COUNT(*) as games
+        FROM player_weekly_stats WHERE player_name = '${name}' AND opponent = '${opponent}'
+      `);
+
+      // Get individual games
+      const gamesResult = db.exec(`
+        SELECT season, week, pts_ppr, pass_yd, pass_td, rush_yd, rush_td, rec, rec_yd, rec_td
+        FROM player_weekly_stats WHERE player_name = '${name}' AND opponent = '${opponent}'
+        ORDER BY season DESC, week DESC
+      `);
+
+      if (!vsResult.length || vsResult[0].values[0][8] === 0) {
+        container.innerHTML = '<div class="no-data">No games found against this opponent</div>';
+        return;
+      }
+
+      const seasonAvg = {};
+      seasonResult[0].columns.forEach((col, i) => seasonAvg[col] = seasonResult[0].values[0][i] || 0);
+
+      const vsOpp = {};
+      vsResult[0].columns.forEach((col, i) => vsOpp[col] = vsResult[0].values[0][i] || 0);
+
+      const games = gamesResult.length ? gamesResult[0].values : [];
+
+      renderVsOpponent(opponent, seasonAvg, vsOpp, games);
+    }
+
+    function renderVsOpponent(opponent, seasonAvg, vsOpp, games) {
+      if (comparisonChart) { comparisonChart.destroy(); comparisonChart = null; }
+
+      const container = document.getElementById('vs-opponent-content');
+      const pos = currentPlayer.position;
+      const isQB = pos === 'QB';
+      const isRB = pos === 'RB';
+
+      const pprDiff = vsOpp.avg_ppr - seasonAvg.avg_ppr;
+      const pprPctDiff = seasonAvg.avg_ppr > 0 ? (pprDiff / seasonAvg.avg_ppr) * 100 : 0;
+
+      // Position-specific comparison
+      let compHtml = '';
+      let chartLabels = [], seasonData = [], vsData = [];
+
+      if (isQB) {
+        compHtml = buildCompCell('Pass Yds', seasonAvg.avg_pass_yd, vsOpp.avg_pass_yd, opponent) +
+                   buildCompCell('Pass TDs', seasonAvg.avg_pass_td, vsOpp.avg_pass_td, opponent);
+        chartLabels = ['Pass Yds/10', 'Pass TD×10', 'Rush Yds/5', 'PPR'];
+        seasonData = [seasonAvg.avg_pass_yd/10, seasonAvg.avg_pass_td*10, seasonAvg.avg_rush_yd/5, seasonAvg.avg_ppr];
+        vsData = [vsOpp.avg_pass_yd/10, vsOpp.avg_pass_td*10, vsOpp.avg_rush_yd/5, vsOpp.avg_ppr];
+      } else if (isRB) {
+        compHtml = buildCompCell('Rush Yds', seasonAvg.avg_rush_yd, vsOpp.avg_rush_yd, opponent) +
+                   buildCompCell('Receptions', seasonAvg.avg_rec, vsOpp.avg_rec, opponent);
+        chartLabels = ['Rush Yds/5', 'Rush TD×10', 'Rec×2', 'Rec Yds/5', 'PPR'];
+        seasonData = [seasonAvg.avg_rush_yd/5, seasonAvg.avg_rush_td*10, seasonAvg.avg_rec*2, seasonAvg.avg_rec_yd/5, seasonAvg.avg_ppr];
+        vsData = [vsOpp.avg_rush_yd/5, vsOpp.avg_rush_td*10, vsOpp.avg_rec*2, vsOpp.avg_rec_yd/5, vsOpp.avg_ppr];
+      } else {
+        compHtml = buildCompCell('Rec Yds', seasonAvg.avg_rec_yd, vsOpp.avg_rec_yd, opponent) +
+                   buildCompCell('Receptions', seasonAvg.avg_rec, vsOpp.avg_rec, opponent);
+        chartLabels = ['Rec×2', 'Rec Yds/5', 'Rec TD×10', 'PPR'];
+        seasonData = [seasonAvg.avg_rec*2, seasonAvg.avg_rec_yd/5, seasonAvg.avg_rec_td*10, seasonAvg.avg_ppr];
+        vsData = [vsOpp.avg_rec*2, vsOpp.avg_rec_yd/5, vsOpp.avg_rec_td*10, vsOpp.avg_ppr];
+      }
+
+      const insight = pprDiff > 0
+        ? `<strong>${currentPlayer.name}</strong> averages <strong>+${pprDiff.toFixed(1)} PPR</strong> (${pprPctDiff.toFixed(0)}% higher) vs <strong>${opponent}</strong>`
+        : pprDiff < 0
+        ? `<strong>${currentPlayer.name}</strong> averages <strong>${pprDiff.toFixed(1)} PPR</strong> (${Math.abs(pprPctDiff).toFixed(0)}% lower) vs <strong>${opponent}</strong>`
+        : `<strong>${currentPlayer.name}</strong> performs about the same vs <strong>${opponent}</strong>`;
+
+      // Games table
+      const headers = isQB ? '<th>Game</th><th>PPR</th><th>Pass</th><th>TD</th>'
+                    : isRB ? '<th>Game</th><th>PPR</th><th>Rush</th><th>Rec</th>'
+                    : '<th>Game</th><th>PPR</th><th>Rec</th><th>Yds</th>';
+
+      const gamesHtml = games.map(g => {
+        const cols = isQB ? `<td>${g[3]||0}</td><td>${g[4]||0}</td>`
+                   : isRB ? `<td>${g[5]||0}</td><td>${g[7]||0}</td>`
+                   : `<td>${g[7]||0}</td><td>${g[8]||0}</td>`;
+        return `<tr><td>${g[0]} Wk${g[1]}</td><td>${(g[2]||0).toFixed(1)}</td>${cols}</tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="comparison-grid">
+          <div class="comparison-cell">
+            <div class="comparison-label">Season Avg PPR</div>
+            <div class="comp-stat-item">
+              <div class="value season-avg" style="font-size:1.75rem;">${seasonAvg.avg_ppr?.toFixed(1)}</div>
+              <div class="label">${seasonAvg.total_games} games</div>
+            </div>
+          </div>
+          <div class="comparison-cell">
+            <div class="comparison-label">vs ${opponent} PPR</div>
+            <div class="comp-stat-item">
+              <div class="value ${pprDiff > 0 ? 'better' : pprDiff < 0 ? 'worse' : 'vs-opp'}" style="font-size:1.75rem;">${vsOpp.avg_ppr?.toFixed(1)}</div>
+              <div class="label">${vsOpp.games} games</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight-box">${insight}</div>
+        <div class="comparison-grid">${compHtml}</div>
+        <div class="vs-chart-container"><canvas id="vs-chart"></canvas></div>
+        <table class="vs-games-table">
+          <thead><tr>${headers}</tr></thead>
+          <tbody>${gamesHtml}</tbody>
+        </table>
+      `;
+
+      // Create chart
+      comparisonChart = createComparisonChart('#vs-chart', {
+        labels: chartLabels,
+        datasets: [
+          { label: 'Season Avg', data: seasonData, color: 'blue' },
+          { label: `vs ${opponent}`, data: vsData, color: 'orange' }
+        ]
+      });
+    }
+
+    function buildCompCell(label, seasonVal, vsVal, opponent) {
+      const diff = vsVal > seasonVal ? 'better' : vsVal < seasonVal ? 'worse' : '';
+      return `
+        <div class="comparison-cell">
+          <div class="comparison-label">${label}</div>
+          <div class="comparison-row">
+            <div class="comp-stat-item"><div class="label">Season</div><div class="value season-avg">${seasonVal?.toFixed(1)||0}</div></div>
+            <div class="comp-stat-item"><div class="label">vs ${opponent}</div><div class="value ${diff}">${vsVal?.toFixed(1)||0}</div></div>
+          </div>
+        </div>
+      `;
     }
 
     function renderTrendChart() {

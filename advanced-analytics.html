@@ -162,8 +162,9 @@
 
     .win-prob-bar {
       height: 4px;
-      background: var(--negative);
+      background: linear-gradient(to right, var(--negative), var(--negative));
       border-radius: 2px;
+      position: relative;
       margin-top: 0.75rem;
       overflow: hidden;
     }
@@ -172,6 +173,9 @@
       height: 100%;
       background: var(--positive);
       border-radius: 2px;
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
     .win-prob-labels {
