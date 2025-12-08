@@ -419,11 +419,11 @@
             <div class="pred-range" id="pred-total-range">--</div>
           </div>
           <div class="pred-card">
-            <div class="pred-label">Home ML</div>
+            <div class="pred-label" id="pred-home-label">Home ML</div>
             <div class="pred-value" id="pred-home-ml">--</div>
           </div>
           <div class="pred-card">
-            <div class="pred-label">Away ML</div>
+            <div class="pred-label" id="pred-away-label">Away ML</div>
             <div class="pred-value" id="pred-away-ml">--</div>
           </div>
         </div>
@@ -726,7 +726,9 @@
       document.getElementById('pred-total').textContent = enhanced.overUnder.toFixed(1);
       document.getElementById('pred-total-range').textContent =
         `90% CI: ${enhanced.simulation.totalRange.low} to ${enhanced.simulation.totalRange.high}`;
+      document.getElementById('pred-home-label').textContent = `${g.home_team} ML`;
       document.getElementById('pred-home-ml').textContent = formatOdds(enhanced.homeMoneyline);
+      document.getElementById('pred-away-label').textContent = `${g.away_team} ML`;
       document.getElementById('pred-away-ml').textContent = formatOdds(enhanced.awayMoneyline);
 
       // Model inputs
