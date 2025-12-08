@@ -182,10 +182,10 @@
       margin-top: 0.25rem;
     }
 
-    /* Detail section */
+    /* Detail section - aligned with card style */
     .detail-section {
       background: var(--bg-card);
-      border: 1px solid var(--border);
+      border: 1px solid var(--accent);
       border-radius: 10px;
       margin-bottom: 1.5rem;
       overflow: hidden;
@@ -195,60 +195,67 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1rem 1.25rem;
-      background: rgba(255, 255, 255, 0.02);
-      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.25rem 0.75rem;
     }
 
-    .detail-title {
+    .detail-teams {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       font-weight: 600;
     }
 
-    .detail-badge {
-      padding: 0.25rem 0.75rem;
-      border-radius: 100px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      background: rgba(59, 130, 246, 0.2);
-      color: var(--accent);
+    .detail-teams .at {
+      color: var(--text-muted);
+      font-weight: 400;
+      margin: 0 0.25rem;
+    }
+
+    .detail-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .detail-odds {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
+      padding: 0 1.25rem;
+      text-align: center;
+    }
+
+    .detail-odds .odds-item {
+      background: var(--bg-deep);
+      border-radius: 6px;
+      padding: 0.6rem 0.5rem;
+    }
+
+    .detail-prob {
+      padding: 0.75rem 1.25rem;
+    }
+
+    .detail-ranges {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0 1.25rem 1rem;
+      font-size: 0.8rem;
+    }
+
+    .range-item {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .range-label {
+      color: var(--text-muted);
+    }
+
+    .range-value {
+      color: var(--text-secondary);
     }
 
     .detail-content {
       padding: 1.25rem;
-    }
-
-    .prediction-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .pred-card {
-      background: var(--bg-deep);
-      border-radius: 8px;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    .pred-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-    }
-
-    .pred-value {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-    }
-
-    .pred-range {
-      font-size: 0.8rem;
-      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
     }
 
     .model-inputs {
@@ -402,32 +409,56 @@
     </div>
 
     <div id="detail-section" class="detail-section" style="display: none;">
+      <!-- Compact header matching card style -->
       <div class="detail-header">
-        <div class="detail-title" id="detail-title">Matchup Detail</div>
-        <span class="detail-badge" id="detail-badge">--% Win Prob</span>
+        <div class="detail-teams" id="detail-title">DEN @ LV</div>
+        <div class="detail-date" id="detail-date">Sat, Dec 6</div>
       </div>
-      <div class="detail-content">
-        <div class="prediction-grid">
-          <div class="pred-card">
-            <div class="pred-label">Spread</div>
-            <div class="pred-value" id="pred-spread">--</div>
-            <div class="pred-range" id="pred-spread-range">--</div>
-          </div>
-          <div class="pred-card">
-            <div class="pred-label">Total</div>
-            <div class="pred-value" id="pred-total">--</div>
-            <div class="pred-range" id="pred-total-range">--</div>
-          </div>
-          <div class="pred-card">
-            <div class="pred-label" id="pred-home-label">Home ML</div>
-            <div class="pred-value" id="pred-home-ml">--</div>
-          </div>
-          <div class="pred-card">
-            <div class="pred-label" id="pred-away-label">Away ML</div>
-            <div class="pred-value" id="pred-away-ml">--</div>
-          </div>
-        </div>
 
+      <!-- Odds row matching card layout -->
+      <div class="detail-odds">
+        <div class="odds-item">
+          <div class="odds-label">Spread</div>
+          <div class="odds-value" id="pred-spread">--</div>
+        </div>
+        <div class="odds-item">
+          <div class="odds-label">Total</div>
+          <div class="odds-value" id="pred-total">--</div>
+        </div>
+        <div class="odds-item">
+          <div class="odds-label" id="pred-home-label">Home ML</div>
+          <div class="odds-value" id="pred-home-ml">--</div>
+        </div>
+        <div class="odds-item">
+          <div class="odds-label" id="pred-away-label">Away ML</div>
+          <div class="odds-value" id="pred-away-ml">--</div>
+        </div>
+      </div>
+
+      <!-- Win probability bar -->
+      <div class="detail-prob">
+        <div class="win-prob-bar">
+          <div class="win-prob-fill" id="detail-prob-fill" style="width: 50%;"></div>
+        </div>
+        <div class="win-prob-labels">
+          <span id="detail-away-prob">AWAY 50%</span>
+          <span id="detail-home-prob">HOME 50%</span>
+        </div>
+      </div>
+
+      <!-- Confidence intervals -->
+      <div class="detail-ranges">
+        <div class="range-item">
+          <span class="range-label">Spread 90% CI:</span>
+          <span class="range-value" id="pred-spread-range">--</span>
+        </div>
+        <div class="range-item">
+          <span class="range-label">Total 90% CI:</span>
+          <span class="range-value" id="pred-total-range">--</span>
+        </div>
+      </div>
+
+      <div class="detail-content">
         <div class="model-inputs" id="model-inputs">
           <div class="model-inputs-title">Model Inputs</div>
           <div class="model-inputs-grid" id="model-inputs-grid"></div>
@@ -716,20 +747,35 @@
 
       const enhanced = OddsEngine.calculateEnhancedOdds(g._homeStats, g._awayStats);
       const homeProb = Math.round(enhanced.homeWinProb * 100);
+      const awayProb = 100 - homeProb;
 
-      document.getElementById('detail-title').textContent = `${g.away_team} @ ${g.home_team}`;
-      document.getElementById('detail-badge').textContent = `${g.home_team} ${homeProb}% Win`;
+      // Header
+      document.getElementById('detail-title').innerHTML =
+        `${g.away_team}<span class="at">@</span>${g.home_team}`;
 
+      const dateStr = g.game_date ? new Date(g.game_date).toLocaleDateString('en-US', {
+        weekday: 'short', month: 'short', day: 'numeric'
+      }) : '';
+      document.getElementById('detail-date').textContent = dateStr;
+
+      // Odds
       document.getElementById('pred-spread').textContent = OddsEngine.formatSpread(enhanced.spread);
-      document.getElementById('pred-spread-range').textContent =
-        `90% CI: ${enhanced.simulation.spreadRange.low} to ${enhanced.simulation.spreadRange.high}`;
       document.getElementById('pred-total').textContent = enhanced.overUnder.toFixed(1);
-      document.getElementById('pred-total-range').textContent =
-        `90% CI: ${enhanced.simulation.totalRange.low} to ${enhanced.simulation.totalRange.high}`;
       document.getElementById('pred-home-label').textContent = `${g.home_team} ML`;
       document.getElementById('pred-home-ml').textContent = formatOdds(enhanced.homeMoneyline);
       document.getElementById('pred-away-label').textContent = `${g.away_team} ML`;
       document.getElementById('pred-away-ml').textContent = formatOdds(enhanced.awayMoneyline);
+
+      // Win probability bar
+      document.getElementById('detail-prob-fill').style.width = `${homeProb}%`;
+      document.getElementById('detail-away-prob').textContent = `${g.away_team} ${awayProb}%`;
+      document.getElementById('detail-home-prob').textContent = `${g.home_team} ${homeProb}%`;
+
+      // Confidence intervals
+      document.getElementById('pred-spread-range').textContent =
+        `${enhanced.simulation.spreadRange.low} to ${enhanced.simulation.spreadRange.high}`;
+      document.getElementById('pred-total-range').textContent =
+        `${enhanced.simulation.totalRange.low} to ${enhanced.simulation.totalRange.high}`;
 
       // Model inputs
       const homeAdv = OddsEngine.getAdvancedStats(g.home_team);
