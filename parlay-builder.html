@@ -629,9 +629,10 @@
     }
     .prop-inputs {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.5rem;
       align-items: center;
       margin-bottom: 0.6rem;
+      flex-wrap: wrap;
     }
     .prop-input-group {
       display: flex;
@@ -643,7 +644,7 @@
       color: var(--text-muted);
     }
     .prop-input-group input {
-      width: 70px;
+      width: 60px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 4px;
@@ -656,6 +657,15 @@
     .prop-input-group input:focus {
       outline: none;
       border-color: var(--accent);
+    }
+    .prop-input-group input.line-input {
+      width: 70px;
+    }
+    .prop-odds-row {
+      display: flex;
+      gap: 0.75rem;
+      width: 100%;
+      margin-top: 0.25rem;
     }
     .prop-results {
       display: flex;
@@ -1359,7 +1369,8 @@
           cards.forEach(card => {
             const input = propInputs[card.id] || {};
             const line = input.line;
-            const mktOdds = input.odds;
+            const overOdds = input.overOdds;
+            const underOdds = input.underOdds;
 
             // Build badges
             let badges = '';
@@ -1393,10 +1404,12 @@
                 }
               }
 
-              // Calculate edge if market odds provided
-              if (mktOdds && !isNaN(mktOdds)) {
-                overEdge = calculateEdge(overProb, parseInt(mktOdds));
-                underEdge = calculateEdge(underProb, -parseInt(mktOdds)); // Assume opposite odds for under
+              // Calculate edge for each side with its own odds
+              if (overOdds && !isNaN(overOdds)) {
+                overEdge = calculateEdge(overProb, parseInt(overOdds));
+              }
+              if (underOdds && !isNaN(underOdds)) {
+                underEdge = calculateEdge(underProb, parseInt(underOdds));
               }
             }
 
@@ -1418,28 +1431,35 @@
                 <div class="prop-inputs">
                   <div class="prop-input-group">
                     <label>Line:</label>
-                    <input type="text" class="prop-line-input" data-prop-id="${card.id}"
+                    <input type="text" class="prop-line-input line-input" data-prop-id="${card.id}"
                            value="${line || ''}" placeholder="${card.avg.toFixed(1)}">
                   </div>
-                  <div class="prop-input-group">
-                    <label>Odds:</label>
-                    <input type="text" class="prop-odds-input" data-prop-id="${card.id}"
-                           value="${mktOdds || ''}" placeholder="-110">
+                  <div class="prop-odds-row">
+                    <div class="prop-input-group">
+                      <label>O:</label>
+                      <input type="text" class="prop-over-odds-input" data-prop-id="${card.id}"
+                             value="${overOdds || ''}" placeholder="-110">
+                    </div>
+                    <div class="prop-input-group">
+                      <label>U:</label>
+                      <input type="text" class="prop-under-odds-input" data-prop-id="${card.id}"
+                             value="${underOdds || ''}" placeholder="-110">
+                    </div>
                   </div>
                 </div>
                 ${line ? `
                   <div class="prop-results">
-                    <div class="prop-bet-option ${isOverSelected ? 'selected' : ''} ${overEdge > 3 ? 'has-edge' : ''}"
+                    <div class="prop-bet-option ${isOverSelected ? 'selected' : ''} ${overEdge !== null && overEdge > 3 ? 'has-edge' : ''}"
                          data-prop-id="${card.id}" data-side="over">
                       <div class="prop-bet-label">Over ${line}</div>
                       <div class="prop-bet-prob">${(overProb * 100).toFixed(0)}% model</div>
-                      ${overEdge !== null ? `<div class="prop-bet-edge ${overEdge >= 0 ? 'positive' : 'negative'}">${overEdge >= 0 ? '+' : ''}${overEdge.toFixed(1)}% edge</div>` : ''}
+                      ${overEdge !== null ? `<div class="prop-bet-edge ${overEdge >= 0 ? 'positive' : 'negative'}">${overEdge >= 0 ? '+' : ''}${overEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
                     </div>
-                    <div class="prop-bet-option ${isUnderSelected ? 'selected' : ''} ${underEdge > 3 ? 'has-edge' : ''}"
+                    <div class="prop-bet-option ${isUnderSelected ? 'selected' : ''} ${underEdge !== null && underEdge > 3 ? 'has-edge' : ''}"
                          data-prop-id="${card.id}" data-side="under">
                       <div class="prop-bet-label">Under ${line}</div>
                       <div class="prop-bet-prob">${(underProb * 100).toFixed(0)}% model</div>
-                      ${underEdge !== null ? `<div class="prop-bet-edge ${underEdge >= 0 ? 'positive' : 'negative'}">${underEdge >= 0 ? '+' : ''}${underEdge.toFixed(1)}% edge</div>` : ''}
+                      ${underEdge !== null ? `<div class="prop-bet-edge ${underEdge >= 0 ? 'positive' : 'negative'}">${underEdge >= 0 ? '+' : ''}${underEdge.toFixed(1)}% edge</div>` : '<div class="prop-bet-edge" style="color: var(--text-muted)">enter odds</div>'}
                     </div>
                   </div>
                 ` : '<div class="prop-no-line">Enter sportsbook line to evaluate</div>'}
@@ -1472,12 +1492,22 @@
         });
       });
 
-      container.querySelectorAll('.prop-odds-input').forEach(input => {
+      container.querySelectorAll('.prop-over-odds-input').forEach(input => {
         input.addEventListener('change', (e) => {
           const propId = e.target.dataset.propId;
           const value = e.target.value.trim();
           if (!propInputs[propId]) propInputs[propId] = {};
-          propInputs[propId].odds = value ? parseInt(value) : null;
+          propInputs[propId].overOdds = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.prop-under-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const propId = e.target.dataset.propId;
+          const value = e.target.value.trim();
+          if (!propInputs[propId]) propInputs[propId] = {};
+          propInputs[propId].underOdds = value ? parseInt(value) : null;
           renderLegs();
         });
       });
@@ -1519,13 +1549,16 @@
           }
         }
 
+        // Get the correct odds for this side
+        const sideOdds = side === 'over' ? input.overOdds : input.underOdds;
+
         selectedLegs.push({
           id: legId,
           type: 'player',
           category: `${card.team} Players`,
           name: `${card.player} ${side === 'over' ? 'O' : 'U'} ${input.line} ${card.statLabel.toLowerCase()}`,
           detail: `Avg: ${card.avg.toFixed(0)}`,
-          odds: input.odds ? input.odds : probToOdds(prob),
+          odds: sideOdds ? sideOdds : probToOdds(prob),
           prob: prob,
           team: card.team,
           player: card.player,
@@ -1534,7 +1567,7 @@
           matchup: card.matchup,
           trend: card.trend,
           marketLine: input.line,
-          marketOdds: input.odds
+          marketOdds: sideOdds
         });
       }
 
