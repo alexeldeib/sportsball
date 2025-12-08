@@ -28,6 +28,8 @@
       --negative: #ef4444;
       --warning: #d97706;
       --purple: #a855f7;
+      --team1: #3b82f6;
+      --team2: #d97706;
     }
 
     body {
@@ -39,7 +41,7 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1000px;
       margin: 0 auto;
       padding: 1.5rem 1rem 2rem;
     }
@@ -74,7 +76,7 @@
       justify-content: center;
     }
 
-    .controls select, .controls button {
+    .controls select {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 6px;
@@ -85,15 +87,103 @@
       cursor: pointer;
     }
 
-    .controls button {
-      background: var(--accent);
-      border-color: var(--accent);
-    }
-    .controls button:hover {
-      background: #2563eb;
+    .matchup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .section {
+    .matchup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .matchup-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .matchup-card.selected {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .matchup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .matchup-teams {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .matchup-teams .at { color: var(--text-muted); font-weight: 400; margin: 0 0.25rem; }
+
+    .matchup-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .matchup-odds {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      text-align: center;
+    }
+
+    .odds-item {
+      background: var(--bg-deep);
+      border-radius: 6px;
+      padding: 0.5rem;
+    }
+
+    .odds-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .odds-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .odds-value.favorite { color: var(--positive); }
+
+    .win-prob-bar {
+      height: 4px;
+      background: var(--negative);
+      border-radius: 2px;
+      margin-top: 0.75rem;
+      overflow: hidden;
+    }
+
+    .win-prob-fill {
+      height: 100%;
+      background: var(--positive);
+      border-radius: 2px;
+    }
+
+    .win-prob-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Detail section */
+    .detail-section {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -101,7 +191,7 @@
       overflow: hidden;
     }
 
-    .section-header {
+    .detail-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -110,173 +200,163 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .section-title {
+    .detail-title {
       font-family: 'Oswald', sans-serif;
-      font-size: 1.1rem;
+      font-size: 1.25rem;
       font-weight: 600;
-      text-transform: uppercase;
     }
 
-    .section-badge {
+    .detail-badge {
       padding: 0.25rem 0.75rem;
       border-radius: 100px;
       font-size: 0.75rem;
       font-weight: 600;
-      text-transform: uppercase;
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--accent);
     }
 
-    .section-badge.value { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
-    .section-badge.warning { background: rgba(217, 119, 6, 0.2); color: var(--warning); }
-
-    .value-grid {
-      display: grid;
-      gap: 1px;
-      background: var(--border);
-    }
-
-    .value-card {
-      background: var(--bg-card);
-      padding: 1rem 1.25rem;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .value-card:hover {
-      background: var(--bg-hover);
-    }
-
-    .value-matchup {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    .value-meta {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-    }
-
-    .value-bet {
-      text-align: right;
-    }
-
-    .bet-team {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--positive);
-    }
-
-    .bet-odds {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
-    }
-
-    .bet-edge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-top: 0.25rem;
-    }
-
-    .edge-strong { background: rgba(34, 197, 94, 0.3); color: var(--positive); }
-    .edge-moderate { background: rgba(217, 119, 6, 0.3); color: var(--warning); }
-    .edge-slight { background: rgba(148, 163, 184, 0.2); color: var(--text-secondary); }
-
-    .factors-list {
-      margin-top: 0.5rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .factor-tag {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      background: rgba(168, 85, 247, 0.2);
-      color: var(--purple);
-      margin-right: 0.25rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .matchup-detail {
+    .detail-content {
       padding: 1.25rem;
     }
 
-    .simulation-grid {
+    .prediction-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .sim-card {
-      background: rgba(0, 0, 0, 0.2);
+    .pred-card {
+      background: var(--bg-deep);
       border-radius: 8px;
       padding: 1rem;
       text-align: center;
     }
 
-    .sim-label {
+    .pred-label {
       font-size: 0.75rem;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.25rem;
     }
 
-    .sim-value {
+    .pred-value {
       font-family: 'Oswald', sans-serif;
       font-size: 1.5rem;
       font-weight: 700;
     }
 
-    .sim-range {
+    .pred-range {
       font-size: 0.8rem;
       color: var(--text-secondary);
-      margin-top: 0.25rem;
     }
 
-    .chart-container {
-      height: 200px;
-      margin-top: 1rem;
-    }
-
-    .cluster-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1px;
-      background: var(--border);
-    }
-
-    .cluster-card {
-      background: var(--bg-card);
+    .model-inputs {
+      background: var(--bg-deep);
+      border-radius: 8px;
       padding: 1rem;
+      margin-bottom: 1.5rem;
     }
 
-    .cluster-name {
-      font-family: 'Oswald', sans-serif;
-      font-size: 1rem;
+    .model-inputs-title {
       font-weight: 600;
-      text-transform: uppercase;
       color: var(--accent);
       margin-bottom: 0.5rem;
     }
 
-    .cluster-teams {
-      font-size: 0.9rem;
-      color: var(--text-secondary);
+    .model-inputs-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      font-size: 0.85rem;
     }
 
-    .cluster-stats {
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
+    .model-inputs-grid span { color: var(--text-muted); }
+
+    /* H2H Section */
+    .h2h-section {
+      border-top: 1px solid var(--border);
+      padding-top: 1.25rem;
+      margin-top: 1rem;
+    }
+
+    .h2h-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .h2h-summary {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .h2h-team {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .h2h-team .code {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .h2h-team.team1 .code { color: var(--team1); }
+    .h2h-team.team2 .code { color: var(--team2); }
+
+    .h2h-team .wins {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+
+    .h2h-team .ppg {
+      font-size: 0.85rem;
       color: var(--text-muted);
+    }
+
+    .h2h-vs {
+      display: flex;
+      align-items: center;
+      color: var(--text-muted);
+    }
+
+    .h2h-games-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .h2h-games-table th,
+    .h2h-games-table td {
+      padding: 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .h2h-games-table th {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--bg-deep);
+    }
+
+    .h2h-games-table tr:hover { background: var(--bg-hover); }
+
+    .winner-home { color: var(--team1); font-weight: 600; }
+    .winner-away { color: var(--team2); font-weight: 600; }
+
+    .chart-container {
+      height: 200px;
+      margin-top: 1rem;
     }
 
     .no-data {
@@ -285,28 +365,16 @@
       color: var(--text-muted);
     }
 
-    .confidence-bar {
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      margin-top: 0.5rem;
-      overflow: hidden;
-    }
-
-    .confidence-fill {
-      height: 100%;
-      background: var(--accent);
-      border-radius: 2px;
+    .loading {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2rem;
     }
 
     @media (max-width: 600px) {
-      .value-card {
-        grid-template-columns: 1fr;
-      }
-      .value-bet {
-        text-align: left;
-        margin-top: 0.5rem;
-      }
+      .matchup-grid { grid-template-columns: 1fr; }
+      .h2h-summary { grid-template-columns: 1fr 1fr; }
+      .h2h-vs { display: none; }
     }
   </style>
 </head>
@@ -316,7 +384,7 @@
 
     <header>
       <h1>Matchup Predictions</h1>
-      <p class="subtitle">SRS-based odds, Monte Carlo simulations, and team clustering</p>
+      <p class="subtitle">Model-based odds with historical context</p>
     </header>
 
     <div class="controls">
@@ -325,69 +393,65 @@
         <option value="2024">2024 Season</option>
       </select>
       <select id="week-select">
-        <option value="all">All Weeks</option>
+        <option value="">Loading...</option>
       </select>
-      <button id="analyze-btn">Analyze Matchups</button>
     </div>
 
-    <div id="value-section" class="section">
-      <div class="section-header">
-        <div class="section-title">Model Predictions</div>
-        <span id="value-count" class="section-badge value">0 matchups</span>
-      </div>
-      <div id="value-list" class="value-grid">
-        <div class="no-data">Click "Analyze Matchups" to see predictions</div>
-      </div>
+    <div id="matchup-grid" class="matchup-grid">
+      <div class="loading">Loading matchups...</div>
     </div>
 
-    <div id="selected-matchup" class="section" style="display: none;">
-      <div class="section-header">
-        <div class="section-title" id="matchup-title">Matchup Detail</div>
-        <span class="section-badge" id="confidence-badge">--% Confidence</span>
+    <div id="detail-section" class="detail-section" style="display: none;">
+      <div class="detail-header">
+        <div class="detail-title" id="detail-title">Matchup Detail</div>
+        <span class="detail-badge" id="detail-badge">--% Win Prob</span>
       </div>
-      <div class="matchup-detail">
-        <div class="simulation-grid">
-          <div class="sim-card">
-            <div class="sim-label">Home Win Prob</div>
-            <div class="sim-value" id="sim-home-prob">--</div>
+      <div class="detail-content">
+        <div class="prediction-grid">
+          <div class="pred-card">
+            <div class="pred-label">Spread</div>
+            <div class="pred-value" id="pred-spread">--</div>
+            <div class="pred-range" id="pred-spread-range">--</div>
           </div>
-          <div class="sim-card">
-            <div class="sim-label">Spread</div>
-            <div class="sim-value" id="sim-spread">--</div>
-            <div class="sim-range" id="sim-spread-range">--</div>
+          <div class="pred-card">
+            <div class="pred-label">Total</div>
+            <div class="pred-value" id="pred-total">--</div>
+            <div class="pred-range" id="pred-total-range">--</div>
           </div>
-          <div class="sim-card">
-            <div class="sim-label">Total</div>
-            <div class="sim-value" id="sim-total">--</div>
-            <div class="sim-range" id="sim-total-range">--</div>
+          <div class="pred-card">
+            <div class="pred-label">Home ML</div>
+            <div class="pred-value" id="pred-home-ml">--</div>
           </div>
-          <div class="sim-card">
-            <div class="sim-label">Expected Diff</div>
-            <div class="sim-value" id="sim-diff">--</div>
+          <div class="pred-card">
+            <div class="pred-label">Away ML</div>
+            <div class="pred-value" id="pred-away-ml">--</div>
           </div>
         </div>
-        <div id="factors-container"></div>
+
+        <div class="model-inputs" id="model-inputs">
+          <div class="model-inputs-title">Model Inputs</div>
+          <div class="model-inputs-grid" id="model-inputs-grid"></div>
+        </div>
+
         <div class="chart-container">
           <canvas id="distribution-chart"></canvas>
         </div>
-      </div>
-    </div>
 
-    <div id="clusters-section" class="section">
-      <div class="section-header">
-        <div class="section-title">Team Clusters</div>
-        <span class="section-badge warning">5 Groups</span>
-      </div>
-      <div id="clusters-grid" class="cluster-grid">
-        <div class="no-data">Loading clusters...</div>
+        <div class="h2h-section" id="h2h-section">
+          <div class="h2h-title">Head-to-Head History (2020-2025)</div>
+          <div id="h2h-content">
+            <div class="no-data">No historical games found</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
     let db = null;
-    let teamClusters = null;
     let distributionChart = null;
+    let h2hChart = null;
+    let currentMatchups = [];
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -398,297 +462,234 @@
       const buffer = await response.arrayBuffer();
       db = new SQL.Database(new Uint8Array(buffer));
 
-      // Load advanced stats for improved predictions
       const season = document.getElementById('season-select').value;
       await OddsEngine.loadAdvancedStats(parseInt(season));
 
       populateWeekSelect();
-      loadClusters();
     }
 
     function populateWeekSelect() {
       const season = document.getElementById('season-select').value;
       const result = db.exec(`
-        SELECT DISTINCT week FROM games WHERE season = ${season} ORDER BY week
+        SELECT DISTINCT week FROM games
+        WHERE season = ${season}
+        ORDER BY week DESC
       `);
 
       const select = document.getElementById('week-select');
-      select.innerHTML = '<option value="all">All Weeks</option>';
+      select.innerHTML = '';
 
-      if (result.length && result[0].values) {
-        result[0].values.forEach(([week]) => {
+      if (result.length && result[0].values.length) {
+        result[0].values.forEach(([week], idx) => {
           const opt = document.createElement('option');
           opt.value = week;
           opt.textContent = `Week ${week}`;
+          if (idx === 0) opt.selected = true;
           select.appendChild(opt);
         });
+
+        loadMatchups(result[0].values[0][0]);
       }
     }
 
-    async function loadClusters() {
+    function loadMatchups(week) {
       const season = document.getElementById('season-select').value;
-      try {
-        const response = await fetch(`team-clusters-${season}.json`);
-        teamClusters = await response.json();
-        renderClusters();
-      } catch (e) {
-        document.getElementById('clusters-grid').innerHTML =
-          '<div class="no-data">Cluster data not available for this season</div>';
-      }
-    }
 
-    function renderClusters() {
-      if (!teamClusters || !teamClusters.summary) {
-        return;
-      }
-
-      const container = document.getElementById('clusters-grid');
-      const clusterMap = {};
-
-      // Group by cluster name
-      teamClusters.clusters.forEach(t => {
-        if (!clusterMap[t.cluster_name]) {
-          clusterMap[t.cluster_name] = [];
-        }
-        clusterMap[t.cluster_name].push(t);
-      });
-
-      container.innerHTML = Object.entries(clusterMap).map(([name, teams]) => {
-        const avgPpg = teams.reduce((sum, t) => sum + t.ppg_scored, 0) / teams.length;
-        const avgAllowed = teams.reduce((sum, t) => sum + t.ppg_allowed, 0) / teams.length;
-
-        return `
-          <div class="cluster-card">
-            <div class="cluster-name">${name.replace(/_/g, ' ')}</div>
-            <div class="cluster-teams">${teams.map(t => t.team_code).join(', ')}</div>
-            <div class="cluster-stats">
-              Avg PPG: ${avgPpg.toFixed(1)} | Avg Allowed: ${avgAllowed.toFixed(1)}
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function analyzeMatchups() {
-      const season = document.getElementById('season-select').value;
-      const week = document.getElementById('week-select').value;
-
-      // Get all upcoming games with properly aliased team stats
-      let sql = `
+      const sql = `
         SELECT
-          g.week as g_week, g.game_date, g.home_team as g_home, g.away_team as g_away,
-          ts_home.ppg_scored as home_ppg_scored, ts_home.ppg_allowed as home_ppg_allowed,
-          ts_home.scoring_std_dev as home_scoring_std_dev, ts_home.scoring_consistency as home_scoring_consistency,
-          ts_home.ema_differential as home_ema_differential, ts_home.ema_ppg as home_ema_ppg,
-          ts_home.scoring_changepoint as home_scoring_changepoint,
-          ts_home.scoring_changepoint_direction as home_scoring_changepoint_direction,
-          ts_home.scoring_changepoint_magnitude as home_scoring_changepoint_magnitude,
-          ts_home.game_profile as home_game_profile, ts_home.avg_total_points as home_avg_total,
-          ts_home.last_5_ppg as home_last_5_ppg, ts_home.last_5_ppg_allowed as home_last_5_allowed,
-          ts_away.ppg_scored as away_ppg_scored, ts_away.ppg_allowed as away_ppg_allowed,
-          ts_away.scoring_std_dev as away_scoring_std_dev, ts_away.scoring_consistency as away_scoring_consistency,
-          ts_away.ema_differential as away_ema_differential, ts_away.ema_ppg as away_ema_ppg,
-          ts_away.scoring_changepoint as away_scoring_changepoint,
-          ts_away.scoring_changepoint_direction as away_scoring_changepoint_direction,
-          ts_away.scoring_changepoint_magnitude as away_scoring_changepoint_magnitude,
-          ts_away.game_profile as away_game_profile, ts_away.avg_total_points as away_avg_total,
-          ts_away.last_5_ppg as away_last_5_ppg, ts_away.last_5_ppg_allowed as away_last_5_allowed
+          g.week, g.game_date, g.home_team, g.away_team, g.is_completed,
+          g.home_score, g.away_score,
+          ts_home.ppg_scored as home_ppg, ts_home.ppg_allowed as home_allowed,
+          ts_home.scoring_std_dev as home_std, ts_home.last_5_ppg as home_last5,
+          ts_home.last_5_ppg_allowed as home_last5_allowed,
+          ts_home.ema_differential as home_ema, ts_home.scoring_changepoint as home_cp,
+          ts_home.scoring_changepoint_direction as home_cp_dir,
+          ts_away.ppg_scored as away_ppg, ts_away.ppg_allowed as away_allowed,
+          ts_away.scoring_std_dev as away_std, ts_away.last_5_ppg as away_last5,
+          ts_away.last_5_ppg_allowed as away_last5_allowed,
+          ts_away.ema_differential as away_ema, ts_away.scoring_changepoint as away_cp,
+          ts_away.scoring_changepoint_direction as away_cp_dir
         FROM games g
         LEFT JOIN team_stats ts_home ON g.home_team = ts_home.team_code AND ts_home.season = ${season}
         LEFT JOIN team_stats ts_away ON g.away_team = ts_away.team_code AND ts_away.season = ${season}
-        WHERE g.season = ${season} AND g.is_completed = 0
+        WHERE g.season = ${season} AND g.week = ${week}
+        ORDER BY g.game_date
       `;
 
-      if (week !== 'all') {
-        sql += ` AND g.week = ${week}`;
-      }
-      sql += ' ORDER BY g.week, g.game_date';
-
       const result = db.exec(sql);
+      const grid = document.getElementById('matchup-grid');
+
       if (!result.length || !result[0].values.length) {
-        document.getElementById('value-list').innerHTML =
-          '<div class="no-data">No upcoming games found</div>';
-        document.getElementById('value-count').textContent = '0 found';
+        grid.innerHTML = '<div class="no-data">No games this week</div>';
+        currentMatchups = [];
         return;
       }
 
       const cols = result[0].columns;
-      const games = result[0].values.map(row => {
-        const obj = {};
-        cols.forEach((col, i) => obj[col] = row[i]);
-        return obj;
+      currentMatchups = result[0].values.map(row => {
+        const g = {};
+        cols.forEach((col, i) => g[col] = row[i]);
+        return g;
       });
 
-      // Analyze each game - show all matchups ranked by model confidence
-      const opportunities = [];
-
-      games.forEach(game => {
-        // Build stats objects
-        const homeStats = buildTeamStats(game, 'home');
-        const awayStats = buildTeamStats(game, 'away');
-
-        // Get enhanced odds
-        const enhanced = OddsEngine.calculateEnhancedOdds(homeStats, awayStats);
-
-        // Determine favorite and confidence level
-        const homeIsFavorite = enhanced.homeWinProb > 0.5;
-        const favoriteProb = homeIsFavorite ? enhanced.homeWinProb : enhanced.awayWinProb;
-        const confidence = Math.abs(enhanced.homeWinProb - 0.5) * 200; // 0-100 scale
-
-        opportunities.push({
-          game,
-          homeStats,
-          awayStats,
-          enhanced,
-          bet: homeIsFavorite ? game.g_home : game.g_away,
-          betSide: homeIsFavorite ? 'home' : 'away',
-          value: {
-            edge: confidence,  // Use confidence as "edge" for display
-            rating: confidence >= 30 ? 'strong' : confidence >= 15 ? 'moderate' : 'slight',
-            modelProb: Math.round(favoriteProb * 100),
-          },
-        });
-      });
-
-      // Sort by confidence (highest first)
-      opportunities.sort((a, b) => b.value.edge - a.value.edge);
-
-      // Render
-      renderValueOpportunities(opportunities);
+      renderMatchupCards();
     }
 
-    function buildTeamStats(game, side) {
-      const p = side + '_';  // 'home_' or 'away_'
-      return {
-        team_code: side === 'home' ? game.g_home : game.g_away,
-        ppg_scored: game[p + 'ppg_scored'] || 21,
-        ppg_allowed: game[p + 'ppg_allowed'] || 21,
-        scoring_std_dev: game[p + 'scoring_std_dev'] || 10,
-        scoring_consistency: game[p + 'scoring_consistency'] || 50,
-        ema_differential: game[p + 'ema_differential'] || 0,
-        ema_ppg: game[p + 'ema_ppg'] || 21,
-        scoring_changepoint: game[p + 'scoring_changepoint'],
-        scoring_changepoint_direction: game[p + 'scoring_changepoint_direction'],
-        scoring_changepoint_magnitude: game[p + 'scoring_changepoint_magnitude'],
-        game_profile: game[p + 'game_profile'] || 'balanced',
-        avg_total_points: game[p + 'avg_total'] || 43,
-        last_5_ppg: game[p + 'last_5_ppg'],
-        last_5_ppg_allowed: game[p + 'last_5_allowed'],
-      };
-    }
+    function renderMatchupCards() {
+      const grid = document.getElementById('matchup-grid');
 
-    function renderValueOpportunities(opportunities) {
-      const container = document.getElementById('value-list');
-      document.getElementById('value-count').textContent = `${opportunities.length} matchups`;
+      grid.innerHTML = currentMatchups.map((g, idx) => {
+        const homeStats = {
+          team_code: g.home_team,
+          ppg_scored: g.home_ppg || 21,
+          ppg_allowed: g.home_allowed || 21,
+          scoring_std_dev: g.home_std || 10,
+          last_5_ppg: g.home_last5,
+          last_5_ppg_allowed: g.home_last5_allowed,
+          ema_differential: g.home_ema,
+          scoring_changepoint: g.home_cp,
+          scoring_changepoint_direction: g.home_cp_dir,
+        };
 
-      if (opportunities.length === 0) {
-        container.innerHTML = '<div class="no-data">No upcoming games found</div>';
-        return;
-      }
+        const awayStats = {
+          team_code: g.away_team,
+          ppg_scored: g.away_ppg || 21,
+          ppg_allowed: g.away_allowed || 21,
+          scoring_std_dev: g.away_std || 10,
+          last_5_ppg: g.away_last5,
+          last_5_ppg_allowed: g.away_last5_allowed,
+          ema_differential: g.away_ema,
+          scoring_changepoint: g.away_cp,
+          scoring_changepoint_direction: g.away_cp_dir,
+        };
 
-      container.innerHTML = opportunities.map((opp, i) => {
-        const confClass = opp.value.rating === 'strong' ? 'edge-strong' :
-                          opp.value.rating === 'moderate' ? 'edge-moderate' : 'edge-slight';
+        const odds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
+        g._odds = odds;
+        g._homeStats = homeStats;
+        g._awayStats = awayStats;
 
-        const factors = (opp.enhanced.factors || []).map(f =>
-          `<span class="factor-tag">${f.type.replace(/_/g, ' ')}</span>`
-        ).join('');
+        const dateStr = g.game_date ? new Date(g.game_date).toLocaleDateString('en-US', {
+          weekday: 'short', month: 'short', day: 'numeric'
+        }) : '';
+
+        const homeProb = Math.round(odds.homeWinProb * 100);
+        const awayProb = 100 - homeProb;
+
+        const spreadDisplay = odds.spread <= 0
+          ? `${g.home_team} ${odds.spread}`
+          : `${g.away_team} ${-odds.spread}`;
+
+        const favoriteML = odds.homeWinProb >= 0.5 ? odds.homeMoneyline : odds.awayMoneyline;
+
+        let status = '';
+        if (g.is_completed) {
+          status = `<div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">Final: ${g.away_score} - ${g.home_score}</div>`;
+        }
 
         return `
-          <div class="value-card" onclick="showMatchupDetail(${i})">
-            <div>
-              <div class="value-matchup">${opp.game.g_away} @ ${opp.game.g_home}</div>
-              <div class="value-meta">Week ${opp.game.g_week} | ${opp.game.game_date || 'TBD'}</div>
-              ${factors ? `<div class="factors-list">${factors}</div>` : ''}
+          <div class="matchup-card" data-idx="${idx}">
+            <div class="matchup-header">
+              <div class="matchup-teams">${g.away_team}<span class="at">@</span>${g.home_team}</div>
+              <div class="matchup-date">${dateStr}</div>
             </div>
-            <div class="value-bet">
-              <div class="bet-team">${opp.bet}</div>
-              <div class="bet-odds">${OddsEngine.formatOdds(opp.betSide === 'home' ? opp.enhanced.homeMoneyline : opp.enhanced.awayMoneyline)}</div>
-              <div class="bet-edge ${confClass}">${opp.value.modelProb}% Win Prob</div>
-              <div class="confidence-bar">
-                <div class="confidence-fill" style="width: ${opp.value.edge}%;"></div>
+            <div class="matchup-odds">
+              <div class="odds-item">
+                <div class="odds-label">Spread</div>
+                <div class="odds-value">${spreadDisplay}</div>
+              </div>
+              <div class="odds-item">
+                <div class="odds-label">Total</div>
+                <div class="odds-value">${odds.overUnder}</div>
+              </div>
+              <div class="odds-item">
+                <div class="odds-label">Fav ML</div>
+                <div class="odds-value favorite">${formatOdds(favoriteML)}</div>
               </div>
             </div>
+            <div class="win-prob-bar">
+              <div class="win-prob-fill" style="width: ${homeProb}%;"></div>
+            </div>
+            <div class="win-prob-labels">
+              <span>${g.away_team} ${awayProb}%</span>
+              <span>${g.home_team} ${homeProb}%</span>
+            </div>
+            ${status}
           </div>
         `;
       }).join('');
 
-      // Store for detail view
-      window.currentOpportunities = opportunities;
+      // Add click handlers
+      grid.querySelectorAll('.matchup-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = parseInt(card.dataset.idx);
+          grid.querySelectorAll('.matchup-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+          showMatchupDetail(idx);
+        });
+      });
     }
 
-    function showMatchupDetail(index) {
-      const opp = window.currentOpportunities[index];
-      if (!opp) return;
+    function showMatchupDetail(idx) {
+      const g = currentMatchups[idx];
+      if (!g) return;
 
-      const section = document.getElementById('selected-matchup');
+      const section = document.getElementById('detail-section');
       section.style.display = 'block';
 
-      document.getElementById('matchup-title').textContent =
-        `${opp.game.g_away} @ ${opp.game.g_home}`;
-      document.getElementById('confidence-badge').textContent =
-        `${opp.enhanced.confidence}% Confidence`;
+      const enhanced = OddsEngine.calculateEnhancedOdds(g._homeStats, g._awayStats);
+      const homeProb = Math.round(enhanced.homeWinProb * 100);
 
-      document.getElementById('sim-home-prob').textContent =
-        `${(opp.enhanced.simulation.homeWinProb * 100).toFixed(1)}%`;
-      document.getElementById('sim-spread').textContent =
-        OddsEngine.formatSpread(opp.enhanced.spread);
-      document.getElementById('sim-spread-range').textContent =
-        `90% CI: ${opp.enhanced.simulation.spreadRange.low} to ${opp.enhanced.simulation.spreadRange.high}`;
-      document.getElementById('sim-total').textContent =
-        opp.enhanced.overUnder.toFixed(1);
-      document.getElementById('sim-total-range').textContent =
-        `90% CI: ${opp.enhanced.simulation.totalRange.low} to ${opp.enhanced.simulation.totalRange.high}`;
-      document.getElementById('sim-diff').textContent =
-        (opp.enhanced.expectedDiff > 0 ? '+' : '') + opp.enhanced.expectedDiff.toFixed(1);
+      document.getElementById('detail-title').textContent = `${g.away_team} @ ${g.home_team}`;
+      document.getElementById('detail-badge').textContent = `${g.home_team} ${homeProb}% Win`;
 
-      // Show advanced model info
-      const homeAdv = OddsEngine.getAdvancedStats(opp.game.g_home);
-      const awayAdv = OddsEngine.getAdvancedStats(opp.game.g_away);
+      document.getElementById('pred-spread').textContent = OddsEngine.formatSpread(enhanced.spread);
+      document.getElementById('pred-spread-range').textContent =
+        `90% CI: ${enhanced.simulation.spreadRange.low} to ${enhanced.simulation.spreadRange.high}`;
+      document.getElementById('pred-total').textContent = enhanced.overUnder.toFixed(1);
+      document.getElementById('pred-total-range').textContent =
+        `90% CI: ${enhanced.simulation.totalRange.low} to ${enhanced.simulation.totalRange.high}`;
+      document.getElementById('pred-home-ml').textContent = formatOdds(enhanced.homeMoneyline);
+      document.getElementById('pred-away-ml').textContent = formatOdds(enhanced.awayMoneyline);
 
-      let modelInfoHtml = '<div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-deep); border-radius: 6px;">';
-      modelInfoHtml += '<strong style="color: var(--accent);">Model Inputs</strong>';
-      modelInfoHtml += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">`;
+      // Model inputs
+      const homeAdv = OddsEngine.getAdvancedStats(g.home_team);
+      const awayAdv = OddsEngine.getAdvancedStats(g.away_team);
 
-      if (homeAdv) {
-        modelInfoHtml += `<div><span style="color: var(--text-muted);">${opp.game.g_home} SRS:</span> ${homeAdv.srs >= 0 ? '+' : ''}${homeAdv.srs?.toFixed(1) || 'N/A'}</div>`;
-        modelInfoHtml += `<div><span style="color: var(--text-muted);">${opp.game.g_away} SRS:</span> ${awayAdv?.srs >= 0 ? '+' : ''}${awayAdv?.srs?.toFixed(1) || 'N/A'}</div>`;
-        modelInfoHtml += `<div><span style="color: var(--text-muted);">HFA:</span> +${opp.enhanced.homeFieldAdvantage || 2.5} pts</div>`;
-        modelInfoHtml += `<div><span style="color: var(--text-muted);">SOS:</span> ${homeAdv.sos?.toFixed(3) || 'N/A'} vs ${awayAdv?.sos?.toFixed(3) || 'N/A'}</div>`;
+      let inputsHtml = '';
+      if (homeAdv && awayAdv) {
+        inputsHtml = `
+          <div><span>${g.home_team} SRS:</span> ${homeAdv.srs >= 0 ? '+' : ''}${homeAdv.srs?.toFixed(1)}</div>
+          <div><span>${g.away_team} SRS:</span> ${awayAdv.srs >= 0 ? '+' : ''}${awayAdv.srs?.toFixed(1)}</div>
+          <div><span>Home Field:</span> +${enhanced.homeFieldAdvantage || 2.5} pts</div>
+          <div><span>Power Diff:</span> ${(enhanced.homePower - enhanced.awayPower).toFixed(1)}</div>
+          <div><span>${g.home_team} SOS:</span> ${homeAdv.sos?.toFixed(3)}</div>
+          <div><span>${g.away_team} SOS:</span> ${awayAdv.sos?.toFixed(3)}</div>
+        `;
+      } else {
+        inputsHtml = `
+          <div><span>${g.home_team} PPG:</span> ${g._homeStats.ppg_scored?.toFixed(1)}</div>
+          <div><span>${g.away_team} PPG:</span> ${g._awayStats.ppg_scored?.toFixed(1)}</div>
+          <div><span>${g.home_team} Allowed:</span> ${g._homeStats.ppg_allowed?.toFixed(1)}</div>
+          <div><span>${g.away_team} Allowed:</span> ${g._awayStats.ppg_allowed?.toFixed(1)}</div>
+        `;
       }
-      modelInfoHtml += '</div></div>';
-
-      // Factors
-      const factorsHtml = opp.enhanced.factors.length > 0 ?
-        `<div style="margin-bottom: 1rem;">
-          <strong>Key Factors:</strong>
-          ${opp.enhanced.factors.map(f => `<div style="margin-top: 0.25rem; color: var(--text-secondary);">${f.description}</div>`).join('')}
-        </div>` : '';
-      document.getElementById('factors-container').innerHTML = modelInfoHtml + factorsHtml;
+      document.getElementById('model-inputs-grid').innerHTML = inputsHtml;
 
       // Distribution chart
-      renderDistributionChart(opp);
+      renderDistributionChart(g._homeStats, g._awayStats, g.home_team);
+
+      // H2H history
+      loadH2HHistory(g.home_team, g.away_team);
 
       section.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function renderDistributionChart(opp) {
-      if (distributionChart) {
-        distributionChart.destroy();
-      }
+    function renderDistributionChart(homeStats, awayStats, homeTeam) {
+      if (distributionChart) distributionChart.destroy();
 
       const ctx = document.getElementById('distribution-chart');
+      const sim = OddsEngine.monteCarloSimulation(homeStats, awayStats, 2000);
 
-      // Create histogram data from simulation
-      const sim = OddsEngine.monteCarloSimulation(opp.homeStats, opp.awayStats, 2000);
-
-      // Group margins into bins
-      const bins = {};
-      for (let i = -30; i <= 30; i += 3) {
-        bins[i] = 0;
-      }
-
-      // This is a simplified visualization
       const spreadBins = [
         { label: '-20+', count: 0 },
         { label: '-15', count: 0 },
@@ -703,7 +704,6 @@
         { label: '+20+', count: 0 },
       ];
 
-      // Simulate to get distribution
       for (let i = 0; i < 1000; i++) {
         const margin = sim.spread.mean + (Math.random() - 0.5) * (sim.spread.p95 - sim.spread.p5);
         if (margin <= -17.5) spreadBins[0].count++;
@@ -727,9 +727,9 @@
             label: 'Outcome Probability',
             data: spreadBins.map(b => (b.count / 1000 * 100).toFixed(1)),
             backgroundColor: spreadBins.map((b, i) => {
-              if (i < 5) return 'rgba(239, 68, 68, 0.6)'; // Away wins
-              if (i > 5) return 'rgba(34, 197, 94, 0.6)'; // Home wins
-              return 'rgba(148, 163, 184, 0.6)'; // Push
+              if (i < 5) return 'rgba(239, 68, 68, 0.6)';
+              if (i > 5) return 'rgba(34, 197, 94, 0.6)';
+              return 'rgba(148, 163, 184, 0.6)';
             }),
             borderRadius: 4,
           }]
@@ -739,34 +739,97 @@
           maintainAspectRatio: false,
           plugins: {
             legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: (ctx) => `${ctx.raw}% probability`
-              }
-            }
+            tooltip: { callbacks: { label: (ctx) => `${ctx.raw}% probability` } }
           },
           scales: {
             x: {
               grid: { color: 'rgba(148, 163, 184, 0.1)' },
               ticks: { color: '#94a3b8' },
-              title: {
-                display: true,
-                text: 'Home Team Margin',
-                color: '#94a3b8',
-              }
+              title: { display: true, text: `${homeTeam} Margin`, color: '#94a3b8' }
             },
             y: {
               grid: { color: 'rgba(148, 163, 184, 0.1)' },
               ticks: { color: '#94a3b8' },
-              title: {
-                display: true,
-                text: 'Probability %',
-                color: '#94a3b8',
-              }
+              title: { display: true, text: 'Probability %', color: '#94a3b8' }
             }
           }
         }
       });
+    }
+
+    function loadH2HHistory(home, away) {
+      const games = db.exec(`
+        SELECT season, week, game_date, home_team, away_team, home_score, away_score
+        FROM games
+        WHERE ((home_team = '${home}' AND away_team = '${away}')
+           OR (home_team = '${away}' AND away_team = '${home}'))
+          AND is_completed = 1
+        ORDER BY season DESC, week DESC
+        LIMIT 10
+      `);
+
+      const container = document.getElementById('h2h-content');
+
+      if (!games.length || !games[0].values.length) {
+        container.innerHTML = '<div class="no-data">No historical games between these teams</div>';
+        return;
+      }
+
+      const rows = games[0].values;
+      let homeWins = 0, awayWins = 0, homePts = 0, awayPts = 0;
+
+      rows.forEach(([season, week, date, hTeam, aTeam, hScore, aScore]) => {
+        const isHomeTeamHome = hTeam === home;
+        const homeTeamScore = isHomeTeamHome ? hScore : aScore;
+        const awayTeamScore = isHomeTeamHome ? aScore : hScore;
+
+        homePts += homeTeamScore;
+        awayPts += awayTeamScore;
+
+        if (homeTeamScore > awayTeamScore) homeWins++;
+        else if (awayTeamScore > homeTeamScore) awayWins++;
+      });
+
+      const gamesHtml = rows.map(([season, week, date, hTeam, aTeam, hScore, aScore]) => {
+        const isHomeTeamHome = hTeam === home;
+        const homeScore = isHomeTeamHome ? hScore : aScore;
+        const awayScore = isHomeTeamHome ? aScore : hScore;
+        const winner = homeScore > awayScore ? 'home' : awayScore > homeScore ? 'away' : '';
+
+        return `<tr>
+          <td>${season} Wk ${week}</td>
+          <td>${aTeam} @ ${hTeam}</td>
+          <td class="winner-${winner === 'away' ? 'away' : ''}">${awayScore}</td>
+          <td class="winner-${winner === 'home' ? 'home' : ''}">${homeScore}</td>
+          <td>${homeScore + awayScore}</td>
+        </tr>`;
+      }).join('');
+
+      container.innerHTML = `
+        <div class="h2h-summary">
+          <div class="h2h-team team1">
+            <div class="code">${home}</div>
+            <div class="wins">${homeWins}</div>
+            <div class="ppg">${(homePts / rows.length).toFixed(1)} PPG</div>
+          </div>
+          <div class="h2h-vs">-</div>
+          <div class="h2h-team team2">
+            <div class="code">${away}</div>
+            <div class="wins">${awayWins}</div>
+            <div class="ppg">${(awayPts / rows.length).toFixed(1)} PPG</div>
+          </div>
+        </div>
+        <table class="h2h-games-table">
+          <thead>
+            <tr><th>Game</th><th>Matchup</th><th>${away}</th><th>${home}</th><th>Total</th></tr>
+          </thead>
+          <tbody>${gamesHtml}</tbody>
+        </table>
+      `;
+    }
+
+    function formatOdds(odds) {
+      return odds > 0 ? '+' + odds : String(odds);
     }
 
     // Event listeners
@@ -774,15 +837,18 @@
       const season = document.getElementById('season-select').value;
       await OddsEngine.loadAdvancedStats(parseInt(season));
       populateWeekSelect();
-      loadClusters();
+      document.getElementById('detail-section').style.display = 'none';
     });
 
-    document.getElementById('analyze-btn').addEventListener('click', analyzeMatchups);
+    document.getElementById('week-select').addEventListener('change', (e) => {
+      loadMatchups(parseInt(e.target.value));
+      document.getElementById('detail-section').style.display = 'none';
+    });
 
     // Initialize
     initDB().catch(err => {
       console.error(err);
-      document.getElementById('value-list').innerHTML =
+      document.getElementById('matchup-grid').innerHTML =
         '<div class="no-data">Error loading database</div>';
     });
   </script>
