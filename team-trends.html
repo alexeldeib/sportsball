@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="chart-utils.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -261,6 +263,28 @@
       color: var(--text-muted);
     }
 
+    .chart-container {
+      padding: 1rem 1.25rem;
+      height: 220px;
+    }
+
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .chart-cell {
+      background: var(--bg-card);
+    }
+
+    @media (max-width: 600px) {
+      .charts-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 600px) {
       .splits-grid { grid-template-columns: 1fr; }
       .quarter-grid { grid-template-columns: repeat(2, 1fr); }
@@ -294,6 +318,8 @@
 
   <script>
     let db = null;
+    let scoringChart = null;
+    let quarterChart = null;
 
     const TEAMS = [
       { code: 'ARI', name: 'Arizona Cardinals' },
@@ -386,21 +412,28 @@
       const stats = {};
       cols.forEach((col, i) => stats[col] = vals[i]);
 
-      // Get recent games
-      const gamesResult = db.exec(`
-        SELECT week, game_date, home_team, away_team, home_score, away_score
+      // Get all games for charts (ordered by week)
+      const allGamesResult = db.exec(`
+        SELECT week, game_date, home_team, away_team, home_score, away_score,
+               home_q1, home_q2, home_q3, home_q4, away_q1, away_q2, away_q3, away_q4
         FROM games
         WHERE (home_team = '${teamCode}' OR away_team = '${teamCode}') AND season = ${season} AND is_completed = 1
-        ORDER BY week DESC
-        LIMIT 5
+        ORDER BY week ASC
       `);
 
-      const games = gamesResult.length ? gamesResult[0].values : [];
+      const allGames = allGamesResult.length ? allGamesResult[0].values : [];
 
-      renderTeam(teamCode, teamName, stats, games);
+      // Get recent games (5 most recent)
+      const games = [...allGames].reverse().slice(0, 5);
+
+      renderTeam(teamCode, teamName, stats, games, allGames);
     }
 
-    function renderTeam(code, name, stats, games) {
+    function renderTeam(code, name, stats, games, allGames) {
+      // Destroy previous charts
+      if (scoringChart) { scoringChart.destroy(); scoringChart = null; }
+      if (quarterChart) { quarterChart.destroy(); quarterChart = null; }
+
       const diffClass = stats.point_differential > 0 ? 'positive' : stats.point_differential < 0 ? 'negative' : '';
 
       const gamesHtml = games.length ? games.map(g => {
@@ -451,6 +484,16 @@
               <div class="stat-label">L5 PPG</div>
               <div class="stat-value">${stats.last_5_ppg?.toFixed(1) || 0}</div>
             </div>
+          </div>
+
+          <div class="section-title">Scoring Trend</div>
+          <div class="chart-container">
+            <canvas id="scoring-chart"></canvas>
+          </div>
+
+          <div class="section-title">Quarter Breakdown</div>
+          <div class="chart-container">
+            <canvas id="quarter-chart"></canvas>
           </div>
 
           <div class="section-title">Home / Away Splits</div>
@@ -556,6 +599,61 @@
           </table>
         </div>
       `;
+
+      // Create charts if we have game data
+      if (allGames && allGames.length > 0) {
+        // Process game data for charts
+        const weekLabels = [];
+        const scoredData = [];
+        const allowedData = [];
+        const q1Data = [];
+        const q2Data = [];
+        const q3Data = [];
+        const q4Data = [];
+
+        allGames.forEach(g => {
+          const isHome = g[2] === code;
+          weekLabels.push(`Wk ${g[0]}`);
+          scoredData.push(isHome ? g[4] : g[5]);
+          allowedData.push(isHome ? g[5] : g[4]);
+
+          // Quarter data: home_q1=6, home_q2=7, home_q3=8, home_q4=9, away_q1=10, away_q2=11, away_q3=12, away_q4=13
+          if (isHome) {
+            q1Data.push(g[6] || 0);
+            q2Data.push(g[7] || 0);
+            q3Data.push(g[8] || 0);
+            q4Data.push(g[9] || 0);
+          } else {
+            q1Data.push(g[10] || 0);
+            q2Data.push(g[11] || 0);
+            q3Data.push(g[12] || 0);
+            q4Data.push(g[13] || 0);
+          }
+        });
+
+        // Create scoring trend chart
+        scoringChart = createTrendChart('#scoring-chart', {
+          labels: weekLabels,
+          datasets: [
+            { label: 'Points Scored', data: scoredData, color: 'green' },
+            { label: 'Points Allowed', data: allowedData, color: 'red' }
+          ],
+          yLabel: 'Points',
+          beginAtZero: true
+        });
+
+        // Create quarter breakdown chart (stacked)
+        quarterChart = createComparisonChart('#quarter-chart', {
+          labels: weekLabels,
+          datasets: [
+            { label: 'Q1', data: q1Data, color: 'blue' },
+            { label: 'Q2', data: q2Data, color: 'cyan' },
+            { label: 'Q3', data: q3Data, color: 'green' },
+            { label: 'Q4', data: q4Data, color: 'teal' }
+          ],
+          stacked: true
+        });
+      }
     }
 
     document.getElementById('team-select').addEventListener('change', (e) => {

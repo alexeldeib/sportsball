@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Player vs Team</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="chart-utils.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --vs-opp: #d97706;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header { text-align: center; margin-bottom: 1.5rem; }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .search-wrapper {
+      flex: 1;
+      min-width: 200px;
+      position: relative;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .search-wrapper input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .controls select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .search-results {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-top: 4px;
+      max-height: 250px;
+      overflow-y: auto;
+      z-index: 100;
+      display: none;
+    }
+
+    .search-results.active { display: block; }
+
+    .search-result {
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-result:last-child { border-bottom: none; }
+    .search-result:hover { background: var(--bg-hover); }
+
+    .player-name { font-weight: 600; }
+    .player-meta { color: var(--text-muted); font-size: 0.85rem; }
+
+    .analysis-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .player-info h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .player-details {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .comparison-cell {
+      background: var(--bg-card);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .comparison-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .comparison-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .stat-item .value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .stat-item .value.season-avg { color: var(--accent); }
+    .stat-item .value.vs-opp { color: var(--vs-opp); }
+    .stat-item .value.better { color: var(--positive); }
+    .stat-item .value.worse { color: var(--negative); }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding: 1rem 1.25rem 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .chart-container {
+      padding: 1rem 1.25rem;
+      height: 220px;
+    }
+
+    .games-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .games-table th,
+    .games-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .games-table th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .games-table tr:hover { background: var(--bg-hover); }
+
+    .insight-box {
+      padding: 1rem 1.25rem;
+      background: rgba(217, 119, 6, 0.1);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .insight-box strong { color: var(--vs-opp); }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .comparison-grid { grid-template-columns: 1fr; }
+      .controls { flex-direction: column; }
+      .search-wrapper { min-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Player vs Team</h1>
+      <p class="subtitle">Analyze player performance against specific opponents</p>
+    </header>
+
+    <div class="controls">
+      <div class="search-wrapper">
+        <input type="text" id="player-search" placeholder="Search for a player..." autocomplete="off">
+        <div id="search-results" class="search-results"></div>
+      </div>
+      <select id="opponent-select" disabled>
+        <option value="">Select opponent...</option>
+      </select>
+    </div>
+
+    <div id="analysis-content">
+      <div class="no-data">Search for a player, then select an opponent to see performance comparison</div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let searchTimeout = null;
+    let comparisonChart = null;
+    let selectedPlayer = null;
+
+    const TEAMS = [
+      { code: 'ARI', name: 'Arizona Cardinals' },
+      { code: 'ATL', name: 'Atlanta Falcons' },
+      { code: 'BAL', name: 'Baltimore Ravens' },
+      { code: 'BUF', name: 'Buffalo Bills' },
+      { code: 'CAR', name: 'Carolina Panthers' },
+      { code: 'CHI', name: 'Chicago Bears' },
+      { code: 'CIN', name: 'Cincinnati Bengals' },
+      { code: 'CLE', name: 'Cleveland Browns' },
+      { code: 'DAL', name: 'Dallas Cowboys' },
+      { code: 'DEN', name: 'Denver Broncos' },
+      { code: 'DET', name: 'Detroit Lions' },
+      { code: 'GB', name: 'Green Bay Packers' },
+      { code: 'HOU', name: 'Houston Texans' },
+      { code: 'IND', name: 'Indianapolis Colts' },
+      { code: 'JAX', name: 'Jacksonville Jaguars' },
+      { code: 'KC', name: 'Kansas City Chiefs' },
+      { code: 'LV', name: 'Las Vegas Raiders' },
+      { code: 'LAC', name: 'Los Angeles Chargers' },
+      { code: 'LAR', name: 'Los Angeles Rams' },
+      { code: 'MIA', name: 'Miami Dolphins' },
+      { code: 'MIN', name: 'Minnesota Vikings' },
+      { code: 'NE', name: 'New England Patriots' },
+      { code: 'NO', name: 'New Orleans Saints' },
+      { code: 'NYG', name: 'New York Giants' },
+      { code: 'NYJ', name: 'New York Jets' },
+      { code: 'PHI', name: 'Philadelphia Eagles' },
+      { code: 'PIT', name: 'Pittsburgh Steelers' },
+      { code: 'SF', name: 'San Francisco 49ers' },
+      { code: 'SEA', name: 'Seattle Seahawks' },
+      { code: 'TB', name: 'Tampa Bay Buccaneers' },
+      { code: 'TEN', name: 'Tennessee Titans' },
+      { code: 'WAS', name: 'Washington Commanders' }
+    ];
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db');
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+    }
+
+    function searchPlayers(query) {
+      if (!query || query.length < 2) {
+        document.getElementById('search-results').classList.remove('active');
+        return;
+      }
+
+      const results = db.exec(`
+        SELECT DISTINCT player_name, team, position
+        FROM player_weekly_stats
+        WHERE player_name LIKE '%${query.replace(/'/g, "''")}%'
+        ORDER BY player_name
+        LIMIT 20
+      `);
+
+      const container = document.getElementById('search-results');
+
+      if (!results.length || !results[0].values.length) {
+        container.innerHTML = '<div class="no-data">No players found</div>';
+        container.classList.add('active');
+        return;
+      }
+
+      container.innerHTML = results[0].values.map(([name, team, pos]) => `
+        <div class="search-result" onclick="selectPlayer('${name.replace(/'/g, "\\'")}', '${team}', '${pos}')">
+          <span class="player-name">${name}</span>
+          <span class="player-meta">${pos} - ${team}</span>
+        </div>
+      `).join('');
+
+      container.classList.add('active');
+    }
+
+    function selectPlayer(name, team, position) {
+      selectedPlayer = { name, team, position };
+      document.getElementById('player-search').value = name;
+      document.getElementById('search-results').classList.remove('active');
+
+      // Find opponents this player has faced
+      const opponentsResult = db.exec(`
+        SELECT DISTINCT opponent, COUNT(*) as games
+        FROM player_weekly_stats
+        WHERE player_name = '${name.replace(/'/g, "''")}'
+        GROUP BY opponent
+        ORDER BY games DESC
+      `);
+
+      const oppSelect = document.getElementById('opponent-select');
+      oppSelect.innerHTML = '<option value="">Select opponent...</option>';
+
+      if (opponentsResult.length && opponentsResult[0].values.length) {
+        opponentsResult[0].values.forEach(([opp, games]) => {
+          if (opp) {
+            const teamName = TEAMS.find(t => t.code === opp)?.name || opp;
+            const opt = document.createElement('option');
+            opt.value = opp;
+            opt.textContent = `${teamName} (${games} games)`;
+            oppSelect.appendChild(opt);
+          }
+        });
+        oppSelect.disabled = false;
+      }
+
+      document.getElementById('analysis-content').innerHTML =
+        '<div class="no-data">Select an opponent to see performance comparison</div>';
+    }
+
+    function loadAnalysis() {
+      if (!selectedPlayer) return;
+
+      const opponent = document.getElementById('opponent-select').value;
+      if (!opponent) {
+        document.getElementById('analysis-content').innerHTML =
+          '<div class="no-data">Select an opponent to see performance comparison</div>';
+        return;
+      }
+
+      const { name, team, position } = selectedPlayer;
+
+      // Get season averages
+      const seasonAvgResult = db.exec(`
+        SELECT
+          AVG(pts_ppr) as avg_ppr,
+          AVG(pass_yd) as avg_pass_yd,
+          AVG(pass_td) as avg_pass_td,
+          AVG(rush_yd) as avg_rush_yd,
+          AVG(rush_td) as avg_rush_td,
+          AVG(rec) as avg_rec,
+          AVG(rec_yd) as avg_rec_yd,
+          AVG(rec_td) as avg_rec_td,
+          COUNT(*) as total_games
+        FROM player_weekly_stats
+        WHERE player_name = '${name.replace(/'/g, "''")}'
+      `);
+
+      // Get vs opponent stats
+      const vsOppResult = db.exec(`
+        SELECT
+          AVG(pts_ppr) as avg_ppr,
+          AVG(pass_yd) as avg_pass_yd,
+          AVG(pass_td) as avg_pass_td,
+          AVG(rush_yd) as avg_rush_yd,
+          AVG(rush_td) as avg_rush_td,
+          AVG(rec) as avg_rec,
+          AVG(rec_yd) as avg_rec_yd,
+          AVG(rec_td) as avg_rec_td,
+          COUNT(*) as games
+        FROM player_weekly_stats
+        WHERE player_name = '${name.replace(/'/g, "''")}' AND opponent = '${opponent}'
+      `);
+
+      // Get individual games vs opponent
+      const gamesResult = db.exec(`
+        SELECT season, week, pts_ppr, pass_yd, pass_td, rush_yd, rush_td, rec, rec_yd, rec_td
+        FROM player_weekly_stats
+        WHERE player_name = '${name.replace(/'/g, "''")}' AND opponent = '${opponent}'
+        ORDER BY season DESC, week DESC
+      `);
+
+      if (!vsOppResult.length || !vsOppResult[0].values.length || vsOppResult[0].values[0][8] === 0) {
+        document.getElementById('analysis-content').innerHTML =
+          '<div class="no-data">No games found against this opponent</div>';
+        return;
+      }
+
+      const seasonCols = seasonAvgResult[0].columns;
+      const seasonVals = seasonAvgResult[0].values[0];
+      const seasonAvg = {};
+      seasonCols.forEach((col, i) => seasonAvg[col] = seasonVals[i] || 0);
+
+      const vsOppCols = vsOppResult[0].columns;
+      const vsOppVals = vsOppResult[0].values[0];
+      const vsOpp = {};
+      vsOppCols.forEach((col, i) => vsOpp[col] = vsOppVals[i] || 0);
+
+      const games = gamesResult.length ? gamesResult[0].values : [];
+
+      renderAnalysis(name, team, position, opponent, seasonAvg, vsOpp, games);
+    }
+
+    function renderAnalysis(name, team, position, opponent, seasonAvg, vsOpp, games) {
+      // Destroy previous chart
+      if (comparisonChart) { comparisonChart.destroy(); comparisonChart = null; }
+
+      const oppName = TEAMS.find(t => t.code === opponent)?.name || opponent;
+      const isQB = position === 'QB';
+      const isRB = position === 'RB';
+      const isWR = position === 'WR' || position === 'TE';
+
+      // Calculate percentage difference for insight
+      const pprDiff = vsOpp.avg_ppr - seasonAvg.avg_ppr;
+      const pprPctDiff = seasonAvg.avg_ppr > 0 ? (pprDiff / seasonAvg.avg_ppr) * 100 : 0;
+
+      // Build comparison stats based on position
+      let comparisonHtml = '';
+      let chartLabels = [];
+      let seasonData = [];
+      let vsOppData = [];
+
+      if (isQB) {
+        comparisonHtml = `
+          <div class="comparison-cell">
+            <div class="comparison-label">Passing Yards</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_pass_yd?.toFixed(1) || 0}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_pass_yd > seasonAvg.avg_pass_yd ? 'better' : 'worse'}">${vsOpp.avg_pass_yd?.toFixed(1) || 0}</div>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-cell">
+            <div class="comparison-label">Pass TDs</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_pass_td?.toFixed(1) || 0}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_pass_td > seasonAvg.avg_pass_td ? 'better' : 'worse'}">${vsOpp.avg_pass_td?.toFixed(1) || 0}</div>
+              </div>
+            </div>
+          </div>
+        `;
+        chartLabels = ['Pass Yds', 'Pass TD', 'Rush Yds', 'PPR'];
+        seasonData = [seasonAvg.avg_pass_yd / 10, seasonAvg.avg_pass_td * 10, seasonAvg.avg_rush_yd / 5, seasonAvg.avg_ppr];
+        vsOppData = [vsOpp.avg_pass_yd / 10, vsOpp.avg_pass_td * 10, vsOpp.avg_rush_yd / 5, vsOpp.avg_ppr];
+      } else if (isRB) {
+        comparisonHtml = `
+          <div class="comparison-cell">
+            <div class="comparison-label">Rushing Yards</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_rush_yd?.toFixed(1) || 0}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_rush_yd > seasonAvg.avg_rush_yd ? 'better' : 'worse'}">${vsOpp.avg_rush_yd?.toFixed(1) || 0}</div>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-cell">
+            <div class="comparison-label">Receiving</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_rec?.toFixed(1) || 0} rec</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_rec > seasonAvg.avg_rec ? 'better' : 'worse'}">${vsOpp.avg_rec?.toFixed(1) || 0} rec</div>
+              </div>
+            </div>
+          </div>
+        `;
+        chartLabels = ['Rush Yds', 'Rush TD', 'Rec', 'Rec Yds', 'PPR'];
+        seasonData = [seasonAvg.avg_rush_yd / 5, seasonAvg.avg_rush_td * 10, seasonAvg.avg_rec * 2, seasonAvg.avg_rec_yd / 5, seasonAvg.avg_ppr];
+        vsOppData = [vsOpp.avg_rush_yd / 5, vsOpp.avg_rush_td * 10, vsOpp.avg_rec * 2, vsOpp.avg_rec_yd / 5, vsOpp.avg_ppr];
+      } else {
+        comparisonHtml = `
+          <div class="comparison-cell">
+            <div class="comparison-label">Receptions</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_rec?.toFixed(1) || 0}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_rec > seasonAvg.avg_rec ? 'better' : 'worse'}">${vsOpp.avg_rec?.toFixed(1) || 0}</div>
+              </div>
+            </div>
+          </div>
+          <div class="comparison-cell">
+            <div class="comparison-label">Receiving Yards</div>
+            <div class="comparison-row">
+              <div class="stat-item">
+                <div class="label">Season Avg</div>
+                <div class="value season-avg">${seasonAvg.avg_rec_yd?.toFixed(1) || 0}</div>
+              </div>
+              <div class="stat-item">
+                <div class="label">vs ${opponent}</div>
+                <div class="value ${vsOpp.avg_rec_yd > seasonAvg.avg_rec_yd ? 'better' : 'worse'}">${vsOpp.avg_rec_yd?.toFixed(1) || 0}</div>
+              </div>
+            </div>
+          </div>
+        `;
+        chartLabels = ['Rec', 'Rec Yds', 'Rec TD', 'PPR'];
+        seasonData = [seasonAvg.avg_rec * 2, seasonAvg.avg_rec_yd / 5, seasonAvg.avg_rec_td * 10, seasonAvg.avg_ppr];
+        vsOppData = [vsOpp.avg_rec * 2, vsOpp.avg_rec_yd / 5, vsOpp.avg_rec_td * 10, vsOpp.avg_ppr];
+      }
+
+      // Build games table
+      const gamesHtml = games.map(g => `
+        <tr>
+          <td>${g[0]} Wk ${g[1]}</td>
+          <td>${(g[2] || 0).toFixed(1)}</td>
+          ${isQB ? `<td>${g[3] || 0}</td><td>${g[4] || 0}</td>` : ''}
+          ${isRB ? `<td>${g[5] || 0}</td><td>${g[7] || 0}</td>` : ''}
+          ${isWR ? `<td>${g[7] || 0}</td><td>${g[8] || 0}</td>` : ''}
+        </tr>
+      `).join('');
+
+      const tableHeaders = isQB
+        ? '<th>Game</th><th>PPR</th><th>Pass Yd</th><th>Pass TD</th>'
+        : isRB
+        ? '<th>Game</th><th>PPR</th><th>Rush Yd</th><th>Rec</th>'
+        : '<th>Game</th><th>PPR</th><th>Rec</th><th>Rec Yd</th>';
+
+      // Insight text
+      const insightText = pprDiff > 0
+        ? `<strong>${name}</strong> averages <strong>${pprDiff.toFixed(1)} more PPR points</strong> (${pprPctDiff.toFixed(0)}% higher) when playing against the <strong>${oppName}</strong> compared to their overall average.`
+        : pprDiff < 0
+        ? `<strong>${name}</strong> averages <strong>${Math.abs(pprDiff).toFixed(1)} fewer PPR points</strong> (${Math.abs(pprPctDiff).toFixed(0)}% lower) when playing against the <strong>${oppName}</strong> compared to their overall average.`
+        : `<strong>${name}</strong> performs about the same against the <strong>${oppName}</strong> as their overall average.`;
+
+      document.getElementById('analysis-content').innerHTML = `
+        <div class="analysis-card">
+          <div class="player-header">
+            <div class="player-info">
+              <h2>${name}</h2>
+              <div class="player-details">${position} - ${team}</div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-size: 0.8rem; color: var(--text-muted);">vs</div>
+              <div style="font-family: 'Oswald', sans-serif; font-size: 1.1rem; color: var(--vs-opp);">${opponent}</div>
+            </div>
+          </div>
+
+          <div class="section-title">Fantasy Points (PPR)</div>
+          <div class="comparison-grid">
+            <div class="comparison-cell">
+              <div class="comparison-label">Season Average</div>
+              <div class="stat-item">
+                <div class="value season-avg" style="font-size: 2rem;">${seasonAvg.avg_ppr?.toFixed(1) || 0}</div>
+                <div class="label">${seasonAvg.total_games} games</div>
+              </div>
+            </div>
+            <div class="comparison-cell">
+              <div class="comparison-label">vs ${opponent}</div>
+              <div class="stat-item">
+                <div class="value ${pprDiff > 0 ? 'better' : pprDiff < 0 ? 'worse' : 'vs-opp'}" style="font-size: 2rem;">${vsOpp.avg_ppr?.toFixed(1) || 0}</div>
+                <div class="label">${vsOpp.games} games</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="insight-box">${insightText}</div>
+
+          <div class="section-title">Stat Comparison</div>
+          <div class="comparison-grid">
+            ${comparisonHtml}
+          </div>
+
+          <div class="section-title">Performance Chart</div>
+          <div class="chart-container">
+            <canvas id="comparison-chart"></canvas>
+          </div>
+
+          <div class="section-title">Games vs ${opponent}</div>
+          <table class="games-table">
+            <thead><tr>${tableHeaders}</tr></thead>
+            <tbody>${gamesHtml}</tbody>
+          </table>
+        </div>
+      `;
+
+      // Create comparison chart
+      comparisonChart = createComparisonChart('#comparison-chart', {
+        labels: chartLabels,
+        datasets: [
+          { label: 'Season Avg', data: seasonData, color: 'blue' },
+          { label: `vs ${opponent}`, data: vsOppData, color: 'orange' }
+        ]
+      });
+    }
+
+    // Event listeners
+    document.getElementById('player-search').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => searchPlayers(e.target.value), 200);
+    });
+
+    document.getElementById('player-search').addEventListener('focus', () => {
+      const query = document.getElementById('player-search').value;
+      if (query.length >= 2) searchPlayers(query);
+    });
+
+    document.getElementById('opponent-select').addEventListener('change', loadAnalysis);
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-wrapper')) {
+        document.getElementById('search-results').classList.remove('active');
+      }
+    });
+
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('analysis-content').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>

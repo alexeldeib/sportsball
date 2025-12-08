@@ -236,6 +236,54 @@ def insert_player_weekly_stats(conn, stats_list, stat_keys):
     return len(rows)
 
 
+# ============ Head to Head Table ============
+
+def create_head_to_head_table(conn):
+    """Create head_to_head table for team vs team stats."""
+    conn.execute("DROP TABLE IF EXISTS head_to_head")
+    conn.execute("""
+        CREATE TABLE head_to_head (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            team1 TEXT NOT NULL,
+            team2 TEXT NOT NULL,
+            total_games INTEGER,
+            team1_wins INTEGER,
+            team2_wins INTEGER,
+            team1_ppg REAL,
+            team2_ppg REAL,
+            avg_total_points REAL,
+            last_meeting_season INTEGER,
+            last_meeting_week INTEGER,
+            last_meeting_date TEXT,
+            last_meeting_winner TEXT,
+            last_meeting_score TEXT,
+            UNIQUE(team1, team2)
+        )
+    """)
+    conn.commit()
+
+
+def insert_head_to_head(conn, h2h_list):
+    """Insert head-to-head stats into database."""
+    cols = [
+        "team1", "team2", "total_games", "team1_wins", "team2_wins",
+        "team1_ppg", "team2_ppg", "avg_total_points",
+        "last_meeting_season", "last_meeting_week", "last_meeting_date",
+        "last_meeting_winner", "last_meeting_score"
+    ]
+    placeholders = ", ".join(["?"] * len(cols))
+    sql = f"INSERT OR REPLACE INTO head_to_head ({', '.join(cols)}) VALUES ({placeholders})"
+
+    rows = []
+    for h in h2h_list:
+        row = [h.get(c) for c in cols]
+        rows.append(row)
+
+    conn.executemany(sql, rows)
+    conn.commit()
+    return len(rows)
+
+
 # ============ Matchup Odds Table ============
 
 def create_matchup_odds_table(conn):
@@ -413,6 +461,15 @@ def main():
             print(f"  matchup_odds: {count} for {year}")
         print(f"  → {total} total matchup odds")
 
+    # ===== Head to Head =====
+    h2h_file = Path("head-to-head.json")
+    if h2h_file.exists():
+        create_head_to_head_table(conn)
+        with open(h2h_file, encoding="utf-8") as f:
+            h2h = json.load(f)
+        count = insert_head_to_head(conn, h2h)
+        print(f"  head_to_head: {count} team pairs")
+
     # ===== Create Indexes =====
     print("\nCreating indexes...")
     indexes = [
@@ -425,7 +482,9 @@ def main():
         "CREATE INDEX IF NOT EXISTS idx_team_stats_team ON team_stats(team_code)",
         "CREATE INDEX IF NOT EXISTS idx_weekly_player ON player_weekly_stats(player_id)",
         "CREATE INDEX IF NOT EXISTS idx_weekly_week ON player_weekly_stats(season, week)",
+        "CREATE INDEX IF NOT EXISTS idx_weekly_opponent ON player_weekly_stats(opponent)",
         "CREATE INDEX IF NOT EXISTS idx_odds_week ON matchup_odds(season, week)",
+        "CREATE INDEX IF NOT EXISTS idx_h2h_teams ON head_to_head(team1, team2)",
     ]
     for idx in indexes:
         conn.execute(idx)

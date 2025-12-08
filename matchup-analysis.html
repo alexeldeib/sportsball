@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Matchup Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="chart-utils.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --team1: #3b82f6;
+      --team2: #d97706;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .team-selectors {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .team-selector select {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .team-selector select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .team-selector.team1 select { border-color: var(--team1); }
+    .team-selector.team2 select { border-color: var(--team2); }
+
+    .vs-badge {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .h2h-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .h2h-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .h2h-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .h2h-games {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .h2h-summary {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .team-summary {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .team-summary .team-code {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .team-summary.team1 .team-code { color: var(--team1); }
+    .team-summary.team2 .team-code { color: var(--team2); }
+
+    .team-summary .wins {
+      font-family: 'Oswald', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .team-summary .ppg {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .vs-divider {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      color: var(--text-muted);
+    }
+
+    .last-meeting {
+      padding: 0.75rem 1.25rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding: 1rem 1.25rem 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .chart-container {
+      padding: 1rem 1.25rem;
+      height: 250px;
+    }
+
+    .games-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .games-table th,
+    .games-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .games-table th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .games-table tr:hover { background: var(--bg-hover); }
+
+    .winner-team1 { color: var(--team1); font-weight: 600; }
+    .winner-team2 { color: var(--team2); font-weight: 600; }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .insight-cell {
+      background: var(--bg-card);
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .insight-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .insight-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .team-selectors {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+      .vs-badge { display: none; }
+      .h2h-summary { grid-template-columns: 1fr 1fr; }
+      .vs-divider { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Matchup Analysis</h1>
+      <p class="subtitle">Head-to-head team comparison (2020-2025)</p>
+    </header>
+
+    <div class="team-selectors">
+      <div class="team-selector team1">
+        <select id="team1-select">
+          <option value="">Select Team 1...</option>
+        </select>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="team-selector team2">
+        <select id="team2-select">
+          <option value="">Select Team 2...</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="matchup-content">
+      <div class="no-data">Select two teams to see their head-to-head history</div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let scoringChart = null;
+    let comparisonChart = null;
+
+    const TEAMS = [
+      { code: 'ARI', name: 'Arizona Cardinals' },
+      { code: 'ATL', name: 'Atlanta Falcons' },
+      { code: 'BAL', name: 'Baltimore Ravens' },
+      { code: 'BUF', name: 'Buffalo Bills' },
+      { code: 'CAR', name: 'Carolina Panthers' },
+      { code: 'CHI', name: 'Chicago Bears' },
+      { code: 'CIN', name: 'Cincinnati Bengals' },
+      { code: 'CLE', name: 'Cleveland Browns' },
+      { code: 'DAL', name: 'Dallas Cowboys' },
+      { code: 'DEN', name: 'Denver Broncos' },
+      { code: 'DET', name: 'Detroit Lions' },
+      { code: 'GB', name: 'Green Bay Packers' },
+      { code: 'HOU', name: 'Houston Texans' },
+      { code: 'IND', name: 'Indianapolis Colts' },
+      { code: 'JAX', name: 'Jacksonville Jaguars' },
+      { code: 'KC', name: 'Kansas City Chiefs' },
+      { code: 'LV', name: 'Las Vegas Raiders' },
+      { code: 'LAC', name: 'Los Angeles Chargers' },
+      { code: 'LAR', name: 'Los Angeles Rams' },
+      { code: 'MIA', name: 'Miami Dolphins' },
+      { code: 'MIN', name: 'Minnesota Vikings' },
+      { code: 'NE', name: 'New England Patriots' },
+      { code: 'NO', name: 'New Orleans Saints' },
+      { code: 'NYG', name: 'New York Giants' },
+      { code: 'NYJ', name: 'New York Jets' },
+      { code: 'PHI', name: 'Philadelphia Eagles' },
+      { code: 'PIT', name: 'Pittsburgh Steelers' },
+      { code: 'SF', name: 'San Francisco 49ers' },
+      { code: 'SEA', name: 'Seattle Seahawks' },
+      { code: 'TB', name: 'Tampa Bay Buccaneers' },
+      { code: 'TEN', name: 'Tennessee Titans' },
+      { code: 'WAS', name: 'Washington Commanders' }
+    ];
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db');
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      populateTeamSelects();
+
+      // Check URL params
+      const params = new URLSearchParams(window.location.search);
+      const team1 = params.get('team1');
+      const team2 = params.get('team2');
+      if (team1 && team2) {
+        document.getElementById('team1-select').value = team1;
+        document.getElementById('team2-select').value = team2;
+        loadMatchup();
+      }
+    }
+
+    function populateTeamSelects() {
+      ['team1-select', 'team2-select'].forEach(id => {
+        const select = document.getElementById(id);
+        TEAMS.forEach(t => {
+          const opt = document.createElement('option');
+          opt.value = t.code;
+          opt.textContent = t.name;
+          select.appendChild(opt);
+        });
+      });
+    }
+
+    function loadMatchup() {
+      const team1 = document.getElementById('team1-select').value;
+      const team2 = document.getElementById('team2-select').value;
+
+      if (!team1 || !team2 || team1 === team2) {
+        document.getElementById('matchup-content').innerHTML =
+          '<div class="no-data">Select two different teams to see their head-to-head history</div>';
+        return;
+      }
+
+      // Normalize team order for H2H lookup
+      const [t1, t2] = [team1, team2].sort();
+
+      // Get H2H stats
+      const h2hResult = db.exec(`
+        SELECT * FROM head_to_head
+        WHERE team1 = '${t1}' AND team2 = '${t2}'
+      `);
+
+      // Get all games between teams
+      const gamesResult = db.exec(`
+        SELECT season, week, game_date, home_team, away_team, home_score, away_score
+        FROM games
+        WHERE ((home_team = '${team1}' AND away_team = '${team2}')
+           OR (home_team = '${team2}' AND away_team = '${team1}'))
+          AND is_completed = 1
+        ORDER BY season DESC, week DESC
+      `);
+
+      const games = gamesResult.length ? gamesResult[0].values : [];
+
+      if (!h2hResult.length || !h2hResult[0].values.length) {
+        // No precomputed H2H, calculate from games
+        if (games.length === 0) {
+          document.getElementById('matchup-content').innerHTML =
+            '<div class="no-data">No games found between these teams</div>';
+          return;
+        }
+        renderMatchupFromGames(team1, team2, games);
+      } else {
+        const cols = h2hResult[0].columns;
+        const vals = h2hResult[0].values[0];
+        const h2h = {};
+        cols.forEach((col, i) => h2h[col] = vals[i]);
+        renderMatchup(team1, team2, h2h, games, t1, t2);
+      }
+    }
+
+    function renderMatchup(team1, team2, h2h, games, sortedT1, sortedT2) {
+      // Destroy previous charts
+      if (scoringChart) { scoringChart.destroy(); scoringChart = null; }
+      if (comparisonChart) { comparisonChart.destroy(); comparisonChart = null; }
+
+      // Map stats to display teams (h2h uses sorted order)
+      const team1Wins = team1 === sortedT1 ? h2h.team1_wins : h2h.team2_wins;
+      const team2Wins = team1 === sortedT1 ? h2h.team2_wins : h2h.team1_wins;
+      const team1Ppg = team1 === sortedT1 ? h2h.team1_ppg : h2h.team2_ppg;
+      const team2Ppg = team1 === sortedT1 ? h2h.team2_ppg : h2h.team1_ppg;
+
+      const team1Name = TEAMS.find(t => t.code === team1)?.name || team1;
+      const team2Name = TEAMS.find(t => t.code === team2)?.name || team2;
+
+      // Build games table
+      const gamesHtml = games.map(g => {
+        const isTeam1Home = g[3] === team1;
+        const team1Score = isTeam1Home ? g[5] : g[6];
+        const team2Score = isTeam1Home ? g[6] : g[5];
+        const winner = team1Score > team2Score ? 'team1' : team1Score < team2Score ? 'team2' : 'tie';
+
+        return `<tr>
+          <td>${g[0]} Wk ${g[1]}</td>
+          <td>${g[4]} @ ${g[3]}</td>
+          <td class="winner-${winner}">${team1Score}</td>
+          <td class="winner-${winner === 'team2' ? 'team2' : winner === 'team1' ? '' : ''}">${team2Score}</td>
+          <td>${team1Score + team2Score}</td>
+        </tr>`;
+      }).join('');
+
+      // Calculate insights
+      const avgTotal = h2h.avg_total_points;
+      const homeWins = games.filter(g => g[5] > g[6]).length;
+      const awayWins = games.filter(g => g[6] > g[5]).length;
+
+      document.getElementById('matchup-content').innerHTML = `
+        <div class="h2h-card">
+          <div class="h2h-header">
+            <div class="h2h-title">${team1Name} vs ${team2Name}</div>
+            <div class="h2h-games">${h2h.total_games} games (2020-2025)</div>
+          </div>
+
+          <div class="h2h-summary">
+            <div class="team-summary team1">
+              <div class="team-code">${team1}</div>
+              <div class="wins">${team1Wins}</div>
+              <div class="ppg">${team1Ppg} PPG</div>
+            </div>
+            <div class="vs-divider">-</div>
+            <div class="team-summary team2">
+              <div class="team-code">${team2}</div>
+              <div class="wins">${team2Wins}</div>
+              <div class="ppg">${team2Ppg} PPG</div>
+            </div>
+          </div>
+
+          <div class="last-meeting">
+            Last meeting: ${h2h.last_meeting_date || 'N/A'} (${h2h.last_meeting_season} Week ${h2h.last_meeting_week}) -
+            <strong>${h2h.last_meeting_winner}</strong> won ${h2h.last_meeting_score}
+          </div>
+
+          <div class="section-title">Key Insights</div>
+          <div class="insights-grid">
+            <div class="insight-cell">
+              <div class="insight-label">Avg Total Points</div>
+              <div class="insight-value">${avgTotal?.toFixed(1) || 'N/A'}</div>
+            </div>
+            <div class="insight-cell">
+              <div class="insight-label">Home Team Wins</div>
+              <div class="insight-value">${homeWins} of ${games.length}</div>
+            </div>
+            <div class="insight-cell">
+              <div class="insight-label">Away Team Wins</div>
+              <div class="insight-value">${awayWins} of ${games.length}</div>
+            </div>
+            <div class="insight-cell">
+              <div class="insight-label">Point Diff Avg</div>
+              <div class="insight-value">${Math.abs(team1Ppg - team2Ppg).toFixed(1)}</div>
+            </div>
+          </div>
+
+          <div class="section-title">Scoring History</div>
+          <div class="chart-container">
+            <canvas id="scoring-chart"></canvas>
+          </div>
+
+          <div class="section-title">Game History</div>
+          <table class="games-table">
+            <thead>
+              <tr><th>Game</th><th>Matchup</th><th>${team1}</th><th>${team2}</th><th>Total</th></tr>
+            </thead>
+            <tbody>
+              ${gamesHtml}
+            </tbody>
+          </table>
+        </div>
+      `;
+
+      // Create scoring chart (reversed to show chronologically)
+      const chronoGames = [...games].reverse();
+      const labels = chronoGames.map(g => `${g[0]} W${g[1]}`);
+      const team1Scores = chronoGames.map(g => g[3] === team1 ? g[5] : g[6]);
+      const team2Scores = chronoGames.map(g => g[3] === team1 ? g[6] : g[5]);
+
+      scoringChart = createTrendChart('#scoring-chart', {
+        labels,
+        datasets: [
+          { label: team1, data: team1Scores, color: 'blue' },
+          { label: team2, data: team2Scores, color: 'orange' }
+        ],
+        yLabel: 'Points',
+        beginAtZero: true
+      });
+    }
+
+    function renderMatchupFromGames(team1, team2, games) {
+      // Calculate H2H from games when no precomputed data
+      let team1Wins = 0, team2Wins = 0, team1Points = 0, team2Points = 0;
+
+      games.forEach(g => {
+        const isTeam1Home = g[3] === team1;
+        const t1Score = isTeam1Home ? g[5] : g[6];
+        const t2Score = isTeam1Home ? g[6] : g[5];
+        team1Points += t1Score;
+        team2Points += t2Score;
+        if (t1Score > t2Score) team1Wins++;
+        else if (t2Score > t1Score) team2Wins++;
+      });
+
+      const h2h = {
+        total_games: games.length,
+        team1_wins: team1Wins,
+        team2_wins: team2Wins,
+        team1_ppg: team1Points / games.length,
+        team2_ppg: team2Points / games.length,
+        avg_total_points: (team1Points + team2Points) / games.length,
+        last_meeting_date: games[0][2],
+        last_meeting_season: games[0][0],
+        last_meeting_week: games[0][1],
+        last_meeting_winner: (games[0][3] === team1 ? games[0][5] > games[0][6] : games[0][6] > games[0][5]) ? team1 : team2,
+        last_meeting_score: `${Math.max(games[0][5], games[0][6])}-${Math.min(games[0][5], games[0][6])}`
+      };
+
+      renderMatchup(team1, team2, h2h, games, team1, team2);
+    }
+
+    document.getElementById('team1-select').addEventListener('change', loadMatchup);
+    document.getElementById('team2-select').addEventListener('change', loadMatchup);
+
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('matchup-content').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>

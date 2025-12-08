@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="chart-utils.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -280,6 +282,11 @@
       color: var(--text-muted);
     }
 
+    .chart-container {
+      padding: 1rem 1.25rem;
+      height: 250px;
+    }
+
     @media (max-width: 600px) {
       .season-stats {
         grid-template-columns: repeat(3, 1fr);
@@ -323,6 +330,7 @@
   <script>
     let db = null;
     let searchTimeout = null;
+    let trendChart = null;
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -582,6 +590,12 @@
         `;
       }
 
+      // Destroy previous chart if exists
+      if (trendChart) {
+        trendChart.destroy();
+        trendChart = null;
+      }
+
       document.getElementById('player-content').innerHTML = `
         <div class="player-card">
           <div class="player-header">
@@ -597,6 +611,11 @@
 
           ${trendHtml}
 
+          <div class="section-title">Fantasy Points Trend</div>
+          <div class="chart-container">
+            <canvas id="trend-chart"></canvas>
+          </div>
+
           <div class="section-title">Weekly Performance</div>
           <table class="weekly-table">
             <thead><tr>${tableHeaders}</tr></thead>
@@ -604,6 +623,22 @@
           </table>
         </div>
       `;
+
+      // Create trend chart
+      const pprIdx = weekCols.indexOf('pts_ppr');
+      const pprData = weeks.map(w => w[pprIdx] || 0);
+      const weekLabels = weeks.map(w => `Wk ${w[0]}`);
+      const rollingAvg = computeRollingAverage(pprData, 3);
+
+      trendChart = createTrendChart('#trend-chart', {
+        labels: weekLabels,
+        datasets: [
+          { label: 'PPR Points', data: pprData, color: 'blue', fill: true },
+          { label: '3-Game Avg', data: rollingAvg, color: 'orange', dashed: true }
+        ],
+        yLabel: 'Fantasy Points (PPR)',
+        beginAtZero: true
+      });
     }
 
     // Event listeners
