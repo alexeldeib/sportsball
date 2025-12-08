@@ -453,6 +453,67 @@
     let h2hChart = null;
     let currentMatchups = [];
 
+    // NFL week date ranges (Tuesday start of each week)
+    // 2025 season: Week 1 starts Sept 4 (Thursday opener), week ends following Monday
+    const NFL_WEEK_STARTS = {
+      2025: [
+        new Date('2025-09-02'), // Week 1: Sept 4-8
+        new Date('2025-09-09'), // Week 2
+        new Date('2025-09-16'), // Week 3
+        new Date('2025-09-23'), // Week 4
+        new Date('2025-09-30'), // Week 5
+        new Date('2025-10-07'), // Week 6
+        new Date('2025-10-14'), // Week 7
+        new Date('2025-10-21'), // Week 8
+        new Date('2025-10-28'), // Week 9
+        new Date('2025-11-04'), // Week 10
+        new Date('2025-11-11'), // Week 11
+        new Date('2025-11-18'), // Week 12
+        new Date('2025-11-25'), // Week 13
+        new Date('2025-12-02'), // Week 14
+        new Date('2025-12-09'), // Week 15
+        new Date('2025-12-16'), // Week 16
+        new Date('2025-12-23'), // Week 17
+        new Date('2025-12-30'), // Week 18
+      ],
+      2024: [
+        new Date('2024-09-03'), // Week 1
+        new Date('2024-09-10'),
+        new Date('2024-09-17'),
+        new Date('2024-09-24'),
+        new Date('2024-10-01'),
+        new Date('2024-10-08'),
+        new Date('2024-10-15'),
+        new Date('2024-10-22'),
+        new Date('2024-10-29'),
+        new Date('2024-11-05'),
+        new Date('2024-11-12'),
+        new Date('2024-11-19'),
+        new Date('2024-11-26'),
+        new Date('2024-12-03'),
+        new Date('2024-12-10'),
+        new Date('2024-12-17'),
+        new Date('2024-12-24'),
+        new Date('2024-12-31'),
+      ]
+    };
+
+    function getCurrentNFLWeek(season) {
+      const today = new Date();
+      const weeks = NFL_WEEK_STARTS[season];
+      if (!weeks) return null;
+
+      // Find the current week by checking which range today falls into
+      for (let i = weeks.length - 1; i >= 0; i--) {
+        if (today >= weeks[i]) {
+          return i + 1; // weeks are 1-indexed
+        }
+      }
+
+      // Before season starts, return week 1
+      return 1;
+    }
+
     async function initDB() {
       const SQL = await initSqlJs({
         locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
@@ -469,26 +530,43 @@
     }
 
     function populateWeekSelect() {
-      const season = document.getElementById('season-select').value;
+      const season = parseInt(document.getElementById('season-select').value);
       const result = db.exec(`
         SELECT DISTINCT week FROM games
         WHERE season = ${season}
-        ORDER BY week DESC
+        ORDER BY week ASC
       `);
 
       const select = document.getElementById('week-select');
       select.innerHTML = '';
 
       if (result.length && result[0].values.length) {
-        result[0].values.forEach(([week], idx) => {
+        const availableWeeks = result[0].values.map(r => r[0]);
+        const currentWeek = getCurrentNFLWeek(season);
+
+        // Find best week to show: current week if available, else closest available
+        let selectedWeek = availableWeeks[availableWeeks.length - 1]; // fallback to latest
+        if (currentWeek && availableWeeks.includes(currentWeek)) {
+          selectedWeek = currentWeek;
+        } else if (currentWeek) {
+          // Find closest available week
+          for (let i = availableWeeks.length - 1; i >= 0; i--) {
+            if (availableWeeks[i] <= currentWeek) {
+              selectedWeek = availableWeeks[i];
+              break;
+            }
+          }
+        }
+
+        availableWeeks.forEach(week => {
           const opt = document.createElement('option');
           opt.value = week;
           opt.textContent = `Week ${week}`;
-          if (idx === 0) opt.selected = true;
+          if (week === selectedWeek) opt.selected = true;
           select.appendChild(opt);
         });
 
-        loadMatchups(result[0].values[0][0]);
+        loadMatchups(selectedWeek);
       }
     }
 
