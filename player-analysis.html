@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Player Analysis</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="chart-utils.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --warning: #d97706;
+      --neutral: #94a3b8;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header { text-align: center; margin-bottom: 1.5rem; }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* Search */
+    .search-box {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-box input, .search-box select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .search-box input { flex: 1; }
+    .search-box input:focus { outline: none; border-color: var(--accent); }
+
+    .search-results {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 1.5rem;
+      max-height: 250px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .search-results.active { display: block; }
+
+    .search-result {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .search-result:last-child { border-bottom: none; }
+    .search-result:hover { background: var(--bg-hover); }
+
+    .player-name { font-weight: 600; }
+    .player-meta { color: var(--text-muted); font-size: 0.85rem; }
+
+    /* Card */
+    .player-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .player-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .player-info h2 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .player-details { color: var(--text-secondary); font-size: 0.9rem; }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .tab {
+      padding: 0.75rem 1.25rem;
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .tab:hover { color: var(--text-primary); }
+    .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    /* Trend Summary */
+    .trend-summary {
+      display: flex;
+      justify-content: space-around;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .trend-item { text-align: center; }
+
+    .trend-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .trend-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .trend-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .trend-up { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
+    .trend-down { background: rgba(239, 68, 68, 0.2); color: var(--negative); }
+    .trend-flat { background: rgba(148, 163, 184, 0.2); color: var(--neutral); }
+
+    .chart-container { padding: 1rem; height: 220px; }
+
+    /* Props */
+    .prop-inputs {
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .prop-input-group { display: flex; flex-direction: column; gap: 0.25rem; }
+
+    .prop-input-group label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .prop-input-group input {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 0.5rem;
+      width: 80px;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .prop-inputs button {
+      background: var(--accent);
+      border: none;
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      height: fit-content;
+    }
+
+    .prop-inputs button:hover { background: #2563eb; }
+
+    .props-grid {
+      display: grid;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .prop-card {
+      background: var(--bg-card);
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .prop-card:hover { background: var(--bg-hover); }
+
+    .prop-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .prop-stats { font-size: 0.85rem; color: var(--text-muted); }
+
+    .prop-line { text-align: center; }
+
+    .line-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .line-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .prop-hit-rate { text-align: right; }
+
+    .hit-rate-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .hit-rate-value.over-55 { color: var(--positive); }
+    .hit-rate-value.under-45 { color: var(--negative); }
+
+    .hit-rate-label { font-size: 0.7rem; text-transform: uppercase; color: var(--text-muted); }
+
+    /* Weekly Table */
+    .weekly-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .weekly-table th, .weekly-table td {
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .weekly-table th {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .weekly-table td { font-size: 0.9rem; }
+    .weekly-table tr:hover td { background: var(--bg-hover); }
+
+    .hit { color: var(--positive); font-weight: 600; }
+    .miss { color: var(--negative); }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .prop-card { grid-template-columns: 1fr; gap: 0.5rem; }
+      .prop-line, .prop-hit-rate { text-align: left; }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Player Analysis</h1>
+      <p class="subtitle">Trends, props, and weekly performance</p>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="player-search" placeholder="Search for a player..." autocomplete="off" />
+      <select id="season-select">
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
+
+    <div id="search-results" class="search-results"></div>
+
+    <div id="player-content">
+      <div class="no-data">Search for a player to see their analysis</div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let currentPlayer = null;
+    let weeklyData = [];
+    let trendChart = null;
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db?' + Date.now());
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      // Check URL params for pre-selected player
+      const params = new URLSearchParams(window.location.search);
+      const playerName = params.get('player');
+      if (playerName) {
+        document.getElementById('player-search').value = playerName;
+        searchAndSelect(playerName);
+      }
+    }
+
+    function searchPlayers(query) {
+      if (!db || query.length < 2) {
+        document.getElementById('search-results').classList.remove('active');
+        return;
+      }
+
+      const season = document.getElementById('season-select').value;
+      const result = db.exec(`
+        SELECT DISTINCT player_name, team, position
+        FROM player_weekly_stats
+        WHERE player_name LIKE '%${query.replace(/'/g, "''")}%' AND season = ${season}
+        ORDER BY player_name
+        LIMIT 20
+      `);
+
+      const container = document.getElementById('search-results');
+
+      if (!result.length || !result[0].values.length) {
+        container.classList.remove('active');
+        return;
+      }
+
+      container.innerHTML = result[0].values.map(([name, team, pos]) => `
+        <div class="search-result" onclick="selectPlayer('${name.replace(/'/g, "\\'")}', '${team}', '${pos}')">
+          <span class="player-name">${name}</span>
+          <span class="player-meta">${pos} | ${team}</span>
+        </div>
+      `).join('');
+
+      container.classList.add('active');
+    }
+
+    function searchAndSelect(name) {
+      const season = document.getElementById('season-select').value;
+      const result = db.exec(`
+        SELECT DISTINCT player_name, team, position
+        FROM player_weekly_stats
+        WHERE player_name LIKE '%${name.replace(/'/g, "''")}%' AND season = ${season}
+        LIMIT 1
+      `);
+
+      if (result.length && result[0].values.length) {
+        const [playerName, team, pos] = result[0].values[0];
+        selectPlayer(playerName, team, pos);
+      }
+    }
+
+    function selectPlayer(name, team, position) {
+      currentPlayer = { name, team, position };
+      document.getElementById('search-results').classList.remove('active');
+      document.getElementById('player-search').value = name;
+      loadPlayerData();
+    }
+
+    function loadPlayerData() {
+      if (!currentPlayer || !db) return;
+
+      const season = document.getElementById('season-select').value;
+      const name = currentPlayer.name.replace(/'/g, "''");
+
+      // Get season totals
+      const seasonResult = db.exec(`
+        SELECT
+          SUM(pass_yd) as pass_yd, SUM(pass_td) as pass_td, SUM(pass_int) as pass_int,
+          SUM(rush_yd) as rush_yd, SUM(rush_td) as rush_td,
+          SUM(rec) as rec, SUM(rec_yd) as rec_yd, SUM(rec_td) as rec_td,
+          COUNT(*) as games, AVG(pts_ppr) as avg_ppr
+        FROM player_weekly_stats
+        WHERE player_name = '${name}' AND season = ${season}
+      `);
+
+      // Get weekly stats
+      const weeklyResult = db.exec(`
+        SELECT week, opponent, pass_yd, pass_td, pass_int, rush_yd, rush_td, rec, rec_yd, rec_td, pts_ppr
+        FROM player_weekly_stats
+        WHERE player_name = '${name}' AND season = ${season}
+        ORDER BY week
+      `);
+
+      if (!weeklyResult.length || !weeklyResult[0].values.length) {
+        document.getElementById('player-content').innerHTML =
+          '<div class="no-data">No data found for this player</div>';
+        return;
+      }
+
+      // Parse season stats
+      const cols = seasonResult[0].columns;
+      const vals = seasonResult[0].values[0];
+      const seasonStats = {};
+      cols.forEach((col, i) => seasonStats[col] = vals[i] || 0);
+
+      // Parse weekly data
+      const weekCols = weeklyResult[0].columns;
+      weeklyData = weeklyResult[0].values.map(row => {
+        const obj = {};
+        weekCols.forEach((col, i) => obj[col] = row[i] || 0);
+        return obj;
+      });
+
+      // Calculate trends
+      const trends = calculateTrends();
+
+      // Render
+      renderPlayer(seasonStats, trends);
+    }
+
+    function calculateTrends() {
+      if (weeklyData.length < 4) return null;
+
+      const last3 = weeklyData.slice(-3);
+      const prev3 = weeklyData.slice(-6, -3);
+
+      if (prev3.length < 3) return null;
+
+      const last3Avg = last3.reduce((sum, w) => sum + (w.pts_ppr || 0), 0) / 3;
+      const prev3Avg = prev3.reduce((sum, w) => sum + (w.pts_ppr || 0), 0) / 3;
+
+      const change = last3Avg - prev3Avg;
+
+      return {
+        last3Avg: last3Avg.toFixed(1),
+        prev3Avg: prev3Avg.toFixed(1),
+        change: change.toFixed(1),
+        direction: change > 1 ? 'up' : change < -1 ? 'down' : 'flat'
+      };
+    }
+
+    function renderPlayer(seasonStats, trends) {
+      const pos = currentPlayer.position;
+      const isQB = pos === 'QB';
+      const isRB = pos === 'RB';
+      const isWR = pos === 'WR' || pos === 'TE';
+
+      // Season stats HTML
+      let statsHtml = '';
+      if (isQB) {
+        statsHtml = `
+          <div class="stat-cell"><div class="stat-label">Pass Yds</div><div class="stat-value">${seasonStats.pass_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Pass TD</div><div class="stat-value">${seasonStats.pass_td}</div></div>
+          <div class="stat-cell"><div class="stat-label">INT</div><div class="stat-value">${seasonStats.pass_int}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rush Yds</div><div class="stat-value">${seasonStats.rush_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Avg PPR</div><div class="stat-value">${seasonStats.avg_ppr.toFixed(1)}</div></div>
+          <div class="stat-cell"><div class="stat-label">Games</div><div class="stat-value">${seasonStats.games}</div></div>
+        `;
+      } else if (isRB) {
+        statsHtml = `
+          <div class="stat-cell"><div class="stat-label">Rush Yds</div><div class="stat-value">${seasonStats.rush_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rush TD</div><div class="stat-value">${seasonStats.rush_td}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rec</div><div class="stat-value">${seasonStats.rec}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rec Yds</div><div class="stat-value">${seasonStats.rec_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Avg PPR</div><div class="stat-value">${seasonStats.avg_ppr.toFixed(1)}</div></div>
+          <div class="stat-cell"><div class="stat-label">Games</div><div class="stat-value">${seasonStats.games}</div></div>
+        `;
+      } else {
+        statsHtml = `
+          <div class="stat-cell"><div class="stat-label">Rec</div><div class="stat-value">${seasonStats.rec}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rec Yds</div><div class="stat-value">${seasonStats.rec_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rec TD</div><div class="stat-value">${seasonStats.rec_td}</div></div>
+          <div class="stat-cell"><div class="stat-label">Rush Yds</div><div class="stat-value">${seasonStats.rush_yd}</div></div>
+          <div class="stat-cell"><div class="stat-label">Avg PPR</div><div class="stat-value">${seasonStats.avg_ppr.toFixed(1)}</div></div>
+          <div class="stat-cell"><div class="stat-label">Games</div><div class="stat-value">${seasonStats.games}</div></div>
+        `;
+      }
+
+      // Trend HTML
+      let trendHtml = '';
+      if (trends) {
+        trendHtml = `
+          <div class="trend-summary">
+            <div class="trend-item">
+              <div class="trend-label">Last 3 Avg</div>
+              <div class="trend-value">${trends.last3Avg} PPR</div>
+            </div>
+            <div class="trend-item">
+              <div class="trend-label">Prev 3 Avg</div>
+              <div class="trend-value">${trends.prev3Avg} PPR</div>
+            </div>
+            <div class="trend-item">
+              <div class="trend-label">Trend</div>
+              <div class="trend-indicator trend-${trends.direction}">
+                ${trends.direction === 'up' ? '↑' : trends.direction === 'down' ? '↓' : '→'}
+                ${trends.change > 0 ? '+' : ''}${trends.change}
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // Props input HTML
+      let propsInputHtml = '';
+      if (isQB) {
+        propsInputHtml = `
+          <div class="prop-input-group"><label>Pass Yds</label><input type="number" id="line-pass-yd" value="225" step="5" /></div>
+          <div class="prop-input-group"><label>Rush Yds</label><input type="number" id="line-rush-yd" value="25" step="5" /></div>
+          <div class="prop-input-group"><label>Pass TDs</label><input type="number" id="line-pass-td" value="1.5" step="0.5" /></div>
+        `;
+      } else if (isRB) {
+        propsInputHtml = `
+          <div class="prop-input-group"><label>Rush Yds</label><input type="number" id="line-rush-yd" value="60" step="5" /></div>
+          <div class="prop-input-group"><label>Rec Yds</label><input type="number" id="line-rec-yd" value="20" step="5" /></div>
+          <div class="prop-input-group"><label>Receptions</label><input type="number" id="line-rec" value="2.5" step="0.5" /></div>
+        `;
+      } else {
+        propsInputHtml = `
+          <div class="prop-input-group"><label>Rec Yds</label><input type="number" id="line-rec-yd" value="50" step="5" /></div>
+          <div class="prop-input-group"><label>Receptions</label><input type="number" id="line-rec" value="4" step="0.5" /></div>
+          <div class="prop-input-group"><label>Rec TDs</label><input type="number" id="line-rec-td" value="0.5" step="0.5" /></div>
+        `;
+      }
+
+      // Destroy previous chart
+      if (trendChart) { trendChart.destroy(); trendChart = null; }
+
+      document.getElementById('player-content').innerHTML = `
+        <div class="player-card">
+          <div class="player-header">
+            <div class="player-info">
+              <h2>${currentPlayer.name}</h2>
+              <div class="player-details">${currentPlayer.position} - ${currentPlayer.team}</div>
+            </div>
+          </div>
+
+          <div class="tabs">
+            <div class="tab active" onclick="switchTab('overview')">Overview</div>
+            <div class="tab" onclick="switchTab('props')">Props</div>
+            <div class="tab" onclick="switchTab('weekly')">Weekly Log</div>
+          </div>
+
+          <div id="tab-overview" class="tab-content active">
+            <div class="stats-grid">${statsHtml}</div>
+            ${trendHtml}
+            <div class="chart-container"><canvas id="trend-chart"></canvas></div>
+          </div>
+
+          <div id="tab-props" class="tab-content">
+            <div class="prop-inputs">
+              ${propsInputHtml}
+              <button onclick="analyzeProps()">Analyze</button>
+            </div>
+            <div id="props-list" class="props-grid">
+              <div class="no-data">Set lines above and click Analyze</div>
+            </div>
+          </div>
+
+          <div id="tab-weekly" class="tab-content">
+            <div id="weekly-table-container"></div>
+          </div>
+        </div>
+      `;
+
+      // Render chart
+      renderTrendChart();
+
+      // Render weekly table
+      renderWeeklyTable();
+
+      // Auto-analyze props
+      setTimeout(analyzeProps, 100);
+    }
+
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+      document.querySelector(`.tab:nth-child(${tabName === 'overview' ? 1 : tabName === 'props' ? 2 : 3})`).classList.add('active');
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    }
+
+    function renderTrendChart() {
+      const pprData = weeklyData.map(w => w.pts_ppr || 0);
+      const labels = weeklyData.map(w => `Wk ${w.week}`);
+      const rollingAvg = computeRollingAverage(pprData, 3);
+
+      trendChart = createTrendChart('#trend-chart', {
+        labels: labels,
+        datasets: [
+          { label: 'PPR Points', data: pprData, color: 'blue', fill: true },
+          { label: '3-Game Avg', data: rollingAvg, color: 'orange', dashed: true }
+        ],
+        yLabel: 'Fantasy Points (PPR)',
+        beginAtZero: true
+      });
+    }
+
+    function renderWeeklyTable() {
+      const pos = currentPlayer.position;
+      const isQB = pos === 'QB';
+      const isRB = pos === 'RB';
+
+      let headers, rows;
+      if (isQB) {
+        headers = '<th>Wk</th><th>Opp</th><th>Pass</th><th>TD</th><th>INT</th><th>Rush</th><th>PPR</th>';
+        rows = weeklyData.map(w => `
+          <tr>
+            <td>${w.week}</td><td>${w.opponent || '-'}</td>
+            <td>${w.pass_yd}</td><td>${w.pass_td}</td><td>${w.pass_int}</td>
+            <td>${w.rush_yd}</td><td>${(w.pts_ppr || 0).toFixed(1)}</td>
+          </tr>
+        `).join('');
+      } else if (isRB) {
+        headers = '<th>Wk</th><th>Opp</th><th>Rush</th><th>RTD</th><th>Rec</th><th>RecYd</th><th>PPR</th>';
+        rows = weeklyData.map(w => `
+          <tr>
+            <td>${w.week}</td><td>${w.opponent || '-'}</td>
+            <td>${w.rush_yd}</td><td>${w.rush_td}</td>
+            <td>${w.rec}</td><td>${w.rec_yd}</td><td>${(w.pts_ppr || 0).toFixed(1)}</td>
+          </tr>
+        `).join('');
+      } else {
+        headers = '<th>Wk</th><th>Opp</th><th>Rec</th><th>Yds</th><th>TD</th><th>PPR</th>';
+        rows = weeklyData.map(w => `
+          <tr>
+            <td>${w.week}</td><td>${w.opponent || '-'}</td>
+            <td>${w.rec}</td><td>${w.rec_yd}</td><td>${w.rec_td}</td>
+            <td>${(w.pts_ppr || 0).toFixed(1)}</td>
+          </tr>
+        `).join('');
+      }
+
+      document.getElementById('weekly-table-container').innerHTML = `
+        <table class="weekly-table">
+          <thead><tr>${headers}</tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    function analyzeProps() {
+      if (!weeklyData.length) return;
+
+      const pos = currentPlayer.position;
+      const n = weeklyData.length;
+      const props = [];
+
+      if (pos === 'QB') {
+        const passLine = parseFloat(document.getElementById('line-pass-yd')?.value) || 225;
+        const rushLine = parseFloat(document.getElementById('line-rush-yd')?.value) || 25;
+        const tdLine = parseFloat(document.getElementById('line-pass-td')?.value) || 1.5;
+
+        props.push(createProp('Passing Yards', 'pass_yd', passLine));
+        props.push(createProp('Rushing Yards', 'rush_yd', rushLine));
+        props.push(createProp('Passing TDs', 'pass_td', tdLine));
+      } else if (pos === 'RB') {
+        const rushLine = parseFloat(document.getElementById('line-rush-yd')?.value) || 60;
+        const recYdLine = parseFloat(document.getElementById('line-rec-yd')?.value) || 20;
+        const recLine = parseFloat(document.getElementById('line-rec')?.value) || 2.5;
+
+        props.push(createProp('Rushing Yards', 'rush_yd', rushLine));
+        props.push(createProp('Receiving Yards', 'rec_yd', recYdLine));
+        props.push(createProp('Receptions', 'rec', recLine));
+      } else {
+        const recYdLine = parseFloat(document.getElementById('line-rec-yd')?.value) || 50;
+        const recLine = parseFloat(document.getElementById('line-rec')?.value) || 4;
+        const tdLine = parseFloat(document.getElementById('line-rec-td')?.value) || 0.5;
+
+        props.push(createProp('Receiving Yards', 'rec_yd', recYdLine));
+        props.push(createProp('Receptions', 'rec', recLine));
+        props.push(createProp('Receiving TDs', 'rec_td', tdLine));
+      }
+
+      document.getElementById('props-list').innerHTML = props.join('');
+    }
+
+    function createProp(name, key, line) {
+      const n = weeklyData.length;
+      const values = weeklyData.map(w => w[key] || 0);
+      const avg = values.reduce((a, b) => a + b, 0) / n;
+      const hits = values.filter(v => v > line).length;
+      const hitRate = (hits / n * 100).toFixed(0);
+
+      const recent = weeklyData.slice(-3);
+      const recentAvg = recent.reduce((s, w) => s + (w[key] || 0), 0) / recent.length;
+      const recentHits = recent.filter(w => (w[key] || 0) > line).length;
+
+      const rateClass = hitRate >= 55 ? 'over-55' : hitRate <= 45 ? 'under-45' : '';
+
+      return `
+        <div class="prop-card">
+          <div>
+            <div class="prop-name">${name}</div>
+            <div class="prop-stats">Avg: ${avg.toFixed(1)} | Last 3: ${recentAvg.toFixed(1)} (${recentHits}/3 over)</div>
+          </div>
+          <div class="prop-line">
+            <div class="line-label">Line</div>
+            <div class="line-value">${line}</div>
+          </div>
+          <div class="prop-hit-rate">
+            <div class="hit-rate-value ${rateClass}">${hitRate}%</div>
+            <div class="hit-rate-label">Over (${hits}/${n})</div>
+          </div>
+        </div>
+      `;
+    }
+
+    // Event listeners
+    document.getElementById('player-search').addEventListener('input', (e) => {
+      searchPlayers(e.target.value);
+    });
+
+    document.getElementById('season-select').addEventListener('change', () => {
+      if (currentPlayer) loadPlayerData();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.search-box') && !e.target.closest('.search-results')) {
+        document.getElementById('search-results').classList.remove('active');
+      }
+    });
+
+    // Initialize
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('player-content').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>

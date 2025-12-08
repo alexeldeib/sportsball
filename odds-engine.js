@@ -7,7 +7,8 @@ const OddsEngine = (function() {
   // Constants
   const HOME_FIELD_ADVANTAGE = 2.5;  // Points
   const LOGISTIC_K = 0.145;          // Calibration constant for win probability
-  const VIG_PERCENT = 0.0476;        // Standard juice (~4.76% = -110/-110)
+  // Note: Vig removed - showing fair odds for personal analysis
+  // const VIG_PERCENT = 0.0476;     // Standard juice (~4.76% = -110/-110)
 
   /**
    * Convert win probability to American odds format
@@ -77,9 +78,9 @@ const OddsEngine = (function() {
     // Win probability using logistic function
     const homeWinProb = 1 / (1 + Math.exp(-LOGISTIC_K * expectedDiff));
 
-    // Moneyline odds with vig
-    const homeMl = applyVig(homeWinProb);
-    const awayMl = applyVig(1 - homeWinProb);
+    // Moneyline odds (fair, no vig)
+    const homeMl = probToAmericanOdds(homeWinProb);
+    const awayMl = probToAmericanOdds(1 - homeWinProb);
 
     // Spread (round to nearest 0.5) - negative means home favored
     const spread = -Math.round(expectedDiff * 2) / 2;
