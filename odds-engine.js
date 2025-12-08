@@ -5,10 +5,43 @@
 
 const OddsEngine = (function() {
   // Constants
-  const HOME_FIELD_ADVANTAGE = 2.5;  // Points
+  const DEFAULT_HFA = 2.5;           // Default home field advantage (points)
   const LOGISTIC_K = 0.145;          // Calibration constant for win probability
-  // Note: Vig removed - showing fair odds for personal analysis
-  // const VIG_PERCENT = 0.0476;     // Standard juice (~4.76% = -110/-110)
+
+  // Advanced stats cache (loaded from JSON)
+  let advancedStatsCache = null;
+
+  /**
+   * Load advanced team stats from JSON
+   * Call this once when initializing the page
+   * @param {string} url - Path to advanced-team-stats JSON
+   * @param {number} season - Season year
+   * @returns {Promise<Object>} Map of team_code -> stats
+   */
+  async function loadAdvancedStats(season = 2025) {
+    if (advancedStatsCache && advancedStatsCache.season === season) {
+      return advancedStatsCache.data;
+    }
+    try {
+      const response = await fetch(`advanced-team-stats-${season}.json?v=${Date.now()}`);
+      if (!response.ok) throw new Error('Failed to load advanced stats');
+      const data = await response.json();
+      const statsMap = {};
+      data.forEach(team => { statsMap[team.team_code] = team; });
+      advancedStatsCache = { season, data: statsMap };
+      return statsMap;
+    } catch (e) {
+      console.warn('Could not load advanced stats:', e);
+      return {};
+    }
+  }
+
+  /**
+   * Get advanced stats for a team (if loaded)
+   */
+  function getAdvancedStats(teamCode) {
+    return advancedStatsCache?.data?.[teamCode] || null;
+  }
 
   /**
    * Convert win probability to American odds format
@@ -34,46 +67,98 @@ const OddsEngine = (function() {
    * @param {number} vig - Vig percentage (default 4.76%)
    * @returns {number} American odds with vig applied
    */
-  function applyVig(fairProb, vig = VIG_PERCENT) {
+  function applyVig(fairProb, vig = 0.0476) {
     const adjusted = Math.min(fairProb * (1 + vig), 0.99);
     return probToAmericanOdds(adjusted);
   }
 
   /**
    * Calculate team power rating from stats
-   * @param {Object} teamStats - Team statistics object
-   * @returns {number} Power rating (point differential)
+   * Uses SRS (Simple Rating System) when available, otherwise falls back to PPD
+   *
+   * Components:
+   * - SRS: Point differential adjusted for strength of schedule
+   * - Efficiency: Yards per play, turnover differential
+   * - Recent form: Last 5 games (reduced weight to 15%)
+   *
+   * @param {Object} teamStats - Team statistics from database
+   * @param {Object} advStats - Advanced stats from JSON (optional)
+   * @returns {number} Power rating (point differential scale)
    */
-  function calculatePowerRating(teamStats) {
+  function calculatePowerRating(teamStats, advStats = null) {
     if (!teamStats) return 0;
 
+    // Try to get advanced stats if not provided
+    if (!advStats && teamStats.team_code) {
+      advStats = getAdvancedStats(teamStats.team_code);
+    }
+
+    // If we have SRS, use it as the primary rating
+    if (advStats?.srs !== undefined) {
+      let rating = advStats.srs;
+
+      // Add efficiency adjustments
+      // Yards per play: league avg ~5.5, +1 YPP = ~+3 points of value
+      const ypp = advStats.yards_per_play || 5.5;
+      const yppAdj = (ypp - 5.5) * 2;  // Smaller multiplier since SRS already captures much of this
+
+      // Turnover differential: each turnover ~= 4 points
+      const toDiff = advStats.turnover_diff || 0;
+      const toAdj = toDiff * 0.2;  // Small adjustment since PPD includes turnovers
+
+      // Recent form (15% weight now)
+      const last5Ppg = teamStats.last_5_ppg || teamStats.ppg_scored || 21;
+      const last5Allowed = teamStats.last_5_ppg_allowed || teamStats.ppg_allowed || 21;
+      const recentDiff = last5Ppg - last5Allowed;
+      const recentAdj = (recentDiff - rating) * 0.15;  // 15% pull toward recent form
+
+      return rating + yppAdj + toAdj + recentAdj;
+    }
+
+    // Fallback to original calculation if no advanced stats
     const ppg = teamStats.ppg_scored || 21.0;
     const ppgAllowed = teamStats.ppg_allowed || 21.0;
-
-    // Base power rating is point differential
     const base = ppg - ppgAllowed;
 
-    // Weight recent form slightly more
     const last5Ppg = teamStats.last_5_ppg || ppg;
     const last5Allowed = teamStats.last_5_ppg_allowed || ppgAllowed;
     const recentDiff = last5Ppg - last5Allowed;
 
-    // Blend: 70% season, 30% recent
-    return 0.7 * base + 0.3 * recentDiff;
+    // Fallback: 85% season, 15% recent (reduced from 30%)
+    return 0.85 * base + 0.15 * recentDiff;
+  }
+
+  /**
+   * Get team-specific home field advantage
+   * @param {string} teamCode - Team code
+   * @returns {number} HFA in points
+   */
+  function getHomeFieldAdvantage(teamCode) {
+    const advStats = getAdvancedStats(teamCode);
+    if (advStats?.hfa !== undefined) {
+      return advStats.hfa;
+    }
+    return DEFAULT_HFA;
   }
 
   /**
    * Calculate full matchup odds
    * @param {Object} homeStats - Home team statistics
    * @param {Object} awayStats - Away team statistics
+   * @param {Object} homeAdvStats - Advanced home stats (optional)
+   * @param {Object} awayAdvStats - Advanced away stats (optional)
    * @returns {Object} Odds object with all betting lines
    */
-  function calculateMatchupOdds(homeStats, awayStats) {
-    const homePower = calculatePowerRating(homeStats);
-    const awayPower = calculatePowerRating(awayStats);
+  function calculateMatchupOdds(homeStats, awayStats, homeAdvStats = null, awayAdvStats = null) {
+    const homePower = calculatePowerRating(homeStats, homeAdvStats);
+    const awayPower = calculatePowerRating(awayStats, awayAdvStats);
+
+    // Get team-specific home field advantage
+    const homeTeamCode = homeStats?.team_code || homeAdvStats?.team_code;
+    const hfa = homeTeamCode ? getHomeFieldAdvantage(homeTeamCode) : DEFAULT_HFA;
 
     // Expected point differential (home perspective)
-    const expectedDiff = (homePower - awayPower) + HOME_FIELD_ADVANTAGE;
+    const expectedDiff = (homePower - awayPower) + hfa;
 
     // Win probability using logistic function
     const homeWinProb = 1 / (1 + Math.exp(-LOGISTIC_K * expectedDiff));
@@ -113,7 +198,10 @@ const OddsEngine = (function() {
       underOdds: -110,
       homeTeamTotal: homeTotal,
       awayTeamTotal: awayTotal,
-      expectedDiff: Math.round(expectedDiff * 10) / 10
+      expectedDiff: Math.round(expectedDiff * 10) / 10,
+      homeFieldAdvantage: Math.round(hfa * 10) / 10,
+      homePower: Math.round(homePower * 10) / 10,
+      awayPower: Math.round(awayPower * 10) / 10,
     };
   }
 
@@ -546,27 +634,38 @@ const OddsEngine = (function() {
 
   // Public API
   return {
+    // Core functions
     calculateMatchupOdds,
     calculateEnhancedOdds,
     calculatePowerRating,
+    getHomeFieldAdvantage,
+
+    // Advanced stats
+    loadAdvancedStats,
+    getAdvancedStats,
+
+    // Odds utilities
     probToAmericanOdds,
     applyVig,
     formatOdds,
     formatSpread,
     oddsToProb,
     expectedValue,
+
+    // Database helpers
     getTeamStats,
     getUpcomingMatchups,
     computeAllOdds,
+
+    // Analysis
     monteCarloSimulation,
     detectValue,
     findValueOpportunities,
     analyzeMatchupFactors,
 
     // Constants exposed for reference
-    HOME_FIELD_ADVANTAGE,
+    DEFAULT_HFA,
     LOGISTIC_K,
-    VIG_PERCENT
   };
 })();
 

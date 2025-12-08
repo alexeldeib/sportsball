@@ -398,6 +398,10 @@
       const buffer = await response.arrayBuffer();
       db = new SQL.Database(new Uint8Array(buffer));
 
+      // Load advanced stats for improved predictions
+      const season = document.getElementById('season-select').value;
+      await OddsEngine.loadAdvancedStats(parseInt(season));
+
       populateWeekSelect();
       loadClusters();
     }
@@ -638,13 +642,29 @@
       document.getElementById('sim-diff').textContent =
         (opp.enhanced.expectedDiff > 0 ? '+' : '') + opp.enhanced.expectedDiff.toFixed(1);
 
+      // Show advanced model info
+      const homeAdv = OddsEngine.getAdvancedStats(opp.game.g_home);
+      const awayAdv = OddsEngine.getAdvancedStats(opp.game.g_away);
+
+      let modelInfoHtml = '<div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-deep); border-radius: 6px;">';
+      modelInfoHtml += '<strong style="color: var(--accent);">Model Inputs</strong>';
+      modelInfoHtml += `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">`;
+
+      if (homeAdv) {
+        modelInfoHtml += `<div><span style="color: var(--text-muted);">${opp.game.g_home} SRS:</span> ${homeAdv.srs >= 0 ? '+' : ''}${homeAdv.srs?.toFixed(1) || 'N/A'}</div>`;
+        modelInfoHtml += `<div><span style="color: var(--text-muted);">${opp.game.g_away} SRS:</span> ${awayAdv?.srs >= 0 ? '+' : ''}${awayAdv?.srs?.toFixed(1) || 'N/A'}</div>`;
+        modelInfoHtml += `<div><span style="color: var(--text-muted);">HFA:</span> +${opp.enhanced.homeFieldAdvantage || 2.5} pts</div>`;
+        modelInfoHtml += `<div><span style="color: var(--text-muted);">SOS:</span> ${homeAdv.sos?.toFixed(3) || 'N/A'} vs ${awayAdv?.sos?.toFixed(3) || 'N/A'}</div>`;
+      }
+      modelInfoHtml += '</div></div>';
+
       // Factors
       const factorsHtml = opp.enhanced.factors.length > 0 ?
         `<div style="margin-bottom: 1rem;">
           <strong>Key Factors:</strong>
           ${opp.enhanced.factors.map(f => `<div style="margin-top: 0.25rem; color: var(--text-secondary);">${f.description}</div>`).join('')}
         </div>` : '';
-      document.getElementById('factors-container').innerHTML = factorsHtml;
+      document.getElementById('factors-container').innerHTML = modelInfoHtml + factorsHtml;
 
       // Distribution chart
       renderDistributionChart(opp);
@@ -750,7 +770,9 @@
     }
 
     // Event listeners
-    document.getElementById('season-select').addEventListener('change', () => {
+    document.getElementById('season-select').addEventListener('change', async () => {
+      const season = document.getElementById('season-select').value;
+      await OddsEngine.loadAdvancedStats(parseInt(season));
       populateWeekSelect();
       loadClusters();
     });
