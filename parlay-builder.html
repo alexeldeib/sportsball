@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Parlay Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="odds-engine.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --bg-selected: #1e3a5f;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --warning: #d97706;
+      --purple: #a855f7;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header { text-align: center; margin-bottom: 1.5rem; }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .matchup-select {
+      width: 100%;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.75rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 1rem;
+    }
+
+    .matchup-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .legs-container {
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .leg-group {
+      margin-bottom: 1rem;
+    }
+
+    .leg-group-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.75rem;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .leg-item:hover {
+      border-color: var(--accent);
+      background: var(--bg-hover);
+    }
+
+    .leg-item.selected {
+      border-color: var(--positive);
+      background: rgba(34, 197, 94, 0.1);
+    }
+
+    .leg-item.selected .leg-checkbox {
+      background: var(--positive);
+      border-color: var(--positive);
+    }
+
+    .leg-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+      color: white;
+    }
+
+    .leg-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .leg-name {
+      font-weight: 500;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .leg-detail {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .leg-odds {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--positive);
+      white-space: nowrap;
+    }
+
+    .leg-prob {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-align: right;
+    }
+
+    /* Parlay slip (right side) */
+    .parlay-slip {
+      position: sticky;
+      top: 1rem;
+    }
+
+    .slip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .clear-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.35rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    .clear-btn:hover {
+      border-color: var(--negative);
+      color: var(--negative);
+    }
+
+    .slip-legs {
+      margin-bottom: 1rem;
+    }
+
+    .slip-leg {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .slip-leg:last-child {
+      border-bottom: none;
+    }
+
+    .slip-leg-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 0.5rem;
+    }
+
+    .slip-leg-odds {
+      font-family: 'Oswald', sans-serif;
+      color: var(--positive);
+    }
+
+    .slip-leg-remove {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      margin-left: 0.5rem;
+    }
+
+    .slip-leg-remove:hover {
+      color: var(--negative);
+    }
+
+    .slip-empty {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .slip-summary {
+      background: var(--bg-deep);
+      border-radius: 8px;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .summary-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .summary-label {
+      color: var(--text-secondary);
+    }
+
+    .summary-value {
+      font-weight: 600;
+    }
+
+    .summary-value.highlight {
+      color: var(--positive);
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+    }
+
+    .summary-value.warning {
+      color: var(--warning);
+    }
+
+    .prob-bar {
+      height: 6px;
+      background: var(--bg-hover);
+      border-radius: 3px;
+      margin: 0.5rem 0;
+      overflow: hidden;
+    }
+
+    .prob-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--positive), var(--warning));
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+
+    .wager-input {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .wager-input label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .wager-input input {
+      flex: 1;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 0.5rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      width: 80px;
+    }
+
+    .wager-input input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Suggested parlays */
+    .suggested-section {
+      margin-top: 1.5rem;
+    }
+
+    .suggested-parlay {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .suggested-parlay:hover {
+      border-color: var(--accent);
+    }
+
+    .suggested-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .suggested-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .suggested-odds {
+      font-family: 'Oswald', sans-serif;
+      color: var(--positive);
+    }
+
+    .suggested-legs {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .suggested-prob {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .loading {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 2rem;
+    }
+
+    .no-data {
+      text-align: center;
+      color: var(--text-muted);
+      padding: 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Correlation warning */
+    .correlation-warning {
+      background: rgba(217, 119, 6, 0.1);
+      border: 1px solid var(--warning);
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--warning);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Parlay Builder</h1>
+      <p class="subtitle">Build multi-leg parlays with game and player props</p>
+    </header>
+
+    <div class="layout">
+      <div class="main-content">
+        <div class="section">
+          <div class="section-title">Select Matchup</div>
+          <select id="matchup-select" class="matchup-select">
+            <option value="">Loading matchups...</option>
+          </select>
+        </div>
+
+        <div id="legs-section" class="section" style="display: none;">
+          <div class="section-title">Available Legs</div>
+          <div id="legs-container" class="legs-container">
+            <div class="loading">Select a matchup to see available legs</div>
+          </div>
+        </div>
+
+        <div id="suggested-section" class="section suggested-section" style="display: none;">
+          <div class="section-title">Suggested Parlays</div>
+          <div id="suggested-container"></div>
+        </div>
+      </div>
+
+      <div class="parlay-slip section">
+        <div class="slip-header">
+          <div class="section-title" style="margin-bottom: 0;">Parlay Slip</div>
+          <button id="clear-btn" class="clear-btn">Clear</button>
+        </div>
+
+        <div id="slip-legs" class="slip-legs">
+          <div class="slip-empty">Add 2+ legs to build a parlay</div>
+        </div>
+
+        <div id="slip-summary" class="slip-summary" style="display: none;">
+          <div class="summary-row">
+            <span class="summary-label">Legs</span>
+            <span id="leg-count" class="summary-value">0</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Combined Odds</span>
+            <span id="combined-odds" class="summary-value highlight">+100</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-label">Win Probability</span>
+            <span id="win-prob" class="summary-value">50%</span>
+          </div>
+          <div class="prob-bar">
+            <div id="prob-fill" class="prob-fill" style="width: 50%;"></div>
+          </div>
+          <div class="wager-input">
+            <label>Wager $</label>
+            <input type="number" id="wager-amount" value="10" min="1">
+            <span class="summary-label">To win:</span>
+            <span id="potential-win" class="summary-value highlight">$10</span>
+          </div>
+        </div>
+
+        <div id="correlation-warning" class="correlation-warning" style="display: none;">
+          Correlated legs detected. Actual probability may differ.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+    let currentMatchup = null;
+    let selectedLegs = [];
+    let availableLegs = [];
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db?' + Date.now());
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      // Load advanced stats for odds engine
+      await OddsEngine.loadAdvancedStats(2025);
+
+      loadMatchups();
+    }
+
+    function loadMatchups() {
+      const result = db.exec(`
+        SELECT week, home_team, away_team, game_date
+        FROM games
+        WHERE season = 2025 AND is_completed = 0
+        ORDER BY week, game_date
+      `);
+
+      const select = document.getElementById('matchup-select');
+      select.innerHTML = '<option value="">Select a matchup...</option>';
+
+      if (result.length && result[0].values) {
+        result[0].values.forEach(([week, home, away, date]) => {
+          const opt = document.createElement('option');
+          opt.value = `${home}|${away}|${week}`;
+          opt.textContent = `Week ${week}: ${away} @ ${home}`;
+          select.appendChild(opt);
+        });
+      }
+    }
+
+    function loadMatchupData(home, away, week) {
+      currentMatchup = { home, away, week };
+      availableLegs = [];
+
+      // Get team stats
+      const homeStats = getTeamStats(home);
+      const awayStats = getTeamStats(away);
+
+      // Calculate game odds
+      const gameOdds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
+
+      // Build game legs
+      const gameLegs = buildGameLegs(home, away, gameOdds);
+
+      // Get player props
+      const playerLegs = buildPlayerLegs(home, away);
+
+      availableLegs = [...gameLegs, ...playerLegs];
+
+      renderLegs();
+      generateSuggestedParlays();
+    }
+
+    function getTeamStats(team) {
+      const result = db.exec(`
+        SELECT * FROM team_stats WHERE team_code = '${team}' AND season = 2025
+      `);
+
+      if (result.length && result[0].values.length) {
+        const cols = result[0].columns;
+        const vals = result[0].values[0];
+        const stats = {};
+        cols.forEach((col, i) => stats[col] = vals[i]);
+        return stats;
+      }
+      return null;
+    }
+
+    function buildGameLegs(home, away, odds) {
+      const legs = [];
+
+      // Moneyline
+      legs.push({
+        id: `ml_${home}`,
+        type: 'game',
+        category: 'Moneyline',
+        name: `${home} to win`,
+        detail: 'Moneyline',
+        odds: odds.homeMoneyline,
+        prob: odds.homeWinProb,
+        team: home
+      });
+
+      legs.push({
+        id: `ml_${away}`,
+        type: 'game',
+        category: 'Moneyline',
+        name: `${away} to win`,
+        detail: 'Moneyline',
+        odds: odds.awayMoneyline,
+        prob: odds.awayWinProb,
+        team: away
+      });
+
+      // Spread
+      const homeSpreadOdds = odds.spread <= 0 ? -110 : -110;
+      const awaySpreadOdds = -110;
+      const spreadProb = 0.5; // Simplified
+
+      legs.push({
+        id: `spread_${home}`,
+        type: 'game',
+        category: 'Spread',
+        name: `${home} ${OddsEngine.formatSpread(odds.spread)}`,
+        detail: 'Spread',
+        odds: homeSpreadOdds,
+        prob: spreadProb,
+        team: home
+      });
+
+      legs.push({
+        id: `spread_${away}`,
+        type: 'game',
+        category: 'Spread',
+        name: `${away} ${OddsEngine.formatSpread(-odds.spread)}`,
+        detail: 'Spread',
+        odds: awaySpreadOdds,
+        prob: spreadProb,
+        team: away
+      });
+
+      // Over/Under
+      legs.push({
+        id: 'over',
+        type: 'game',
+        category: 'Total',
+        name: `Over ${odds.overUnder}`,
+        detail: 'Game Total',
+        odds: -110,
+        prob: 0.5,
+        team: null
+      });
+
+      legs.push({
+        id: 'under',
+        type: 'game',
+        category: 'Total',
+        name: `Under ${odds.overUnder}`,
+        detail: 'Game Total',
+        odds: -110,
+        prob: 0.5,
+        team: null
+      });
+
+      return legs;
+    }
+
+    function buildPlayerLegs(home, away) {
+      const legs = [];
+
+      // Get key players from both teams
+      const players = db.exec(`
+        SELECT
+          player_name,
+          team,
+          position,
+          AVG(pass_yd) as avg_pass_yd,
+          AVG(rush_yd) as avg_rush_yd,
+          AVG(rec_yd) as avg_rec_yd,
+          AVG(rec) as avg_rec,
+          SUM(pass_td) as total_pass_td,
+          SUM(rush_td) as total_rush_td,
+          SUM(rec_td) as total_rec_td,
+          COUNT(*) as games,
+          STDEV(pass_yd) as std_pass_yd,
+          STDEV(rush_yd) as std_rush_yd,
+          STDEV(rec_yd) as std_rec_yd
+        FROM player_weekly_stats
+        WHERE season = 2025
+          AND team IN ('${home}', '${away}')
+          AND position IN ('QB', 'RB', 'WR', 'TE')
+        GROUP BY player_id
+        HAVING games >= 4
+        ORDER BY
+          CASE position
+            WHEN 'QB' THEN 1
+            WHEN 'RB' THEN 2
+            WHEN 'WR' THEN 3
+            WHEN 'TE' THEN 4
+          END,
+          (COALESCE(avg_pass_yd, 0) + COALESCE(avg_rush_yd, 0) + COALESCE(avg_rec_yd, 0)) DESC
+      `);
+
+      if (!players.length || !players[0].values.length) return legs;
+
+      const cols = players[0].columns;
+      players[0].values.forEach(vals => {
+        const p = {};
+        cols.forEach((col, i) => p[col] = vals[i]);
+
+        // Skip players with low volume
+        if (p.games < 4) return;
+
+        // QB passing yards
+        if (p.position === 'QB' && p.avg_pass_yd > 150) {
+          const line = roundToHalf(p.avg_pass_yd);
+          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_pass_yd, p.std_pass_yd || 50, line);
+
+          legs.push({
+            id: `pass_yd_over_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Over ${line} pass yds`,
+            detail: `Avg: ${p.avg_pass_yd.toFixed(0)}`,
+            odds: overOdds,
+            prob: overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'pass_yd'
+          });
+
+          legs.push({
+            id: `pass_yd_under_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Under ${line} pass yds`,
+            detail: `Avg: ${p.avg_pass_yd.toFixed(0)}`,
+            odds: underOdds,
+            prob: 1 - overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'pass_yd'
+          });
+
+          // Passing TDs
+          const tdRate = p.total_pass_td / p.games;
+          if (tdRate > 1) {
+            const tdLine = 1.5;
+            const tdProb = tdRate > tdLine ? 0.55 + (tdRate - tdLine) * 0.1 : 0.45;
+            legs.push({
+              id: `pass_td_over_${p.player_name}`,
+              type: 'player',
+              category: `${p.team} Players`,
+              name: `${p.player_name} Over 1.5 pass TDs`,
+              detail: `Avg: ${tdRate.toFixed(1)}/game`,
+              odds: probToOdds(tdProb),
+              prob: tdProb,
+              team: p.team,
+              player: p.player_name,
+              stat: 'pass_td'
+            });
+          }
+        }
+
+        // RB rushing yards
+        if ((p.position === 'RB' || p.position === 'QB') && p.avg_rush_yd > 30) {
+          const line = roundToHalf(p.avg_rush_yd);
+          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rush_yd, p.std_rush_yd || 20, line);
+
+          legs.push({
+            id: `rush_yd_over_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Over ${line} rush yds`,
+            detail: `Avg: ${p.avg_rush_yd.toFixed(0)}`,
+            odds: overOdds,
+            prob: overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'rush_yd'
+          });
+
+          legs.push({
+            id: `rush_yd_under_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Under ${line} rush yds`,
+            detail: `Avg: ${p.avg_rush_yd.toFixed(0)}`,
+            odds: underOdds,
+            prob: 1 - overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'rush_yd'
+          });
+        }
+
+        // WR/TE/RB receiving yards
+        if (p.avg_rec_yd > 25) {
+          const line = roundToHalf(p.avg_rec_yd);
+          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec_yd, p.std_rec_yd || 25, line);
+
+          legs.push({
+            id: `rec_yd_over_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Over ${line} rec yds`,
+            detail: `Avg: ${p.avg_rec_yd.toFixed(0)}`,
+            odds: overOdds,
+            prob: overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'rec_yd'
+          });
+
+          legs.push({
+            id: `rec_yd_under_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Under ${line} rec yds`,
+            detail: `Avg: ${p.avg_rec_yd.toFixed(0)}`,
+            odds: underOdds,
+            prob: 1 - overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'rec_yd'
+          });
+        }
+
+        // Receptions
+        if (p.avg_rec > 3) {
+          const line = roundToHalf(p.avg_rec);
+          const { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec, 2, line);
+
+          legs.push({
+            id: `rec_over_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Over ${line} receptions`,
+            detail: `Avg: ${p.avg_rec.toFixed(1)}`,
+            odds: overOdds,
+            prob: overProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'rec'
+          });
+        }
+
+        // Anytime TD scorer
+        const tdRate = (p.total_rush_td + p.total_rec_td) / p.games;
+        if (tdRate > 0.3 && (p.position === 'RB' || p.position === 'WR' || p.position === 'TE')) {
+          const tdProb = Math.min(0.85, tdRate * 0.7 + 0.1);
+          legs.push({
+            id: `atd_${p.player_name}`,
+            type: 'player',
+            category: `${p.team} Players`,
+            name: `${p.player_name} Anytime TD`,
+            detail: `${(tdRate * 100).toFixed(0)}% TD rate`,
+            odds: probToOdds(tdProb),
+            prob: tdProb,
+            team: p.team,
+            player: p.player_name,
+            stat: 'td'
+          });
+        }
+      });
+
+      return legs;
+    }
+
+    function calculatePropOdds(avg, std, line) {
+      // Use normal distribution CDF approximation
+      const z = (line - avg) / (std || 1);
+      const overProb = 1 - normalCDF(z);
+
+      // Clamp probability
+      const clampedOver = Math.max(0.2, Math.min(0.8, overProb));
+
+      return {
+        overProb: clampedOver,
+        overOdds: probToOdds(clampedOver),
+        underOdds: probToOdds(1 - clampedOver)
+      };
+    }
+
+    function normalCDF(z) {
+      // Approximation of standard normal CDF
+      const a1 = 0.254829592;
+      const a2 = -0.284496736;
+      const a3 = 1.421413741;
+      const a4 = -1.453152027;
+      const a5 = 1.061405429;
+      const p = 0.3275911;
+
+      const sign = z < 0 ? -1 : 1;
+      z = Math.abs(z) / Math.sqrt(2);
+
+      const t = 1.0 / (1.0 + p * z);
+      const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-z * z);
+
+      return 0.5 * (1.0 + sign * y);
+    }
+
+    function probToOdds(prob) {
+      if (prob >= 0.5) {
+        return Math.round(-100 * prob / (1 - prob));
+      } else {
+        return Math.round(100 * (1 - prob) / prob);
+      }
+    }
+
+    function roundToHalf(n) {
+      return Math.round(n * 2) / 2;
+    }
+
+    function renderLegs() {
+      const container = document.getElementById('legs-container');
+      document.getElementById('legs-section').style.display = 'block';
+
+      if (availableLegs.length === 0) {
+        container.innerHTML = '<div class="no-data">No legs available for this matchup</div>';
+        return;
+      }
+
+      // Group by category
+      const groups = {};
+      availableLegs.forEach(leg => {
+        if (!groups[leg.category]) groups[leg.category] = [];
+        groups[leg.category].push(leg);
+      });
+
+      let html = '';
+      for (const [category, legs] of Object.entries(groups)) {
+        html += `<div class="leg-group">
+          <div class="leg-group-title">${category}</div>`;
+
+        legs.forEach(leg => {
+          const isSelected = selectedLegs.some(l => l.id === leg.id);
+          html += `
+            <div class="leg-item ${isSelected ? 'selected' : ''}" data-leg-id="${leg.id}">
+              <div class="leg-checkbox">${isSelected ? '✓' : ''}</div>
+              <div class="leg-info">
+                <div class="leg-name">${leg.name}</div>
+                <div class="leg-detail">${leg.detail}</div>
+              </div>
+              <div>
+                <div class="leg-odds">${formatOdds(leg.odds)}</div>
+                <div class="leg-prob">${(leg.prob * 100).toFixed(0)}%</div>
+              </div>
+            </div>
+          `;
+        });
+
+        html += '</div>';
+      }
+
+      container.innerHTML = html;
+
+      // Add click handlers
+      container.querySelectorAll('.leg-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const legId = el.dataset.legId;
+          toggleLeg(legId);
+        });
+      });
+    }
+
+    function toggleLeg(legId) {
+      const leg = availableLegs.find(l => l.id === legId);
+      if (!leg) return;
+
+      const idx = selectedLegs.findIndex(l => l.id === legId);
+      if (idx >= 0) {
+        selectedLegs.splice(idx, 1);
+      } else {
+        // Check for conflicting legs
+        const conflicting = selectedLegs.findIndex(l => isConflicting(l, leg));
+        if (conflicting >= 0) {
+          selectedLegs.splice(conflicting, 1);
+        }
+        selectedLegs.push(leg);
+      }
+
+      renderLegs();
+      renderSlip();
+    }
+
+    function isConflicting(leg1, leg2) {
+      // Same game leg type (can't have both ML, both spreads, etc.)
+      if (leg1.type === 'game' && leg2.type === 'game') {
+        if (leg1.category === leg2.category) return true;
+      }
+
+      // Same player, same stat (over vs under)
+      if (leg1.type === 'player' && leg2.type === 'player') {
+        if (leg1.player === leg2.player && leg1.stat === leg2.stat) return true;
+      }
+
+      return false;
+    }
+
+    function renderSlip() {
+      const legsContainer = document.getElementById('slip-legs');
+      const summary = document.getElementById('slip-summary');
+      const warning = document.getElementById('correlation-warning');
+
+      if (selectedLegs.length === 0) {
+        legsContainer.innerHTML = '<div class="slip-empty">Add 2+ legs to build a parlay</div>';
+        summary.style.display = 'none';
+        warning.style.display = 'none';
+        return;
+      }
+
+      let html = '';
+      selectedLegs.forEach(leg => {
+        html += `
+          <div class="slip-leg">
+            <span class="slip-leg-name">${leg.name}</span>
+            <span class="slip-leg-odds">${formatOdds(leg.odds)}</span>
+            <button class="slip-leg-remove" data-leg-id="${leg.id}">&times;</button>
+          </div>
+        `;
+      });
+      legsContainer.innerHTML = html;
+
+      // Add remove handlers
+      legsContainer.querySelectorAll('.slip-leg-remove').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const legId = btn.dataset.legId;
+          selectedLegs = selectedLegs.filter(l => l.id !== legId);
+          renderLegs();
+          renderSlip();
+        });
+      });
+
+      // Calculate parlay
+      const { combinedProb, combinedOdds, payout } = calculateParlay();
+
+      document.getElementById('leg-count').textContent = selectedLegs.length;
+      document.getElementById('combined-odds').textContent = formatOdds(combinedOdds);
+      document.getElementById('win-prob').textContent = `${(combinedProb * 100).toFixed(1)}%`;
+      document.getElementById('win-prob').className = `summary-value ${combinedProb < 0.1 ? 'warning' : ''}`;
+      document.getElementById('prob-fill').style.width = `${combinedProb * 100}%`;
+
+      const wager = parseFloat(document.getElementById('wager-amount').value) || 10;
+      document.getElementById('potential-win').textContent = `$${payout.toFixed(2)}`;
+
+      summary.style.display = selectedLegs.length >= 2 ? 'block' : 'none';
+
+      // Check for correlations
+      const hasCorrelation = checkCorrelations();
+      warning.style.display = hasCorrelation ? 'block' : 'none';
+    }
+
+    function calculateParlay() {
+      if (selectedLegs.length === 0) {
+        return { combinedProb: 0, combinedOdds: 0, payout: 0 };
+      }
+
+      // Combined probability (assuming independence)
+      let combinedProb = 1;
+      selectedLegs.forEach(leg => {
+        combinedProb *= leg.prob;
+      });
+
+      // Combined decimal odds
+      let decimalMultiplier = 1;
+      selectedLegs.forEach(leg => {
+        const decimal = leg.odds > 0 ? (leg.odds / 100) + 1 : (100 / Math.abs(leg.odds)) + 1;
+        decimalMultiplier *= decimal;
+      });
+
+      // Convert back to American
+      const combinedOdds = decimalMultiplier >= 2
+        ? Math.round((decimalMultiplier - 1) * 100)
+        : Math.round(-100 / (decimalMultiplier - 1));
+
+      const wager = parseFloat(document.getElementById('wager-amount').value) || 10;
+      const payout = wager * (decimalMultiplier - 1);
+
+      return { combinedProb, combinedOdds, payout };
+    }
+
+    function checkCorrelations() {
+      // Check for correlated legs
+      const teams = new Set();
+      const players = new Set();
+
+      selectedLegs.forEach(leg => {
+        if (leg.team) teams.add(leg.team);
+        if (leg.player) players.add(leg.player);
+      });
+
+      // Multiple legs from same player
+      const playerLegs = selectedLegs.filter(l => l.player);
+      const playerCounts = {};
+      playerLegs.forEach(l => {
+        playerCounts[l.player] = (playerCounts[l.player] || 0) + 1;
+      });
+      if (Object.values(playerCounts).some(c => c > 1)) return true;
+
+      // Game total + player yards (correlated)
+      const hasTotal = selectedLegs.some(l => l.id === 'over' || l.id === 'under');
+      const hasYards = selectedLegs.some(l => l.stat && l.stat.includes('yd'));
+      if (hasTotal && hasYards) return true;
+
+      return false;
+    }
+
+    function formatOdds(odds) {
+      if (odds > 0) return '+' + odds;
+      return String(odds);
+    }
+
+    function generateSuggestedParlays() {
+      const container = document.getElementById('suggested-container');
+      document.getElementById('suggested-section').style.display = 'block';
+
+      if (availableLegs.length < 3) {
+        container.innerHTML = '<div class="no-data">Not enough legs available</div>';
+        return;
+      }
+
+      const suggestions = [];
+
+      // Find high-probability legs (55-70%)
+      const highProbLegs = availableLegs.filter(l => l.prob >= 0.52 && l.prob <= 0.72);
+
+      // Strategy 1: "Safe" parlay - 3 highest probability legs
+      const safeLegs = [...availableLegs]
+        .filter(l => l.prob >= 0.5)
+        .sort((a, b) => b.prob - a.prob)
+        .slice(0, 4);
+
+      if (safeLegs.length >= 3) {
+        const safePick = findBestCombination(safeLegs, 3);
+        if (safePick) {
+          suggestions.push({
+            name: 'Conservative',
+            legs: safePick.legs,
+            prob: safePick.prob,
+            odds: safePick.odds
+          });
+        }
+      }
+
+      // Strategy 2: "Balanced" - mix of game and player props
+      const gameLegs = availableLegs.filter(l => l.type === 'game' && l.prob >= 0.45);
+      const playerLegs = availableLegs.filter(l => l.type === 'player' && l.prob >= 0.5);
+
+      if (gameLegs.length >= 1 && playerLegs.length >= 2) {
+        const balancedLegs = [
+          ...gameLegs.sort((a, b) => b.prob - a.prob).slice(0, 1),
+          ...playerLegs.sort((a, b) => b.prob - a.prob).slice(0, 2)
+        ];
+        const balanced = calculateParlayForLegs(balancedLegs);
+        suggestions.push({
+          name: 'Balanced Mix',
+          legs: balancedLegs,
+          prob: balanced.prob,
+          odds: balanced.odds
+        });
+      }
+
+      // Strategy 3: "Value" - best expected value
+      const evLegs = availableLegs
+        .map(l => ({
+          ...l,
+          ev: l.prob * (l.odds > 0 ? l.odds / 100 : 100 / Math.abs(l.odds))
+        }))
+        .filter(l => l.ev > 0.4)
+        .sort((a, b) => b.ev - a.ev)
+        .slice(0, 4);
+
+      if (evLegs.length >= 3) {
+        const valuePick = findBestCombination(evLegs, 3);
+        if (valuePick) {
+          suggestions.push({
+            name: 'Value Play',
+            legs: valuePick.legs,
+            prob: valuePick.prob,
+            odds: valuePick.odds
+          });
+        }
+      }
+
+      // Strategy 4: "Long Shot" - higher payout
+      const longLegs = availableLegs
+        .filter(l => l.prob >= 0.35 && l.prob <= 0.55 && l.odds > 0)
+        .sort((a, b) => b.odds - a.odds)
+        .slice(0, 3);
+
+      if (longLegs.length >= 3) {
+        const longShot = calculateParlayForLegs(longLegs);
+        suggestions.push({
+          name: 'Long Shot',
+          legs: longLegs,
+          prob: longShot.prob,
+          odds: longShot.odds
+        });
+      }
+
+      // Render suggestions
+      if (suggestions.length === 0) {
+        container.innerHTML = '<div class="no-data">Could not generate suggestions</div>';
+        return;
+      }
+
+      container.innerHTML = suggestions.map((s, i) => `
+        <div class="suggested-parlay" data-suggestion="${i}">
+          <div class="suggested-header">
+            <span class="suggested-name">${s.name}</span>
+            <span class="suggested-odds">${formatOdds(s.odds)}</span>
+          </div>
+          <div class="suggested-legs">${s.legs.map(l => l.name).join(' + ')}</div>
+          <div class="suggested-prob">${(s.prob * 100).toFixed(1)}% win probability</div>
+        </div>
+      `).join('');
+
+      // Store for click handling
+      window.suggestions = suggestions;
+
+      container.querySelectorAll('.suggested-parlay').forEach(el => {
+        el.addEventListener('click', () => {
+          const idx = parseInt(el.dataset.suggestion);
+          const suggestion = window.suggestions[idx];
+          if (suggestion) {
+            selectedLegs = [...suggestion.legs];
+            renderLegs();
+            renderSlip();
+          }
+        });
+      });
+    }
+
+    function findBestCombination(legs, count) {
+      // Find combination with best balance of probability and payout
+      const combinations = getCombinations(legs, count);
+      let best = null;
+      let bestScore = -Infinity;
+
+      combinations.forEach(combo => {
+        const result = calculateParlayForLegs(combo);
+        // Score: probability * log(odds) to balance both
+        const score = result.prob * Math.log(Math.max(result.odds, 100));
+        if (score > bestScore) {
+          bestScore = score;
+          best = { legs: combo, prob: result.prob, odds: result.odds };
+        }
+      });
+
+      return best;
+    }
+
+    function getCombinations(arr, k) {
+      const result = [];
+      function combine(start, combo) {
+        if (combo.length === k) {
+          result.push([...combo]);
+          return;
+        }
+        for (let i = start; i < arr.length; i++) {
+          combo.push(arr[i]);
+          combine(i + 1, combo);
+          combo.pop();
+        }
+      }
+      combine(0, []);
+      return result;
+    }
+
+    function calculateParlayForLegs(legs) {
+      let prob = 1;
+      let decimal = 1;
+
+      legs.forEach(leg => {
+        prob *= leg.prob;
+        decimal *= leg.odds > 0 ? (leg.odds / 100) + 1 : (100 / Math.abs(leg.odds)) + 1;
+      });
+
+      const odds = decimal >= 2
+        ? Math.round((decimal - 1) * 100)
+        : Math.round(-100 / (decimal - 1));
+
+      return { prob, odds };
+    }
+
+    // Event listeners
+    document.getElementById('matchup-select').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (!val) return;
+
+      const [home, away, week] = val.split('|');
+      selectedLegs = [];
+      loadMatchupData(home, away, parseInt(week));
+      renderSlip();
+    });
+
+    document.getElementById('clear-btn').addEventListener('click', () => {
+      selectedLegs = [];
+      renderLegs();
+      renderSlip();
+    });
+
+    document.getElementById('wager-amount').addEventListener('input', () => {
+      renderSlip();
+    });
+
+    // Initialize
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('legs-container').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>
