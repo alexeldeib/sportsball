@@ -1133,6 +1133,9 @@
       modelOdds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
       modelOdds.home = home;
       modelOdds.away = away;
+      // Normalize property names (OddsEngine uses expectedDiff/overUnder)
+      modelOdds.expectedMargin = modelOdds.expectedDiff || 0;
+      modelOdds.expectedTotal = modelOdds.overUnder || 44;
 
       // Build moneyline legs only (spread/total are now editable cards)
       availableLegs = buildMoneylineLegs(home, away, modelOdds);
