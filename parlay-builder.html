@@ -805,6 +805,88 @@
     }
     .superlative-edge.positive { color: var(--positive); }
     .superlative-edge.negative { color: var(--negative); }
+
+    /* Matchup Insights */
+    .insights-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .insight-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+    .insight-card.smash {
+      border-color: var(--positive);
+      background: rgba(34, 197, 94, 0.05);
+    }
+    .insight-card.fade {
+      border-color: var(--negative);
+      background: rgba(239, 68, 68, 0.05);
+    }
+    .insight-card.script {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.05);
+    }
+    .insight-card.volatility {
+      border-color: var(--purple);
+      background: rgba(168, 85, 247, 0.05);
+    }
+    .insight-card.history {
+      border-color: var(--warning);
+      background: rgba(217, 119, 6, 0.05);
+    }
+    .insight-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+    .insight-type {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+    }
+    .insight-type.smash { background: rgba(34, 197, 94, 0.2); color: var(--positive); }
+    .insight-type.fade { background: rgba(239, 68, 68, 0.2); color: var(--negative); }
+    .insight-type.script { background: rgba(59, 130, 246, 0.2); color: var(--accent); }
+    .insight-type.volatility { background: rgba(168, 85, 247, 0.2); color: var(--purple); }
+    .insight-type.history { background: rgba(217, 119, 6, 0.2); color: var(--warning); }
+    .insight-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .insight-detail {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.3rem;
+    }
+    .insight-factors {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+    .insight-factor {
+      font-size: 0.7rem;
+      padding: 0.2rem 0.4rem;
+      border-radius: 3px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+    }
+    .insight-factor.positive { border-color: var(--positive); color: var(--positive); }
+    .insight-factor.negative { border-color: var(--negative); color: var(--negative); }
+    .insight-factor.neutral { color: var(--text-muted); }
+    .insight-action {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 0.4rem;
+    }
   </style>
 </head>
 <body>
@@ -849,9 +931,9 @@
           </div>
         </div>
 
-        <div id="suggested-section" class="section suggested-section" style="display: none;">
-          <div class="section-title">Suggested Parlays</div>
-          <div id="suggested-container"></div>
+        <div id="insights-section" class="section" style="display: none;">
+          <div class="section-title">Matchup Insights</div>
+          <div id="insights-container" class="insights-container"></div>
         </div>
       </div>
 
@@ -1157,7 +1239,7 @@
       superlativeCards = buildSuperlativeCards(home, away);
 
       renderLegs();
-      generateSuggestedParlays();
+      generateMatchupInsights();
     }
 
     function getTeamStats(team) {
@@ -2580,129 +2662,209 @@
       return String(odds);
     }
 
-    function generateSuggestedParlays() {
-      const container = document.getElementById('suggested-container');
-      document.getElementById('suggested-section').style.display = 'block';
+    function generateMatchupInsights() {
+      const container = document.getElementById('insights-container');
+      document.getElementById('insights-section').style.display = 'block';
 
-      // Combine game legs with player prop legs for suggestions
-      const playerLegsForSuggestions = buildPlayerLegsForSuggestions(currentMatchup.home, currentMatchup.away);
-      const allLegs = [...availableLegs, ...playerLegsForSuggestions];
+      const insights = [];
+      const { home, away } = currentMatchup;
 
-      if (allLegs.length < 3) {
-        container.innerHTML = '<div class="no-data">Not enough legs available</div>';
-        return;
-      }
+      // 1. SMASH SPOTS - Good player + weak defense + hot trend
+      propCards.forEach(card => {
+        const factors = [];
+        let score = 0;
 
-      const suggestions = [];
-
-      // Find high-probability legs (55-70%)
-      const highProbLegs = allLegs.filter(l => l.prob >= 0.52 && l.prob <= 0.72);
-
-      // Strategy 1: "Safe" parlay - 3 highest probability legs
-      const safeLegs = [...allLegs]
-        .filter(l => l.prob >= 0.5)
-        .sort((a, b) => b.prob - a.prob)
-        .slice(0, 4);
-
-      if (safeLegs.length >= 3) {
-        const safePick = findBestCombination(safeLegs, 3);
-        if (safePick) {
-          suggestions.push({
-            name: 'Conservative',
-            legs: safePick.legs,
-            prob: safePick.prob,
-            odds: safePick.odds
-          });
-        }
-      }
-
-      // Strategy 2: "Balanced" - mix of game and player props
-      const gameLegs = allLegs.filter(l => l.type === 'game' && l.prob >= 0.45);
-      const playerLegs = allLegs.filter(l => l.type === 'player' && l.prob >= 0.5);
-
-      if (gameLegs.length >= 1 && playerLegs.length >= 2) {
-        const balancedLegs = [
-          ...gameLegs.sort((a, b) => b.prob - a.prob).slice(0, 1),
-          ...playerLegs.sort((a, b) => b.prob - a.prob).slice(0, 2)
-        ];
-        const balanced = calculateParlayForLegs(balancedLegs);
-        suggestions.push({
-          name: 'Balanced Mix',
-          legs: balancedLegs,
-          prob: balanced.prob,
-          odds: balanced.odds
-        });
-      }
-
-      // Strategy 3: "Value" - best expected value
-      const evLegs = allLegs
-        .map(l => ({
-          ...l,
-          ev: l.prob * (l.odds > 0 ? l.odds / 100 : 100 / Math.abs(l.odds))
-        }))
-        .filter(l => l.ev > 0.4)
-        .sort((a, b) => b.ev - a.ev)
-        .slice(0, 4);
-
-      if (evLegs.length >= 3) {
-        const valuePick = findBestCombination(evLegs, 3);
-        if (valuePick) {
-          suggestions.push({
-            name: 'Value Play',
-            legs: valuePick.legs,
-            prob: valuePick.prob,
-            odds: valuePick.odds
-          });
-        }
-      }
-
-      // Strategy 4: "Long Shot" - higher payout
-      const longLegs = allLegs
-        .filter(l => l.prob >= 0.35 && l.prob <= 0.55 && l.odds > 0)
-        .sort((a, b) => b.odds - a.odds)
-        .slice(0, 3);
-
-      if (longLegs.length >= 3) {
-        const longShot = calculateParlayForLegs(longLegs);
-        suggestions.push({
-          name: 'Long Shot',
-          legs: longLegs,
-          prob: longShot.prob,
-          odds: longShot.odds
-        });
-      }
-
-      // Render suggestions
-      if (suggestions.length === 0) {
-        container.innerHTML = '<div class="no-data">Could not generate suggestions</div>';
-        return;
-      }
-
-      container.innerHTML = suggestions.map((s, i) => `
-        <div class="suggested-parlay" data-suggestion="${i}">
-          <div class="suggested-header">
-            <span class="suggested-name">${s.name}</span>
-            <span class="suggested-odds">${formatOdds(s.odds)}</span>
-          </div>
-          <div class="suggested-legs">${s.legs.map(l => l.name).join(' + ')}</div>
-          <div class="suggested-prob">${(s.prob * 100).toFixed(1)}% win probability</div>
-        </div>
-      `).join('');
-
-      // Store for click handling
-      window.suggestions = suggestions;
-
-      container.querySelectorAll('.suggested-parlay').forEach(el => {
-        el.addEventListener('click', () => {
-          const idx = parseInt(el.dataset.suggestion);
-          const suggestion = window.suggestions[idx];
-          if (suggestion) {
-            selectedLegs = [...suggestion.legs];
-            renderLegs();
-            renderSlip();
+        // Check matchup quality
+        if (card.matchup) {
+          if (card.matchup.quality === 'smash') {
+            factors.push({ text: `vs #${card.matchup.rank} ${card.stat} D`, type: 'positive' });
+            score += 2;
+          } else if (card.matchup.quality === 'tough') {
+            factors.push({ text: `vs #${card.matchup.rank} ${card.stat} D`, type: 'negative' });
+            score -= 2;
           }
+        }
+
+        // Check trend
+        if (card.trend) {
+          if (card.trend.trend === 'hot') {
+            factors.push({ text: `${(card.trend.pct * 100).toFixed(0)}% above avg L3`, type: 'positive' });
+            score += 1.5;
+          } else if (card.trend.trend === 'cold') {
+            factors.push({ text: `${Math.abs(card.trend.pct * 100).toFixed(0)}% below avg L3`, type: 'negative' });
+            score -= 1.5;
+          }
+        }
+
+        // High volume player
+        if (card.avg > 70 && card.stat.includes('yd')) {
+          factors.push({ text: `High volume: ${card.avg.toFixed(0)} avg`, type: 'neutral' });
+          score += 0.5;
+        }
+
+        // Smash spot: score >= 2.5
+        if (score >= 2.5) {
+          insights.push({
+            type: 'smash',
+            title: `${card.player} - ${card.statLabel}`,
+            detail: `${card.team} ${card.position} | Avg: ${card.avg.toFixed(1)} | σ: ${card.std.toFixed(1)}`,
+            factors,
+            action: `Look for Over ${Math.round(card.avg * 0.9)} or better`
+          });
+        }
+        // Fade spot: score <= -2.5
+        else if (score <= -2.5) {
+          insights.push({
+            type: 'fade',
+            title: `${card.player} - ${card.statLabel}`,
+            detail: `${card.team} ${card.position} | Avg: ${card.avg.toFixed(1)} | σ: ${card.std.toFixed(1)}`,
+            factors,
+            action: `Consider Under ${Math.round(card.avg * 1.1)} or fade entirely`
+          });
+        }
+      });
+
+      // 2. GAME SCRIPT INSIGHTS
+      if (modelOdds) {
+        const margin = modelOdds.expectedMargin;
+        const total = modelOdds.expectedTotal;
+        const favorite = margin >= 0 ? home : away;
+        const underdog = margin >= 0 ? away : home;
+        const spreadAbs = Math.abs(margin);
+
+        // Blowout prediction (7+ point spread)
+        if (spreadAbs >= 7) {
+          insights.push({
+            type: 'script',
+            title: 'Blowout Alert',
+            detail: `Model expects ${favorite} by ${spreadAbs.toFixed(1)} points`,
+            factors: [
+              { text: `${underdog} may abandon run early`, type: 'neutral' },
+              { text: `${favorite} backups in Q4?`, type: 'neutral' },
+              { text: `Garbage time passing for ${underdog}`, type: 'neutral' }
+            ],
+            action: `${underdog} QB passing could spike, ${favorite} RB2 for late carries`
+          });
+        }
+        // Close game (< 3 points)
+        else if (spreadAbs < 3) {
+          insights.push({
+            type: 'script',
+            title: 'Close Game Expected',
+            detail: `Model sees ${spreadAbs.toFixed(1)} point margin - coin flip`,
+            factors: [
+              { text: 'Starters play full game', type: 'positive' },
+              { text: 'Likely balanced game scripts', type: 'neutral' },
+              { text: 'Late-game situations matter', type: 'neutral' }
+            ],
+            action: 'Star players should see full workloads'
+          });
+        }
+
+        // High total (50+)
+        if (total >= 50) {
+          insights.push({
+            type: 'script',
+            title: 'Shootout Potential',
+            detail: `Model projects ${total.toFixed(1)} total points`,
+            factors: [
+              { text: 'More plays = more stats', type: 'positive' },
+              { text: 'Pass-heavy game likely', type: 'positive' },
+              { text: 'WR/TE volume boost', type: 'positive' }
+            ],
+            action: 'Stack WR overs from both teams with game Over'
+          });
+        }
+        // Low total (< 40)
+        else if (total < 40) {
+          insights.push({
+            type: 'script',
+            title: 'Low-Scoring Grind',
+            detail: `Model projects ${total.toFixed(1)} total points`,
+            factors: [
+              { text: 'Fewer possessions', type: 'negative' },
+              { text: 'Clock management late', type: 'neutral' },
+              { text: 'RB workload could spike', type: 'positive' }
+            ],
+            action: 'Consider RB props, stack with Under'
+          });
+        }
+      }
+
+      // 3. H2H HISTORICAL TENDENCY
+      if (h2hData && h2hData.games >= 3) {
+        const avgTotal = parseFloat(h2hData.avgTotal);
+        const overRate = parseInt(h2hData.overRate);
+
+        if (overRate >= 70) {
+          insights.push({
+            type: 'history',
+            title: 'Historical Over Trend',
+            detail: `${h2hData.games} recent meetings averaged ${avgTotal} points`,
+            factors: [
+              { text: `${overRate}% went Over 44`, type: 'positive' },
+              { text: `Avg total: ${avgTotal}`, type: 'neutral' }
+            ],
+            action: 'These teams historically produce points together'
+          });
+        } else if (overRate <= 30) {
+          insights.push({
+            type: 'history',
+            title: 'Historical Under Trend',
+            detail: `${h2hData.games} recent meetings averaged ${avgTotal} points`,
+            factors: [
+              { text: `Only ${overRate}% went Over 44`, type: 'negative' },
+              { text: `Avg total: ${avgTotal}`, type: 'neutral' }
+            ],
+            action: 'These teams historically play lower-scoring games'
+          });
+        }
+      }
+
+      // 4. VOLATILITY / BOOM-BUST PLAYS
+      const highVariancePlayers = propCards
+        .filter(c => c.std && c.avg && (c.std / c.avg) > 0.45)
+        .sort((a, b) => (b.std / b.avg) - (a.std / a.avg))
+        .slice(0, 2);
+
+      highVariancePlayers.forEach(card => {
+        const cv = ((card.std / card.avg) * 100).toFixed(0);
+        insights.push({
+          type: 'volatility',
+          title: `${card.player} - Boom/Bust`,
+          detail: `${card.statLabel} | Avg: ${card.avg.toFixed(1)} | σ: ${card.std.toFixed(1)} (${cv}% CV)`,
+          factors: [
+            { text: 'High week-to-week variance', type: 'neutral' },
+            { text: 'Ceiling games hit big', type: 'positive' },
+            { text: 'Floor games hurt', type: 'negative' }
+          ],
+          action: 'Good for plus-money alt lines or avoid for safe parlays'
         });
       });
+
+      // Render insights
+      if (insights.length === 0) {
+        container.innerHTML = '<div class="no-data">No significant insights for this matchup</div>';
+        return;
+      }
+
+      // Sort: smash first, then script, history, volatility, fade last
+      const typeOrder = { smash: 0, script: 1, history: 2, volatility: 3, fade: 4 };
+      insights.sort((a, b) => typeOrder[a.type] - typeOrder[b.type]);
+
+      container.innerHTML = insights.map(insight => `
+        <div class="insight-card ${insight.type}">
+          <div class="insight-header">
+            <span class="insight-type ${insight.type}">${insight.type}</span>
+            <span class="insight-title">${insight.title}</span>
+          </div>
+          <div class="insight-detail">${insight.detail}</div>
+          <div class="insight-factors">
+            ${insight.factors.map(f => `<span class="insight-factor ${f.type}">${f.text}</span>`).join('')}
+          </div>
+          <div class="insight-action">→ ${insight.action}</div>
+        </div>
+      `).join('');
     }
 
     function findBestCombination(legs, count) {
