@@ -590,6 +590,117 @@
       background: rgba(239, 68, 68, 0.15);
       color: var(--negative);
     }
+
+    /* Prop evaluator cards */
+    .prop-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .prop-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .prop-player-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .prop-stat-type {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .prop-badges {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .prop-stats-row {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .prop-stats-row span {
+      color: var(--text-secondary);
+    }
+    .prop-inputs {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+    .prop-input-group {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .prop-input-group label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    .prop-input-group input {
+      width: 70px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 0.4rem 0.5rem;
+      font-family: inherit;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .prop-input-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .prop-results {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .prop-bet-option {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .prop-bet-option:hover {
+      border-color: var(--accent);
+    }
+    .prop-bet-option.selected {
+      border-color: var(--positive);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .prop-bet-option.has-edge {
+      border-color: var(--positive);
+    }
+    .prop-bet-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.2rem;
+    }
+    .prop-bet-prob {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .prop-bet-edge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+    .prop-bet-edge.positive { color: var(--positive); }
+    .prop-bet-edge.negative { color: var(--negative); }
+    .prop-no-line {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -668,10 +779,12 @@
     let db = null;
     let currentMatchup = null;
     let selectedLegs = [];
-    let availableLegs = [];
+    let availableLegs = [];  // Game legs only now
+    let propCards = [];      // Player prop cards with editable lines
     let defenseRankings = {};  // position -> stat -> { team: rank }
     let h2hData = null;
     let marketOdds = {};  // legId -> market odds entered by user
+    let propInputs = {};  // propId -> { line, odds } user inputs
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -863,6 +976,8 @@
     function loadMatchupData(home, away, week) {
       currentMatchup = { home, away, week };
       availableLegs = [];
+      propCards = [];
+      propInputs = {};
 
       // Load H2H context for game totals
       loadH2HContext(home, away);
@@ -874,13 +989,11 @@
       // Calculate game odds
       const gameOdds = OddsEngine.calculateMatchupOdds(homeStats, awayStats);
 
-      // Build game legs
-      const gameLegs = buildGameLegs(home, away, gameOdds);
+      // Build game legs (moneyline, spread, total)
+      availableLegs = buildGameLegs(home, away, gameOdds);
 
-      // Get player props (pass opponent for matchup adjustment)
-      const playerLegs = buildPlayerLegs(home, away);
-
-      availableLegs = [...gameLegs, ...playerLegs];
+      // Build player prop cards (with editable lines)
+      propCards = buildPropCards(home, away);
 
       renderLegs();
       generateSuggestedParlays();
@@ -980,8 +1093,8 @@
       return legs;
     }
 
-    function buildPlayerLegs(home, away) {
-      const legs = [];
+    function buildPropCards(home, away) {
+      const cards = [];
 
       // Get key players from both teams
       const players = db.exec(`
@@ -999,7 +1112,8 @@
           COUNT(*) as games,
           STDEV(pass_yd) as std_pass_yd,
           STDEV(rush_yd) as std_rush_yd,
-          STDEV(rec_yd) as std_rec_yd
+          STDEV(rec_yd) as std_rec_yd,
+          STDEV(rec) as std_rec
         FROM player_weekly_stats
         WHERE season = 2025
           AND team IN ('${home}', '${away}')
@@ -1007,6 +1121,7 @@
         GROUP BY player_id
         HAVING games >= 4
         ORDER BY
+          team,
           CASE position
             WHEN 'QB' THEN 1
             WHEN 'RB' THEN 2
@@ -1016,182 +1131,65 @@
           (COALESCE(avg_pass_yd, 0) + COALESCE(avg_rush_yd, 0) + COALESCE(avg_rec_yd, 0)) DESC
       `);
 
-      if (!players.length || !players[0].values.length) return legs;
+      if (!players.length || !players[0].values.length) return cards;
 
       const cols = players[0].columns;
       players[0].values.forEach(vals => {
         const p = {};
         cols.forEach((col, i) => p[col] = vals[i]);
 
-        // Skip players with low volume
         if (p.games < 4) return;
 
-        // Determine opponent for this player
         const opponent = p.team === home ? away : home;
-
-        // Get player trend
         const trend = getPlayerTrend(p.player_name);
 
         // QB passing yards
         if (p.position === 'QB' && p.avg_pass_yd > 150) {
           const matchup = getMatchupQuality('QB', 'pass_yd', opponent);
-          const line = roundToHalf(p.avg_pass_yd);
-          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_pass_yd, p.std_pass_yd || 50, line);
-
-          // Adjust probability based on matchup quality
-          if (matchup) {
-            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
-            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
-            overOdds = probToOdds(overProb);
-            underOdds = probToOdds(1 - overProb);
-          }
-
-          legs.push({
-            id: `pass_yd_over_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Over ${line} pass yds`,
-            detail: `Avg: ${p.avg_pass_yd.toFixed(0)}`,
-            odds: overOdds,
-            prob: overProb,
-            team: p.team,
+          cards.push({
+            id: `pass_yd_${p.player_name}`,
             player: p.player_name,
+            team: p.team,
+            position: p.position,
             stat: 'pass_yd',
-            position: 'QB',
+            statLabel: 'Pass Yards',
+            avg: p.avg_pass_yd,
+            std: p.std_pass_yd || 50,
             matchup: matchup,
             trend: trend
           });
-
-          legs.push({
-            id: `pass_yd_under_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Under ${line} pass yds`,
-            detail: `Avg: ${p.avg_pass_yd.toFixed(0)}`,
-            odds: underOdds,
-            prob: 1 - overProb,
-            team: p.team,
-            player: p.player_name,
-            stat: 'pass_yd',
-            position: 'QB',
-            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
-            trend: trend
-          });
-
-          // Passing TDs
-          const tdRate = p.total_pass_td / p.games;
-          if (tdRate > 1) {
-            const tdLine = 1.5;
-            let tdProb = tdRate > tdLine ? 0.55 + (tdRate - tdLine) * 0.1 : 0.45;
-            if (matchup && matchup.quality === 'smash') tdProb = Math.min(0.75, tdProb + 0.05);
-            if (matchup && matchup.quality === 'tough') tdProb = Math.max(0.3, tdProb - 0.05);
-
-            legs.push({
-              id: `pass_td_over_${p.player_name}`,
-              type: 'player',
-              category: `${p.team} Players`,
-              name: `${p.player_name} Over 1.5 pass TDs`,
-              detail: `Avg: ${tdRate.toFixed(1)}/game`,
-              odds: probToOdds(tdProb),
-              prob: tdProb,
-              team: p.team,
-              player: p.player_name,
-              stat: 'pass_td',
-              position: 'QB',
-              matchup: matchup,
-              trend: trend
-            });
-          }
         }
 
-        // RB rushing yards
+        // RB/QB rushing yards
         if ((p.position === 'RB' || p.position === 'QB') && p.avg_rush_yd > 30) {
           const matchup = getMatchupQuality(p.position === 'RB' ? 'RB' : 'QB', 'rush_yd', opponent);
-          const line = roundToHalf(p.avg_rush_yd);
-          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rush_yd, p.std_rush_yd || 20, line);
-
-          if (matchup) {
-            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
-            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
-            overOdds = probToOdds(overProb);
-            underOdds = probToOdds(1 - overProb);
-          }
-
-          legs.push({
-            id: `rush_yd_over_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Over ${line} rush yds`,
-            detail: `Avg: ${p.avg_rush_yd.toFixed(0)}`,
-            odds: overOdds,
-            prob: overProb,
-            team: p.team,
+          cards.push({
+            id: `rush_yd_${p.player_name}`,
             player: p.player_name,
-            stat: 'rush_yd',
+            team: p.team,
             position: p.position,
+            stat: 'rush_yd',
+            statLabel: 'Rush Yards',
+            avg: p.avg_rush_yd,
+            std: p.std_rush_yd || 20,
             matchup: matchup,
-            trend: trend
-          });
-
-          legs.push({
-            id: `rush_yd_under_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Under ${line} rush yds`,
-            detail: `Avg: ${p.avg_rush_yd.toFixed(0)}`,
-            odds: underOdds,
-            prob: 1 - overProb,
-            team: p.team,
-            player: p.player_name,
-            stat: 'rush_yd',
-            position: p.position,
-            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
             trend: trend
           });
         }
 
-        // WR/TE/RB receiving yards
+        // Receiving yards
         if (p.avg_rec_yd > 25) {
           const matchup = getMatchupQuality(p.position, 'rec_yd', opponent);
-          const line = roundToHalf(p.avg_rec_yd);
-          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec_yd, p.std_rec_yd || 25, line);
-
-          if (matchup) {
-            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.08);
-            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.08);
-            overOdds = probToOdds(overProb);
-            underOdds = probToOdds(1 - overProb);
-          }
-
-          legs.push({
-            id: `rec_yd_over_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Over ${line} rec yds`,
-            detail: `Avg: ${p.avg_rec_yd.toFixed(0)}`,
-            odds: overOdds,
-            prob: overProb,
-            team: p.team,
+          cards.push({
+            id: `rec_yd_${p.player_name}`,
             player: p.player_name,
-            stat: 'rec_yd',
+            team: p.team,
             position: p.position,
+            stat: 'rec_yd',
+            statLabel: 'Rec Yards',
+            avg: p.avg_rec_yd,
+            std: p.std_rec_yd || 25,
             matchup: matchup,
-            trend: trend
-          });
-
-          legs.push({
-            id: `rec_yd_under_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Under ${line} rec yds`,
-            detail: `Avg: ${p.avg_rec_yd.toFixed(0)}`,
-            odds: underOdds,
-            prob: 1 - overProb,
-            team: p.team,
-            player: p.player_name,
-            stat: 'rec_yd',
-            position: p.position,
-            matchup: matchup ? { ...matchup, quality: matchup.quality === 'smash' ? 'tough' : matchup.quality === 'tough' ? 'smash' : 'neutral' } : null,
             trend: trend
           });
         }
@@ -1199,59 +1197,51 @@
         // Receptions
         if (p.avg_rec > 3) {
           const matchup = getMatchupQuality(p.position, 'rec', opponent);
-          const line = roundToHalf(p.avg_rec);
-          let { overProb, overOdds, underOdds } = calculatePropOdds(p.avg_rec, 2, line);
-
-          if (matchup) {
-            if (matchup.quality === 'smash') overProb = Math.min(0.78, overProb + 0.06);
-            if (matchup.quality === 'tough') overProb = Math.max(0.22, overProb - 0.06);
-            overOdds = probToOdds(overProb);
-          }
-
-          legs.push({
-            id: `rec_over_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Over ${line} receptions`,
-            detail: `Avg: ${p.avg_rec.toFixed(1)}`,
-            odds: overOdds,
-            prob: overProb,
-            team: p.team,
+          cards.push({
+            id: `rec_${p.player_name}`,
             player: p.player_name,
+            team: p.team,
+            position: p.position,
             stat: 'rec',
-            position: p.position,
-            matchup: matchup,
-            trend: trend
-          });
-        }
-
-        // Anytime TD scorer
-        const tdRate = (p.total_rush_td + p.total_rec_td) / p.games;
-        if (tdRate > 0.3 && (p.position === 'RB' || p.position === 'WR' || p.position === 'TE')) {
-          let tdProb = Math.min(0.85, tdRate * 0.7 + 0.1);
-          // Boost TD prob slightly for good matchups
-          const matchup = getMatchupQuality(p.position, p.position === 'RB' ? 'rush_yd' : 'rec_yd', opponent);
-          if (matchup && matchup.quality === 'smash') tdProb = Math.min(0.85, tdProb + 0.05);
-          if (matchup && matchup.quality === 'tough') tdProb = Math.max(0.2, tdProb - 0.05);
-
-          legs.push({
-            id: `atd_${p.player_name}`,
-            type: 'player',
-            category: `${p.team} Players`,
-            name: `${p.player_name} Anytime TD`,
-            detail: `${(tdRate * 100).toFixed(0)}% TD rate`,
-            odds: probToOdds(tdProb),
-            prob: tdProb,
-            team: p.team,
-            player: p.player_name,
-            stat: 'td',
-            position: p.position,
+            statLabel: 'Receptions',
+            avg: p.avg_rec,
+            std: p.std_rec || 2,
             matchup: matchup,
             trend: trend
           });
         }
       });
 
+      return cards;
+    }
+
+    // Keep old function for suggested parlays (uses fair-line based props)
+    function buildPlayerLegsForSuggestions(home, away) {
+      const legs = [];
+      propCards.forEach(card => {
+        const line = roundToHalf(card.avg);
+        const { overProb } = calculatePropOdds(card.avg, card.std, line);
+        let adjustedProb = overProb;
+        if (card.matchup) {
+          if (card.matchup.quality === 'smash') adjustedProb = Math.min(0.78, adjustedProb + 0.08);
+          if (card.matchup.quality === 'tough') adjustedProb = Math.max(0.22, adjustedProb - 0.08);
+        }
+        legs.push({
+          id: `${card.stat}_over_${card.player}`,
+          type: 'player',
+          category: `${card.team} Players`,
+          name: `${card.player} O ${line} ${card.statLabel.toLowerCase()}`,
+          detail: `Avg: ${card.avg.toFixed(0)}`,
+          odds: probToOdds(adjustedProb),
+          prob: adjustedProb,
+          team: card.team,
+          player: card.player,
+          stat: card.stat,
+          position: card.position,
+          matchup: card.matchup,
+          trend: card.trend
+        });
+      });
       return legs;
     }
 
@@ -1304,13 +1294,14 @@
       const container = document.getElementById('legs-container');
       document.getElementById('legs-section').style.display = 'block';
 
-      if (availableLegs.length === 0) {
+      if (availableLegs.length === 0 && propCards.length === 0) {
         container.innerHTML = '<div class="no-data">No legs available for this matchup</div>';
         return;
       }
 
-      // Show H2H context if available (before game legs)
       let html = '';
+
+      // Show H2H context if available (before game legs)
       if (h2hData && h2hData.games > 0) {
         html += `
           <div class="h2h-context">
@@ -1320,64 +1311,235 @@
         `;
       }
 
-      // Group by category
-      const groups = {};
-      availableLegs.forEach(leg => {
-        if (!groups[leg.category]) groups[leg.category] = [];
-        groups[leg.category].push(leg);
-      });
-
-      for (const [category, legs] of Object.entries(groups)) {
-        html += `<div class="leg-group">
-          <div class="leg-group-title">${category}</div>`;
-
-        legs.forEach(leg => {
-          const isSelected = selectedLegs.some(l => l.id === leg.id);
-
-          // Build badges
-          let badges = '';
-          if (leg.matchup) {
-            const label = leg.matchup.quality === 'smash' ? 'Smash'
-                        : leg.matchup.quality === 'tough' ? 'Tough' : '';
-            if (label) {
-              badges += `<span class="matchup-badge ${leg.matchup.quality}">${label}</span>`;
-            }
-          }
-          if (leg.trend) {
-            const icon = leg.trend.trend === 'hot' ? '🔥' : '❄️';
-            badges += `<span class="trend-badge ${leg.trend.trend}">${icon} ${leg.trend.trend.toUpperCase()}</span>`;
-          }
-          if (leg.prob >= 0.62) {
-            badges += `<span class="confidence-badge">HIGH CONF</span>`;
-          }
-
-          html += `
-            <div class="leg-item ${isSelected ? 'selected' : ''}" data-leg-id="${leg.id}">
-              <div class="leg-checkbox">${isSelected ? '✓' : ''}</div>
-              <div class="leg-info">
-                <div class="leg-name">${leg.name}${badges}</div>
-                <div class="leg-detail">${leg.detail}</div>
-              </div>
-              <div>
-                <div class="leg-odds">${formatOdds(leg.odds)}</div>
-                <div class="leg-prob">${(leg.prob * 100).toFixed(0)}%</div>
-              </div>
-            </div>
-          `;
+      // Render game legs (ML, spread, total)
+      if (availableLegs.length > 0) {
+        const groups = {};
+        availableLegs.forEach(leg => {
+          if (!groups[leg.category]) groups[leg.category] = [];
+          groups[leg.category].push(leg);
         });
 
-        html += '</div>';
+        for (const [category, legs] of Object.entries(groups)) {
+          html += `<div class="leg-group">
+            <div class="leg-group-title">${category}</div>`;
+
+          legs.forEach(leg => {
+            const isSelected = selectedLegs.some(l => l.id === leg.id);
+            html += `
+              <div class="leg-item ${isSelected ? 'selected' : ''}" data-leg-id="${leg.id}">
+                <div class="leg-checkbox">${isSelected ? '✓' : ''}</div>
+                <div class="leg-info">
+                  <div class="leg-name">${leg.name}</div>
+                  <div class="leg-detail">${leg.detail}</div>
+                </div>
+                <div>
+                  <div class="leg-odds">${formatOdds(leg.odds)}</div>
+                  <div class="leg-prob">${(leg.prob * 100).toFixed(0)}%</div>
+                </div>
+              </div>
+            `;
+          });
+
+          html += '</div>';
+        }
+      }
+
+      // Render prop cards grouped by team
+      if (propCards.length > 0) {
+        const byTeam = {};
+        propCards.forEach(card => {
+          if (!byTeam[card.team]) byTeam[card.team] = [];
+          byTeam[card.team].push(card);
+        });
+
+        for (const [team, cards] of Object.entries(byTeam)) {
+          html += `<div class="leg-group">
+            <div class="leg-group-title">${team} Player Props</div>`;
+
+          cards.forEach(card => {
+            const input = propInputs[card.id] || {};
+            const line = input.line;
+            const mktOdds = input.odds;
+
+            // Build badges
+            let badges = '';
+            if (card.matchup) {
+              const label = card.matchup.quality === 'smash' ? 'Smash'
+                          : card.matchup.quality === 'tough' ? 'Tough' : '';
+              if (label) {
+                badges += `<span class="matchup-badge ${card.matchup.quality}">${label}</span>`;
+              }
+            }
+            if (card.trend) {
+              const icon = card.trend.trend === 'hot' ? '🔥' : '❄️';
+              badges += `<span class="trend-badge ${card.trend.trend}">${icon} ${card.trend.trend.toUpperCase()}</span>`;
+            }
+
+            // Calculate probabilities if line is set
+            let overProb = null, underProb = null, overEdge = null, underEdge = null;
+            if (line && !isNaN(line)) {
+              const result = calculatePropOdds(card.avg, card.std, parseFloat(line));
+              overProb = result.overProb;
+              underProb = 1 - overProb;
+
+              // Apply matchup adjustment
+              if (card.matchup) {
+                if (card.matchup.quality === 'smash') {
+                  overProb = Math.min(0.85, overProb + 0.08);
+                  underProb = 1 - overProb;
+                } else if (card.matchup.quality === 'tough') {
+                  overProb = Math.max(0.15, overProb - 0.08);
+                  underProb = 1 - overProb;
+                }
+              }
+
+              // Calculate edge if market odds provided
+              if (mktOdds && !isNaN(mktOdds)) {
+                overEdge = calculateEdge(overProb, parseInt(mktOdds));
+                underEdge = calculateEdge(underProb, -parseInt(mktOdds)); // Assume opposite odds for under
+              }
+            }
+
+            const isOverSelected = selectedLegs.some(l => l.id === `${card.id}_over`);
+            const isUnderSelected = selectedLegs.some(l => l.id === `${card.id}_under`);
+
+            html += `
+              <div class="prop-card" data-prop-id="${card.id}">
+                <div class="prop-card-header">
+                  <div>
+                    <div class="prop-player-name">${card.player}</div>
+                    <div class="prop-stat-type">${card.statLabel}</div>
+                  </div>
+                  <div class="prop-badges">${badges}</div>
+                </div>
+                <div class="prop-stats-row">
+                  Avg: <span>${card.avg.toFixed(1)}</span> | σ: <span>${card.std.toFixed(1)}</span>
+                </div>
+                <div class="prop-inputs">
+                  <div class="prop-input-group">
+                    <label>Line:</label>
+                    <input type="text" class="prop-line-input" data-prop-id="${card.id}"
+                           value="${line || ''}" placeholder="${card.avg.toFixed(1)}">
+                  </div>
+                  <div class="prop-input-group">
+                    <label>Odds:</label>
+                    <input type="text" class="prop-odds-input" data-prop-id="${card.id}"
+                           value="${mktOdds || ''}" placeholder="-110">
+                  </div>
+                </div>
+                ${line ? `
+                  <div class="prop-results">
+                    <div class="prop-bet-option ${isOverSelected ? 'selected' : ''} ${overEdge > 3 ? 'has-edge' : ''}"
+                         data-prop-id="${card.id}" data-side="over">
+                      <div class="prop-bet-label">Over ${line}</div>
+                      <div class="prop-bet-prob">${(overProb * 100).toFixed(0)}% model</div>
+                      ${overEdge !== null ? `<div class="prop-bet-edge ${overEdge >= 0 ? 'positive' : 'negative'}">${overEdge >= 0 ? '+' : ''}${overEdge.toFixed(1)}% edge</div>` : ''}
+                    </div>
+                    <div class="prop-bet-option ${isUnderSelected ? 'selected' : ''} ${underEdge > 3 ? 'has-edge' : ''}"
+                         data-prop-id="${card.id}" data-side="under">
+                      <div class="prop-bet-label">Under ${line}</div>
+                      <div class="prop-bet-prob">${(underProb * 100).toFixed(0)}% model</div>
+                      ${underEdge !== null ? `<div class="prop-bet-edge ${underEdge >= 0 ? 'positive' : 'negative'}">${underEdge >= 0 ? '+' : ''}${underEdge.toFixed(1)}% edge</div>` : ''}
+                    </div>
+                  </div>
+                ` : '<div class="prop-no-line">Enter sportsbook line to evaluate</div>'}
+              </div>
+            `;
+          });
+
+          html += '</div>';
+        }
       }
 
       container.innerHTML = html;
 
-      // Add click handlers
+      // Add click handlers for game legs
       container.querySelectorAll('.leg-item').forEach(el => {
         el.addEventListener('click', () => {
           const legId = el.dataset.legId;
           toggleLeg(legId);
         });
       });
+
+      // Add input handlers for prop cards
+      container.querySelectorAll('.prop-line-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const propId = e.target.dataset.propId;
+          const value = e.target.value.trim();
+          if (!propInputs[propId]) propInputs[propId] = {};
+          propInputs[propId].line = value ? parseFloat(value) : null;
+          renderLegs();
+        });
+      });
+
+      container.querySelectorAll('.prop-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const propId = e.target.dataset.propId;
+          const value = e.target.value.trim();
+          if (!propInputs[propId]) propInputs[propId] = {};
+          propInputs[propId].odds = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      // Add click handlers for prop bet options
+      container.querySelectorAll('.prop-bet-option').forEach(el => {
+        el.addEventListener('click', () => {
+          const propId = el.dataset.propId;
+          const side = el.dataset.side;
+          togglePropLeg(propId, side);
+        });
+      });
+    }
+
+    function togglePropLeg(propId, side) {
+      const card = propCards.find(c => c.id === propId);
+      const input = propInputs[propId];
+      if (!card || !input || !input.line) return;
+
+      const legId = `${propId}_${side}`;
+      const oppositeId = `${propId}_${side === 'over' ? 'under' : 'over'}`;
+
+      // Remove opposite side if selected
+      selectedLegs = selectedLegs.filter(l => l.id !== oppositeId);
+
+      const idx = selectedLegs.findIndex(l => l.id === legId);
+      if (idx >= 0) {
+        selectedLegs.splice(idx, 1);
+      } else {
+        const { overProb } = calculatePropOdds(card.avg, card.std, input.line);
+        let prob = side === 'over' ? overProb : 1 - overProb;
+
+        // Apply matchup adjustment
+        if (card.matchup) {
+          if (card.matchup.quality === 'smash') {
+            prob = side === 'over' ? Math.min(0.85, prob + 0.08) : Math.max(0.15, prob - 0.08);
+          } else if (card.matchup.quality === 'tough') {
+            prob = side === 'over' ? Math.max(0.15, prob - 0.08) : Math.min(0.85, prob + 0.08);
+          }
+        }
+
+        selectedLegs.push({
+          id: legId,
+          type: 'player',
+          category: `${card.team} Players`,
+          name: `${card.player} ${side === 'over' ? 'O' : 'U'} ${input.line} ${card.statLabel.toLowerCase()}`,
+          detail: `Avg: ${card.avg.toFixed(0)}`,
+          odds: input.odds ? input.odds : probToOdds(prob),
+          prob: prob,
+          team: card.team,
+          player: card.player,
+          stat: card.stat,
+          position: card.position,
+          matchup: card.matchup,
+          trend: card.trend,
+          marketLine: input.line,
+          marketOdds: input.odds
+        });
+      }
+
+      renderLegs();
+      renderSlip();
     }
 
     function toggleLeg(legId) {
@@ -1650,7 +1812,11 @@
       const container = document.getElementById('suggested-container');
       document.getElementById('suggested-section').style.display = 'block';
 
-      if (availableLegs.length < 3) {
+      // Combine game legs with player prop legs for suggestions
+      const playerLegsForSuggestions = buildPlayerLegsForSuggestions(currentMatchup.home, currentMatchup.away);
+      const allLegs = [...availableLegs, ...playerLegsForSuggestions];
+
+      if (allLegs.length < 3) {
         container.innerHTML = '<div class="no-data">Not enough legs available</div>';
         return;
       }
@@ -1658,10 +1824,10 @@
       const suggestions = [];
 
       // Find high-probability legs (55-70%)
-      const highProbLegs = availableLegs.filter(l => l.prob >= 0.52 && l.prob <= 0.72);
+      const highProbLegs = allLegs.filter(l => l.prob >= 0.52 && l.prob <= 0.72);
 
       // Strategy 1: "Safe" parlay - 3 highest probability legs
-      const safeLegs = [...availableLegs]
+      const safeLegs = [...allLegs]
         .filter(l => l.prob >= 0.5)
         .sort((a, b) => b.prob - a.prob)
         .slice(0, 4);
@@ -1679,8 +1845,8 @@
       }
 
       // Strategy 2: "Balanced" - mix of game and player props
-      const gameLegs = availableLegs.filter(l => l.type === 'game' && l.prob >= 0.45);
-      const playerLegs = availableLegs.filter(l => l.type === 'player' && l.prob >= 0.5);
+      const gameLegs = allLegs.filter(l => l.type === 'game' && l.prob >= 0.45);
+      const playerLegs = allLegs.filter(l => l.type === 'player' && l.prob >= 0.5);
 
       if (gameLegs.length >= 1 && playerLegs.length >= 2) {
         const balancedLegs = [
@@ -1697,7 +1863,7 @@
       }
 
       // Strategy 3: "Value" - best expected value
-      const evLegs = availableLegs
+      const evLegs = allLegs
         .map(l => ({
           ...l,
           ev: l.prob * (l.odds > 0 ? l.odds / 100 : 100 / Math.abs(l.odds))
@@ -1719,7 +1885,7 @@
       }
 
       // Strategy 4: "Long Shot" - higher payout
-      const longLegs = availableLegs
+      const longLegs = allLegs
         .filter(l => l.prob >= 0.35 && l.prob <= 0.55 && l.odds > 0)
         .sort((a, b) => b.odds - a.odds)
         .slice(0, 3);
