@@ -71,7 +71,7 @@
       display: flex;
       justify-content: center;
       gap: 0.75rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       flex-wrap: wrap;
     }
 
@@ -80,16 +80,72 @@
       border: 1px solid var(--border);
       border-radius: 6px;
       color: var(--text-primary);
-      padding: 0.6rem 1rem;
+      padding: 0.5rem 0.75rem;
       font-family: inherit;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       cursor: pointer;
     }
 
-    .controls select:focus {
-      outline: none;
-      border-color: var(--accent);
+    /* Team Grid */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
     }
+
+    .team-tile {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .team-tile:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .team-tile.selected {
+      border-color: var(--accent);
+      background: rgba(59, 130, 246, 0.1);
+    }
+
+    .team-tile-code {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      min-width: 32px;
+    }
+
+    .team-tile-stats {
+      flex: 1;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .team-tile-record {
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .team-tile-ppg {
+      display: flex;
+      gap: 0.25rem;
+    }
+
+    .team-tile-trend {
+      font-size: 0.9rem;
+    }
+
+    .team-tile-trend.up { color: var(--positive); }
+    .team-tile-trend.down { color: var(--negative); }
+    .team-tile-trend.flat { color: var(--neutral); }
 
     .team-card {
       background: var(--bg-card);
@@ -302,18 +358,17 @@
     </header>
 
     <div class="controls">
-      <select id="team-select">
-        <option value="">Select a team...</option>
-      </select>
       <select id="season-select">
         <option value="2025">2025</option>
         <option value="2024">2024</option>
       </select>
     </div>
 
-    <div id="team-content">
-      <div class="no-data">Select a team to see their trends</div>
+    <div id="team-grid" class="team-grid">
+      <div class="no-data" style="grid-column: 1/-1;">Loading teams...</div>
     </div>
+
+    <div id="team-content" style="display: none;"></div>
   </div>
 
   <script>
@@ -356,6 +411,8 @@
       { code: 'WAS', name: 'Washington Commanders' }
     ];
 
+    let selectedTeam = null;
+
     async function initDB() {
       const SQL = await initSqlJs({
         locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
@@ -365,32 +422,90 @@
       const buffer = await response.arrayBuffer();
       db = new SQL.Database(new Uint8Array(buffer));
 
-      populateTeamSelect();
+      loadTeamGrid();
 
       const params = new URLSearchParams(window.location.search);
       const team = params.get('team');
       if (team) {
-        document.getElementById('team-select').value = team;
-        loadTeam(team);
+        selectTeam(team);
       }
     }
 
-    function populateTeamSelect() {
-      const select = document.getElementById('team-select');
-      TEAMS.forEach(t => {
-        const opt = document.createElement('option');
-        opt.value = t.code;
-        opt.textContent = t.name;
-        select.appendChild(opt);
+    function loadTeamGrid() {
+      const season = document.getElementById('season-select').value;
+      const grid = document.getElementById('team-grid');
+
+      // Get all team stats for the season
+      const result = db.exec(`
+        SELECT team_code, wins, losses, ties, ppg_scored, ppg_allowed, point_differential,
+               last_5_ppg, ema_differential
+        FROM team_stats WHERE season = ${season}
+      `);
+
+      const statsMap = {};
+      if (result.length && result[0].values.length) {
+        result[0].values.forEach(row => {
+          const cols = result[0].columns;
+          const obj = {};
+          cols.forEach((c, i) => obj[c] = row[i]);
+          statsMap[obj.team_code] = obj;
+        });
+      }
+
+      grid.innerHTML = TEAMS.map(t => {
+        const s = statsMap[t.code] || {};
+        const wins = s.wins || 0;
+        const losses = s.losses || 0;
+        const ties = s.ties || 0;
+        const record = ties > 0 ? `${wins}-${losses}-${ties}` : `${wins}-${losses}`;
+        const ppg = s.ppg_scored?.toFixed(1) || '--';
+        const allowed = s.ppg_allowed?.toFixed(1) || '--';
+
+        // Trend based on EMA differential or last 5 PPG
+        let trend = 'flat';
+        if (s.ema_differential > 3) trend = 'up';
+        else if (s.ema_differential < -3) trend = 'down';
+
+        const trendIcon = trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→';
+
+        return `
+          <div class="team-tile ${selectedTeam === t.code ? 'selected' : ''}" data-team="${t.code}">
+            <div class="team-tile-code">${t.code}</div>
+            <div class="team-tile-stats">
+              <div class="team-tile-record">${record}</div>
+              <div class="team-tile-ppg">${ppg}/${allowed}</div>
+            </div>
+            <div class="team-tile-trend ${trend}">${trendIcon}</div>
+          </div>
+        `;
+      }).join('');
+
+      // Add click handlers
+      grid.querySelectorAll('.team-tile').forEach(tile => {
+        tile.addEventListener('click', () => selectTeam(tile.dataset.team));
       });
     }
 
+    function selectTeam(teamCode) {
+      selectedTeam = teamCode;
+
+      // Update selection UI
+      document.querySelectorAll('.team-tile').forEach(t => {
+        t.classList.toggle('selected', t.dataset.team === teamCode);
+      });
+
+      loadTeam(teamCode);
+    }
+
     function loadTeam(teamCode) {
+      const contentEl = document.getElementById('team-content');
+
       if (!teamCode) {
-        document.getElementById('team-content').innerHTML =
-          '<div class="no-data">Select a team to see their trends</div>';
+        contentEl.style.display = 'none';
         return;
       }
+
+      contentEl.style.display = 'block';
 
       const season = document.getElementById('season-select').value;
       const teamName = TEAMS.find(t => t.code === teamCode)?.name || teamCode;
@@ -656,19 +771,15 @@
       }
     }
 
-    document.getElementById('team-select').addEventListener('change', (e) => {
-      loadTeam(e.target.value);
-    });
-
     document.getElementById('season-select').addEventListener('change', () => {
-      const team = document.getElementById('team-select').value;
-      if (team) loadTeam(team);
+      loadTeamGrid();
+      if (selectedTeam) loadTeam(selectedTeam);
     });
 
     initDB().catch(err => {
       console.error(err);
-      document.getElementById('team-content').innerHTML =
-        '<div class="no-data">Error loading database</div>';
+      document.getElementById('team-grid').innerHTML =
+        '<div class="no-data" style="grid-column: 1/-1;">Error loading database</div>';
     });
   </script>
 </body>
