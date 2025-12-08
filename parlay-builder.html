@@ -711,6 +711,100 @@
       color: var(--text-muted);
       font-style: italic;
     }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .filter-select {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-primary);
+      padding: 0.4rem 0.6rem;
+      font-family: inherit;
+      font-size: 0.8rem;
+      cursor: pointer;
+      min-width: 100px;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Superlative props */
+    .superlative-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .superlative-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+    .superlative-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .superlative-option {
+      flex: 1;
+      min-width: 120px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.5rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .superlative-option:hover {
+      border-color: var(--accent);
+    }
+    .superlative-option.selected {
+      border-color: var(--positive);
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .superlative-option.has-edge {
+      border-color: var(--positive);
+    }
+    .superlative-player {
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .superlative-team {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+    .superlative-prob {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+    .superlative-odds-input {
+      width: 55px;
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--text-primary);
+      padding: 0.2rem 0.3rem;
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 0.25rem;
+    }
+    .superlative-edge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin-top: 0.2rem;
+    }
+    .superlative-edge.positive { color: var(--positive); }
+    .superlative-edge.negative { color: var(--negative); }
   </style>
 </head>
 <body>
@@ -733,6 +827,23 @@
 
         <div id="legs-section" class="section" style="display: none;">
           <div class="section-title">Available Legs</div>
+          <div class="filter-bar">
+            <select id="filter-type" class="filter-select">
+              <option value="all">All Types</option>
+              <option value="game">Game Lines</option>
+              <option value="superlative">Superlatives</option>
+              <option value="props">Player Props</option>
+            </select>
+            <select id="filter-team" class="filter-select">
+              <option value="all">All Teams</option>
+            </select>
+            <select id="filter-stat" class="filter-select">
+              <option value="all">All Stats</option>
+              <option value="passing">Passing</option>
+              <option value="rushing">Rushing</option>
+              <option value="receiving">Receiving</option>
+            </select>
+          </div>
           <div id="legs-container" class="legs-container">
             <div class="loading">Select a matchup to see available legs</div>
           </div>
@@ -791,12 +902,21 @@
     let selectedLegs = [];
     let availableLegs = [];  // Moneyline legs only now
     let propCards = [];      // Player prop cards with editable lines
+    let superlativeCards = []; // Superlative props (most passing yards, etc.)
     let defenseRankings = {};  // position -> stat -> { team: rank }
     let h2hData = null;
     let marketOdds = {};  // legId -> market odds entered by user
     let propInputs = {};  // propId -> { line, overOdds, underOdds } user inputs
     let gameInputs = {};  // spread/total inputs from user
+    let superlativeInputs = {}; // superlativeId -> playerId -> odds
     let modelOdds = null; // Store model's predicted spread/total
+
+    // Filter state
+    let filters = {
+      type: 'all',
+      team: 'all',
+      stat: 'all'
+    };
 
     async function initDB() {
       const SQL = await initSqlJs({
@@ -989,8 +1109,18 @@
       currentMatchup = { home, away, week };
       availableLegs = [];
       propCards = [];
+      superlativeCards = [];
       propInputs = {};
       gameInputs = {};
+      superlativeInputs = {};
+
+      // Update team filter options
+      const teamFilter = document.getElementById('filter-team');
+      teamFilter.innerHTML = `
+        <option value="all">All Teams</option>
+        <option value="${home}">${home}</option>
+        <option value="${away}">${away}</option>
+      `;
 
       // Load H2H context for game totals
       loadH2HContext(home, away);
@@ -1009,6 +1139,9 @@
 
       // Build player prop cards (with editable lines)
       propCards = buildPropCards(home, away);
+
+      // Build superlative props (most passing yards, most receptions, etc.)
+      superlativeCards = buildSuperlativeCards(home, away);
 
       renderLegs();
       generateSuggestedParlays();
@@ -1198,6 +1331,164 @@
       return cards;
     }
 
+    function buildSuperlativeCards(home, away) {
+      const cards = [];
+
+      // Get all players with stats for superlative calculations
+      const result = db.exec(`
+        SELECT
+          player_name,
+          team,
+          position,
+          AVG(pass_yd) as avg_pass_yd,
+          AVG(rush_yd) as avg_rush_yd,
+          AVG(rec_yd) as avg_rec_yd,
+          AVG(rec) as avg_rec,
+          STDEV(pass_yd) as std_pass_yd,
+          STDEV(rush_yd) as std_rush_yd,
+          STDEV(rec_yd) as std_rec_yd,
+          STDEV(rec) as std_rec,
+          COUNT(*) as games
+        FROM player_weekly_stats
+        WHERE season = 2025
+          AND team IN ('${home}', '${away}')
+          AND position IN ('QB', 'RB', 'WR', 'TE')
+        GROUP BY player_id
+        HAVING games >= 4
+      `);
+
+      if (!result.length || !result[0].values.length) return cards;
+
+      const cols = result[0].columns;
+      const players = result[0].values.map(vals => {
+        const p = {};
+        cols.forEach((col, i) => p[col] = vals[i]);
+        return p;
+      });
+
+      // Most Passing Yards (QBs only)
+      const qbs = players.filter(p => p.position === 'QB' && p.avg_pass_yd > 100);
+      if (qbs.length >= 2) {
+        const probs = calculateSuperlativeProbs(qbs, 'avg_pass_yd', 'std_pass_yd');
+        cards.push({
+          id: 'most_pass_yd',
+          title: 'Most Passing Yards',
+          stat: 'pass_yd',
+          statCategory: 'passing',
+          players: qbs.map((qb, i) => ({
+            name: qb.player_name,
+            team: qb.team,
+            avg: qb.avg_pass_yd,
+            prob: probs[i]
+          }))
+        });
+      }
+
+      // Most Rushing Yards (RBs and rushing QBs)
+      const rushers = players.filter(p =>
+        (p.position === 'RB' && p.avg_rush_yd > 30) ||
+        (p.position === 'QB' && p.avg_rush_yd > 20)
+      );
+      if (rushers.length >= 2) {
+        const probs = calculateSuperlativeProbs(rushers, 'avg_rush_yd', 'std_rush_yd');
+        cards.push({
+          id: 'most_rush_yd',
+          title: 'Most Rushing Yards',
+          stat: 'rush_yd',
+          statCategory: 'rushing',
+          players: rushers.map((p, i) => ({
+            name: p.player_name,
+            team: p.team,
+            avg: p.avg_rush_yd,
+            prob: probs[i]
+          }))
+        });
+      }
+
+      // Most Receiving Yards (WRs and TEs)
+      const receivers = players.filter(p =>
+        (p.position === 'WR' || p.position === 'TE') && p.avg_rec_yd > 30
+      ).sort((a, b) => b.avg_rec_yd - a.avg_rec_yd).slice(0, 6); // Top 6 receivers
+      if (receivers.length >= 2) {
+        const probs = calculateSuperlativeProbs(receivers, 'avg_rec_yd', 'std_rec_yd');
+        cards.push({
+          id: 'most_rec_yd',
+          title: 'Most Receiving Yards',
+          stat: 'rec_yd',
+          statCategory: 'receiving',
+          players: receivers.map((p, i) => ({
+            name: p.player_name,
+            team: p.team,
+            avg: p.avg_rec_yd,
+            prob: probs[i]
+          }))
+        });
+      }
+
+      // Most Receptions (WRs and TEs)
+      const catchers = players.filter(p =>
+        (p.position === 'WR' || p.position === 'TE') && p.avg_rec > 3
+      ).sort((a, b) => b.avg_rec - a.avg_rec).slice(0, 6); // Top 6 catchers
+      if (catchers.length >= 2) {
+        const probs = calculateSuperlativeProbs(catchers, 'avg_rec', 'std_rec');
+        cards.push({
+          id: 'most_rec',
+          title: 'Most Receptions',
+          stat: 'rec',
+          statCategory: 'receiving',
+          players: catchers.map((p, i) => ({
+            name: p.player_name,
+            team: p.team,
+            avg: p.avg_rec,
+            prob: probs[i]
+          }))
+        });
+      }
+
+      return cards;
+    }
+
+    function calculateSuperlativeProbs(players, avgKey, stdKey) {
+      // Calculate probability each player leads using Monte Carlo approximation
+      // For simplicity, use pairwise comparison approach
+      const n = players.length;
+      const probs = new Array(n).fill(0);
+
+      // For each player, calculate P(beats all others)
+      for (let i = 0; i < n; i++) {
+        let prob = 1;
+        const pi = players[i];
+        const avgI = pi[avgKey] || 0;
+        const stdI = pi[stdKey] || (avgI * 0.3); // Default 30% CV if no std
+
+        for (let j = 0; j < n; j++) {
+          if (i === j) continue;
+          const pj = players[j];
+          const avgJ = pj[avgKey] || 0;
+          const stdJ = pj[stdKey] || (avgJ * 0.3);
+
+          // P(Xi > Xj) where Xi ~ N(avgI, stdI), Xj ~ N(avgJ, stdJ)
+          // Xi - Xj ~ N(avgI - avgJ, sqrt(stdI^2 + stdJ^2))
+          const diffMean = avgI - avgJ;
+          const diffStd = Math.sqrt(stdI * stdI + stdJ * stdJ);
+          const pWin = 1 - normalCDF(-diffMean / diffStd);
+
+          prob *= pWin;
+        }
+        probs[i] = prob;
+      }
+
+      // Normalize probabilities to sum to 1
+      const total = probs.reduce((a, b) => a + b, 0);
+      if (total > 0) {
+        for (let i = 0; i < n; i++) {
+          probs[i] = probs[i] / total;
+        }
+      }
+
+      return probs;
+    }
+
     // Keep old function for suggested parlays (uses fair-line based props)
     function buildPlayerLegsForSuggestions(home, away) {
       const legs = [];
@@ -1277,7 +1568,12 @@
       const container = document.getElementById('legs-container');
       document.getElementById('legs-section').style.display = 'block';
 
-      if (availableLegs.length === 0 && propCards.length === 0) {
+      // Check if anything passes filters
+      const showGame = filters.type === 'all' || filters.type === 'game';
+      const showSuperlative = filters.type === 'all' || filters.type === 'superlative';
+      const showProps = filters.type === 'all' || filters.type === 'props';
+
+      if (availableLegs.length === 0 && propCards.length === 0 && superlativeCards.length === 0) {
         container.innerHTML = '<div class="no-data">No legs available for this matchup</div>';
         return;
       }
@@ -1285,7 +1581,7 @@
       let html = '';
 
       // Show H2H context if available (before game legs)
-      if (h2hData && h2hData.games > 0) {
+      if (h2hData && h2hData.games > 0 && showGame) {
         html += `
           <div class="h2h-context">
             <div class="h2h-context-title">H2H History (${h2hData.games} games)</div>
@@ -1295,7 +1591,7 @@
       }
 
       // Render game legs (ML, spread, total)
-      if (availableLegs.length > 0) {
+      if (showGame && availableLegs.length > 0) {
         const groups = {};
         availableLegs.forEach(leg => {
           if (!groups[leg.category]) groups[leg.category] = [];
@@ -1481,15 +1777,75 @@
         `;
       }
 
+      // Render superlative props (Most Passing Yards, etc.)
+      if (showSuperlative && superlativeCards.length > 0) {
+        // Filter by stat category
+        const filteredSuperlatives = superlativeCards.filter(card => {
+          if (filters.stat === 'all') return true;
+          return card.statCategory === filters.stat;
+        });
+
+        if (filteredSuperlatives.length > 0) {
+          html += `<div class="leg-group">
+            <div class="leg-group-title">Superlative Props</div>`;
+
+          filteredSuperlatives.forEach(card => {
+            const inputs = superlativeInputs[card.id] || {};
+
+            html += `
+              <div class="superlative-card" data-superlative-id="${card.id}">
+                <div class="superlative-title">${card.title}</div>
+                <div class="superlative-options">
+            `;
+
+            card.players.forEach(player => {
+              const playerId = `${card.id}_${player.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+              const isSelected = selectedLegs.some(l => l.id === playerId);
+              const playerOdds = inputs[player.name];
+              const edge = playerOdds ? calculateEdge(player.prob, parseInt(playerOdds)) : null;
+
+              html += `
+                <div class="superlative-option ${isSelected ? 'selected' : ''} ${edge !== null && edge > 3 ? 'has-edge' : ''}"
+                     data-superlative-id="${card.id}" data-player="${player.name}">
+                  <div class="superlative-player">${player.name}</div>
+                  <div class="superlative-team">${player.team} | Avg: ${player.avg.toFixed(0)}</div>
+                  <div class="superlative-prob">${(player.prob * 100).toFixed(0)}% model</div>
+                  <input type="text" class="superlative-odds-input" data-superlative-id="${card.id}" data-player="${player.name}"
+                         value="${playerOdds || ''}" placeholder="${formatOdds(probToOdds(player.prob))}"
+                         onclick="event.stopPropagation()">
+                  ${edge !== null ? `<div class="superlative-edge ${edge >= 0 ? 'positive' : 'negative'}">${edge >= 0 ? '+' : ''}${edge.toFixed(1)}% edge</div>` : ''}
+                </div>
+              `;
+            });
+
+            html += `
+                </div>
+              </div>
+            `;
+          });
+
+          html += '</div>';
+        }
+      }
+
       // Render prop cards grouped by team
-      if (propCards.length > 0) {
+      if (showProps && propCards.length > 0) {
         const byTeam = {};
         propCards.forEach(card => {
+          // Apply team filter
+          if (filters.team !== 'all' && card.team !== filters.team) return;
+          // Apply stat filter
+          if (filters.stat !== 'all') {
+            const statCategory = card.stat === 'pass_yd' ? 'passing' :
+                                card.stat.includes('rush') ? 'rushing' : 'receiving';
+            if (statCategory !== filters.stat) return;
+          }
           if (!byTeam[card.team]) byTeam[card.team] = [];
           byTeam[card.team].push(card);
         });
 
         for (const [team, cards] of Object.entries(byTeam)) {
+          if (cards.length === 0) continue;
           html += `<div class="leg-group">
             <div class="leg-group-title">${team} Player Props</div>`;
 
@@ -1712,6 +2068,27 @@
           renderLegs();
         });
       });
+
+      // Add superlative odds input handlers
+      container.querySelectorAll('.superlative-odds-input').forEach(input => {
+        input.addEventListener('change', (e) => {
+          const supId = e.target.dataset.superlativeId;
+          const player = e.target.dataset.player;
+          const value = e.target.value.trim();
+          if (!superlativeInputs[supId]) superlativeInputs[supId] = {};
+          superlativeInputs[supId][player] = value ? parseInt(value) : null;
+          renderLegs();
+        });
+      });
+
+      // Add superlative option click handlers
+      container.querySelectorAll('.superlative-option').forEach(el => {
+        el.addEventListener('click', () => {
+          const supId = el.dataset.superlativeId;
+          const playerName = el.dataset.player;
+          toggleSuperlativeLeg(supId, playerName);
+        });
+      });
     }
 
     function togglePropLeg(propId, side) {
@@ -1837,6 +2214,48 @@
             marketOdds: sideOdds
           });
         }
+      }
+
+      renderLegs();
+      renderSlip();
+    }
+
+    function toggleSuperlativeLeg(supId, playerName) {
+      const card = superlativeCards.find(c => c.id === supId);
+      if (!card) return;
+
+      const player = card.players.find(p => p.name === playerName);
+      if (!player) return;
+
+      const legId = `${supId}_${playerName.replace(/[^a-zA-Z0-9]/g, '_')}`;
+
+      // Remove all other players from this superlative (only one can win)
+      card.players.forEach(p => {
+        const otherId = `${supId}_${p.name.replace(/[^a-zA-Z0-9]/g, '_')}`;
+        if (otherId !== legId) {
+          selectedLegs = selectedLegs.filter(l => l.id !== otherId);
+        }
+      });
+
+      const idx = selectedLegs.findIndex(l => l.id === legId);
+      if (idx >= 0) {
+        selectedLegs.splice(idx, 1);
+      } else {
+        const inputs = superlativeInputs[supId] || {};
+        const playerOdds = inputs[playerName];
+
+        selectedLegs.push({
+          id: legId,
+          type: 'superlative',
+          category: 'Superlatives',
+          name: `${playerName} - ${card.title}`,
+          detail: `Model: ${(player.prob * 100).toFixed(0)}%`,
+          odds: playerOdds ? playerOdds : probToOdds(player.prob),
+          prob: player.prob,
+          team: player.team,
+          player: playerName,
+          superlativeId: supId
+        });
       }
 
       renderLegs();
@@ -2305,6 +2724,22 @@
 
     document.getElementById('wager-amount').addEventListener('input', () => {
       renderSlip();
+    });
+
+    // Filter event listeners
+    document.getElementById('filter-type').addEventListener('change', (e) => {
+      filters.type = e.target.value;
+      renderLegs();
+    });
+
+    document.getElementById('filter-team').addEventListener('change', (e) => {
+      filters.team = e.target.value;
+      renderLegs();
+    });
+
+    document.getElementById('filter-stat').addEventListener('change', (e) => {
+      filters.stat = e.target.value;
+      renderLegs();
     });
 
     // Initialize
