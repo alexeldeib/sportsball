@@ -510,10 +510,10 @@ const OddsEngine = (function() {
       });
     }
 
-    // Changepoint detection
+    // Changepoint detection - use team code in type for unique tags
     if (homeStats.scoring_changepoint) {
       factors.push({
-        type: 'changepoint',
+        type: `${homeStats.team_code} ${homeStats.scoring_changepoint_direction}`,
         team: 'home',
         direction: homeStats.scoring_changepoint_direction,
         magnitude: homeStats.scoring_changepoint_magnitude,
@@ -522,7 +522,7 @@ const OddsEngine = (function() {
     }
     if (awayStats.scoring_changepoint) {
       factors.push({
-        type: 'changepoint',
+        type: `${awayStats.team_code} ${awayStats.scoring_changepoint_direction}`,
         team: 'away',
         direction: awayStats.scoring_changepoint_direction,
         magnitude: awayStats.scoring_changepoint_magnitude,
@@ -584,7 +584,7 @@ const OddsEngine = (function() {
     // Adjust for factors
     factors.forEach(f => {
       if (f.type === 'momentum') confidence += 5;
-      if (f.type === 'changepoint') confidence -= 5;  // More uncertainty
+      if (f.direction) confidence -= 5;  // Changepoints add uncertainty (has direction property)
       if (f.type === 'consistency' && f.team) confidence += 5;
     });
 
