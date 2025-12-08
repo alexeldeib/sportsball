@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>NFL Betting Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <script src="odds-engine.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --neutral: #94a3b8;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .controls select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .controls select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .status {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .matchups {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .matchup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .matchup-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matchup-teams {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .matchup-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .odds-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .odds-cell {
+      background: var(--bg-card);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .odds-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .odds-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 0.5rem;
+      margin-top: 0.25rem;
+    }
+
+    .odds-team {
+      font-size: 0.85rem;
+    }
+
+    .odds-value {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .odds-value.favorite { color: var(--negative); }
+    .odds-value.underdog { color: var(--positive); }
+    .odds-value.neutral { color: var(--text-primary); }
+
+    .spread-value {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .total-value {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--text-primary);
+    }
+
+    .matchup-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .win-prob {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .prob-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .prob-fill {
+      height: 6px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .completed-badge {
+      display: inline-block;
+      background: var(--positive);
+      color: #000;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.5rem 1rem;
+      background: rgba(34, 197, 94, 0.1);
+      border-top: 1px solid var(--border);
+    }
+
+    .result-item {
+      text-align: center;
+    }
+
+    .result-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .result-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .result-value.cover { color: var(--positive); }
+    .result-value.miss { color: var(--negative); }
+    .result-value.push { color: var(--neutral); }
+    .result-value.over { color: var(--positive); }
+    .result-value.under { color: var(--negative); }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-muted);
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .odds-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .matchup-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .result-row {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Betting Dashboard</h1>
+      <p class="subtitle">Projected odds based on team statistics</p>
+    </header>
+
+    <div class="controls">
+      <select id="season-select">
+        <option value="2025">2025 Season</option>
+        <option value="2024">2024 Season</option>
+      </select>
+      <select id="week-select">
+        <option value="all">All Weeks</option>
+      </select>
+      <select id="filter-select">
+        <option value="upcoming">Upcoming Games</option>
+        <option value="completed">Completed Games</option>
+        <option value="all">All Games</option>
+      </select>
+    </div>
+
+    <div id="status" class="status">Loading database...</div>
+
+    <div id="matchups" class="matchups">
+      <div class="loading">Loading matchups...</div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db');
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      document.getElementById('status').textContent = 'Database loaded';
+      populateWeekSelect();
+      loadMatchups();
+    }
+
+    function populateWeekSelect() {
+      const season = document.getElementById('season-select').value;
+      const weekSelect = document.getElementById('week-select');
+
+      // Get max week with data
+      const result = db.exec(`
+        SELECT MAX(week) as max_week FROM matchup_odds WHERE season = ${season}
+      `);
+      const maxWeek = result[0]?.values[0]?.[0] || 18;
+
+      weekSelect.innerHTML = '<option value="all">All Weeks</option>';
+      for (let w = 1; w <= maxWeek; w++) {
+        const opt = document.createElement('option');
+        opt.value = w;
+        opt.textContent = `Week ${w}`;
+        weekSelect.appendChild(opt);
+      }
+
+      // Default to latest week with upcoming games
+      const upcoming = db.exec(`
+        SELECT MIN(week) as next_week FROM matchup_odds
+        WHERE season = ${season} AND is_completed = 0
+      `);
+      const nextWeek = upcoming[0]?.values[0]?.[0];
+      if (nextWeek) {
+        weekSelect.value = nextWeek;
+      }
+    }
+
+    function loadMatchups() {
+      const season = document.getElementById('season-select').value;
+      const week = document.getElementById('week-select').value;
+      const filter = document.getElementById('filter-select').value;
+
+      let sql = `
+        SELECT * FROM matchup_odds
+        WHERE season = ${season}
+      `;
+
+      if (week !== 'all') {
+        sql += ` AND week = ${week}`;
+      }
+
+      if (filter === 'upcoming') {
+        sql += ' AND is_completed = 0';
+      } else if (filter === 'completed') {
+        sql += ' AND is_completed = 1';
+      }
+
+      sql += ' ORDER BY week, game_date';
+
+      const results = db.exec(sql);
+
+      if (!results.length || !results[0].values.length) {
+        document.getElementById('matchups').innerHTML =
+          '<div class="loading">No matchups found for selected filters</div>';
+        document.getElementById('status').textContent = '0 matchups';
+        return;
+      }
+
+      const cols = results[0].columns;
+      const matchups = results[0].values.map(row => {
+        const obj = {};
+        cols.forEach((col, i) => obj[col] = row[i]);
+        return obj;
+      });
+
+      document.getElementById('status').textContent = `${matchups.length} matchups`;
+      renderMatchups(matchups);
+    }
+
+    function renderMatchups(matchups) {
+      const container = document.getElementById('matchups');
+
+      container.innerHTML = matchups.map(m => {
+        const homeML = formatOdds(m.home_moneyline);
+        const awayML = formatOdds(m.away_moneyline);
+        const spread = formatSpread(m.spread);
+        const homeProb = Math.round(m.home_win_prob * 100);
+        const awayProb = Math.round(m.away_win_prob * 100);
+
+        let resultHtml = '';
+        if (m.is_completed) {
+          resultHtml = `
+            <div class="result-row">
+              <div class="result-item">
+                <div class="result-label">Final</div>
+                <div class="result-value">${m.actual_home_score} - ${m.actual_away_score}</div>
+              </div>
+              <div class="result-item">
+                <div class="result-label">Spread</div>
+                <div class="result-value ${m.spread_result}">${m.spread_result.toUpperCase()}</div>
+              </div>
+              <div class="result-item">
+                <div class="result-label">Total (${m.actual_total})</div>
+                <div class="result-value ${m.total_result}">${m.total_result.toUpperCase()}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="matchup-card">
+            <div class="matchup-header">
+              <div class="matchup-teams">${m.away_team} @ ${m.home_team}</div>
+              <div class="matchup-meta">
+                Week ${m.week} &bull; ${m.game_date || ''}
+                ${m.is_completed ? '<span class="completed-badge">Final</span>' : ''}
+              </div>
+            </div>
+
+            <div class="odds-grid">
+              <div class="odds-cell">
+                <div class="odds-label">Moneyline</div>
+                <div class="odds-row">
+                  <div>
+                    <div class="odds-team">${m.home_team}</div>
+                    <div class="odds-value ${m.home_moneyline < 0 ? 'favorite' : 'underdog'}">${homeML}</div>
+                  </div>
+                  <div>
+                    <div class="odds-team">${m.away_team}</div>
+                    <div class="odds-value ${m.away_moneyline < 0 ? 'favorite' : 'underdog'}">${awayML}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="odds-cell">
+                <div class="odds-label">Spread</div>
+                <div class="odds-row">
+                  <div>
+                    <div class="odds-team">${m.home_team}</div>
+                    <div class="spread-value">${spread}</div>
+                  </div>
+                  <div>
+                    <div class="odds-team">${m.away_team}</div>
+                    <div class="spread-value">${formatSpread(-m.spread)}</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="odds-cell">
+                <div class="odds-label">Total</div>
+                <div class="total-value">O/U ${m.over_under}</div>
+                <div class="odds-row" style="margin-top: 0.25rem; font-size: 0.75rem; color: var(--text-muted);">
+                  <div>${m.home_team}: ${m.home_team_total}</div>
+                  <div>${m.away_team}: ${m.away_team_total}</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="matchup-footer">
+              <div class="win-prob">
+                <div class="prob-bar">
+                  ${m.home_team} ${homeProb}%
+                  <div class="prob-fill" style="width: ${homeProb * 0.8}px;"></div>
+                </div>
+                <div class="prob-bar">
+                  ${m.away_team} ${awayProb}%
+                  <div class="prob-fill" style="width: ${awayProb * 0.8}px;"></div>
+                </div>
+              </div>
+              <div>Exp. Diff: ${m.expected_diff > 0 ? '+' : ''}${m.expected_diff}</div>
+            </div>
+
+            ${resultHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function formatOdds(odds) {
+      if (odds > 0) return '+' + odds;
+      return String(odds);
+    }
+
+    function formatSpread(spread) {
+      if (spread > 0) return '+' + spread.toFixed(1);
+      if (spread < 0) return spread.toFixed(1);
+      return 'PK';
+    }
+
+    // Event listeners
+    document.getElementById('season-select').addEventListener('change', () => {
+      populateWeekSelect();
+      loadMatchups();
+    });
+    document.getElementById('week-select').addEventListener('change', loadMatchups);
+    document.getElementById('filter-select').addEventListener('change', loadMatchups);
+
+    // Initialize
+    initDB().catch(err => {
+      document.getElementById('status').textContent = 'Error loading database: ' + err.message;
+      console.error(err);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Team Trends</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏈</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/sql-wasm.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-deep: #030712;
+      --bg-card: #0c1322;
+      --bg-hover: #111827;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border: #1e293b;
+      --accent: #3b82f6;
+      --positive: #22c55e;
+      --negative: #ef4444;
+      --neutral: #94a3b8;
+    }
+
+    body {
+      font-family: 'Source Sans 3', system-ui, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 2rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.9rem; color: var(--text-secondary); }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .controls select {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-primary);
+      padding: 0.6rem 1rem;
+      font-family: inherit;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .controls select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .team-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .team-name {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .team-record {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .stat-value.positive { color: var(--positive); }
+    .stat-value.negative { color: var(--negative); }
+
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      padding: 1rem 1.25rem 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .splits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .split-section {
+      background: var(--bg-card);
+      padding: 1rem;
+    }
+
+    .split-header {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
+
+    .split-stats {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .split-stat {
+      text-align: center;
+    }
+
+    .split-stat .label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .split-stat .value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .quarter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+    }
+
+    .quarter-cell {
+      background: var(--bg-card);
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .quarter-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .quarter-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .quarter-scored { color: var(--positive); }
+    .quarter-allowed { color: var(--negative); }
+
+    .games-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .games-table th,
+    .games-table td {
+      padding: 0.6rem 0.75rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .games-table th {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .games-table tr:hover { background: var(--bg-hover); }
+
+    .win { color: var(--positive); }
+    .loss { color: var(--negative); }
+
+    .no-data {
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      .splits-grid { grid-template-columns: 1fr; }
+      .quarter-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+
+    <header>
+      <h1>Team Trends</h1>
+      <p class="subtitle">Team statistics and performance splits</p>
+    </header>
+
+    <div class="controls">
+      <select id="team-select">
+        <option value="">Select a team...</option>
+      </select>
+      <select id="season-select">
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
+
+    <div id="team-content">
+      <div class="no-data">Select a team to see their trends</div>
+    </div>
+  </div>
+
+  <script>
+    let db = null;
+
+    const TEAMS = [
+      { code: 'ARI', name: 'Arizona Cardinals' },
+      { code: 'ATL', name: 'Atlanta Falcons' },
+      { code: 'BAL', name: 'Baltimore Ravens' },
+      { code: 'BUF', name: 'Buffalo Bills' },
+      { code: 'CAR', name: 'Carolina Panthers' },
+      { code: 'CHI', name: 'Chicago Bears' },
+      { code: 'CIN', name: 'Cincinnati Bengals' },
+      { code: 'CLE', name: 'Cleveland Browns' },
+      { code: 'DAL', name: 'Dallas Cowboys' },
+      { code: 'DEN', name: 'Denver Broncos' },
+      { code: 'DET', name: 'Detroit Lions' },
+      { code: 'GB', name: 'Green Bay Packers' },
+      { code: 'HOU', name: 'Houston Texans' },
+      { code: 'IND', name: 'Indianapolis Colts' },
+      { code: 'JAX', name: 'Jacksonville Jaguars' },
+      { code: 'KC', name: 'Kansas City Chiefs' },
+      { code: 'LV', name: 'Las Vegas Raiders' },
+      { code: 'LAC', name: 'Los Angeles Chargers' },
+      { code: 'LAR', name: 'Los Angeles Rams' },
+      { code: 'MIA', name: 'Miami Dolphins' },
+      { code: 'MIN', name: 'Minnesota Vikings' },
+      { code: 'NE', name: 'New England Patriots' },
+      { code: 'NO', name: 'New Orleans Saints' },
+      { code: 'NYG', name: 'New York Giants' },
+      { code: 'NYJ', name: 'New York Jets' },
+      { code: 'PHI', name: 'Philadelphia Eagles' },
+      { code: 'PIT', name: 'Pittsburgh Steelers' },
+      { code: 'SF', name: 'San Francisco 49ers' },
+      { code: 'SEA', name: 'Seattle Seahawks' },
+      { code: 'TB', name: 'Tampa Bay Buccaneers' },
+      { code: 'TEN', name: 'Tennessee Titans' },
+      { code: 'WAS', name: 'Washington Commanders' }
+    ];
+
+    async function initDB() {
+      const SQL = await initSqlJs({
+        locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.3/${file}`
+      });
+
+      const response = await fetch('nfl.db');
+      const buffer = await response.arrayBuffer();
+      db = new SQL.Database(new Uint8Array(buffer));
+
+      populateTeamSelect();
+
+      const params = new URLSearchParams(window.location.search);
+      const team = params.get('team');
+      if (team) {
+        document.getElementById('team-select').value = team;
+        loadTeam(team);
+      }
+    }
+
+    function populateTeamSelect() {
+      const select = document.getElementById('team-select');
+      TEAMS.forEach(t => {
+        const opt = document.createElement('option');
+        opt.value = t.code;
+        opt.textContent = t.name;
+        select.appendChild(opt);
+      });
+    }
+
+    function loadTeam(teamCode) {
+      if (!teamCode) {
+        document.getElementById('team-content').innerHTML =
+          '<div class="no-data">Select a team to see their trends</div>';
+        return;
+      }
+
+      const season = document.getElementById('season-select').value;
+      const teamName = TEAMS.find(t => t.code === teamCode)?.name || teamCode;
+
+      // Get team stats
+      const statsResult = db.exec(`
+        SELECT * FROM team_stats
+        WHERE team_code = '${teamCode}' AND season = ${season}
+      `);
+
+      if (!statsResult.length || !statsResult[0].values.length) {
+        document.getElementById('team-content').innerHTML =
+          '<div class="no-data">No data found for this team</div>';
+        return;
+      }
+
+      const cols = statsResult[0].columns;
+      const vals = statsResult[0].values[0];
+      const stats = {};
+      cols.forEach((col, i) => stats[col] = vals[i]);
+
+      // Get recent games
+      const gamesResult = db.exec(`
+        SELECT week, game_date, home_team, away_team, home_score, away_score
+        FROM games
+        WHERE (home_team = '${teamCode}' OR away_team = '${teamCode}') AND season = ${season} AND is_completed = 1
+        ORDER BY week DESC
+        LIMIT 5
+      `);
+
+      const games = gamesResult.length ? gamesResult[0].values : [];
+
+      renderTeam(teamCode, teamName, stats, games);
+    }
+
+    function renderTeam(code, name, stats, games) {
+      const diffClass = stats.point_differential > 0 ? 'positive' : stats.point_differential < 0 ? 'negative' : '';
+
+      const gamesHtml = games.length ? games.map(g => {
+        const isHome = g[2] === code;
+        const opp = isHome ? g[3] : g[2];
+        const scored = isHome ? g[4] : g[5];
+        const allowed = isHome ? g[5] : g[4];
+        const result = scored > allowed ? 'W' : scored < allowed ? 'L' : 'T';
+        const resultClass = result === 'W' ? 'win' : result === 'L' ? 'loss' : '';
+
+        return `<tr>
+          <td>${g[0]}</td>
+          <td>${isHome ? 'vs' : '@'} ${opp}</td>
+          <td class="${resultClass}">${result}</td>
+          <td>${scored} - ${allowed}</td>
+        </tr>`;
+      }).join('') : '<tr><td colspan="4" class="no-data">No completed games</td></tr>';
+
+      document.getElementById('team-content').innerHTML = `
+        <div class="team-card">
+          <div class="team-header">
+            <div class="team-name">${name}</div>
+            <div class="team-record">${stats.wins}-${stats.losses}${stats.ties ? '-' + stats.ties : ''}</div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-cell">
+              <div class="stat-label">PPG</div>
+              <div class="stat-value">${stats.ppg_scored?.toFixed(1) || 0}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Opp PPG</div>
+              <div class="stat-value">${stats.ppg_allowed?.toFixed(1) || 0}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Diff</div>
+              <div class="stat-value ${diffClass}">${stats.point_differential > 0 ? '+' : ''}${stats.point_differential?.toFixed(1) || 0}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Win %</div>
+              <div class="stat-value">${(stats.win_pct * 100).toFixed(0)}%</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">Last 5</div>
+              <div class="stat-value">${stats.last_5_record || '-'}</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-label">L5 PPG</div>
+              <div class="stat-value">${stats.last_5_ppg?.toFixed(1) || 0}</div>
+            </div>
+          </div>
+
+          <div class="section-title">Home / Away Splits</div>
+          <div class="splits-grid">
+            <div class="split-section">
+              <div class="split-header">Home (${stats.home_record})</div>
+              <div class="split-stats">
+                <div class="split-stat">
+                  <div class="label">PPG</div>
+                  <div class="value">${stats.home_ppg?.toFixed(1) || 0}</div>
+                </div>
+                <div class="split-stat">
+                  <div class="label">Opp PPG</div>
+                  <div class="value">${stats.home_ppg_allowed?.toFixed(1) || 0}</div>
+                </div>
+              </div>
+            </div>
+            <div class="split-section">
+              <div class="split-header">Away (${stats.away_record})</div>
+              <div class="split-stats">
+                <div class="split-stat">
+                  <div class="label">PPG</div>
+                  <div class="value">${stats.away_ppg?.toFixed(1) || 0}</div>
+                </div>
+                <div class="split-stat">
+                  <div class="label">Opp PPG</div>
+                  <div class="value">${stats.away_ppg_allowed?.toFixed(1) || 0}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">Quarter Trends</div>
+          <div class="quarter-grid">
+            <div class="quarter-cell">
+              <div class="quarter-label">Q1</div>
+              <div class="quarter-row">
+                <span class="quarter-scored">+${stats.q1_ppg?.toFixed(1) || 0}</span>
+                <span class="quarter-allowed">-${stats.q1_ppg_allowed?.toFixed(1) || 0}</span>
+              </div>
+            </div>
+            <div class="quarter-cell">
+              <div class="quarter-label">Q2</div>
+              <div class="quarter-row">
+                <span class="quarter-scored">+${stats.q2_ppg?.toFixed(1) || 0}</span>
+                <span class="quarter-allowed">-${stats.q2_ppg_allowed?.toFixed(1) || 0}</span>
+              </div>
+            </div>
+            <div class="quarter-cell">
+              <div class="quarter-label">Q3</div>
+              <div class="quarter-row">
+                <span class="quarter-scored">+${stats.q3_ppg?.toFixed(1) || 0}</span>
+                <span class="quarter-allowed">-${stats.q3_ppg_allowed?.toFixed(1) || 0}</span>
+              </div>
+            </div>
+            <div class="quarter-cell">
+              <div class="quarter-label">Q4</div>
+              <div class="quarter-row">
+                <span class="quarter-scored">+${stats.q4_ppg?.toFixed(1) || 0}</span>
+                <span class="quarter-allowed">-${stats.q4_ppg_allowed?.toFixed(1) || 0}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">Half Trends</div>
+          <div class="splits-grid">
+            <div class="split-section">
+              <div class="split-header">1st Half</div>
+              <div class="split-stats">
+                <div class="split-stat">
+                  <div class="label">Scored</div>
+                  <div class="value quarter-scored">${stats.first_half_ppg?.toFixed(1) || 0}</div>
+                </div>
+                <div class="split-stat">
+                  <div class="label">Allowed</div>
+                  <div class="value quarter-allowed">${stats.first_half_ppg_allowed?.toFixed(1) || 0}</div>
+                </div>
+              </div>
+            </div>
+            <div class="split-section">
+              <div class="split-header">2nd Half</div>
+              <div class="split-stats">
+                <div class="split-stat">
+                  <div class="label">Scored</div>
+                  <div class="value quarter-scored">${stats.second_half_ppg?.toFixed(1) || 0}</div>
+                </div>
+                <div class="split-stat">
+                  <div class="label">Allowed</div>
+                  <div class="value quarter-allowed">${stats.second_half_ppg_allowed?.toFixed(1) || 0}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-title">Recent Games</div>
+          <table class="games-table">
+            <thead>
+              <tr><th>Wk</th><th>Opponent</th><th>Result</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+              ${gamesHtml}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    document.getElementById('team-select').addEventListener('change', (e) => {
+      loadTeam(e.target.value);
+    });
+
+    document.getElementById('season-select').addEventListener('change', () => {
+      const team = document.getElementById('team-select').value;
+      if (team) loadTeam(team);
+    });
+
+    initDB().catch(err => {
+      console.error(err);
+      document.getElementById('team-content').innerHTML =
+        '<div class="no-data">Error loading database</div>';
+    });
+  </script>
+</body>
+</html>
