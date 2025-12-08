@@ -316,7 +316,7 @@
 
     <header>
       <h1>Advanced Analytics</h1>
-      <p class="subtitle">Monte Carlo simulations, value detection, and team clustering</p>
+      <p class="subtitle">Monte Carlo simulations, win probabilities, and team clustering</p>
     </header>
 
     <div class="controls">
@@ -327,16 +327,16 @@
       <select id="week-select">
         <option value="all">All Weeks</option>
       </select>
-      <button id="analyze-btn">Find Value Bets</button>
+      <button id="analyze-btn">Analyze Matchups</button>
     </div>
 
     <div id="value-section" class="section">
       <div class="section-header">
-        <div class="section-title">Value Opportunities</div>
-        <span id="value-count" class="section-badge value">0 found</span>
+        <div class="section-title">Model Predictions</div>
+        <span id="value-count" class="section-badge value">0 matchups</span>
       </div>
       <div id="value-list" class="value-grid">
-        <div class="no-data">Click "Find Value Bets" to analyze matchups</div>
+        <div class="no-data">Click "Analyze Matchups" to see predictions</div>
       </div>
     </div>
 
@@ -469,10 +469,26 @@
       const season = document.getElementById('season-select').value;
       const week = document.getElementById('week-select').value;
 
-      // Get all upcoming games
+      // Get all upcoming games with properly aliased team stats
       let sql = `
-        SELECT g.*, ts_home.*, ts_away.*,
-               g.home_team as g_home, g.away_team as g_away, g.week as g_week
+        SELECT
+          g.week as g_week, g.game_date, g.home_team as g_home, g.away_team as g_away,
+          ts_home.ppg_scored as home_ppg_scored, ts_home.ppg_allowed as home_ppg_allowed,
+          ts_home.scoring_std_dev as home_scoring_std_dev, ts_home.scoring_consistency as home_scoring_consistency,
+          ts_home.ema_differential as home_ema_differential, ts_home.ema_ppg as home_ema_ppg,
+          ts_home.scoring_changepoint as home_scoring_changepoint,
+          ts_home.scoring_changepoint_direction as home_scoring_changepoint_direction,
+          ts_home.scoring_changepoint_magnitude as home_scoring_changepoint_magnitude,
+          ts_home.game_profile as home_game_profile, ts_home.avg_total_points as home_avg_total,
+          ts_home.last_5_ppg as home_last_5_ppg, ts_home.last_5_ppg_allowed as home_last_5_allowed,
+          ts_away.ppg_scored as away_ppg_scored, ts_away.ppg_allowed as away_ppg_allowed,
+          ts_away.scoring_std_dev as away_scoring_std_dev, ts_away.scoring_consistency as away_scoring_consistency,
+          ts_away.ema_differential as away_ema_differential, ts_away.ema_ppg as away_ema_ppg,
+          ts_away.scoring_changepoint as away_scoring_changepoint,
+          ts_away.scoring_changepoint_direction as away_scoring_changepoint_direction,
+          ts_away.scoring_changepoint_magnitude as away_scoring_changepoint_magnitude,
+          ts_away.game_profile as away_game_profile, ts_away.avg_total_points as away_avg_total,
+          ts_away.last_5_ppg as away_last_5_ppg, ts_away.last_5_ppg_allowed as away_last_5_allowed
         FROM games g
         LEFT JOIN team_stats ts_home ON g.home_team = ts_home.team_code AND ts_home.season = ${season}
         LEFT JOIN team_stats ts_away ON g.away_team = ts_away.team_code AND ts_away.season = ${season}
@@ -499,7 +515,7 @@
         return obj;
       });
 
-      // Analyze each game
+      // Analyze each game - show all matchups ranked by model confidence
       const opportunities = [];
 
       games.forEach(game => {
@@ -510,27 +526,27 @@
         // Get enhanced odds
         const enhanced = OddsEngine.calculateEnhancedOdds(homeStats, awayStats);
 
-        // Check for value
-        const homeValue = OddsEngine.detectValue(enhanced.homeWinProb, enhanced.homeMoneyline, 0.03);
-        const awayValue = OddsEngine.detectValue(enhanced.awayWinProb, enhanced.awayMoneyline, 0.03);
+        // Determine favorite and confidence level
+        const homeIsFavorite = enhanced.homeWinProb > 0.5;
+        const favoriteProb = homeIsFavorite ? enhanced.homeWinProb : enhanced.awayWinProb;
+        const confidence = Math.abs(enhanced.homeWinProb - 0.5) * 200; // 0-100 scale
 
-        if (homeValue.edge > 0 || awayValue.edge > 0) {
-          const better = homeValue.edge > awayValue.edge ? 'home' : 'away';
-          const value = better === 'home' ? homeValue : awayValue;
-
-          opportunities.push({
-            game,
-            homeStats,
-            awayStats,
-            enhanced,
-            bet: better === 'home' ? game.g_home : game.g_away,
-            betSide: better,
-            value,
-          });
-        }
+        opportunities.push({
+          game,
+          homeStats,
+          awayStats,
+          enhanced,
+          bet: homeIsFavorite ? game.g_home : game.g_away,
+          betSide: homeIsFavorite ? 'home' : 'away',
+          value: {
+            edge: confidence,  // Use confidence as "edge" for display
+            rating: confidence >= 30 ? 'strong' : confidence >= 15 ? 'moderate' : 'slight',
+            modelProb: Math.round(favoriteProb * 100),
+          },
+        });
       });
 
-      // Sort by edge
+      // Sort by confidence (highest first)
       opportunities.sort((a, b) => b.value.edge - a.value.edge);
 
       // Render
@@ -538,39 +554,39 @@
     }
 
     function buildTeamStats(game, side) {
-      const prefix = side === 'home' ? '' : '';
-      // The query returns columns twice, so we need to pick the right ones
+      const p = side + '_';  // 'home_' or 'away_'
       return {
         team_code: side === 'home' ? game.g_home : game.g_away,
-        ppg_scored: game.ppg_scored,
-        ppg_allowed: game.ppg_allowed,
-        scoring_std_dev: game.scoring_std_dev || 10,
-        scoring_consistency: game.scoring_consistency || 50,
-        ema_differential: game.ema_differential || 0,
-        scoring_changepoint: game.scoring_changepoint,
-        scoring_changepoint_direction: game.scoring_changepoint_direction,
-        scoring_changepoint_magnitude: game.scoring_changepoint_magnitude,
-        game_profile: game.game_profile || 'balanced',
-        avg_total_points: game.avg_total_points || 43,
-        last_5_ppg: game.last_5_ppg,
-        last_5_ppg_allowed: game.last_5_ppg_allowed,
+        ppg_scored: game[p + 'ppg_scored'] || 21,
+        ppg_allowed: game[p + 'ppg_allowed'] || 21,
+        scoring_std_dev: game[p + 'scoring_std_dev'] || 10,
+        scoring_consistency: game[p + 'scoring_consistency'] || 50,
+        ema_differential: game[p + 'ema_differential'] || 0,
+        ema_ppg: game[p + 'ema_ppg'] || 21,
+        scoring_changepoint: game[p + 'scoring_changepoint'],
+        scoring_changepoint_direction: game[p + 'scoring_changepoint_direction'],
+        scoring_changepoint_magnitude: game[p + 'scoring_changepoint_magnitude'],
+        game_profile: game[p + 'game_profile'] || 'balanced',
+        avg_total_points: game[p + 'avg_total'] || 43,
+        last_5_ppg: game[p + 'last_5_ppg'],
+        last_5_ppg_allowed: game[p + 'last_5_allowed'],
       };
     }
 
     function renderValueOpportunities(opportunities) {
       const container = document.getElementById('value-list');
-      document.getElementById('value-count').textContent = `${opportunities.length} found`;
+      document.getElementById('value-count').textContent = `${opportunities.length} matchups`;
 
       if (opportunities.length === 0) {
-        container.innerHTML = '<div class="no-data">No value opportunities detected</div>';
+        container.innerHTML = '<div class="no-data">No upcoming games found</div>';
         return;
       }
 
       container.innerHTML = opportunities.map((opp, i) => {
-        const edgeClass = opp.value.rating === 'strong' ? 'edge-strong' :
+        const confClass = opp.value.rating === 'strong' ? 'edge-strong' :
                           opp.value.rating === 'moderate' ? 'edge-moderate' : 'edge-slight';
 
-        const factors = opp.enhanced.factors.map(f =>
+        const factors = (opp.enhanced.factors || []).map(f =>
           `<span class="factor-tag">${f.type.replace(/_/g, ' ')}</span>`
         ).join('');
 
@@ -584,9 +600,9 @@
             <div class="value-bet">
               <div class="bet-team">${opp.bet}</div>
               <div class="bet-odds">${OddsEngine.formatOdds(opp.betSide === 'home' ? opp.enhanced.homeMoneyline : opp.enhanced.awayMoneyline)}</div>
-              <div class="bet-edge ${edgeClass}">+${opp.value.edge}% Edge</div>
+              <div class="bet-edge ${confClass}">${opp.value.modelProb}% Win Prob</div>
               <div class="confidence-bar">
-                <div class="confidence-fill" style="width: ${opp.enhanced.confidence}%;"></div>
+                <div class="confidence-fill" style="width: ${opp.value.edge}%;"></div>
               </div>
             </div>
           </div>
