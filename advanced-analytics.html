@@ -420,6 +420,123 @@
       .matchup-grid { grid-template-columns: 1fr; }
       .h2h-summary { grid-template-columns: 1fr 1fr; }
       .h2h-vs { display: none; }
+      .model-stats { grid-template-columns: 1fr 1fr; }
+      .calibration-chart { height: 150px; }
+      .charts-wrapper { grid-template-columns: 1fr !important; }
+    }
+
+    /* Model Track Record Section */
+    .track-record {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .track-record-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s ease;
+    }
+
+    .track-record-header:hover {
+      background: var(--bg-hover);
+    }
+
+    .track-record-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .track-record-toggle {
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+    }
+
+    .track-record.expanded .track-record-toggle {
+      transform: rotate(180deg);
+    }
+
+    .track-record-content {
+      display: none;
+      padding: 0 1rem 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .track-record.expanded .track-record-content {
+      display: block;
+    }
+
+    .model-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .model-stat {
+      text-align: center;
+      padding: 0.75rem;
+      background: var(--bg-deep);
+      border-radius: 6px;
+    }
+
+    .model-stat-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .model-stat-value.good { color: var(--positive); }
+    .model-stat-value.neutral { color: var(--warning); }
+    .model-stat-value.bad { color: var(--negative); }
+
+    .model-stat-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .model-stat-record {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    .calibration-section {
+      margin-top: 1rem;
+    }
+
+    .calibration-title {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .calibration-chart {
+      height: 180px;
+    }
+
+    .model-disclaimer {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
     }
   </style>
 </head>
@@ -440,6 +557,44 @@
       <select id="week-select">
         <option value="">Loading...</option>
       </select>
+    </div>
+
+    <!-- Model Track Record -->
+    <div id="track-record" class="track-record">
+      <div class="track-record-header" onclick="toggleTrackRecord()">
+        <span class="track-record-title">
+          📊 Model Track Record (2024 Season)
+        </span>
+        <span class="track-record-toggle">▼</span>
+      </div>
+      <div class="track-record-content">
+        <div class="model-stats">
+          <div class="model-stat">
+            <div class="model-stat-value good">75%</div>
+            <div class="model-stat-label">Moneyline</div>
+            <div class="model-stat-record">204-68</div>
+          </div>
+          <div class="model-stat">
+            <div class="model-stat-value neutral">47.5%</div>
+            <div class="model-stat-label">vs Spread (ATS)</div>
+            <div class="model-stat-record">126-139-7</div>
+          </div>
+          <div class="model-stat">
+            <div class="model-stat-value neutral">49%</div>
+            <div class="model-stat-label">Over/Under</div>
+            <div class="model-stat-record">129 over, 134 under</div>
+          </div>
+        </div>
+        <div class="calibration-section">
+          <div class="calibration-title">Calibration: Expected vs Actual Win Rate by Confidence</div>
+          <div class="calibration-chart">
+            <canvas id="calibration-chart"></canvas>
+          </div>
+        </div>
+        <div class="model-disclaimer">
+          ⚠️ Model excels at picking winners but ATS is ~coin flip. Vegas sets efficient lines. Use for directional insight, not guaranteed edges.
+        </div>
+      </div>
     </div>
 
     <div id="matchup-grid" class="matchup-grid">
@@ -551,7 +706,99 @@
     let distributionChart = null;
     let distributionChartRaw = null;
     let h2hChart = null;
+    let calibrationChart = null;
     let currentMatchups = [];
+
+    // Model Track Record toggle
+    function toggleTrackRecord() {
+      const el = document.getElementById('track-record');
+      el.classList.toggle('expanded');
+      // Render calibration chart on first expand
+      if (el.classList.contains('expanded') && !calibrationChart) {
+        renderCalibrationChart();
+      }
+    }
+
+    // Calibration chart data from backtest-results-2024.json
+    const CALIBRATION_DATA = [
+      { bucket: '0-10%', expected: 5, actual: 11.1 },
+      { bucket: '10-20%', expected: 15, actual: 13.3 },
+      { bucket: '20-30%', expected: 25, actual: 26.7 },
+      { bucket: '30-40%', expected: 35, actual: 23.1 },
+      { bucket: '40-50%', expected: 45, actual: 36.4 },
+      { bucket: '50-60%', expected: 55, actual: 50.0 },
+      { bucket: '60-70%', expected: 65, actual: 61.9 },
+      { bucket: '70-80%', expected: 75, actual: 85.4 },
+      { bucket: '80-90%', expected: 85, actual: 75.0 },
+      { bucket: '90-100%', expected: 95, actual: 89.7 },
+    ];
+
+    function renderCalibrationChart() {
+      const ctx = document.getElementById('calibration-chart');
+      if (!ctx) return;
+
+      calibrationChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: CALIBRATION_DATA.map(d => d.bucket),
+          datasets: [
+            {
+              label: 'Expected',
+              data: CALIBRATION_DATA.map(d => d.expected),
+              backgroundColor: 'rgba(148, 163, 184, 0.3)',
+              borderColor: 'rgba(148, 163, 184, 0.6)',
+              borderWidth: 1,
+              borderRadius: 2,
+              barPercentage: 0.9,
+              categoryPercentage: 0.8,
+            },
+            {
+              label: 'Actual',
+              data: CALIBRATION_DATA.map(d => d.actual),
+              backgroundColor: 'rgba(59, 130, 246, 0.6)',
+              borderColor: 'rgba(59, 130, 246, 1)',
+              borderWidth: 1,
+              borderRadius: 2,
+              barPercentage: 0.9,
+              categoryPercentage: 0.8,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: true,
+              position: 'top',
+              labels: { color: '#94a3b8', font: { size: 10 }, boxWidth: 12, padding: 8 },
+            },
+            tooltip: {
+              backgroundColor: '#0c1322',
+              titleColor: '#f1f5f9',
+              bodyColor: '#94a3b8',
+              borderColor: 'rgba(148, 163, 184, 0.2)',
+              borderWidth: 1,
+              callbacks: {
+                label: (ctx) => `${ctx.dataset.label}: ${ctx.raw}%`
+              }
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8', font: { size: 9 } },
+            },
+            y: {
+              grid: { color: 'rgba(148, 163, 184, 0.1)' },
+              ticks: { color: '#94a3b8', font: { size: 9 } },
+              max: 100,
+              title: { display: true, text: 'Win Rate %', color: '#64748b', font: { size: 9 } },
+            },
+          },
+        },
+      });
+    }
 
     // NFL week date ranges (Tuesday start of each week)
     // 2025 season: Week 1 starts Sept 4 (Thursday opener), week ends following Monday
