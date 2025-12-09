@@ -237,6 +237,12 @@
       padding: 0.75rem 1.25rem;
     }
 
+    .prob-label {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
     .detail-ranges {
       display: flex;
       gap: 1.5rem;
@@ -467,14 +473,25 @@
         </div>
       </div>
 
-      <!-- Win probability bar -->
+      <!-- Win probability bars - SRS-adjusted and Raw PPG -->
       <div class="detail-prob">
+        <div class="prob-label">SRS-Adjusted Win %</div>
         <div class="win-prob-bar">
           <div class="win-prob-fill" id="detail-prob-fill" style="width: 50%;"></div>
         </div>
         <div class="win-prob-labels">
           <span id="detail-away-prob">AWAY 50%</span>
           <span id="detail-home-prob">HOME 50%</span>
+        </div>
+      </div>
+      <div class="detail-prob" style="margin-top: 0.5rem;">
+        <div class="prob-label">Raw PPG Win %</div>
+        <div class="win-prob-bar">
+          <div class="win-prob-fill" id="detail-prob-fill-raw" style="width: 50%; background: linear-gradient(90deg, var(--warning) 0%, var(--warning) 100%);"></div>
+        </div>
+        <div class="win-prob-labels">
+          <span id="detail-away-prob-raw">AWAY 50%</span>
+          <span id="detail-home-prob-raw">HOME 50%</span>
         </div>
       </div>
 
@@ -504,8 +521,15 @@
           <div class="model-inputs-grid" id="model-inputs-grid"></div>
         </div>
 
-        <div class="chart-container">
-          <canvas id="distribution-chart"></canvas>
+        <div class="charts-wrapper" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="chart-container">
+            <div class="chart-title" style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">SRS-Adjusted Distribution</div>
+            <canvas id="distribution-chart"></canvas>
+          </div>
+          <div class="chart-container">
+            <div class="chart-title" style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">Raw PPG Distribution</div>
+            <canvas id="distribution-chart-raw"></canvas>
+          </div>
         </div>
 
         <div class="h2h-section" id="h2h-section">
@@ -525,6 +549,7 @@
   <script>
     let db = null;
     let distributionChart = null;
+    let distributionChartRaw = null;
     let h2hChart = null;
     let currentMatchups = [];
 
@@ -810,10 +835,17 @@
       document.getElementById('pred-away-label').textContent = `${g.away_team} ML`;
       document.getElementById('pred-away-ml').textContent = formatOdds(enhanced.awayMoneyline);
 
-      // Win probability bar
+      // Win probability bar - SRS-adjusted
       document.getElementById('detail-prob-fill').style.width = `${homeProb}%`;
       document.getElementById('detail-away-prob').textContent = `${g.away_team} ${awayProb}%`;
       document.getElementById('detail-home-prob').textContent = `${g.home_team} ${homeProb}%`;
+
+      // Win probability bar - Raw PPG
+      const rawHomeProb = Math.round(enhanced.rawSimulation.homeWinProb * 100);
+      const rawAwayProb = 100 - rawHomeProb;
+      document.getElementById('detail-prob-fill-raw').style.width = `${rawHomeProb}%`;
+      document.getElementById('detail-away-prob-raw').textContent = `${g.away_team} ${rawAwayProb}%`;
+      document.getElementById('detail-home-prob-raw').textContent = `${g.home_team} ${rawHomeProb}%`;
 
       // Confidence intervals - SRS-adjusted
       document.getElementById('pred-spread-range').textContent =
@@ -864,11 +896,32 @@
     }
 
     function renderDistributionChart(homeStats, awayStats, homeTeam) {
+      // Render both SRS-adjusted and Raw PPG distribution charts
       if (distributionChart) distributionChart.destroy();
+      if (distributionChartRaw) distributionChartRaw.destroy();
 
-      const ctx = document.getElementById('distribution-chart');
-      const sim = OddsEngine.monteCarloSimulation(homeStats, awayStats, { iterations: 2000 });
+      // SRS-adjusted simulation
+      const simSrs = OddsEngine.monteCarloSimulation(homeStats, awayStats, { iterations: 2000 });
+      distributionChart = createDistChart(
+        document.getElementById('distribution-chart'),
+        simSrs,
+        homeTeam,
+        'rgba(34, 197, 94, 0.6)',  // green for home wins
+        'rgba(239, 68, 68, 0.6)'   // red for away wins
+      );
 
+      // Raw PPG simulation
+      const simRaw = OddsEngine.monteCarloSimulation(homeStats, awayStats, { iterations: 2000, useRawPpg: true });
+      distributionChartRaw = createDistChart(
+        document.getElementById('distribution-chart-raw'),
+        simRaw,
+        homeTeam,
+        'rgba(234, 179, 8, 0.6)',  // yellow/orange for home wins
+        'rgba(239, 68, 68, 0.6)'   // red for away wins
+      );
+    }
+
+    function createDistChart(ctx, sim, homeTeam, homeColor, awayColor) {
       const spreadBins = [
         { label: '-20+', count: 0 },
         { label: '-15', count: 0 },
@@ -898,7 +951,7 @@
         else spreadBins[10].count++;
       }
 
-      distributionChart = new Chart(ctx, {
+      return new Chart(ctx, {
         type: 'bar',
         data: {
           labels: spreadBins.map(b => b.label),
@@ -906,8 +959,8 @@
             label: 'Outcome Probability',
             data: spreadBins.map(b => (b.count / 1000 * 100).toFixed(1)),
             backgroundColor: spreadBins.map((b, i) => {
-              if (i < 5) return 'rgba(239, 68, 68, 0.6)';
-              if (i > 5) return 'rgba(34, 197, 94, 0.6)';
+              if (i < 5) return awayColor;
+              if (i > 5) return homeColor;
               return 'rgba(148, 163, 184, 0.6)';
             }),
             borderRadius: 4,
@@ -923,13 +976,13 @@
           scales: {
             x: {
               grid: { color: 'rgba(148, 163, 184, 0.1)' },
-              ticks: { color: '#94a3b8' },
-              title: { display: true, text: `${homeTeam} Margin`, color: '#94a3b8' }
+              ticks: { color: '#94a3b8', font: { size: 9 } },
+              title: { display: true, text: `${homeTeam} Margin`, color: '#94a3b8', font: { size: 10 } }
             },
             y: {
               grid: { color: 'rgba(148, 163, 184, 0.1)' },
-              ticks: { color: '#94a3b8' },
-              title: { display: true, text: 'Probability %', color: '#94a3b8' }
+              ticks: { color: '#94a3b8', font: { size: 9 } },
+              title: { display: true, text: '%', color: '#94a3b8', font: { size: 10 } }
             }
           }
         }
