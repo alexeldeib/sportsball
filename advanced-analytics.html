@@ -365,6 +365,43 @@
       font-style: italic;
     }
 
+    /* Game Profile Badges */
+    .game-profiles {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 3px;
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-muted);
+    }
+
+    .profile-badge.fast_starter {
+      background: rgba(34, 197, 94, 0.15);
+      color: var(--positive);
+    }
+
+    .profile-badge.closer {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--accent);
+    }
+
+    .profile-badge.balanced {
+      background: rgba(148, 163, 184, 0.1);
+      color: var(--text-secondary);
+    }
+
+    .profile-badge .profile-icon { font-size: 0.7rem; }
+
     /* H2H Section */
     .h2h-section {
       border-top: 1px solid var(--border);
@@ -896,6 +933,47 @@
 
     // Injury data cache
     let injuryData = null;
+    // Cluster/profile data cache
+    let clusterData = null;
+
+    async function loadClusterData() {
+      if (clusterData) return clusterData;
+      try {
+        const response = await fetch('team-clusters-2025.json?' + Date.now());
+        if (!response.ok) throw new Error('Failed to load clusters');
+        const data = await response.json();
+        // Convert to map by team_code
+        clusterData = {};
+        data.clusters.forEach(c => {
+          clusterData[c.team_code] = c;
+        });
+        return clusterData;
+      } catch (e) {
+        console.warn('Could not load cluster data:', e);
+        return {};
+      }
+    }
+
+    function getGameProfile(teamCode) {
+      if (!clusterData || !clusterData[teamCode]) return null;
+      return clusterData[teamCode].game_profile;
+    }
+
+    function getProfileBadge(teamCode) {
+      const profile = getGameProfile(teamCode);
+      if (!profile) return '';
+      const icons = {
+        fast_starter: '🚀',
+        closer: '🎯',
+        balanced: '⚖️'
+      };
+      const labels = {
+        fast_starter: '1H',
+        closer: '2H',
+        balanced: 'BAL'
+      };
+      return `<span class="profile-badge ${profile}"><span class="profile-icon">${icons[profile] || ''}</span>${labels[profile] || profile}</span>`;
+    }
 
     async function loadInjuryData() {
       if (injuryData) return injuryData;
@@ -1044,8 +1122,8 @@
       const season = document.getElementById('season-select').value;
       await OddsEngine.loadAdvancedStats(parseInt(season));
 
-      // Load injury data
-      await loadInjuryData();
+      // Load injury and cluster data
+      await Promise.all([loadInjuryData(), loadClusterData()]);
 
       populateWeekSelect();
     }
@@ -1211,6 +1289,10 @@
             <div class="win-prob-labels">
               <span>${g.away_team} ${awayProb}%</span>
               <span>${g.home_team} ${homeProb}%</span>
+            </div>
+            <div class="game-profiles">
+              ${getProfileBadge(g.away_team)}
+              ${getProfileBadge(g.home_team)}
             </div>
             ${status}
           </div>
