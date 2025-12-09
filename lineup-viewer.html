@@ -514,13 +514,16 @@
     `;
   }
 
-  function loadTeams() {
+  function loadTeams(urlOff = null, urlDef = null) {
     const teams = runQueryFullParams(`
       SELECT DISTINCT team FROM players WHERE year = ? ORDER BY team
     `, [selectedYear]);
 
-    const offenseVal = offenseTeamSelect.value;
-    const defenseVal = defenseTeamSelect.value;
+    const teamSet = new Set(teams.map(t => t.team));
+
+    // Save current values before clearing
+    const prevOffense = offenseTeamSelect.value;
+    const prevDefense = defenseTeamSelect.value;
 
     offenseTeamSelect.innerHTML = '<option value="">Select offense...</option>';
     defenseTeamSelect.innerHTML = '<option value="">Select defense...</option>';
@@ -537,13 +540,39 @@
       defenseTeamSelect.appendChild(opt2);
     });
 
-    // Restore selections
-    if (offenseVal && teams.some(t => t.team === offenseVal)) {
-      offenseTeamSelect.value = offenseVal;
+    // Priority: URL params > previous selection > localStorage
+    let finalOff = null;
+    let finalDef = null;
+
+    // Check URL params first
+    if (urlOff && teamSet.has(urlOff)) {
+      finalOff = urlOff;
     }
-    if (defenseVal && teams.some(t => t.team === defenseVal)) {
-      defenseTeamSelect.value = defenseVal;
+    if (urlDef && teamSet.has(urlDef)) {
+      finalDef = urlDef;
     }
+
+    // Fall back to previous selection (for year changes)
+    if (!finalOff && prevOffense && teamSet.has(prevOffense)) {
+      finalOff = prevOffense;
+    }
+    if (!finalDef && prevDefense && teamSet.has(prevDefense)) {
+      finalDef = prevDefense;
+    }
+
+    // Fall back to localStorage
+    if (!finalOff && !finalDef) {
+      try {
+        const savedOff = localStorage.getItem(STORAGE_KEY_OFF);
+        const savedDef = localStorage.getItem(STORAGE_KEY_DEF);
+        if (savedOff && teamSet.has(savedOff)) finalOff = savedOff;
+        if (savedDef && teamSet.has(savedDef)) finalDef = savedDef;
+      } catch(e) {}
+    }
+
+    // Apply selections
+    if (finalOff) offenseTeamSelect.value = finalOff;
+    if (finalDef) defenseTeamSelect.value = finalDef;
   }
 
   function loadYears() {
@@ -588,25 +617,14 @@
       db = new SQL.Database(new Uint8Array(buffer));
 
       loadYears();
-      loadTeams();
 
       // Check URL params first, then localStorage
       const params = new URLSearchParams(window.location.search);
       const urlOff = params.get('offense') || params.get('away');
       const urlDef = params.get('defense') || params.get('home');
 
-      if (urlOff) offenseTeamSelect.value = urlOff;
-      if (urlDef) defenseTeamSelect.value = urlDef;
-
-      // Fall back to localStorage if no URL params
-      if (!urlOff && !urlDef) {
-        try {
-          const savedOff = localStorage.getItem(STORAGE_KEY_OFF);
-          const savedDef = localStorage.getItem(STORAGE_KEY_DEF);
-          if (savedOff) offenseTeamSelect.value = savedOff;
-          if (savedDef) defenseTeamSelect.value = savedDef;
-        } catch(e) {}
-      }
+      // Load teams and pass URL params to set after options are populated
+      loadTeams(urlOff, urlDef);
 
       statusEl.textContent = `Ready (${selectedYear})`;
       statusEl.className = "status ready";
