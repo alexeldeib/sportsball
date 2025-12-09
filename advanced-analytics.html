@@ -599,13 +599,17 @@
     };
 
     function getCurrentNFLWeek(season) {
-      const today = new Date();
+      const now = new Date();
+      // Compare dates only (ignore time) to avoid timezone issues
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const weeks = NFL_WEEK_STARTS[season];
       if (!weeks) return null;
 
       // Find the current week by checking which range today falls into
       for (let i = weeks.length - 1; i >= 0; i--) {
-        if (today >= weeks[i]) {
+        // Normalize week start to local midnight for fair comparison
+        const weekStart = new Date(weeks[i].getFullYear(), weeks[i].getMonth(), weeks[i].getDate());
+        if (today >= weekStart) {
           return i + 1; // weeks are 1-indexed
         }
       }
