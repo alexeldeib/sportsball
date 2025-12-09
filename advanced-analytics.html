@@ -601,15 +601,26 @@
     function getCurrentNFLWeek(season) {
       const now = new Date();
       // Compare dates only (ignore time) to avoid timezone issues
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      // Use local date components for "today"
+      const todayYear = now.getFullYear();
+      const todayMonth = now.getMonth();
+      const todayDay = now.getDate();
+
       const weeks = NFL_WEEK_STARTS[season];
       if (!weeks) return null;
 
       // Find the current week by checking which range today falls into
       for (let i = weeks.length - 1; i >= 0; i--) {
-        // Normalize week start to local midnight for fair comparison
-        const weekStart = new Date(weeks[i].getFullYear(), weeks[i].getMonth(), weeks[i].getDate());
-        if (today >= weekStart) {
+        // Use UTC components from week starts since they were defined as UTC dates
+        const weekYear = weeks[i].getUTCFullYear();
+        const weekMonth = weeks[i].getUTCMonth();
+        const weekDay = weeks[i].getUTCDate();
+
+        // Compare as integers: YYYYMMDD
+        const todayInt = todayYear * 10000 + todayMonth * 100 + todayDay;
+        const weekInt = weekYear * 10000 + weekMonth * 100 + weekDay;
+
+        if (todayInt >= weekInt) {
           return i + 1; // weeks are 1-indexed
         }
       }
