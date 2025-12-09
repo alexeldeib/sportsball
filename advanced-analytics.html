@@ -487,7 +487,7 @@
       <div class="detail-prob" style="margin-top: 0.5rem;">
         <div class="prob-label">Raw PPG Win %</div>
         <div class="win-prob-bar">
-          <div class="win-prob-fill" id="detail-prob-fill-raw" style="width: 50%; background: linear-gradient(90deg, var(--warning) 0%, var(--warning) 100%);"></div>
+          <div class="win-prob-fill" id="detail-prob-fill-raw" style="width: 50%;"></div>
         </div>
         <div class="win-prob-labels">
           <span id="detail-away-prob-raw">AWAY 50%</span>
@@ -920,23 +920,21 @@
       distributionChart = createDistChart(
         document.getElementById('distribution-chart'),
         simSrs,
-        homeTeam,
-        'rgba(34, 197, 94, 0.6)',  // green for home wins
-        'rgba(239, 68, 68, 0.6)'   // red for away wins
+        homeTeam
       );
 
-      // Raw PPG simulation
+      // Raw PPG simulation (same colors - green for home, red for away)
       const simRaw = OddsEngine.monteCarloSimulation(homeStats, awayStats, { iterations: 2000, useRawPpg: true });
       distributionChartRaw = createDistChart(
         document.getElementById('distribution-chart-raw'),
         simRaw,
-        homeTeam,
-        'rgba(234, 179, 8, 0.6)',  // yellow/orange for home wins
-        'rgba(239, 68, 68, 0.6)'   // red for away wins
+        homeTeam
       );
     }
 
-    function createDistChart(ctx, sim, homeTeam, homeColor, awayColor) {
+    function createDistChart(ctx, sim, homeTeam) {
+      const homeColor = 'rgba(34, 197, 94, 0.6)';  // green for home wins
+      const awayColor = 'rgba(239, 68, 68, 0.6)';  // red for away wins
       const spreadBins = [
         { label: '-20+', count: 0 },
         { label: '-15', count: 0 },
