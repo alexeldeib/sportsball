@@ -478,15 +478,23 @@
         </div>
       </div>
 
-      <!-- Confidence intervals -->
+      <!-- Confidence intervals - both SRS-adjusted and raw PPG -->
       <div class="detail-ranges">
         <div class="range-item">
-          <span class="range-label">Spread 90% CI:</span>
+          <span class="range-label">Spread 90% CI (SRS):</span>
           <span class="range-value" id="pred-spread-range">--</span>
         </div>
         <div class="range-item">
-          <span class="range-label">Total 90% CI:</span>
+          <span class="range-label">Spread 90% CI (Raw PPG):</span>
+          <span class="range-value" id="pred-spread-range-raw">--</span>
+        </div>
+        <div class="range-item">
+          <span class="range-label">Total 90% CI (SRS):</span>
           <span class="range-value" id="pred-total-range">--</span>
+        </div>
+        <div class="range-item">
+          <span class="range-label">Total 90% CI (Raw PPG):</span>
+          <span class="range-value" id="pred-total-range-raw">--</span>
         </div>
       </div>
 
@@ -807,11 +815,16 @@
       document.getElementById('detail-away-prob').textContent = `${g.away_team} ${awayProb}%`;
       document.getElementById('detail-home-prob').textContent = `${g.home_team} ${homeProb}%`;
 
-      // Confidence intervals
+      // Confidence intervals - SRS-adjusted
       document.getElementById('pred-spread-range').textContent =
         `${enhanced.simulation.spreadRange.low} to ${enhanced.simulation.spreadRange.high}`;
       document.getElementById('pred-total-range').textContent =
         `${enhanced.simulation.totalRange.low} to ${enhanced.simulation.totalRange.high}`;
+      // Confidence intervals - Raw PPG
+      document.getElementById('pred-spread-range-raw').textContent =
+        `${enhanced.rawSimulation.spreadRange.low} to ${enhanced.rawSimulation.spreadRange.high}`;
+      document.getElementById('pred-total-range-raw').textContent =
+        `${enhanced.rawSimulation.totalRange.low} to ${enhanced.rawSimulation.totalRange.high}`;
 
       // Model inputs
       const homeAdv = OddsEngine.getAdvancedStats(g.home_team);
@@ -854,7 +867,7 @@
       if (distributionChart) distributionChart.destroy();
 
       const ctx = document.getElementById('distribution-chart');
-      const sim = OddsEngine.monteCarloSimulation(homeStats, awayStats, 2000);
+      const sim = OddsEngine.monteCarloSimulation(homeStats, awayStats, { iterations: 2000 });
 
       const spreadBins = [
         { label: '-20+', count: 0 },

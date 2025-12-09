@@ -371,30 +371,43 @@ const OddsEngine = (function() {
    * Run Monte Carlo simulation for a matchup
    * @param {Object} homeStats - Home team statistics
    * @param {Object} awayStats - Away team statistics
-   * @param {number} iterations - Number of simulations (default 10000)
+   * @param {Object} options - Simulation options
+   * @param {number} options.iterations - Number of simulations (default 10000)
+   * @param {boolean} options.useRawPpg - Use raw PPG instead of SRS-adjusted (default false)
    * @returns {Object} Simulation results with distributions
    */
-  function monteCarloSimulation(homeStats, awayStats, iterations = 10000) {
+  function monteCarloSimulation(homeStats, awayStats, options = {}) {
+    const iterations = options.iterations || 10000;
+    const useRawPpg = options.useRawPpg || false;
+
     const homeStd = homeStats?.scoring_std_dev || 10;
     const awayStd = awayStats?.scoring_std_dev || 10;
 
-    // Use SRS-based power ratings for expected margin (consistent with win probability)
-    const homePower = calculatePowerRating(homeStats);
-    const awayPower = calculatePowerRating(awayStats);
-    const homeTeamCode = homeStats?.team_code;
-    const hfa = homeTeamCode ? getHomeFieldAdvantage(homeTeamCode) : DEFAULT_HFA;
-    const expectedMargin = (homePower - awayPower) + hfa;
-
-    // Calculate expected total from raw PPG (still useful for total points)
+    // Calculate expected total from raw PPG
     const homePpg = homeStats?.ppg_scored || 21;
     const awayPpg = awayStats?.ppg_scored || 21;
     const homeAllowed = homeStats?.ppg_allowed || 21;
     const awayAllowed = awayStats?.ppg_allowed || 21;
     const expectedTotal = ((homePpg + awayAllowed) + (awayPpg + homeAllowed)) / 2;
 
-    // Derive individual team expected scores from margin and total
-    const homeExpected = (expectedTotal + expectedMargin) / 2;
-    const awayExpected = (expectedTotal - expectedMargin) / 2;
+    let homeExpected, awayExpected;
+
+    if (useRawPpg) {
+      // Raw PPG: simple matchup-based scoring (ignores strength of schedule)
+      homeExpected = (homePpg + awayAllowed) / 2 + 1.25;  // HFA
+      awayExpected = (awayPpg + homeAllowed) / 2 - 1.25;
+    } else {
+      // SRS-adjusted: use power ratings for expected margin
+      const homePower = calculatePowerRating(homeStats);
+      const awayPower = calculatePowerRating(awayStats);
+      const homeTeamCode = homeStats?.team_code;
+      const hfa = homeTeamCode ? getHomeFieldAdvantage(homeTeamCode) : DEFAULT_HFA;
+      const expectedMargin = (homePower - awayPower) + hfa;
+
+      // Derive individual team expected scores from margin and total
+      homeExpected = (expectedTotal + expectedMargin) / 2;
+      awayExpected = (expectedTotal - expectedMargin) / 2;
+    }
 
     // Simulate games
     const homeScores = [];
@@ -471,29 +484,45 @@ const OddsEngine = (function() {
     // Get base odds
     const baseOdds = calculateMatchupOdds(homeStats, awayStats);
 
-    // Run Monte Carlo simulation
-    const simulation = monteCarloSimulation(homeStats, awayStats, 5000);
+    // Run both Monte Carlo simulations
+    const srsSimulation = monteCarloSimulation(homeStats, awayStats, { iterations: 5000 });
+    const rawSimulation = monteCarloSimulation(homeStats, awayStats, { iterations: 5000, useRawPpg: true });
 
     // Advanced factors
     const factors = analyzeMatchupFactors(homeStats, awayStats);
 
     return {
       ...baseOdds,
+      // SRS-adjusted simulation (primary - matches win probability model)
       simulation: {
-        homeWinProb: Math.round(simulation.homeWinProb * 1000) / 1000,
+        homeWinProb: Math.round(srsSimulation.homeWinProb * 1000) / 1000,
         spreadRange: {
-          low: Math.round(simulation.spread.p5 * 10) / 10,
-          mid: Math.round(simulation.spread.median * 10) / 10,
-          high: Math.round(simulation.spread.p95 * 10) / 10,
+          low: Math.round(srsSimulation.spread.p5 * 10) / 10,
+          mid: Math.round(srsSimulation.spread.median * 10) / 10,
+          high: Math.round(srsSimulation.spread.p95 * 10) / 10,
         },
         totalRange: {
-          low: Math.round(simulation.total.p5 * 10) / 10,
-          mid: Math.round(simulation.total.median * 10) / 10,
-          high: Math.round(simulation.total.p95 * 10) / 10,
+          low: Math.round(srsSimulation.total.p5 * 10) / 10,
+          mid: Math.round(srsSimulation.total.median * 10) / 10,
+          high: Math.round(srsSimulation.total.p95 * 10) / 10,
+        },
+      },
+      // Raw PPG simulation (ignores strength of schedule)
+      rawSimulation: {
+        homeWinProb: Math.round(rawSimulation.homeWinProb * 1000) / 1000,
+        spreadRange: {
+          low: Math.round(rawSimulation.spread.p5 * 10) / 10,
+          mid: Math.round(rawSimulation.spread.median * 10) / 10,
+          high: Math.round(rawSimulation.spread.p95 * 10) / 10,
+        },
+        totalRange: {
+          low: Math.round(rawSimulation.total.p5 * 10) / 10,
+          mid: Math.round(rawSimulation.total.median * 10) / 10,
+          high: Math.round(rawSimulation.total.p95 * 10) / 10,
         },
       },
       factors,
-      confidence: calculateConfidence(simulation, factors),
+      confidence: calculateConfidence(srsSimulation, factors),
     };
   }
 
