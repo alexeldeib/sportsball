@@ -290,6 +290,42 @@
 
     .model-inputs-grid span { color: var(--text-muted); }
 
+    /* Stat Tooltips */
+    .stat-tooltip {
+      position: relative;
+      cursor: help;
+      border-bottom: 1px dotted var(--text-muted);
+    }
+
+    .stat-tooltip::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: var(--text-primary);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      max-width: 250px;
+      white-space: normal;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+      z-index: 1000;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+    }
+
+    .stat-tooltip:hover::after {
+      opacity: 1;
+      visibility: visible;
+    }
+
     /* Injury Panel */
     .injury-panel {
       border-top: 1px solid var(--border);
@@ -535,6 +571,49 @@
       .model-stats { grid-template-columns: 1fr 1fr; }
       .calibration-chart { height: 150px; }
       .charts-wrapper { grid-template-columns: 1fr !important; }
+
+      /* Injury panel responsive */
+      .injury-grid { grid-template-columns: 1fr; }
+
+      /* Model inputs responsive */
+      .model-inputs-grid { grid-template-columns: 1fr; }
+
+      /* Detail ranges stack on mobile */
+      .detail-ranges {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+
+      /* Smaller matchup odds on mobile */
+      .matchup-odds { gap: 0.25rem; }
+      .odds-item { padding: 0.35rem; }
+      .odds-label { font-size: 0.6rem; }
+      .odds-value { font-size: 0.85rem; }
+
+      /* Adjust detail header */
+      .detail-header { flex-direction: column; gap: 0.5rem; }
+
+      /* Chart containers smaller on mobile */
+      .chart-container { height: 175px; }
+
+      /* Game profiles wrap */
+      .game-profiles { flex-wrap: wrap; gap: 0.5rem; }
+
+      /* Tooltips wider on mobile */
+      .stat-tooltip::after {
+        left: 0;
+        transform: translateX(0);
+        max-width: 200px;
+        font-size: 0.7rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .container { padding: 1rem 0.75rem; }
+      h1 { font-size: 1.4rem; }
+      .matchup-teams { font-size: 1rem; }
+      .detail-odds { grid-template-columns: repeat(2, 1fr); }
+      .detail-odds .odds-item:nth-child(3) { grid-column: span 2; }
     }
 
     /* Model Track Record Section */
@@ -742,7 +821,7 @@
 
       <!-- Win probability bars - SRS-adjusted and Raw PPG -->
       <div class="detail-prob">
-        <div class="prob-label">SRS-Adjusted Win %</div>
+        <div class="prob-label stat-tooltip" data-tooltip="Win probability using SRS ratings (accounts for strength of schedule). More reliable for teams with imbalanced schedules.">SRS-Adjusted Win %</div>
         <div class="win-prob-bar">
           <div class="win-prob-fill" id="detail-prob-fill" style="width: 50%;"></div>
         </div>
@@ -752,7 +831,7 @@
         </div>
       </div>
       <div class="detail-prob" style="margin-top: 0.5rem;">
-        <div class="prob-label">Raw PPG Win %</div>
+        <div class="prob-label stat-tooltip" data-tooltip="Win probability using raw points per game. Ignores schedule strength but may capture recent momentum better.">Raw PPG Win %</div>
         <div class="win-prob-bar">
           <div class="win-prob-fill" id="detail-prob-fill-raw" style="width: 50%;"></div>
         </div>
@@ -765,19 +844,19 @@
       <!-- Confidence intervals - both SRS-adjusted and raw PPG -->
       <div class="detail-ranges">
         <div class="range-item">
-          <span class="range-label">Spread 90% CI (SRS):</span>
+          <span class="range-label stat-tooltip" data-tooltip="90% Confidence Interval for the point spread using SRS. 90% of simulated outcomes fall within this range.">Spread 90% CI (SRS):</span>
           <span class="range-value" id="pred-spread-range">--</span>
         </div>
         <div class="range-item">
-          <span class="range-label">Spread 90% CI (Raw PPG):</span>
+          <span class="range-label stat-tooltip" data-tooltip="90% Confidence Interval for the point spread using raw PPG. Wider ranges indicate more uncertainty.">Spread 90% CI (Raw PPG):</span>
           <span class="range-value" id="pred-spread-range-raw">--</span>
         </div>
         <div class="range-item">
-          <span class="range-label">Total 90% CI (SRS):</span>
+          <span class="range-label stat-tooltip" data-tooltip="90% Confidence Interval for the total points scored (over/under) using SRS.">Total 90% CI (SRS):</span>
           <span class="range-value" id="pred-total-range">--</span>
         </div>
         <div class="range-item">
-          <span class="range-label">Total 90% CI (Raw PPG):</span>
+          <span class="range-label stat-tooltip" data-tooltip="90% Confidence Interval for the total points scored using raw PPG.">Total 90% CI (Raw PPG):</span>
           <span class="range-value" id="pred-total-range-raw">--</span>
         </div>
       </div>
@@ -1368,12 +1447,12 @@
       let inputsHtml = '';
       if (homeAdv && awayAdv) {
         inputsHtml = `
-          <div><span>${g.home_team} SRS:</span> ${homeAdv.srs >= 0 ? '+' : ''}${homeAdv.srs?.toFixed(1)}</div>
-          <div><span>${g.away_team} SRS:</span> ${awayAdv.srs >= 0 ? '+' : ''}${awayAdv.srs?.toFixed(1)}</div>
-          <div><span>Home Field:</span> +${enhanced.homeFieldAdvantage || 2.5} pts</div>
-          <div><span>Power Diff:</span> ${(enhanced.homePower - enhanced.awayPower).toFixed(1)}</div>
-          <div><span>${g.home_team} SOS:</span> ${homeAdv.sos?.toFixed(3)}</div>
-          <div><span>${g.away_team} SOS:</span> ${awayAdv.sos?.toFixed(3)}</div>
+          <div><span class="stat-tooltip" data-tooltip="Simple Rating System: Point differential adjusted for strength of schedule. Positive = above avg, negative = below avg.">${g.home_team} SRS:</span> ${homeAdv.srs >= 0 ? '+' : ''}${homeAdv.srs?.toFixed(1)}</div>
+          <div><span class="stat-tooltip" data-tooltip="Simple Rating System: Point differential adjusted for strength of schedule. Positive = above avg, negative = below avg.">${g.away_team} SRS:</span> ${awayAdv.srs >= 0 ? '+' : ''}${awayAdv.srs?.toFixed(1)}</div>
+          <div><span class="stat-tooltip" data-tooltip="Historical home field advantage in NFL. Home teams win ~57% and score ~2.5 pts more on average.">Home Field:</span> +${enhanced.homeFieldAdvantage || 2.5} pts</div>
+          <div><span class="stat-tooltip" data-tooltip="Difference in team power ratings (SRS + home advantage). Positive favors home team.">Power Diff:</span> ${(enhanced.homePower - enhanced.awayPower).toFixed(1)}</div>
+          <div><span class="stat-tooltip" data-tooltip="Strength of Schedule: Average SRS of opponents faced. Higher = tougher schedule.">${g.home_team} SOS:</span> ${homeAdv.sos?.toFixed(3)}</div>
+          <div><span class="stat-tooltip" data-tooltip="Strength of Schedule: Average SRS of opponents faced. Higher = tougher schedule.">${g.away_team} SOS:</span> ${awayAdv.sos?.toFixed(3)}</div>
         `;
       } else {
         inputsHtml = `
