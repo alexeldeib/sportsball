@@ -290,6 +290,81 @@
 
     .model-inputs-grid span { color: var(--text-muted); }
 
+    /* Injury Panel */
+    .injury-panel {
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+      margin-top: 1rem;
+    }
+
+    .injury-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .injury-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .injury-team {
+      background: var(--bg-deep);
+      border-radius: 6px;
+      padding: 0.75rem;
+    }
+
+    .injury-team-header {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .injury-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .injury-player {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .injury-status {
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .injury-status.out { background: rgba(239, 68, 68, 0.2); color: var(--negative); }
+    .injury-status.doubtful { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .injury-status.questionable { background: rgba(217, 119, 6, 0.2); color: var(--warning); }
+    .injury-status.probable { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+
+    .injury-name { color: var(--text-primary); }
+    .injury-pos { color: var(--text-muted); }
+
+    .injury-none {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
     /* H2H Section */
     .h2h-section {
       border-top: 1px solid var(--border);
@@ -676,6 +751,25 @@
           <div class="model-inputs-grid" id="model-inputs-grid"></div>
         </div>
 
+        <!-- Injury Panel -->
+        <div class="injury-panel" id="injury-panel">
+          <div class="injury-title">🏥 Injury Report</div>
+          <div class="injury-grid">
+            <div class="injury-team">
+              <div class="injury-team-header" id="injury-away-header">AWAY</div>
+              <div class="injury-list" id="injury-away-list">
+                <div class="injury-none">Loading...</div>
+              </div>
+            </div>
+            <div class="injury-team">
+              <div class="injury-team-header" id="injury-home-header">HOME</div>
+              <div class="injury-list" id="injury-home-list">
+                <div class="injury-none">Loading...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="charts-wrapper" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
           <div class="chart-container">
             <div class="chart-title" style="text-align: center; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem;">SRS-Adjusted Distribution</div>
@@ -800,6 +894,68 @@
       });
     }
 
+    // Injury data cache
+    let injuryData = null;
+
+    async function loadInjuryData() {
+      if (injuryData) return injuryData;
+      try {
+        const response = await fetch('injuries-2025.json?' + Date.now());
+        if (!response.ok) throw new Error('Failed to load injuries');
+        injuryData = await response.json();
+        return injuryData;
+      } catch (e) {
+        console.warn('Could not load injury data:', e);
+        return {};
+      }
+    }
+
+    function renderInjuries(homeTeam, awayTeam) {
+      document.getElementById('injury-away-header').textContent = awayTeam;
+      document.getElementById('injury-home-header').textContent = homeTeam;
+
+      const awayList = document.getElementById('injury-away-list');
+      const homeList = document.getElementById('injury-home-list');
+
+      if (!injuryData) {
+        awayList.innerHTML = '<div class="injury-none">Injury data unavailable</div>';
+        homeList.innerHTML = '<div class="injury-none">Injury data unavailable</div>';
+        return;
+      }
+
+      const awayInjuries = injuryData[awayTeam] || [];
+      const homeInjuries = injuryData[homeTeam] || [];
+
+      // Filter to only show non-active players (Out, Questionable, Doubtful, Probable)
+      const filterInjuries = (injuries) => injuries.filter(p =>
+        ['out', 'doubtful', 'questionable', 'probable'].includes(p.type?.toLowerCase())
+      ).slice(0, 6); // Limit to 6 most relevant
+
+      const awayFiltered = filterInjuries(awayInjuries);
+      const homeFiltered = filterInjuries(homeInjuries);
+
+      const renderList = (injuries, container) => {
+        if (injuries.length === 0) {
+          container.innerHTML = '<div class="injury-none">No significant injuries</div>';
+          return;
+        }
+
+        container.innerHTML = injuries.map(p => {
+          const statusClass = p.type?.toLowerCase() || 'questionable';
+          return `
+            <div class="injury-player">
+              <span class="injury-status ${statusClass}">${p.status || p.type}</span>
+              <span class="injury-name">${p.player_name}</span>
+              <span class="injury-pos">${p.position}</span>
+            </div>
+          `;
+        }).join('');
+      };
+
+      renderList(awayFiltered, awayList);
+      renderList(homeFiltered, homeList);
+    }
+
     // NFL week date ranges (Tuesday start of each week)
     // 2025 season: Week 1 starts Sept 4 (Thursday opener), week ends following Monday
     const NFL_WEEK_STARTS = {
@@ -887,6 +1043,9 @@
 
       const season = document.getElementById('season-select').value;
       await OddsEngine.loadAdvancedStats(parseInt(season));
+
+      // Load injury data
+      await loadInjuryData();
 
       populateWeekSelect();
     }
@@ -1143,6 +1302,9 @@
         `;
       }
       document.getElementById('model-inputs-grid').innerHTML = inputsHtml;
+
+      // Injury report
+      renderInjuries(g.home_team, g.away_team);
 
       // Distribution chart
       renderDistributionChart(g._homeStats, g._awayStats, g.home_team);
