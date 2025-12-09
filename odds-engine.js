@@ -375,18 +375,26 @@ const OddsEngine = (function() {
    * @returns {Object} Simulation results with distributions
    */
   function monteCarloSimulation(homeStats, awayStats, iterations = 10000) {
-    const homePpg = homeStats?.ppg_scored || 21;
-    const awayPpg = awayStats?.ppg_scored || 21;
     const homeStd = homeStats?.scoring_std_dev || 10;
     const awayStd = awayStats?.scoring_std_dev || 10;
 
-    // Adjust for matchup (home offense vs away defense, etc)
+    // Use SRS-based power ratings for expected margin (consistent with win probability)
+    const homePower = calculatePowerRating(homeStats);
+    const awayPower = calculatePowerRating(awayStats);
+    const homeTeamCode = homeStats?.team_code;
+    const hfa = homeTeamCode ? getHomeFieldAdvantage(homeTeamCode) : DEFAULT_HFA;
+    const expectedMargin = (homePower - awayPower) + hfa;
+
+    // Calculate expected total from raw PPG (still useful for total points)
+    const homePpg = homeStats?.ppg_scored || 21;
+    const awayPpg = awayStats?.ppg_scored || 21;
     const homeAllowed = homeStats?.ppg_allowed || 21;
     const awayAllowed = awayStats?.ppg_allowed || 21;
+    const expectedTotal = ((homePpg + awayAllowed) + (awayPpg + homeAllowed)) / 2;
 
-    // Expected scoring adjusted for opponent
-    const homeExpected = (homePpg + awayAllowed) / 2 + 1.25;  // HFA
-    const awayExpected = (awayPpg + homeAllowed) / 2 - 1.25;
+    // Derive individual team expected scores from margin and total
+    const homeExpected = (expectedTotal + expectedMargin) / 2;
+    const awayExpected = (expectedTotal - expectedMargin) / 2;
 
     // Simulate games
     const homeScores = [];
