@@ -5153,24 +5153,24 @@
     "home_team": "KC",
     "away_team": "HOU",
     "game_date": "2025-12-08",
-    "is_completed": false,
-    "home_score": 7,
-    "away_score": 10,
-    "total_points": 17,
+    "is_completed": true,
+    "home_score": 10,
+    "away_score": 20,
+    "total_points": 30,
     "home_q1": 0,
     "home_q2": 0,
-    "home_q3": 7,
+    "home_q3": 10,
     "home_q4": 0,
     "home_ot": 0,
     "away_q1": 3,
     "away_q2": 7,
     "away_q3": 0,
-    "away_q4": 0,
+    "away_q4": 10,
     "away_ot": 0,
     "home_1h": 0,
-    "home_2h": 7,
+    "home_2h": 10,
     "away_1h": 10,
-    "away_2h": 0,
+    "away_2h": 10,
     "week": 14,
     "season": 2025
   },
@@ -5178,7 +5178,24 @@
     "home_team": "LAC",
     "away_team": "PHI",
     "game_date": "2025-12-09",
-    "is_completed": false,
+    "is_completed": true,
+    "home_score": 22,
+    "away_score": 19,
+    "total_points": 41,
+    "home_q1": 7,
+    "home_q2": 3,
+    "home_q3": 3,
+    "home_q4": 6,
+    "home_ot": 3,
+    "away_q1": 3,
+    "away_q2": 3,
+    "away_q3": 3,
+    "away_q4": 10,
+    "away_ot": 0,
+    "home_1h": 10,
+    "home_2h": 12,
+    "away_1h": 6,
+    "away_2h": 13,
     "week": 14,
     "season": 2025
   },
@@ -5359,6 +5376,14 @@
     "season": 2025
   },
   {
+    "home_team": "MIA",
+    "away_team": "CIN",
+    "game_date": "2025-12-21",
+    "is_completed": false,
+    "week": 16,
+    "season": 2025
+  },
+  {
     "home_team": "NO",
     "away_team": "NYJ",
     "game_date": "2025-12-21",
@@ -5377,14 +5402,6 @@
   {
     "home_team": "CAR",
     "away_team": "TB",
-    "game_date": "2025-12-21",
-    "is_completed": false,
-    "week": 16,
-    "season": 2025
-  },
-  {
-    "home_team": "BAL",
-    "away_team": "NE",
     "game_date": "2025-12-21",
     "is_completed": false,
     "week": 16,
@@ -5423,8 +5440,8 @@
     "season": 2025
   },
   {
-    "home_team": "MIA",
-    "away_team": "CIN",
+    "home_team": "BAL",
+    "away_team": "NE",
     "game_date": "2025-12-22",
     "is_completed": false,
     "week": 16,
@@ -5463,30 +5480,6 @@
     "season": 2025
   },
   {
-    "home_team": "CIN",
-    "away_team": "ARI",
-    "game_date": "2025-12-27",
-    "is_completed": false,
-    "week": 17,
-    "season": 2025
-  },
-  {
-    "home_team": "GB",
-    "away_team": "BAL",
-    "game_date": "2025-12-27",
-    "is_completed": false,
-    "week": 17,
-    "season": 2025
-  },
-  {
-    "home_team": "LV",
-    "away_team": "NYG",
-    "game_date": "2025-12-27",
-    "is_completed": false,
-    "week": 17,
-    "season": 2025
-  },
-  {
     "home_team": "LAC",
     "away_team": "HOU",
     "game_date": "2025-12-27",
@@ -5495,9 +5488,17 @@
     "season": 2025
   },
   {
-    "home_team": "CAR",
-    "away_team": "SEA",
-    "game_date": "2025-12-27",
+    "home_team": "GB",
+    "away_team": "BAL",
+    "game_date": "2025-12-28",
+    "is_completed": false,
+    "week": 17,
+    "season": 2025
+  },
+  {
+    "home_team": "CIN",
+    "away_team": "ARI",
+    "game_date": "2025-12-28",
     "is_completed": false,
     "week": 17,
     "season": 2025
@@ -5537,6 +5538,22 @@
   {
     "home_team": "NYJ",
     "away_team": "NE",
+    "game_date": "2025-12-28",
+    "is_completed": false,
+    "week": 17,
+    "season": 2025
+  },
+  {
+    "home_team": "CAR",
+    "away_team": "SEA",
+    "game_date": "2025-12-28",
+    "is_completed": false,
+    "week": 17,
+    "season": 2025
+  },
+  {
+    "home_team": "LV",
+    "away_team": "NYG",
     "game_date": "2025-12-28",
     "is_completed": false,
     "week": 17,
