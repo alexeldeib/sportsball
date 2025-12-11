@@ -1307,33 +1307,35 @@
     function buildPropCards(home, away) {
       const cards = [];
 
-      // Get key players from both teams
+      // Get key players from both teams (excluding IR/Out players)
       const players = db.exec(`
         SELECT
-          player_name,
-          team,
-          position,
-          AVG(pass_yd) as avg_pass_yd,
-          AVG(rush_yd) as avg_rush_yd,
-          AVG(rec_yd) as avg_rec_yd,
-          AVG(rec) as avg_rec,
-          SUM(pass_td) as total_pass_td,
-          SUM(rush_td) as total_rush_td,
-          SUM(rec_td) as total_rec_td,
+          p.player_name,
+          p.team,
+          p.position,
+          AVG(p.pass_yd) as avg_pass_yd,
+          AVG(p.rush_yd) as avg_rush_yd,
+          AVG(p.rec_yd) as avg_rec_yd,
+          AVG(p.rec) as avg_rec,
+          SUM(p.pass_td) as total_pass_td,
+          SUM(p.rush_td) as total_rush_td,
+          SUM(p.rec_td) as total_rec_td,
           COUNT(*) as games,
-          STDEV(pass_yd) as std_pass_yd,
-          STDEV(rush_yd) as std_rush_yd,
-          STDEV(rec_yd) as std_rec_yd,
-          STDEV(rec) as std_rec
-        FROM player_weekly_stats
-        WHERE season = 2025
-          AND team IN ('${home}', '${away}')
-          AND position IN ('QB', 'RB', 'WR', 'TE')
-        GROUP BY player_id
+          STDEV(p.pass_yd) as std_pass_yd,
+          STDEV(p.rush_yd) as std_rush_yd,
+          STDEV(p.rec_yd) as std_rec_yd,
+          STDEV(p.rec) as std_rec
+        FROM player_weekly_stats p
+        LEFT JOIN injuries i ON p.player_name = i.player_name AND p.team = i.team AND i.season = 2025
+        WHERE p.season = 2025
+          AND p.team IN ('${home}', '${away}')
+          AND p.position IN ('QB', 'RB', 'WR', 'TE')
+          AND (i.status IS NULL OR i.status NOT IN ('Injured Reserve', 'Out'))
+        GROUP BY p.player_id
         HAVING games >= 4
         ORDER BY
-          team,
-          CASE position
+          p.team,
+          CASE p.position
             WHEN 'QB' THEN 1
             WHEN 'RB' THEN 2
             WHEN 'WR' THEN 3

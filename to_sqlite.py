@@ -13,6 +13,8 @@ Imports:
   - team-stats-*.json → team_stats table
   - player-weekly-stats-*.json → player_weekly_stats table
   - matchup-odds-*.json → matchup_odds table
+  - injuries-*.json → injuries table
+  - ir-overrides.json → merged into injuries (for manual IR additions)
 """
 import json
 import sqlite3
@@ -442,6 +444,54 @@ def insert_matchup_odds(conn, odds_list):
     return len(rows)
 
 
+# ============ Injuries Table ============
+
+def create_injuries_table(conn):
+    """Create injuries table for player injury status."""
+    conn.execute("DROP TABLE IF EXISTS injuries")
+    conn.execute("""
+        CREATE TABLE injuries (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            player_name TEXT NOT NULL,
+            team TEXT NOT NULL,
+            position TEXT,
+            status TEXT NOT NULL,
+            short_comment TEXT,
+            injury_type TEXT,
+            season INTEGER NOT NULL,
+            source TEXT DEFAULT 'espn',
+            UNIQUE(player_name, team, season)
+        )
+    """)
+    conn.commit()
+
+
+def insert_injuries(conn, injuries_by_team, season, source="espn"):
+    """Insert injuries into database."""
+    cols = ["player_name", "team", "position", "status", "short_comment", "injury_type", "season", "source"]
+    placeholders = ", ".join(["?"] * len(cols))
+    sql = f"INSERT OR REPLACE INTO injuries ({', '.join(cols)}) VALUES ({placeholders})"
+
+    rows = []
+    for team, injuries in injuries_by_team.items():
+        for inj in injuries:
+            row = [
+                inj.get("player_name"),
+                team,
+                inj.get("position"),
+                inj.get("status"),
+                inj.get("short_comment"),
+                inj.get("type"),
+                season,
+                source,
+            ]
+            rows.append(row)
+
+    conn.executemany(sql, rows)
+    conn.commit()
+    return len(rows)
+
+
 # ============ Main ============
 
 def main():
@@ -566,6 +616,30 @@ def main():
         count = insert_head_to_head(conn, h2h)
         print(f"  head_to_head: {count} team pairs")
 
+    # ===== Injuries =====
+    injury_files = sorted(Path(".").glob("injuries-*.json"))
+    if injury_files:
+        create_injuries_table(conn)
+        total = 0
+        for inf in injury_files:
+            with open(inf, encoding="utf-8") as f:
+                injuries = json.load(f)
+            year = extract_year_from_filename(inf)
+            count = insert_injuries(conn, injuries, year, source="espn")
+            total += count
+            print(f"  injuries: {count} for {year}")
+
+        # Load manual IR overrides (for players ESPN doesn't list)
+        override_file = Path("ir-overrides.json")
+        if override_file.exists():
+            with open(override_file, encoding="utf-8") as f:
+                overrides = json.load(f)
+            override_count = insert_injuries(conn, overrides, 2025, source="manual")
+            total += override_count
+            print(f"  injuries: {override_count} from manual overrides")
+
+        print(f"  → {total} total injuries")
+
     # ===== Create Indexes =====
     print("\nCreating indexes...")
     indexes = [
@@ -583,6 +657,9 @@ def main():
         "CREATE INDEX IF NOT EXISTS idx_weekly_opponent ON player_weekly_stats(opponent)",
         "CREATE INDEX IF NOT EXISTS idx_odds_week ON matchup_odds(season, week)",
         "CREATE INDEX IF NOT EXISTS idx_h2h_teams ON head_to_head(team1, team2)",
+        "CREATE INDEX IF NOT EXISTS idx_injuries_player ON injuries(player_name)",
+        "CREATE INDEX IF NOT EXISTS idx_injuries_team ON injuries(team, season)",
+        "CREATE INDEX IF NOT EXISTS idx_injuries_status ON injuries(status)",
     ]
     for idx in indexes:
         conn.execute(idx)
