@@ -617,19 +617,34 @@ def main():
         print(f"  head_to_head: {count} team pairs")
 
     # ===== Injuries =====
-    injury_files = sorted(Path(".").glob("injuries-*.json"))
-    if injury_files:
+    # Load in priority order: ESPN first, then Sleeper (more accurate IR), then manual overrides
+    # Later sources override earlier ones via INSERT OR REPLACE
+    sleeper_injury_files = sorted(Path(".").glob("sleeper-injuries-*.json"))
+    espn_injury_files = sorted(Path(".").glob("injuries-*.json"))
+
+    if sleeper_injury_files or espn_injury_files:
         create_injuries_table(conn)
         total = 0
-        for inf in injury_files:
+
+        # Load ESPN injuries first (base data)
+        for inf in espn_injury_files:
             with open(inf, encoding="utf-8") as f:
                 injuries = json.load(f)
             year = extract_year_from_filename(inf)
             count = insert_injuries(conn, injuries, year, source="espn")
             total += count
-            print(f"  injuries: {count} for {year}")
+            print(f"  injuries: {count} from ESPN for {year}")
 
-        # Load manual IR overrides (for players ESPN doesn't list)
+        # Load Sleeper injuries (better IR tracking, overrides ESPN)
+        for inf in sleeper_injury_files:
+            with open(inf, encoding="utf-8") as f:
+                injuries = json.load(f)
+            year = extract_year_from_filename(inf)
+            count = insert_injuries(conn, injuries, year, source="sleeper")
+            total += count
+            print(f"  injuries: {count} from Sleeper for {year}")
+
+        # Load manual IR overrides (highest priority)
         override_file = Path("ir-overrides.json")
         if override_file.exists():
             with open(override_file, encoding="utf-8") as f:

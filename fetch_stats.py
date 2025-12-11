@@ -108,6 +108,54 @@ def extract_stats(player_stats, position):
     return stats
 
 
+def extract_injuries(players_raw, year):
+    """Extract injury information from Sleeper player data."""
+    injuries_by_team = {}
+
+    for player_id, p in players_raw.items():
+        injury_status = p.get("injury_status")
+        team_code = p.get("team")
+
+        # Only include players with injury status and valid team
+        if not injury_status or team_code not in VALID_TEAM_CODES:
+            continue
+
+        first = (p.get("first_name") or "").strip()
+        last = (p.get("last_name") or "").strip()
+        name = (first + " " + last).strip()
+        if not name:
+            continue
+
+        # Map Sleeper injury_status to normalized status
+        # Sleeper uses: IR, Out, Doubtful, Questionable, Probable, Sus (suspended)
+        status_map = {
+            "IR": "Injured Reserve",
+            "Out": "Out",
+            "Doubtful": "Doubtful",
+            "Questionable": "Questionable",
+            "Probable": "Probable",
+            "Sus": "Suspended",
+            "PUP": "PUP",
+            "NFI": "NFI",
+            "COV": "COVID-19",
+        }
+        normalized_status = status_map.get(injury_status, injury_status)
+
+        injury = {
+            "player_name": name,
+            "position": p.get("position"),
+            "status": normalized_status,
+            "short_comment": p.get("injury_notes") or f"{p.get('injury_body_part', 'Unknown')} injury",
+            "type": normalized_status,
+        }
+
+        if team_code not in injuries_by_team:
+            injuries_by_team[team_code] = []
+        injuries_by_team[team_code].append(injury)
+
+    return injuries_by_team
+
+
 def main():
     year = sys.argv[1] if len(sys.argv) > 1 else "2024"
     stats_url = f"https://api.sleeper.app/stats/nfl/{year}?season_type=regular"
@@ -178,6 +226,18 @@ def main():
     print(f"Saved {len(players)} players to {output_file}")
     print(f"  - {with_stats} players have stats")
     print(f"  - {len(players) - with_stats} players have no stats (rookies, backups, etc.)")
+
+    # Extract and save injuries from Sleeper data
+    injuries = extract_injuries(players_raw, year)
+    injuries_file = f"sleeper-injuries-{year}.json"
+    with open(injuries_file, "w", encoding="utf-8") as f:
+        json.dump(injuries, f, indent=2, ensure_ascii=False)
+
+    total_injuries = sum(len(v) for v in injuries.values())
+    ir_count = sum(1 for team in injuries.values() for inj in team if inj["status"] == "Injured Reserve")
+    out_count = sum(1 for team in injuries.values() for inj in team if inj["status"] == "Out")
+    print(f"Saved {total_injuries} injuries to {injuries_file}")
+    print(f"  - {ir_count} on IR, {out_count} Out")
 
 
 if __name__ == "__main__":
