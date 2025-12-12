@@ -6613,6 +6613,18 @@
     }
   },
   {
+    "name": "Christopher Edmonds",
+    "team": "Cleveland Browns",
+    "team_code": "CLE",
+    "position": "DB",
+    "number": 41,
+    "stats": {
+      "gp": 5.0,
+      "def_snp": 4.0,
+      "st_snp": 73.0
+    }
+  },
+  {
     "name": "D'Angelo Ross",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -11930,7 +11942,7 @@
     "team": "Houston Texans",
     "team_code": "HOU",
     "position": "RB",
-    "number": 32,
+    "number": 30,
     "stats": {
       "gp": 1.0,
       "st_snp": 4.0
@@ -16747,7 +16759,7 @@
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
     "position": "TE",
-    "number": 84
+    "number": 88
   },
   {
     "name": "Thomas Yassmin",
@@ -22464,6 +22476,22 @@
     }
   },
   {
+    "name": "Ryan Miller",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "WR",
+    "number": 9,
+    "stats": {
+      "gp": 13.0,
+      "gs": 3.0,
+      "off_snp": 123.0,
+      "st_snp": 192.0,
+      "rec": 2.0,
+      "rec_yd": 34.0,
+      "rec_td": 1.0
+    }
+  },
+  {
     "name": "Wan'Dale Robinson",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -24881,6 +24909,13 @@
     }
   },
   {
+    "name": "Doug Nester",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "OL",
+    "number": 69
+  },
+  {
     "name": "Mason McCormick",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -25085,7 +25120,7 @@
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
     "position": "T",
-    "number": 72,
+    "number": 61,
     "stats": {
       "gp": 1.0,
       "st_snp": 8.0
@@ -29111,7 +29146,7 @@
     "team": "Washington Commanders",
     "team_code": "WAS",
     "position": "CB",
-    "number": 29
+    "number": 25
   },
   {
     "name": "Noah Igbinoghene",

@@ -2,7 +2,7 @@
   {
     "team_code": "ARI",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:24.385689",
+    "fetched_at": "2025-12-12T06:06:59.363348",
     "completionPct": 66.798,
     "completionPct_per_game": 66.78600311279297,
     "interceptions": 9.0,
@@ -43,7 +43,7 @@
   {
     "team_code": "ATL",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:24.783792",
+    "fetched_at": "2025-12-12T06:06:59.829913",
     "completionPct": 60.386,
     "completionPct_per_game": 60.84299850463867,
     "interceptions": 10.0,
@@ -84,7 +84,7 @@
   {
     "team_code": "BAL",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:25.188772",
+    "fetched_at": "2025-12-12T06:07:00.242584",
     "completionPct": 64.489,
     "completionPct_per_game": 65.36499786376953,
     "interceptions": 7.0,
@@ -126,7 +126,7 @@
   {
     "team_code": "BUF",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:25.588309",
+    "fetched_at": "2025-12-12T06:07:00.675433",
     "completionPct": 69.792,
     "completionPct_per_game": 69.56099700927734,
     "interceptions": 10.0,
@@ -168,7 +168,7 @@
   {
     "team_code": "CAR",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:25.987879",
+    "fetched_at": "2025-12-12T06:07:01.095395",
     "completionPct": 63.75,
     "completionPct_per_game": 63.99599838256836,
     "interceptions": 12.0,
@@ -209,7 +209,7 @@
   {
     "team_code": "CHI",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:26.387974",
+    "fetched_at": "2025-12-12T06:07:01.511086",
     "completionPct": 57.895,
     "completionPct_per_game": 57.98899841308594,
     "interceptions": 18.0,
@@ -252,7 +252,7 @@
   {
     "team_code": "CIN",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:26.799049",
+    "fetched_at": "2025-12-12T06:07:01.922980",
     "completionPct": 61.866,
     "completionPct_per_game": 61.87200164794922,
     "interceptions": 10.0,
@@ -294,7 +294,7 @@
   {
     "team_code": "CLE",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:27.195421",
+    "fetched_at": "2025-12-12T06:07:02.534372",
     "completionPct": 57.366,
     "completionPct_per_game": 57.49399948120117,
     "interceptions": 10.0,
@@ -335,7 +335,7 @@
   {
     "team_code": "DAL",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:27.597104",
+    "fetched_at": "2025-12-12T06:07:03.016419",
     "completionPct": 68.966,
     "completionPct_per_game": 68.6709976196289,
     "interceptions": 5.0,
@@ -377,7 +377,7 @@
   {
     "team_code": "DEN",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:27.993449",
+    "fetched_at": "2025-12-12T06:07:03.597788",
     "completionPct": 63.057,
     "completionPct_per_game": 63.09600067138672,
     "interceptions": 7.0,
@@ -419,7 +419,7 @@
   {
     "team_code": "DET",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:28.394465",
+    "fetched_at": "2025-12-12T06:07:04.105863",
     "completionPct": 69.712,
     "completionPct_per_game": 70.38700103759766,
     "interceptions": 11.0,
@@ -461,7 +461,7 @@
   {
     "team_code": "GB",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:28.791174",
+    "fetched_at": "2025-12-12T06:07:04.628243",
     "completionPct": 67.352,
     "completionPct_per_game": 67.29100036621094,
     "interceptions": 7.0,
@@ -503,7 +503,7 @@
   {
     "team_code": "HOU",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:29.192185",
+    "fetched_at": "2025-12-12T06:07:05.057810",
     "completionPct": 62.445,
     "completionPct_per_game": 62.992000579833984,
     "interceptions": 15.0,
@@ -545,7 +545,7 @@
   {
     "team_code": "IND",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:29.677117",
+    "fetched_at": "2025-12-12T06:07:05.611216",
     "completionPct": 66.986,
     "completionPct_per_game": 67.28399658203125,
     "interceptions": 12.0,
@@ -587,7 +587,7 @@
   {
     "team_code": "JAX",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:30.106091",
+    "fetched_at": "2025-12-12T06:07:06.032559",
     "completionPct": 59.624,
     "completionPct_per_game": 60.42399978637695,
     "interceptions": 15.0,
@@ -630,7 +630,7 @@
   {
     "team_code": "KC",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:30.604695",
+    "fetched_at": "2025-12-12T06:07:06.480343",
     "completionPct": 63.08,
     "completionPct_per_game": 62.86899948120117,
     "interceptions": 7.0,
@@ -672,7 +672,7 @@
   {
     "team_code": "LV",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:31.008752",
+    "fetched_at": "2025-12-12T06:07:06.937317",
     "completionPct": 67.153,
     "completionPct_per_game": 67.58300018310547,
     "interceptions": 8.0,
@@ -714,7 +714,7 @@
   {
     "team_code": "LAC",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:31.451321",
+    "fetched_at": "2025-12-12T06:07:07.390366",
     "completionPct": 65.287,
     "completionPct_per_game": 65.33699798583984,
     "interceptions": 15.0,
@@ -756,7 +756,7 @@
   {
     "team_code": "LAR",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:31.930970",
+    "fetched_at": "2025-12-12T06:07:07.863019",
     "completionPct": 66.513,
     "completionPct_per_game": 66.4229965209961,
     "interceptions": 13.0,
@@ -799,7 +799,7 @@
   {
     "team_code": "MIA",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:32.402708",
+    "fetched_at": "2025-12-12T06:07:08.447977",
     "completionPct": 66.845,
     "completionPct_per_game": 66.73400115966797,
     "interceptions": 7.0,
@@ -841,7 +841,7 @@
   {
     "team_code": "MIN",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:32.828925",
+    "fetched_at": "2025-12-12T06:07:08.973327",
     "completionPct": 60.769,
     "completionPct_per_game": 61.01499938964844,
     "interceptions": 5.0,
@@ -883,7 +883,7 @@
   {
     "team_code": "NE",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:33.223010",
+    "fetched_at": "2025-12-12T06:07:09.568438",
     "completionPct": 71.392,
     "completionPct_per_game": 72.41899871826172,
     "interceptions": 8.0,
@@ -924,7 +924,7 @@
   {
     "team_code": "NO",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:33.630092",
+    "fetched_at": "2025-12-12T06:07:09.985090",
     "completionPct": 66.143,
     "completionPct_per_game": 66.35800170898438,
     "interceptions": 8.0,
@@ -965,7 +965,7 @@
   {
     "team_code": "NYG",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:34.042637",
+    "fetched_at": "2025-12-12T06:07:10.398300",
     "completionPct": 61.017,
     "completionPct_per_game": 61.3650016784668,
     "interceptions": 5.0,
@@ -1007,7 +1007,7 @@
   {
     "team_code": "NYJ",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:34.437979",
+    "fetched_at": "2025-12-12T06:07:10.955200",
     "completionPct": 60.27,
     "completionPct_per_game": 59.47800064086914,
     "interceptions": 0.0,
@@ -1048,7 +1048,7 @@
   {
     "team_code": "PHI",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:34.886098",
+    "fetched_at": "2025-12-12T06:07:11.473277",
     "completionPct": 64.66,
     "completionPct_per_game": 65.7760009765625,
     "interceptions": 9.0,
@@ -1090,7 +1090,7 @@
   {
     "team_code": "PIT",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:35.290973",
+    "fetched_at": "2025-12-12T06:07:11.999295",
     "completionPct": 66.414,
     "completionPct_per_game": 66.43800354003906,
     "interceptions": 11.0,
@@ -1131,7 +1131,7 @@
   {
     "team_code": "SF",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:35.690140",
+    "fetched_at": "2025-12-12T06:07:12.416755",
     "completionPct": 68.222,
     "completionPct_per_game": 68.31600189208984,
     "interceptions": 5.0,
@@ -1173,7 +1173,7 @@
   {
     "team_code": "SEA",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:36.097156",
+    "fetched_at": "2025-12-12T06:07:12.889492",
     "completionPct": 67.877,
     "completionPct_per_game": 68.86000061035156,
     "interceptions": 15.0,
@@ -1216,7 +1216,7 @@
   {
     "team_code": "TB",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:36.520984",
+    "fetched_at": "2025-12-12T06:07:13.347033",
     "completionPct": 61.343,
     "completionPct_per_game": 61.763999938964844,
     "interceptions": 12.0,
@@ -1257,7 +1257,7 @@
   {
     "team_code": "TEN",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:36.945241",
+    "fetched_at": "2025-12-12T06:07:13.818944",
     "completionPct": 59.091,
     "completionPct_per_game": 58.073001861572266,
     "interceptions": 6.0,
@@ -1297,7 +1297,7 @@
   {
     "team_code": "WAS",
     "season": 2025,
-    "fetched_at": "2025-12-11T19:42:37.346981",
+    "fetched_at": "2025-12-12T06:07:14.252505",
     "completionPct": 61.78,
     "completionPct_per_game": 62.76100158691406,
     "interceptions": 6.0,

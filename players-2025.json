@@ -3216,6 +3216,12 @@
     "position": "CB"
   },
   {
+    "name": "Christopher Edmonds",
+    "team": "Cleveland Browns",
+    "team_code": "CLE",
+    "position": "DB"
+  },
+  {
     "name": "D'Angelo Ross",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -8112,6 +8118,12 @@
     "position": "TE"
   },
   {
+    "name": "Tanner McLachlan",
+    "team": "Los Angeles Chargers",
+    "team_code": "LAC",
+    "position": "TE"
+  },
+  {
     "name": "Thomas Yassmin",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
@@ -10872,6 +10884,12 @@
     "position": "WR"
   },
   {
+    "name": "Ryan Miller",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "WR"
+  },
+  {
     "name": "Wan'Dale Robinson",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -12025,6 +12043,12 @@
   },
   {
     "name": "Andrus Peat",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "OL"
+  },
+  {
+    "name": "Doug Nester",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
     "position": "OL"
