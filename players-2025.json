@@ -2976,6 +2976,12 @@
     "position": "LB"
   },
   {
+    "name": "Shaka Heyward",
+    "team": "Cincinnati Bengals",
+    "team_code": "CIN",
+    "position": "LB"
+  },
+  {
     "name": "Colin Holba",
     "team": "Cincinnati Bengals",
     "team_code": "CIN",
@@ -4477,12 +4483,6 @@
   },
   {
     "name": "Evan Engram",
-    "team": "Denver Broncos",
-    "team_code": "DEN",
-    "position": "TE"
-  },
-  {
-    "name": "Marcedes Lewis",
     "team": "Denver Broncos",
     "team_code": "DEN",
     "position": "TE"
@@ -7998,12 +7998,6 @@
     "position": "OL"
   },
   {
-    "name": "Josh Kaltenberger",
-    "team": "Los Angeles Chargers",
-    "team_code": "LAC",
-    "position": "OL"
-  },
-  {
     "name": "Sam Mustipher",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
@@ -8802,12 +8796,6 @@
     "position": "LB"
   },
   {
-    "name": "Caleb Johnson",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "LB"
-  },
-  {
     "name": "Cameron Goode",
     "team": "Miami Dolphins",
     "team_code": "MIA",
@@ -9025,6 +9013,12 @@
   },
   {
     "name": "Greg Dulcich",
+    "team": "Miami Dolphins",
+    "team_code": "MIA",
+    "position": "TE"
+  },
+  {
+    "name": "Hayden Rucci",
     "team": "Miami Dolphins",
     "team_code": "MIA",
     "position": "TE"
@@ -11598,6 +11592,12 @@
     "position": "LB"
   },
   {
+    "name": "Charley Hughlett",
+    "team": "Philadelphia Eagles",
+    "team_code": "PHI",
+    "position": "LS"
+  },
+  {
     "name": "Brett Toth",
     "team": "Philadelphia Eagles",
     "team_code": "PHI",
@@ -12726,12 +12726,6 @@
     "position": "CB"
   },
   {
-    "name": "Shaquill Griffin",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "CB"
-  },
-  {
     "name": "Shemar Jean-Charles",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -13060,12 +13054,6 @@
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "QB"
-  },
-  {
-    "name": "Cam Akers",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "RB"
   },
   {
     "name": "Jacardia Wright",
