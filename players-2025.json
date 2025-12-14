@@ -156,12 +156,6 @@
     "position": "DL"
   },
   {
-    "name": "Bilal Nichols",
-    "team": "Arizona Cardinals",
-    "team_code": "ARI",
-    "position": "DT"
-  },
-  {
     "name": "Dalvin Tomlinson",
     "team": "Arizona Cardinals",
     "team_code": "ARI",
@@ -262,6 +256,12 @@
     "team": "Arizona Cardinals",
     "team_code": "ARI",
     "position": "NT"
+  },
+  {
+    "name": "Christian Jones",
+    "team": "Arizona Cardinals",
+    "team_code": "ARI",
+    "position": "OL"
   },
   {
     "name": "Hayden Conner",
@@ -966,6 +966,12 @@
     "position": "DB"
   },
   {
+    "name": "Ar'Darius Washington",
+    "team": "Baltimore Ravens",
+    "team_code": "BAL",
+    "position": "DB"
+  },
+  {
     "name": "Jordan Richards",
     "team": "Baltimore Ravens",
     "team_code": "BAL",
@@ -1021,6 +1027,12 @@
   },
   {
     "name": "Dre'Mont Jones",
+    "team": "Baltimore Ravens",
+    "team_code": "BAL",
+    "position": "DE"
+  },
+  {
+    "name": "Tavius Robinson",
     "team": "Baltimore Ravens",
     "team_code": "BAL",
     "position": "DE"
@@ -2382,12 +2394,6 @@
     "position": "DB"
   },
   {
-    "name": "Kyler Gordon",
-    "team": "Chicago Bears",
-    "team_code": "CHI",
-    "position": "DB"
-  },
-  {
     "name": "Montez Sweat",
     "team": "Chicago Bears",
     "team_code": "CHI",
@@ -3370,12 +3376,6 @@
     "team": "Cleveland Browns",
     "team_code": "CLE",
     "position": "K"
-  },
-  {
-    "name": "Cameron McGrone",
-    "team": "Cleveland Browns",
-    "team_code": "CLE",
-    "position": "LB"
   },
   {
     "name": "Carson Schwesinger",
@@ -4488,6 +4488,12 @@
     "position": "TE"
   },
   {
+    "name": "Marcedes Lewis",
+    "team": "Denver Broncos",
+    "team_code": "DEN",
+    "position": "TE"
+  },
+  {
     "name": "Nate Adkins",
     "team": "Denver Broncos",
     "team_code": "DEN",
@@ -4612,12 +4618,6 @@
     "team": "Detroit Lions",
     "team_code": "DET",
     "position": "CB"
-  },
-  {
-    "name": "Brian Branch",
-    "team": "Detroit Lions",
-    "team_code": "DET",
-    "position": "DB"
   },
   {
     "name": "C.J. Moore",
@@ -4939,6 +4939,12 @@
   },
   {
     "name": "Anthony Firkser",
+    "team": "Detroit Lions",
+    "team_code": "DET",
+    "position": "TE"
+  },
+  {
+    "name": "Shane Zylstra",
     "team": "Detroit Lions",
     "team_code": "DET",
     "position": "TE"
@@ -5856,6 +5862,12 @@
     "position": "TE"
   },
   {
+    "name": "Harrison Bryant",
+    "team": "Houston Texans",
+    "team_code": "HOU",
+    "position": "TE"
+  },
+  {
     "name": "Layne Pryor",
     "team": "Houston Texans",
     "team_code": "HOU",
@@ -6193,12 +6205,6 @@
   },
   {
     "name": "Bernhard Raimann",
-    "team": "Indianapolis Colts",
-    "team_code": "IND",
-    "position": "OL"
-  },
-  {
-    "name": "Braden Smith",
     "team": "Indianapolis Colts",
     "team_code": "IND",
     "position": "OL"
@@ -7123,12 +7129,6 @@
   },
   {
     "name": "Trey Smith",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "OL"
-  },
-  {
-    "name": "Wanya Morris",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
     "position": "OL"
@@ -8610,6 +8610,12 @@
     "position": "WR"
   },
   {
+    "name": "Tutu Atwell",
+    "team": "Los Angeles Rams",
+    "team_code": "LAR",
+    "position": "WR"
+  },
+  {
     "name": "Tyler Scott",
     "team": "Los Angeles Rams",
     "team_code": "LAR",
@@ -9888,12 +9894,6 @@
     "position": "RB"
   },
   {
-    "name": "Terrell Jennings",
-    "team": "New England Patriots",
-    "team_code": "NE",
-    "position": "RB"
-  },
-  {
     "name": "TreVeyon Henderson",
     "team": "New England Patriots",
     "team_code": "NE",
@@ -10464,12 +10464,6 @@
     "position": "CB"
   },
   {
-    "name": "Nic Jones",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "CB"
-  },
-  {
     "name": "Paulson Adebo",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -10650,6 +10644,12 @@
     "position": "LB"
   },
   {
+    "name": "Darius Muasau",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "LB"
+  },
+  {
     "name": "Demetrius Flannigan-Fowles",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -10669,12 +10669,6 @@
   },
   {
     "name": "Tomon Fox",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "LB"
-  },
-  {
-    "name": "Victor Dimukeje",
     "team": "New York Giants",
     "team_code": "NYG",
     "position": "LB"
@@ -10744,6 +10738,12 @@
     "team": "New York Giants",
     "team_code": "NYG",
     "position": "OT"
+  },
+  {
+    "name": "Cameron Johnston",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "P"
   },
   {
     "name": "Jamie Gillan",
@@ -10932,12 +10932,6 @@
     "position": "CB"
   },
   {
-    "name": "Azareye'h Thomas",
-    "team": "New York Jets",
-    "team_code": "NYJ",
-    "position": "DB"
-  },
-  {
     "name": "Brandon Stephens",
     "team": "New York Jets",
     "team_code": "NYJ",
@@ -11077,6 +11071,12 @@
   },
   {
     "name": "Brendon White",
+    "team": "New York Jets",
+    "team_code": "NYJ",
+    "position": "LB"
+  },
+  {
+    "name": "Cam Jones",
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "LB"
@@ -12714,6 +12714,12 @@
     "position": "WR"
   },
   {
+    "name": "Jalen Sundell",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "C"
+  },
+  {
     "name": "Olu Oluwatimi",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -12721,6 +12727,12 @@
   },
   {
     "name": "Nehemiah Pritchett",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "CB"
+  },
+  {
+    "name": "Shaquill Griffin",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "CB"
@@ -12859,6 +12871,12 @@
   },
   {
     "name": "J.R. Singleton",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "DL"
+  },
+  {
+    "name": "Rylie Mills",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "DL"
@@ -13056,6 +13074,12 @@
     "position": "QB"
   },
   {
+    "name": "Cam Akers",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "RB"
+  },
+  {
     "name": "Jacardia Wright",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -13098,7 +13122,7 @@
     "position": "TE"
   },
   {
-    "name": "Elijah Arroyo",
+    "name": "Eric Saubert",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "TE"
