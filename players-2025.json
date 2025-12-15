@@ -3630,12 +3630,6 @@
     "position": "WR"
   },
   {
-    "name": "Jamari Thrash",
-    "team": "Cleveland Browns",
-    "team_code": "CLE",
-    "position": "WR"
-  },
-  {
     "name": "Jerry Jeudy",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -5797,12 +5791,6 @@
   },
   {
     "name": "British Brooks",
-    "team": "Houston Texans",
-    "team_code": "HOU",
-    "position": "RB"
-  },
-  {
-    "name": "Cody Schrader",
     "team": "Houston Texans",
     "team_code": "HOU",
     "position": "RB"
@@ -10452,12 +10440,6 @@
     "position": "WR"
   },
   {
-    "name": "Jarrick Bernard-Converse",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "CB"
-  },
-  {
     "name": "Korie Black",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -13092,12 +13074,6 @@
     "position": "RB"
   },
   {
-    "name": "Myles Gaskin",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "RB"
-  },
-  {
     "name": "Robbie Ouzts",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -13159,12 +13135,6 @@
   },
   {
     "name": "Jaxon Smith-Njigba",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "WR"
-  },
-  {
-    "name": "Jimmy Holiday",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "WR"

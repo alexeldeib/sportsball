@@ -7446,21 +7446,6 @@
     }
   },
   {
-    "name": "Jamari Thrash",
-    "team": "Cleveland Browns",
-    "team_code": "CLE",
-    "position": "WR",
-    "number": 80,
-    "stats": {
-      "gp": 9.0,
-      "gs": 1.0,
-      "off_snp": 216.0,
-      "st_snp": 2.0,
-      "rec": 10.0,
-      "rec_yd": 107.0
-    }
-  },
-  {
     "name": "Jerry Jeudy",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -11666,7 +11651,7 @@
     "team": "Houston Texans",
     "team_code": "HOU",
     "position": "LB",
-    "number": 47,
+    "number": 31,
     "stats": {
       "gp": 10.0,
       "gs": 2.0,
@@ -11938,17 +11923,6 @@
       "off_snp": 45.0,
       "st_snp": 202.0,
       "rush_yd": 15.0
-    }
-  },
-  {
-    "name": "Cody Schrader",
-    "team": "Houston Texans",
-    "team_code": "HOU",
-    "position": "RB",
-    "number": 30,
-    "stats": {
-      "gp": 1.0,
-      "st_snp": 4.0
     }
   },
   {
@@ -21573,19 +21547,6 @@
     "number": 89
   },
   {
-    "name": "Jarrick Bernard-Converse",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "CB",
-    "number": 35,
-    "stats": {
-      "gp": 9.0,
-      "def_snp": 22.0,
-      "st_snp": 64.0,
-      "idp_tkl": 2.0
-    }
-  },
-  {
     "name": "Korie Black",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -27031,17 +26992,6 @@
     }
   },
   {
-    "name": "Myles Gaskin",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "RB",
-    "number": 33,
-    "stats": {
-      "gp": 1.0,
-      "rush_yd": 6.0
-    }
-  },
-  {
     "name": "Robbie Ouzts",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -27194,13 +27144,6 @@
       "rec_td": 9.0,
       "rush_yd": 36.0
     }
-  },
-  {
-    "name": "Jimmy Holiday",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "WR",
-    "number": 17
   },
   {
     "name": "Rashid Shaheed",
