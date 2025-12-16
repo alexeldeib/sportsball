@@ -3630,6 +3630,12 @@
     "position": "WR"
   },
   {
+    "name": "Jamari Thrash",
+    "team": "Cleveland Browns",
+    "team_code": "CLE",
+    "position": "WR"
+  },
+  {
     "name": "Jerry Jeudy",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -4128,12 +4134,6 @@
     "position": "CB"
   },
   {
-    "name": "Brandon Jones",
-    "team": "Denver Broncos",
-    "team_code": "DEN",
-    "position": "DB"
-  },
-  {
     "name": "Delarrin Turner-Yell",
     "team": "Denver Broncos",
     "team_code": "DEN",
@@ -4159,12 +4159,6 @@
   },
   {
     "name": "Jahdae Barron",
-    "team": "Denver Broncos",
-    "team_code": "DEN",
-    "position": "DB"
-  },
-  {
-    "name": "Keidron Smith",
     "team": "Denver Broncos",
     "team_code": "DEN",
     "position": "DB"
@@ -4420,6 +4414,12 @@
     "team": "Denver Broncos",
     "team_code": "DEN",
     "position": "QB"
+  },
+  {
+    "name": "Cody Schrader",
+    "team": "Denver Broncos",
+    "team_code": "DEN",
+    "position": "RB"
   },
   {
     "name": "Deuce Vaughn",
@@ -5556,12 +5556,6 @@
     "position": "DE"
   },
   {
-    "name": "Mario Edwards",
-    "team": "Houston Texans",
-    "team_code": "HOU",
-    "position": "DE"
-  },
-  {
     "name": "Marlon Davidson",
     "team": "Houston Texans",
     "team_code": "HOU",
@@ -6126,12 +6120,6 @@
     "position": "K"
   },
   {
-    "name": "Anthony Walker",
-    "team": "Indianapolis Colts",
-    "team_code": "IND",
-    "position": "LB"
-  },
-  {
     "name": "Austin Ajiake",
     "team": "Indianapolis Colts",
     "team_code": "IND",
@@ -6139,12 +6127,6 @@
   },
   {
     "name": "Buddy Johnson",
-    "team": "Indianapolis Colts",
-    "team_code": "IND",
-    "position": "LB"
-  },
-  {
-    "name": "Chad Muma",
     "team": "Indianapolis Colts",
     "team_code": "IND",
     "position": "LB"
@@ -9708,6 +9690,12 @@
     "position": "LB"
   },
   {
+    "name": "Chad Muma",
+    "team": "New England Patriots",
+    "team_code": "NE",
+    "position": "LB"
+  },
+  {
     "name": "Christian Elliss",
     "team": "New England Patriots",
     "team_code": "NE",
@@ -10878,12 +10866,6 @@
     "position": "WR"
   },
   {
-    "name": "Isaiah Oliver",
-    "team": "New York Jets",
-    "team_code": "NYJ",
-    "position": "CB"
-  },
-  {
     "name": "Jarius Monroe",
     "team": "New York Jets",
     "team_code": "NYJ",
@@ -10933,6 +10915,12 @@
   },
   {
     "name": "Jordan Clark",
+    "team": "New York Jets",
+    "team_code": "NYJ",
+    "position": "DB"
+  },
+  {
+    "name": "Keidron Smith",
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "DB"
@@ -13254,12 +13242,6 @@
     "position": "DB"
   },
   {
-    "name": "Zyon McCollum",
-    "team": "Tampa Bay Buccaneers",
-    "team_code": "TB",
-    "position": "DB"
-  },
-  {
     "name": "Adam Gotsis",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
@@ -13308,6 +13290,12 @@
     "position": "DL"
   },
   {
+    "name": "C.J. Brewer",
+    "team": "Tampa Bay Buccaneers",
+    "team_code": "TB",
+    "position": "DT"
+  },
+  {
     "name": "Elijah Roberts",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
@@ -13351,6 +13339,12 @@
   },
   {
     "name": "Anthony Nelson",
+    "team": "Tampa Bay Buccaneers",
+    "team_code": "TB",
+    "position": "LB"
+  },
+  {
+    "name": "Anthony Walker",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
     "position": "LB"

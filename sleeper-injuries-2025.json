@@ -1,4 +1,153 @@
 {
+  "SEA": [
+    {
+      "player_name": "DeMarcus Lawrence",
+      "position": "DE",
+      "status": "Questionable",
+      "short_comment": "Quadriceps injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Jacardia Wright",
+      "position": "RB",
+      "status": "Out",
+      "short_comment": "Undisclosed injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Charles Cross",
+      "position": "OL",
+      "status": "Questionable",
+      "short_comment": "Hamstring injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "AJ Finley",
+      "position": "DB",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Derick Hall",
+      "position": "DE",
+      "status": "Questionable",
+      "short_comment": "Hand injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Robbie Ouzts",
+      "position": "RB",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "George Holani",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Hamstring injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Bryce Cabeldue",
+      "position": "OT",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Abraham Lucas",
+      "position": "OL",
+      "status": "Questionable",
+      "short_comment": "Shoulder injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Cody White",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Abdomen injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Connor O'Toole",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Chazz Surratt",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Ankle injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Jared Ivey",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Tory Horton",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Shin injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Dareke Young",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Quadriceps injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Elijah Arroyo",
+      "position": "TE",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Mason Richman",
+      "position": "OL",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Jalen Milroe",
+      "position": "QB",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Shane Lemieux",
+      "position": "OL",
+      "status": "Out",
+      "short_comment": "Undisclosed injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Tyrone Broden",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Undisclosed injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Kenny McIntosh",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Knee - ACL injury",
+      "type": "Injured Reserve"
+    }
+  ],
   "IND": [
     {
       "player_name": "Salvon Ahmed",
@@ -213,6 +362,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Ricky Pearsall",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Ankle injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Yetur Gross-Matos",
       "position": "DE",
       "status": "Injured Reserve",
@@ -343,9 +499,9 @@
     {
       "player_name": "Zyon McCollum",
       "position": "DB",
-      "status": "Questionable",
+      "status": "Injured Reserve",
       "short_comment": "Hip injury",
-      "type": "Questionable"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Ben Bredeson",
@@ -704,9 +860,9 @@
     {
       "player_name": "Mike Hughes",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Storm Norton",
@@ -876,9 +1032,9 @@
     {
       "player_name": "Teddye Buchanan",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Knee - ACL injury",
+      "type": "Out"
     },
     {
       "player_name": "Nnamdi Madubuike",
@@ -1009,6 +1165,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Nick Herbig",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Hamstring injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Max Scharping",
       "position": "OL",
       "status": "Injured Reserve",
@@ -1035,6 +1198,13 @@
       "status": "Injured Reserve",
       "short_comment": "Knee injury",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Roman Wilson",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
     },
     {
       "player_name": "Donte Kent",
@@ -1065,6 +1235,20 @@
       "type": "Out"
     },
     {
+      "player_name": "Isaac Seumalo",
+      "position": "G",
+      "status": "Questionable",
+      "short_comment": "Triceps injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Will Howard",
+      "position": "QB",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
       "player_name": "Andrus Peat",
       "position": "OL",
       "status": "Out",
@@ -1079,11 +1263,18 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Brodric Martin-Rhodes",
+      "position": "DT",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
       "player_name": "Derrick Harmon",
       "position": "DL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "DeShon Elliott",
@@ -1151,6 +1342,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Braden Fiske",
+      "position": "DL",
+      "status": "Questionable",
+      "short_comment": "Ankle injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Stetson Bennett",
       "position": "QB",
       "status": "Out",
@@ -1158,11 +1356,39 @@
       "type": "Out"
     },
     {
+      "player_name": "Nick Vannett",
+      "position": "TE",
+      "status": "Questionable",
+      "short_comment": "Oblique injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Alaric Jackson",
+      "position": "OL",
+      "status": "Questionable",
+      "short_comment": "Ankle injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Jaylen McCollough",
+      "position": "DB",
+      "status": "Questionable",
+      "short_comment": "Illness injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Beaux Limmer",
       "position": "OL",
       "status": "Out",
       "short_comment": "Coach's Decision injury",
       "type": "Out"
+    },
+    {
+      "player_name": "Jordan Whittington",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Back injury",
+      "type": "Questionable"
     },
     {
       "player_name": "Keir Thomas",
@@ -1339,9 +1565,9 @@
     {
       "player_name": "Elijah Campbell",
       "position": "DB",
-      "status": "Doubtful",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Doubtful"
+      "type": "Out"
     },
     {
       "player_name": "Caleb Johnson",
@@ -1407,11 +1633,25 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Ollie Gordon",
+      "position": "RB",
+      "status": "Questionable",
+      "short_comment": "Ankle injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Liam Eichenberg",
       "position": "T",
       "status": "PUP",
       "short_comment": "Undisclosed injury",
       "type": "PUP"
+    },
+    {
+      "player_name": "Jordyn Brooks",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Lower Body injury",
+      "type": "Questionable"
     },
     {
       "player_name": "Jason Maitre",
@@ -1428,11 +1668,25 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "A.J. Green",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
       "player_name": "AJ Henning",
       "position": "WR",
       "status": "Suspended",
       "short_comment": "Suspension injury",
       "type": "Suspended"
+    },
+    {
+      "player_name": "Matthew Butler",
+      "position": "DL",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
     },
     {
       "player_name": "Artie Burns",
@@ -1442,11 +1696,32 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Quinn Ewers",
+      "position": "QB",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
+    },
+    {
       "player_name": "JuJu Brents",
       "position": "DB",
       "status": "Injured Reserve",
       "short_comment": "Surgery",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Minkah Fitzpatrick",
+      "position": "DB",
+      "status": "Questionable",
+      "short_comment": "Calf injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Tahj Washington",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Coach's Decision injury",
+      "type": "Out"
     },
     {
       "player_name": "Germain Ifedi",
@@ -1461,6 +1736,13 @@
       "status": "Injured Reserve",
       "short_comment": "Knee injury",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Larry Borom",
+      "position": "OL",
+      "status": "Out",
+      "short_comment": "Illness injury",
+      "type": "Out"
     },
     {
       "player_name": "James Daniels",
@@ -1540,6 +1822,13 @@
       "status": "Injured Reserve",
       "short_comment": "Leg injury",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Amik Robertson",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Hand injury",
+      "type": "Questionable"
     },
     {
       "player_name": "Terrion Arnold",
@@ -1868,6 +2157,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Brandin Cooks",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Undisclosed injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Curtis Samuel",
       "position": "WR",
       "status": "Injured Reserve",
@@ -1889,11 +2185,18 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Matt Prater",
+      "position": "K",
+      "status": "Out",
+      "short_comment": "Quadriceps injury",
+      "type": "Out"
+    },
+    {
       "player_name": "Jordan Phillips",
       "position": "DE",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Mecole Hardman",
@@ -2259,9 +2562,9 @@
     {
       "player_name": "Micah Parsons",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Knee - Meniscus injury",
+      "type": "Out"
     },
     {
       "player_name": "Zach Tom",
@@ -2690,6 +2993,13 @@
       "type": "Out"
     },
     {
+      "player_name": "Mario Edwards",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
       "player_name": "E.J. Speed",
       "position": "LB",
       "status": "Out",
@@ -3007,6 +3317,13 @@
       "status": "Injured Reserve",
       "short_comment": "Leg injury",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Robert Spillane",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Foot injury",
+      "type": "Questionable"
     },
     {
       "player_name": "CJ Dippre",
@@ -3388,9 +3705,9 @@
     {
       "player_name": "Jonathan Greenard",
       "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Surgery",
+      "type": "Out"
     },
     {
       "player_name": "Walter Rouse",
@@ -3805,6 +4122,13 @@
       "type": "COVID-19"
     },
     {
+      "player_name": "Brandon Jones",
+      "position": "DB",
+      "status": "Injured Reserve",
+      "short_comment": "Pectoral injury",
+      "type": "Injured Reserve"
+    },
+    {
       "player_name": "Nick Gargiulo",
       "position": "OL",
       "status": "Injured Reserve",
@@ -3914,134 +4238,6 @@
       "position": "RB",
       "status": "Injured Reserve",
       "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    }
-  ],
-  "SEA": [
-    {
-      "player_name": "Jacardia Wright",
-      "position": "RB",
-      "status": "Out",
-      "short_comment": "Undisclosed injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "AJ Finley",
-      "position": "DB",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Derick Hall",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Hand injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Robbie Ouzts",
-      "position": "RB",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "George Holani",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Hamstring injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Bryce Cabeldue",
-      "position": "OT",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Abraham Lucas",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Connor O'Toole",
-      "position": "DE",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Chazz Surratt",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Ankle injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jared Ivey",
-      "position": "DE",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Tory Horton",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Shin injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Dareke Young",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Quadriceps injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Elijah Arroyo",
-      "position": "TE",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Mason Richman",
-      "position": "OL",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Jalen Milroe",
-      "position": "QB",
-      "status": "Out",
-      "short_comment": "Coach's Decision injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Shane Lemieux",
-      "position": "OL",
-      "status": "Out",
-      "short_comment": "Undisclosed injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Tyrone Broden",
-      "position": "WR",
-      "status": "Out",
-      "short_comment": "Undisclosed injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Kenny McIntosh",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Knee - ACL injury",
       "type": "Injured Reserve"
     }
   ],
@@ -4359,6 +4555,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Bhayshul Tuten",
+      "position": "RB",
+      "status": "Questionable",
+      "short_comment": "Surgery",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Austin Johnson",
       "position": "DT",
       "status": "Out",
@@ -4468,9 +4671,9 @@
     {
       "player_name": "Isaiah Oliver",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Injured Reserve",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Ken Webster",
