@@ -2827,7 +2827,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "KC",
     "season": 2025,
@@ -9937,6 +9937,18 @@
     "week": 1,
     "stats": {
       "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "CIN",
+    "season": 2025,
+    "week": 1,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -17878,7 +17890,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "BUF",
     "season": 2025,
@@ -21765,18 +21777,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "BUF",
-    "season": 2025,
-    "week": 2,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -24031,7 +24031,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "LV",
     "season": 2025,
@@ -31175,6 +31175,18 @@
     "week": 2,
     "stats": {
       "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "BAL",
+    "season": 2025,
+    "week": 2,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -39330,7 +39342,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "CLE",
     "season": 2025,
@@ -43193,23 +43205,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "TB",
-    "season": 2025,
-    "week": 3,
-    "stats": {
-      "rec": 2.0,
-      "rec_yd": 13.0,
-      "rec_td": 1.0,
-      "rec_tgt": 3.0,
-      "pts_ppr": 9.3,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -45482,7 +45477,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "DEN",
     "season": 2025,
@@ -52721,6 +52716,18 @@
     "team": "JAX",
     "position": "DB",
     "opponent": "HOU",
+    "season": 2025,
+    "week": 3,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "GB",
     "season": 2025,
     "week": 3,
     "stats": {
@@ -60527,7 +60534,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "DET",
     "season": 2025,
@@ -64381,22 +64388,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "MIA",
-    "season": 2025,
-    "week": 4,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 8.0,
-      "rec_tgt": 1.0,
-      "pts_ppr": 1.8,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -66714,7 +66705,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "NYG",
     "season": 2025,
@@ -74048,6 +74039,18 @@
     "team": "JAX",
     "position": "DB",
     "opponent": "SF",
+    "season": 2025,
+    "week": 4,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "DET",
     "season": 2025,
     "week": 4,
     "stats": {
@@ -81774,7 +81777,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "KC",
     "season": 2025,
@@ -85599,22 +85602,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "DAL",
-    "season": 2025,
-    "week": 5,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 3.0,
-      "rec_tgt": 2.0,
-      "pts_ppr": 1.3,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -87590,7 +87577,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "WAS",
     "season": 2025,
@@ -90250,7 +90237,7 @@
   {
     "player_id": "6931",
     "player_name": "DeeJay Dallas",
-    "team": "CAR",
+    "team": "JAX",
     "position": "RB",
     "opponent": "MIA",
     "season": 2025,
@@ -93844,6 +93831,18 @@
     "week": 5,
     "stats": {
       "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "MIN",
+    "season": 2025,
+    "week": 5,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -100467,7 +100466,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "HOU",
     "season": 2025,
@@ -106101,7 +106100,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "MIA",
     "season": 2025,
@@ -109095,7 +109094,7 @@
   {
     "player_id": "6931",
     "player_name": "DeeJay Dallas",
-    "team": "CAR",
+    "team": "JAX",
     "position": "RB",
     "opponent": "DAL",
     "season": 2025,
@@ -110450,7 +110449,7 @@
   {
     "player_id": "11019",
     "player_name": "Erick Hallett",
-    "team": "DET",
+    "team": "TEN",
     "position": "DB",
     "opponent": "KC",
     "season": 2025,
@@ -115143,7 +115142,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "CLE",
     "season": 2025,
@@ -117361,6 +117360,23 @@
     "week": 6,
     "stats": {
       "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "ARI",
+    "season": 2025,
+    "week": 6,
+    "stats": {
+      "fgm": 1.0,
+      "fga": 1.0,
+      "xpm": 4.0,
+      "xpa": 4.0,
+      "pts_ppr": 8.0,
       "gp": 1.0
     }
   },
@@ -120272,7 +120288,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "LAR",
     "season": 2025,
@@ -123931,22 +123947,6 @@
     "week": 7,
     "stats": {
       "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "CAR",
-    "season": 2025,
-    "week": 7,
-    "stats": {
-      "rec": 2.0,
-      "rec_yd": 16.0,
-      "rec_tgt": 3.0,
-      "pts_ppr": 3.6,
       "gp": 1.0
     }
   },
@@ -130268,7 +130268,7 @@
   {
     "player_id": "11019",
     "player_name": "Erick Hallett",
-    "team": "DET",
+    "team": "TEN",
     "position": "DB",
     "opponent": "TB",
     "season": 2025,
@@ -135072,7 +135072,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "CIN",
     "season": 2025,
@@ -137174,6 +137174,23 @@
     "stats": {
       "idp_tkl": 5.0,
       "idp_sack": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "LAC",
+    "season": 2025,
+    "week": 7,
+    "stats": {
+      "fgm": 1.0,
+      "fga": 1.0,
+      "xpm": 3.0,
+      "xpa": 4.0,
+      "pts_ppr": 5.0,
       "gp": 1.0
     }
   },
@@ -143688,22 +143705,6 @@
     "week": 8,
     "stats": {
       "idp_tkl": 6.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "CIN",
-    "season": 2025,
-    "week": 8,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 5.0,
-      "rec_tgt": 2.0,
-      "pts_ppr": 1.5,
       "gp": 1.0
     }
   },
@@ -153391,7 +153392,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "GB",
     "season": 2025,
@@ -155308,6 +155309,23 @@
     "stats": {
       "idp_tkl": 1.0,
       "idp_sack": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "TEN",
+    "season": 2025,
+    "week": 8,
+    "stats": {
+      "fgm": 1.0,
+      "fga": 1.0,
+      "xpm": 5.0,
+      "xpa": 5.0,
+      "pts_ppr": 9.0,
       "gp": 1.0
     }
   },
@@ -169535,6 +169553,19 @@
     }
   },
   {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "SF",
+    "season": 2025,
+    "week": 9,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12675",
     "player_name": "Jason Marshall",
     "team": "MIA",
@@ -171765,7 +171796,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "IND",
     "season": 2025,
@@ -173799,6 +173830,23 @@
     "season": 2025,
     "week": 9,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "PIT",
+    "season": 2025,
+    "week": 9,
+    "stats": {
+      "fgm": 2.0,
+      "fga": 2.0,
+      "xpm": 2.0,
+      "xpa": 2.0,
+      "pts_ppr": 12.0,
       "gp": 1.0
     }
   },
@@ -181928,7 +181976,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "TB",
     "season": 2025,
@@ -188203,6 +188251,18 @@
     }
   },
   {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 10,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11766",
     "player_name": "Jarvis Brownlee",
     "team": "NYJ",
@@ -190334,7 +190394,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "LAC",
     "season": 2025,
@@ -192335,6 +192395,23 @@
     "week": 10,
     "stats": {
       "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "ATL",
+    "season": 2025,
+    "week": 10,
+    "stats": {
+      "fgm": 2.0,
+      "fga": 3.0,
+      "xpm": 1.0,
+      "xpa": 2.0,
+      "pts_ppr": 6.0,
       "gp": 1.0
     }
   },
@@ -200634,7 +200711,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "NYJ",
     "season": 2025,
@@ -207480,6 +207557,18 @@
     }
   },
   {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 11,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11766",
     "player_name": "Jarvis Brownlee",
     "team": "NYJ",
@@ -209755,7 +209844,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "CIN",
     "season": 2025,
@@ -218558,22 +218647,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "BAL",
-    "season": 2025,
-    "week": 12,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 9.0,
-      "rec_tgt": 3.0,
-      "pts_ppr": 1.9,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -220645,7 +220718,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "CIN",
     "season": 2025,
@@ -223640,7 +223713,7 @@
   {
     "player_id": "6931",
     "player_name": "DeeJay Dallas",
-    "team": "CAR",
+    "team": "JAX",
     "position": "RB",
     "opponent": "SF",
     "season": 2025,
@@ -227199,6 +227272,18 @@
     }
   },
   {
+    "player_id": "11001",
+    "player_name": "Jarrick Bernard-Converse",
+    "team": "NYG",
+    "position": "CB",
+    "opponent": "DET",
+    "season": 2025,
+    "week": 12,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11766",
     "player_name": "Jarvis Brownlee",
     "team": "NYJ",
@@ -229266,7 +229351,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "CHI",
     "season": 2025,
@@ -231328,6 +231413,23 @@
     "season": 2025,
     "week": 12,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "KC",
+    "season": 2025,
+    "week": 12,
+    "stats": {
+      "fgm": 2.0,
+      "fga": 2.0,
+      "xpm": 2.0,
+      "xpa": 2.0,
+      "pts_ppr": 8.0,
       "gp": 1.0
     }
   },
@@ -237342,22 +237444,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "ATL",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 10.0,
-      "rec_tgt": 1.0,
-      "pts_ppr": 2.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -239679,7 +239765,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "NYG",
     "season": 2025,
@@ -249359,7 +249445,7 @@
   {
     "player_id": "12971",
     "player_name": "Ke'Shawn Williams",
-    "team": "PIT",
+    "team": "CIN",
     "position": "WR",
     "opponent": "BUF",
     "season": 2025,
@@ -251714,6 +251800,23 @@
     "season": 2025,
     "week": 13,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5230",
+    "player_name": "Michael Badgley",
+    "team": "BUF",
+    "position": "K",
+    "opponent": "HOU",
+    "season": 2025,
+    "week": 13,
+    "stats": {
+      "fgm": 1.0,
+      "fga": 1.0,
+      "xpm": 1.0,
+      "xpa": 2.0,
+      "pts_ppr": 4.0,
       "gp": 1.0
     }
   },
@@ -258508,19 +258611,6 @@
       "idp_tkl": 1.0,
       "idp_sack": 1.0,
       "idp_ff": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "MIA",
-    "season": 2025,
-    "week": 14,
-    "stats": {
-      "rec_tgt": 1.0,
       "gp": 1.0
     }
   },
@@ -274009,7 +274099,7 @@
   {
     "player_id": "11841",
     "player_name": "Sanoussi Kane",
-    "team": "BAL",
+    "team": "TEN",
     "position": "DB",
     "opponent": "PIT",
     "season": 2025,
@@ -277431,22 +277521,6 @@
     }
   },
   {
-    "player_id": "5185",
-    "player_name": "Allen Lazard",
-    "team": "NYJ",
-    "position": "WR",
-    "opponent": "JAX",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "rec": 1.0,
-      "rec_yd": 6.0,
-      "rec_tgt": 2.0,
-      "pts_ppr": 1.6,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "7069",
     "player_name": "Alohi Gilman",
     "team": "BAL",
@@ -279710,7 +279784,7 @@
   {
     "player_id": "11098",
     "player_name": "Caleb Murphy",
-    "team": "NE",
+    "team": "NYG",
     "position": "DE",
     "opponent": "BUF",
     "season": 2025,
@@ -284432,7 +284506,7 @@
   {
     "player_id": "11019",
     "player_name": "Erick Hallett",
-    "team": "DET",
+    "team": "TEN",
     "position": "DB",
     "opponent": "LAR",
     "season": 2025,
@@ -284756,7 +284830,7 @@
   {
     "player_id": "12741",
     "player_name": "Garrett Dellinger",
-    "team": "CLE",
+    "team": "TEN",
     "position": "OG",
     "opponent": "CHI",
     "season": 2025,
