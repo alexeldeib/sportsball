@@ -318,12 +318,6 @@
     "position": "OT"
   },
   {
-    "name": "Trey Wedig",
-    "team": "Arizona Cardinals",
-    "team_code": "ARI",
-    "position": "OT"
-  },
-  {
     "name": "Matt Haack",
     "team": "Arizona Cardinals",
     "team_code": "ARI",
@@ -1464,12 +1458,6 @@
     "position": "DB"
   },
   {
-    "name": "MJ Devonshire",
-    "team": "Buffalo Bills",
-    "team_code": "BUF",
-    "position": "DB"
-  },
-  {
     "name": "Maxwell Hairston",
     "team": "Buffalo Bills",
     "team_code": "BUF",
@@ -2154,6 +2142,12 @@
     "position": "RB"
   },
   {
+    "name": "Montrell Johnson",
+    "team": "Carolina Panthers",
+    "team_code": "CAR",
+    "position": "RB"
+  },
+  {
     "name": "Rico Dowdle",
     "team": "Carolina Panthers",
     "team_code": "CAR",
@@ -2491,12 +2485,6 @@
   },
   {
     "name": "Danny Trevathan",
-    "team": "Chicago Bears",
-    "team_code": "CHI",
-    "position": "LB"
-  },
-  {
-    "name": "Jalen Reeves-Maybin",
     "team": "Chicago Bears",
     "team_code": "CHI",
     "position": "LB"
@@ -3492,6 +3480,12 @@
     "position": "OL"
   },
   {
+    "name": "Wesley French",
+    "team": "Cleveland Browns",
+    "team_code": "CLE",
+    "position": "OL"
+  },
+  {
     "name": "Zak Zinter",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -3673,12 +3667,6 @@
   },
   {
     "name": "Corey Ballentine",
-    "team": "Dallas Cowboys",
-    "team_code": "DAL",
-    "position": "CB"
-  },
-  {
-    "name": "Josh Butler",
     "team": "Dallas Cowboys",
     "team_code": "DAL",
     "position": "CB"
@@ -4332,6 +4320,12 @@
     "position": "LS"
   },
   {
+    "name": "Nash Jones",
+    "team": "Denver Broncos",
+    "team_code": "DEN",
+    "position": "OG"
+  },
+  {
     "name": "Alex Forsyth",
     "team": "Denver Broncos",
     "team_code": "DEN",
@@ -4435,12 +4429,6 @@
   },
   {
     "name": "RJ Harvey",
-    "team": "Denver Broncos",
-    "team_code": "DEN",
-    "position": "RB"
-  },
-  {
-    "name": "Sincere McCormick",
     "team": "Denver Broncos",
     "team_code": "DEN",
     "position": "RB"
@@ -5184,12 +5172,6 @@
     "position": "LB"
   },
   {
-    "name": "Micah Parsons",
-    "team": "Green Bay Packers",
-    "team_code": "GB",
-    "position": "LB"
-  },
-  {
     "name": "Peter Kalambayi",
     "team": "Green Bay Packers",
     "team_code": "GB",
@@ -5239,12 +5221,6 @@
   },
   {
     "name": "Jacob Monk",
-    "team": "Green Bay Packers",
-    "team_code": "GB",
-    "position": "OL"
-  },
-  {
-    "name": "John Williams",
     "team": "Green Bay Packers",
     "team_code": "GB",
     "position": "OL"
@@ -5341,6 +5317,12 @@
   },
   {
     "name": "Kerrith Whyte",
+    "team": "Green Bay Packers",
+    "team_code": "GB",
+    "position": "RB"
+  },
+  {
+    "name": "MarShawn Lloyd",
     "team": "Green Bay Packers",
     "team_code": "GB",
     "position": "RB"
@@ -5586,6 +5568,12 @@
     "position": "DL"
   },
   {
+    "name": "Marcus Harris",
+    "team": "Houston Texans",
+    "team_code": "HOU",
+    "position": "DL"
+  },
+  {
     "name": "Will Anderson",
     "team": "Houston Texans",
     "team_code": "HOU",
@@ -5671,12 +5659,6 @@
   },
   {
     "name": "Henry To'oTo'o",
-    "team": "Houston Texans",
-    "team_code": "HOU",
-    "position": "LB"
-  },
-  {
-    "name": "Jackson Woodard",
     "team": "Houston Texans",
     "team_code": "HOU",
     "position": "LB"
@@ -7164,12 +7146,6 @@
     "position": "QB"
   },
   {
-    "name": "Patrick Mahomes",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "QB"
-  },
-  {
     "name": "Brashard Smith",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
@@ -7255,6 +7231,12 @@
   },
   {
     "name": "Jason Brownlee",
+    "team": "Kansas City Chiefs",
+    "team_code": "KC",
+    "position": "WR"
+  },
+  {
+    "name": "Jimmy Holiday",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
     "position": "WR"
@@ -7440,12 +7422,6 @@
     "position": "DT"
   },
   {
-    "name": "Leki Fotu",
-    "team": "Las Vegas Raiders",
-    "team_code": "LV",
-    "position": "DT"
-  },
-  {
     "name": "P.J. Johnson",
     "team": "Las Vegas Raiders",
     "team_code": "LV",
@@ -7459,6 +7435,12 @@
   },
   {
     "name": "Alex Cappa",
+    "team": "Las Vegas Raiders",
+    "team_code": "LV",
+    "position": "G"
+  },
+  {
+    "name": "McClendon Curtis",
     "team": "Las Vegas Raiders",
     "team_code": "LV",
     "position": "G"
@@ -8088,12 +8070,6 @@
     "position": "RB"
   },
   {
-    "name": "Royce Freeman",
-    "team": "Los Angeles Chargers",
-    "team_code": "LAC",
-    "position": "RB"
-  },
-  {
     "name": "Austin Deculus",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
@@ -8125,12 +8101,6 @@
   },
   {
     "name": "Oronde Gadsden",
-    "team": "Los Angeles Chargers",
-    "team_code": "LAC",
-    "position": "TE"
-  },
-  {
-    "name": "Tanner McLachlan",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
     "position": "TE"
@@ -8808,6 +8778,12 @@
     "position": "K"
   },
   {
+    "name": "Andre Carter",
+    "team": "Miami Dolphins",
+    "team_code": "MIA",
+    "position": "LB"
+  },
+  {
     "name": "Bradley Chubb",
     "team": "Miami Dolphins",
     "team_code": "MIA",
@@ -8821,6 +8797,12 @@
   },
   {
     "name": "Derrick McLendon",
+    "team": "Miami Dolphins",
+    "team_code": "MIA",
+    "position": "LB"
+  },
+  {
+    "name": "Jackson Woodard",
     "team": "Miami Dolphins",
     "team_code": "MIA",
     "position": "LB"
@@ -8845,12 +8827,6 @@
   },
   {
     "name": "K.J. Britt",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "LB"
-  },
-  {
-    "name": "Matthew Judon",
     "team": "Miami Dolphins",
     "team_code": "MIA",
     "position": "LB"
@@ -9186,12 +9162,6 @@
     "position": "DB"
   },
   {
-    "name": "Joshua Metellus",
-    "team": "Minnesota Vikings",
-    "team_code": "MIN",
-    "position": "DB"
-  },
-  {
     "name": "Tavierre Thomas",
     "team": "Minnesota Vikings",
     "team_code": "MIN",
@@ -9223,12 +9193,6 @@
   },
   {
     "name": "Jalen Redmond",
-    "team": "Minnesota Vikings",
-    "team_code": "MIN",
-    "position": "DE"
-  },
-  {
-    "name": "Jonathan Greenard",
     "team": "Minnesota Vikings",
     "team_code": "MIN",
     "position": "DE"
@@ -9492,12 +9456,6 @@
     "position": "TE"
   },
   {
-    "name": "Gavin Bartholomew",
-    "team": "Minnesota Vikings",
-    "team_code": "MIN",
-    "position": "TE"
-  },
-  {
     "name": "Josh Oliver",
     "team": "Minnesota Vikings",
     "team_code": "MIN",
@@ -9724,6 +9682,12 @@
     "team": "New England Patriots",
     "team_code": "NE",
     "position": "K"
+  },
+  {
+    "name": "Amari Gainer",
+    "team": "New England Patriots",
+    "team_code": "NE",
+    "position": "LB"
   },
   {
     "name": "Anfernee Jennings",
@@ -10656,12 +10620,6 @@
     "position": "K"
   },
   {
-    "name": "Younghoe Koo",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "K"
-  },
-  {
     "name": "Bobby Okereke",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -11230,12 +11188,6 @@
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "P"
-  },
-  {
-    "name": "Adrian Martinez",
-    "team": "New York Jets",
-    "team_code": "NYJ",
-    "position": "QB"
   },
   {
     "name": "Brady Cook",
@@ -12186,6 +12138,12 @@
     "position": "RB"
   },
   {
+    "name": "Trey Sermon",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "RB"
+  },
+  {
     "name": "David Sharpe",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -12301,12 +12259,6 @@
   },
   {
     "name": "Eli Apple",
-    "team": "San Francisco 49ers",
-    "team_code": "SF",
-    "position": "CB"
-  },
-  {
-    "name": "Isaiah Bolden",
     "team": "San Francisco 49ers",
     "team_code": "SF",
     "position": "CB"
@@ -12600,6 +12552,12 @@
     "position": "P"
   },
   {
+    "name": "Adrian Martinez",
+    "team": "San Francisco 49ers",
+    "team_code": "SF",
+    "position": "QB"
+  },
+  {
     "name": "Brock Purdy",
     "team": "San Francisco 49ers",
     "team_code": "SF",
@@ -12769,12 +12727,6 @@
   },
   {
     "name": "Coby Bryant",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "DB"
-  },
-  {
-    "name": "D'Anthony Bell",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "DB"
@@ -13285,6 +13237,12 @@
   },
   {
     "name": "Marcus Banks",
+    "team": "Tampa Bay Buccaneers",
+    "team_code": "TB",
+    "position": "DB"
+  },
+  {
+    "name": "Rashad Wisdom",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
     "position": "DB"

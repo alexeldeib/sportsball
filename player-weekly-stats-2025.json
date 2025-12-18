@@ -14685,19 +14685,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "IND",
-    "season": 2025,
-    "week": 1,
-    "stats": {
-      "idp_tkl": 2.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -20918,23 +20905,6 @@
     }
   },
   {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "TB",
-    "season": 2025,
-    "week": 1,
-    "stats": {
-      "fgm": 2.0,
-      "fga": 3.0,
-      "xpm": 2.0,
-      "xpa": 2.0,
-      "pts_ppr": 8.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "5871",
     "player_name": "Zach Allen",
     "team": "DEN",
@@ -25876,19 +25846,6 @@
       "rec_yd": 6.0,
       "rec_tgt": 3.0,
       "pts_ppr": 13.9,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "PIT",
-    "season": 2025,
-    "week": 2,
-    "stats": {
-      "idp_tkl": 1.0,
       "gp": 1.0
     }
   },
@@ -34915,19 +34872,6 @@
     }
   },
   {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "LAC",
-    "season": 2025,
-    "week": 2,
-    "stats": {
-      "idp_tkl": 2.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8362",
     "player_name": "Leo Chenal",
     "team": "KC",
@@ -36016,19 +35960,6 @@
       "rush_yd": 15.0,
       "rec_tgt": 2.0,
       "pts_ppr": 1.5,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "NE",
-    "season": 2025,
-    "week": 2,
-    "stats": {
-      "idp_tkl": 1.0,
       "gp": 1.0
     }
   },
@@ -47352,19 +47283,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "NO",
-    "season": 2025,
-    "week": 3,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8262",
     "player_name": "D.J. Davidson",
     "team": "NYG",
@@ -56205,18 +56123,6 @@
     }
   },
   {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "WAS",
-    "season": 2025,
-    "week": 3,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8362",
     "player_name": "Leo Chenal",
     "team": "KC",
@@ -57354,18 +57260,6 @@
       "rec_yd": 52.0,
       "rec_tgt": 4.0,
       "pts_ppr": 10.1,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "BUF",
-    "season": 2025,
-    "week": 3,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -62271,6 +62165,18 @@
     "team": "LAC",
     "position": "T",
     "opponent": "DEN",
+    "season": 2025,
+    "week": 3,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7593",
+    "player_name": "Trey Sermon",
+    "team": "PIT",
+    "position": "RB",
+    "opponent": "NE",
     "season": 2025,
     "week": 3,
     "stats": {
@@ -68681,18 +68587,6 @@
     "team": "CLE",
     "position": "DB",
     "opponent": "TEN",
-    "season": 2025,
-    "week": 4,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "ARI",
     "season": 2025,
     "week": 4,
     "stats": {
@@ -78621,19 +78515,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "NYJ",
-    "season": 2025,
-    "week": 4,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -83575,6 +83456,18 @@
     "team": "LAC",
     "position": "T",
     "opponent": "NYG",
+    "season": 2025,
+    "week": 4,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7593",
+    "player_name": "Trey Sermon",
+    "team": "PIT",
+    "position": "RB",
+    "opponent": "MIN",
     "season": 2025,
     "week": 4,
     "stats": {
@@ -89119,20 +89012,6 @@
       "rec_td": 1.0,
       "rec_tgt": 2.0,
       "pts_ppr": 10.6,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "TB",
-    "season": 2025,
-    "week": 5,
-    "stats": {
-      "idp_tkl": 1.0,
-      "idp_sack": 0.5,
       "gp": 1.0
     }
   },
@@ -97817,18 +97696,6 @@
     "player_name": "Matthew Butler",
     "team": "MIA",
     "position": "DL",
-    "opponent": "CAR",
-    "season": 2025,
-    "week": 5,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
     "opponent": "CAR",
     "season": 2025,
     "week": 5,
@@ -107873,18 +107740,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "JAX",
-    "season": 2025,
-    "week": 6,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8367",
     "player_name": "D'Marco Jackson",
     "team": "CHI",
@@ -116174,20 +116029,6 @@
     }
   },
   {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "TEN",
-    "season": 2025,
-    "week": 6,
-    "stats": {
-      "idp_tkl": 1.0,
-      "idp_sack": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8362",
     "player_name": "Leo Chenal",
     "team": "KC",
@@ -117211,18 +117052,6 @@
       "rec_yd": 86.0,
       "rec_tgt": 5.0,
       "pts_ppr": 13.2,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "LAC",
-    "season": 2025,
-    "week": 6,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -127726,18 +127555,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "HOU",
-    "season": 2025,
-    "week": 7,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "6694",
     "player_name": "D'Ernest Johnson",
     "team": "NE",
@@ -136028,19 +135845,6 @@
       "rec_yd": 4.0,
       "rec_tgt": 1.0,
       "pts_ppr": 1.4,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "KC",
-    "season": 2025,
-    "week": 7,
-    "stats": {
-      "idp_tkl": 3.0,
       "gp": 1.0
     }
   },
@@ -155169,19 +154973,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "ATL",
-    "season": 2025,
-    "week": 8,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "12775",
     "player_name": "Max Brosmer",
     "team": "MIN",
@@ -161013,7 +160804,7 @@
   {
     "player_id": "11065",
     "player_name": "Adrian Martinez",
-    "team": "NYJ",
+    "team": "SF",
     "position": "QB",
     "opponent": "NYG",
     "season": 2025,
@@ -164836,19 +164627,6 @@
       "rec_yd": 6.0,
       "rec_tgt": 1.0,
       "pts_ppr": 1.6,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "WAS",
-    "season": 2025,
-    "week": 9,
-    "stats": {
-      "idp_tkl": 2.0,
       "gp": 1.0
     }
   },
@@ -172791,18 +172569,6 @@
     }
   },
   {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "JAX",
-    "season": 2025,
-    "week": 9,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8362",
     "player_name": "Leo Chenal",
     "team": "KC",
@@ -173683,19 +173449,6 @@
       "rec_yd": 9.0,
       "rec_tgt": 3.0,
       "pts_ppr": 2.9,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "BAL",
-    "season": 2025,
-    "week": 9,
-    "stats": {
-      "idp_tkl": 4.0,
       "gp": 1.0
     }
   },
@@ -177982,6 +177735,18 @@
     "team": "LAC",
     "position": "T",
     "opponent": "TEN",
+    "season": 2025,
+    "week": 9,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7593",
+    "player_name": "Trey Sermon",
+    "team": "PIT",
+    "position": "RB",
+    "opponent": "IND",
     "season": 2025,
     "week": 9,
     "stats": {
@@ -183491,18 +183256,6 @@
       "rec_yd": 18.0,
       "rec_tgt": 8.0,
       "pts_ppr": 14.8,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "ARI",
-    "season": 2025,
-    "week": 10,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -192238,19 +191991,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "BUF",
-    "season": 2025,
-    "week": 10,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -196672,6 +196412,18 @@
     }
   },
   {
+    "player_id": "7593",
+    "player_name": "Trey Sermon",
+    "team": "PIT",
+    "position": "RB",
+    "opponent": "LAC",
+    "season": 2025,
+    "week": 10,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8135",
     "player_name": "Treylon Burks",
     "team": "WAS",
@@ -197843,23 +197595,6 @@
     "season": 2025,
     "week": 10,
     "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "CHI",
-    "season": 2025,
-    "week": 10,
-    "stats": {
-      "fgm": 2.0,
-      "fga": 2.0,
-      "xpm": 2.0,
-      "xpa": 2.0,
-      "pts_ppr": 8.0,
       "gp": 1.0
     }
   },
@@ -202513,18 +202248,6 @@
       "rush_yd": 90.0,
       "rec_tgt": 1.0,
       "pts_ppr": 9.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "LAR",
-    "season": 2025,
-    "week": 11,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -211897,19 +211620,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "WAS",
-    "season": 2025,
-    "week": 11,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -217942,21 +217652,6 @@
     }
   },
   {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "GB",
-    "season": 2025,
-    "week": 11,
-    "stats": {
-      "xpm": 2.0,
-      "xpa": 3.0,
-      "pts_ppr": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "5871",
     "player_name": "Zach Allen",
     "team": "DEN",
@@ -222542,19 +222237,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "TEN",
-    "season": 2025,
-    "week": 12,
-    "stats": {
-      "idp_tkl": 4.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8367",
     "player_name": "D'Marco Jackson",
     "team": "CHI",
@@ -226359,7 +226041,7 @@
   {
     "player_id": "13130",
     "player_name": "Jackson Woodard",
-    "team": "HOU",
+    "team": "MIA",
     "position": "LB",
     "opponent": "BUF",
     "season": 2025,
@@ -236667,23 +236349,6 @@
     }
   },
   {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "DET",
-    "season": 2025,
-    "week": 12,
-    "stats": {
-      "fgm": 2.0,
-      "fga": 2.0,
-      "xpm": 3.0,
-      "xpa": 3.0,
-      "pts_ppr": 10.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "9753",
     "player_name": "Zach Charbonnet",
     "team": "SEA",
@@ -241719,19 +241384,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "MIN",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8367",
     "player_name": "D'Marco Jackson",
     "team": "CHI",
@@ -246600,18 +246252,6 @@
     }
   },
   {
-    "player_id": "4163",
-    "player_name": "Jalen Reeves-Maybin",
-    "team": "CHI",
-    "position": "LB",
-    "opponent": "PHI",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "12674",
     "player_name": "Jalen Rivers",
     "team": "CIN",
@@ -250560,19 +250200,6 @@
     }
   },
   {
-    "player_id": "6948",
-    "player_name": "Leki Fotu",
-    "team": "LV",
-    "position": "DT",
-    "opponent": "LAC",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "idp_tkl": 2.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8362",
     "player_name": "Leo Chenal",
     "team": "KC",
@@ -251609,19 +251236,6 @@
     "season": 2025,
     "week": 13,
     "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "NO",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "idp_tkl": 1.0,
       "gp": 1.0
     }
   },
@@ -257822,21 +257436,6 @@
     }
   },
   {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "NE",
-    "season": 2025,
-    "week": 13,
-    "stats": {
-      "xpm": 1.0,
-      "xpa": 1.0,
-      "pts_ppr": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "5871",
     "player_name": "Zach Allen",
     "team": "DEN",
@@ -262296,18 +261895,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "ATL",
-    "season": 2025,
-    "week": 14,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "8367",
     "player_name": "D'Marco Jackson",
     "team": "CHI",
@@ -266696,18 +266283,6 @@
     "stats": {
       "idp_tkl": 6.0,
       "idp_sack": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "4163",
-    "player_name": "Jalen Reeves-Maybin",
-    "team": "CHI",
-    "position": "LB",
-    "opponent": "GB",
-    "season": 2025,
-    "week": 14,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -271247,19 +270822,6 @@
     "week": 14,
     "stats": {
       "rec_tgt": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "NYJ",
-    "season": 2025,
-    "week": 14,
-    "stats": {
-      "idp_tkl": 3.0,
       "gp": 1.0
     }
   },
@@ -277923,7 +277485,7 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "idp_tkl": 2.0,
+      "idp_tkl": 5.0,
       "gp": 1.0
     }
   },
@@ -281825,18 +281387,6 @@
     }
   },
   {
-    "player_id": "8795",
-    "player_name": "D'Anthony Bell",
-    "team": "SEA",
-    "position": "DB",
-    "opponent": "IND",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "6694",
     "player_name": "D'Ernest Johnson",
     "team": "NE",
@@ -283451,7 +283001,7 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "idp_tkl": 3.0,
+      "idp_tkl": 4.0,
       "gp": 1.0
     }
   },
@@ -283554,7 +283104,7 @@
       "rec": 25.0,
       "rec_yd": 338.0,
       "rec_td": 3.0,
-      "rec_tgt": 37.0,
+      "rec_tgt": 38.0,
       "fgm": 2.0,
       "fga": 3.0,
       "pts_ppr": 118.3,
@@ -285244,7 +284794,7 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "idp_tkl": 1.0,
+      "idp_tkl": 2.0,
       "idp_sack": 1.0,
       "gp": 1.0
     }
@@ -285506,14 +285056,14 @@
       "pass_td": 1.0,
       "pass_int": 1.0,
       "rush_att": 30.0,
-      "rush_yd": 97.0,
+      "rush_yd": 102.0,
       "rec": 18.0,
       "rec_yd": 120.0,
       "rec_td": 1.0,
       "rec_tgt": 26.0,
       "fgm": 3.0,
       "fga": 3.0,
-      "pts_ppr": 55.5,
+      "pts_ppr": 56.0,
       "gp": 1.0
     }
   },
@@ -286774,18 +286324,6 @@
     }
   },
   {
-    "player_id": "4163",
-    "player_name": "Jalen Reeves-Maybin",
-    "team": "CHI",
-    "position": "LB",
-    "opponent": "CLE",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "12082",
     "player_name": "Jalen Sundell",
     "team": "SEA",
@@ -287049,7 +286587,7 @@
       "rec": 7.0,
       "rec_yd": 134.0,
       "rec_td": 1.0,
-      "rec_tgt": 9.0,
+      "rec_tgt": 10.0,
       "pts_ppr": 26.4,
       "gp": 1.0
     }
@@ -287265,7 +286803,7 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "idp_tkl": 4.0,
+      "idp_tkl": 3.0,
       "idp_ff": 1.0,
       "gp": 1.0
     }
@@ -289648,7 +289186,7 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "idp_tkl": 1.0,
+      "idp_tkl": 2.0,
       "gp": 1.0
     }
   },
@@ -291871,19 +291409,6 @@
     }
   },
   {
-    "player_id": "3303",
-    "player_name": "Matthew Judon",
-    "team": "MIA",
-    "position": "LB",
-    "opponent": "PIT",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -292999,7 +292524,7 @@
       "rec": 20.0,
       "rec_yd": 246.0,
       "rec_td": 2.0,
-      "rec_tgt": 35.0,
+      "rec_tgt": 36.0,
       "fga": 2.0,
       "pts_ppr": 102.0,
       "gp": 1.0
@@ -293925,8 +293450,7 @@
       "pass_td": 1.0,
       "pass_int": 1.0,
       "rush_att": 1.0,
-      "rush_yd": -5.0,
-      "pts_ppr": 7.3,
+      "pts_ppr": 7.8,
       "gp": 1.0
     }
   },
@@ -297410,7 +296934,7 @@
       "rec": 3.0,
       "rec_yd": 27.0,
       "rec_td": 1.0,
-      "rec_tgt": 3.0,
+      "rec_tgt": 4.0,
       "pts_ppr": 24.7,
       "gp": 1.0
     }
@@ -298008,22 +297532,6 @@
     "season": 2025,
     "week": 15,
     "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "4666",
-    "player_name": "Younghoe Koo",
-    "team": "NYG",
-    "position": "K",
-    "opponent": "WAS",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "fga": 2.0,
-      "xpm": 3.0,
-      "xpa": 3.0,
-      "pts_ppr": 1.0,
       "gp": 1.0
     }
   },
