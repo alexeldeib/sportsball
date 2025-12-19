@@ -1920,6 +1920,12 @@
     "position": "DE"
   },
   {
+    "name": "Jamil Muhammad",
+    "team": "Carolina Panthers",
+    "team_code": "CAR",
+    "position": "DE"
+  },
+  {
     "name": "LaBryan Ray",
     "team": "Carolina Panthers",
     "team_code": "CAR",
@@ -2023,12 +2029,6 @@
   },
   {
     "name": "Jacoby Windmon",
-    "team": "Carolina Panthers",
-    "team_code": "CAR",
-    "position": "LB"
-  },
-  {
-    "name": "Jeremiah Moon",
     "team": "Carolina Panthers",
     "team_code": "CAR",
     "position": "LB"
@@ -5502,6 +5502,12 @@
     "position": "DB"
   },
   {
+    "name": "Kaevon Merriweather",
+    "team": "Houston Texans",
+    "team_code": "HOU",
+    "position": "DB"
+  },
+  {
     "name": "Kamari Lassiter",
     "team": "Houston Texans",
     "team_code": "HOU",
@@ -8106,6 +8112,12 @@
     "position": "TE"
   },
   {
+    "name": "Tanner McLachlan",
+    "team": "Los Angeles Chargers",
+    "team_code": "LAC",
+    "position": "TE"
+  },
+  {
     "name": "Thomas Yassmin",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
@@ -9025,12 +9037,6 @@
   },
   {
     "name": "Kalif Jackson",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "TE"
-  },
-  {
-    "name": "Tanner Conner",
     "team": "Miami Dolphins",
     "team_code": "MIA",
     "position": "TE"
@@ -10320,13 +10326,13 @@
     "position": "RB"
   },
   {
-    "name": "Devin Neal",
+    "name": "Evan Hull",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "RB"
   },
   {
-    "name": "Evan Hull",
+    "name": "Nyheim Hines",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "RB"
@@ -10405,6 +10411,12 @@
   },
   {
     "name": "Eldridge Massington",
+    "team": "New Orleans Saints",
+    "team_code": "NO",
+    "position": "WR"
+  },
+  {
+    "name": "Elijah Cooks",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "WR"
@@ -10806,6 +10818,12 @@
     "position": "TE"
   },
   {
+    "name": "Tanner Conner",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "TE"
+  },
+  {
     "name": "Theo Johnson",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -10945,12 +10963,6 @@
   },
   {
     "name": "Malachi Moore",
-    "team": "New York Jets",
-    "team_code": "NYJ",
-    "position": "DB"
-  },
-  {
-    "name": "Tony Adams",
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "DB"
@@ -11191,6 +11203,12 @@
   },
   {
     "name": "Brady Cook",
+    "team": "New York Jets",
+    "team_code": "NYJ",
+    "position": "QB"
+  },
+  {
+    "name": "Hendon Hooker",
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "QB"
@@ -11922,12 +11940,6 @@
     "position": "DL"
   },
   {
-    "name": "Brodric Martin-Rhodes",
-    "team": "Pittsburgh Steelers",
-    "team_code": "PIT",
-    "position": "DT"
-  },
-  {
     "name": "Cameron Heyward",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -11971,6 +11983,12 @@
   },
   {
     "name": "Cole Holcomb",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "LB"
+  },
+  {
+    "name": "Jeremiah Moon",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
     "position": "LB"
@@ -12732,6 +12750,12 @@
     "position": "DB"
   },
   {
+    "name": "D'Anthony Bell",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "DB"
+  },
+  {
     "name": "Devon Witherspoon",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -13122,6 +13146,12 @@
     "position": "WR"
   },
   {
+    "name": "Dareke Young",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "WR"
+  },
+  {
     "name": "Jake Bobo",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -13219,12 +13249,6 @@
   },
   {
     "name": "Jacob Parrish",
-    "team": "Tampa Bay Buccaneers",
-    "team_code": "TB",
-    "position": "DB"
-  },
-  {
-    "name": "Kaevon Merriweather",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
     "position": "DB"

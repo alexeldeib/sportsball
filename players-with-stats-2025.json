@@ -3971,6 +3971,13 @@
     "number": 55
   },
   {
+    "name": "Jamil Muhammad",
+    "team": "Carolina Panthers",
+    "team_code": "CAR",
+    "position": "DE",
+    "number": 45
+  },
+  {
     "name": "LaBryan Ray",
     "team": "Carolina Panthers",
     "team_code": "CAR",
@@ -4199,17 +4206,6 @@
     "team_code": "CAR",
     "position": "LB",
     "number": 41
-  },
-  {
-    "name": "Jeremiah Moon",
-    "team": "Carolina Panthers",
-    "team_code": "CAR",
-    "position": "LB",
-    "number": 49,
-    "stats": {
-      "gp": 1.0,
-      "st_snp": 6.0
-    }
   },
   {
     "name": "Krys Barnes",
@@ -9876,7 +9872,7 @@
       "gs": 14.0,
       "def_snp": 781.0,
       "st_snp": 126.0,
-      "idp_tkl": 62.0,
+      "idp_tkl": 63.0,
       "idp_sack": 4.0,
       "idp_int": 1.0
     }
@@ -10617,7 +10613,7 @@
       "gs": 5.0,
       "def_snp": 513.0,
       "st_snp": 119.0,
-      "idp_tkl": 21.0,
+      "idp_tkl": 22.0,
       "idp_sack": 0.5
     }
   },
@@ -11381,6 +11377,19 @@
     "stats": {
       "gp": 1.0,
       "st_snp": 13.0
+    }
+  },
+  {
+    "name": "Kaevon Merriweather",
+    "team": "Houston Texans",
+    "team_code": "HOU",
+    "position": "DB",
+    "number": 26,
+    "stats": {
+      "gp": 12.0,
+      "def_snp": 17.0,
+      "st_snp": 182.0,
+      "idp_tkl": 1.0
     }
   },
   {
@@ -12919,8 +12928,7 @@
       "off_snp": 60.0,
       "pass_yd": 120.0,
       "pass_td": 1.0,
-      "pass_int": 1.0,
-      "rush_yd": -5.0
+      "pass_int": 1.0
     }
   },
   {
@@ -16789,6 +16797,13 @@
     }
   },
   {
+    "name": "Tanner McLachlan",
+    "team": "Los Angeles Chargers",
+    "team_code": "LAC",
+    "position": "TE",
+    "number": 88
+  },
+  {
     "name": "Thomas Yassmin",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
@@ -18705,21 +18720,6 @@
     "number": 60
   },
   {
-    "name": "Tanner Conner",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "TE",
-    "number": 80,
-    "stats": {
-      "gp": 9.0,
-      "off_snp": 181.0,
-      "def_snp": 1.0,
-      "st_snp": 116.0,
-      "rec": 9.0,
-      "rec_yd": 91.0
-    }
-  },
-  {
     "name": "AJ Henning",
     "team": "Miami Dolphins",
     "team_code": "MIA",
@@ -20123,7 +20123,7 @@
       "gp": 14.0,
       "gs": 13.0,
       "def_snp": 647.0,
-      "idp_tkl": 47.0,
+      "idp_tkl": 48.0,
       "idp_sack": 8.5,
       "idp_ff": 1.0
     }
@@ -21353,23 +21353,6 @@
     }
   },
   {
-    "name": "Devin Neal",
-    "team": "New Orleans Saints",
-    "team_code": "NO",
-    "position": "RB",
-    "number": 24,
-    "stats": {
-      "gp": 10.0,
-      "gs": 3.0,
-      "off_snp": 268.0,
-      "st_snp": 24.0,
-      "rush_yd": 206.0,
-      "rush_td": 2.0,
-      "rec": 17.0,
-      "rec_yd": 104.0
-    }
-  },
-  {
     "name": "Evan Hull",
     "team": "New Orleans Saints",
     "team_code": "NO",
@@ -21382,6 +21365,19 @@
       "rush_yd": 31.0,
       "rec": 1.0,
       "rec_yd": 6.0
+    }
+  },
+  {
+    "name": "Nyheim Hines",
+    "team": "New Orleans Saints",
+    "team_code": "NO",
+    "position": "RB",
+    "number": 31,
+    "stats": {
+      "gp": 3.0,
+      "off_snp": 2.0,
+      "st_snp": 11.0,
+      "rush_yd": -2.0
     }
   },
   {
@@ -21551,6 +21547,13 @@
   },
   {
     "name": "Eldridge Massington",
+    "team": "New Orleans Saints",
+    "team_code": "NO",
+    "position": "WR",
+    "number": 86
+  },
+  {
+    "name": "Elijah Cooks",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "WR",
@@ -22384,6 +22387,21 @@
     "number": 49
   },
   {
+    "name": "Tanner Conner",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "TE",
+    "number": 80,
+    "stats": {
+      "gp": 9.0,
+      "off_snp": 181.0,
+      "def_snp": 1.0,
+      "st_snp": 116.0,
+      "rec": 9.0,
+      "rec_yd": 91.0
+    }
+  },
+  {
     "name": "Theo Johnson",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -22664,7 +22682,7 @@
     "team": "New York Jets",
     "team_code": "NYJ",
     "position": "DB",
-    "number": 43
+    "number": 46
   },
   {
     "name": "Malachi Moore",
@@ -22678,21 +22696,6 @@
       "def_snp": 733.0,
       "st_snp": 131.0,
       "idp_tkl": 70.0
-    }
-  },
-  {
-    "name": "Tony Adams",
-    "team": "New York Jets",
-    "team_code": "NYJ",
-    "position": "DB",
-    "number": 22,
-    "stats": {
-      "gp": 12.0,
-      "gs": 9.0,
-      "def_snp": 468.0,
-      "st_snp": 53.0,
-      "idp_tkl": 48.0,
-      "idp_sack": 1.0
     }
   },
   {
@@ -23162,6 +23165,13 @@
       "pass_int": 5.0,
       "rush_yd": 39.0
     }
+  },
+  {
+    "name": "Hendon Hooker",
+    "team": "New York Jets",
+    "team_code": "NYJ",
+    "position": "QB",
+    "number": 12
   },
   {
     "name": "Justin Fields",
@@ -24677,18 +24687,6 @@
     }
   },
   {
-    "name": "Brodric Martin-Rhodes",
-    "team": "Pittsburgh Steelers",
-    "team_code": "PIT",
-    "position": "DT",
-    "number": 78,
-    "stats": {
-      "gp": 1.0,
-      "def_snp": 10.0,
-      "st_snp": 2.0
-    }
-  },
-  {
     "name": "Cameron Heyward",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -24801,6 +24799,17 @@
       "st_snp": 120.0,
       "idp_tkl": 29.0,
       "idp_ff": 1.0
+    }
+  },
+  {
+    "name": "Jeremiah Moon",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "LB",
+    "number": 49,
+    "stats": {
+      "gp": 1.0,
+      "st_snp": 6.0
     }
   },
   {
@@ -26372,6 +26381,21 @@
     }
   },
   {
+    "name": "D'Anthony Bell",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "DB",
+    "number": 23,
+    "stats": {
+      "gp": 13.0,
+      "gs": 2.0,
+      "def_snp": 91.0,
+      "st_snp": 238.0,
+      "idp_tkl": 10.0,
+      "idp_sack": 0.5
+    }
+  },
+  {
     "name": "Devon Witherspoon",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -27179,6 +27203,20 @@
     "number": 84
   },
   {
+    "name": "Dareke Young",
+    "team": "Seattle Seahawks",
+    "team_code": "SEA",
+    "position": "WR",
+    "number": 83,
+    "stats": {
+      "gp": 6.0,
+      "off_snp": 34.0,
+      "st_snp": 108.0,
+      "rec": 2.0,
+      "rec_yd": 48.0
+    }
+  },
+  {
     "name": "Jake Bobo",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
@@ -27384,19 +27422,6 @@
       "idp_tkl": 55.0,
       "idp_sack": 2.0,
       "idp_int": 1.0
-    }
-  },
-  {
-    "name": "Kaevon Merriweather",
-    "team": "Tampa Bay Buccaneers",
-    "team_code": "TB",
-    "position": "DB",
-    "number": 26,
-    "stats": {
-      "gp": 12.0,
-      "def_snp": 17.0,
-      "st_snp": 192.0,
-      "idp_tkl": 1.0
     }
   },
   {
@@ -29179,7 +29204,7 @@
       "gs": 1.0,
       "def_snp": 90.0,
       "st_snp": 157.0,
-      "idp_tkl": 7.0
+      "idp_tkl": 10.0
     }
   },
   {
@@ -29480,7 +29505,7 @@
       "gs": 14.0,
       "def_snp": 576.0,
       "st_snp": 69.0,
-      "idp_tkl": 30.0,
+      "idp_tkl": 29.0,
       "idp_ff": 1.0
     }
   },
