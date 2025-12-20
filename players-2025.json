@@ -894,12 +894,6 @@
     "position": "WR"
   },
   {
-    "name": "KhaDarel Hodge",
-    "team": "Atlanta Falcons",
-    "team_code": "ATL",
-    "position": "WR"
-  },
-  {
     "name": "Malik Heath",
     "team": "Atlanta Falcons",
     "team_code": "ATL",
@@ -1633,12 +1627,6 @@
   },
   {
     "name": "Alec Anderson",
-    "team": "Buffalo Bills",
-    "team_code": "BUF",
-    "position": "OL"
-  },
-  {
-    "name": "Chase Lundt",
     "team": "Buffalo Bills",
     "team_code": "BUF",
     "position": "OL"
@@ -2856,12 +2844,6 @@
     "position": "DL"
   },
   {
-    "name": "Kris Jenkins",
-    "team": "Cincinnati Bengals",
-    "team_code": "CIN",
-    "position": "DL"
-  },
-  {
     "name": "McKinnley Jackson",
     "team": "Cincinnati Bengals",
     "team_code": "CIN",
@@ -2869,6 +2851,12 @@
   },
   {
     "name": "Myles Murphy",
+    "team": "Cincinnati Bengals",
+    "team_code": "CIN",
+    "position": "DL"
+  },
+  {
+    "name": "Shemar Stewart",
     "team": "Cincinnati Bengals",
     "team_code": "CIN",
     "position": "DL"
@@ -5148,6 +5136,12 @@
     "position": "LB"
   },
   {
+    "name": "Brenton Cox",
+    "team": "Green Bay Packers",
+    "team_code": "GB",
+    "position": "LB"
+  },
+  {
     "name": "Edgerrin Cooper",
     "team": "Green Bay Packers",
     "team_code": "GB",
@@ -5317,12 +5311,6 @@
   },
   {
     "name": "Kerrith Whyte",
-    "team": "Green Bay Packers",
-    "team_code": "GB",
-    "position": "RB"
-  },
-  {
-    "name": "MarShawn Lloyd",
     "team": "Green Bay Packers",
     "team_code": "GB",
     "position": "RB"
@@ -7422,6 +7410,12 @@
     "position": "DT"
   },
   {
+    "name": "Brodric Martin-Rhodes",
+    "team": "Las Vegas Raiders",
+    "team_code": "LV",
+    "position": "DT"
+  },
+  {
     "name": "JJ Pegues",
     "team": "Las Vegas Raiders",
     "team_code": "LV",
@@ -7993,12 +7987,6 @@
   },
   {
     "name": "Jamaree Salyer",
-    "team": "Los Angeles Chargers",
-    "team_code": "LAC",
-    "position": "OL"
-  },
-  {
-    "name": "Josh Kaltenberger",
     "team": "Los Angeles Chargers",
     "team_code": "LAC",
     "position": "OL"
@@ -9438,12 +9426,6 @@
     "position": "T"
   },
   {
-    "name": "Christian Darrisaw",
-    "team": "Minnesota Vikings",
-    "team_code": "MIN",
-    "position": "T"
-  },
-  {
     "name": "Ben Sims",
     "team": "Minnesota Vikings",
     "team_code": "MIN",
@@ -10158,12 +10140,6 @@
     "position": "G"
   },
   {
-    "name": "Cade York",
-    "team": "New Orleans Saints",
-    "team_code": "NO",
-    "position": "K"
-  },
-  {
     "name": "Charlie Smyth",
     "team": "New Orleans Saints",
     "team_code": "NO",
@@ -10332,7 +10308,7 @@
     "position": "RB"
   },
   {
-    "name": "Nyheim Hines",
+    "name": "Nyheim Miller-Hines",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "RB"
@@ -10399,12 +10375,6 @@
   },
   {
     "name": "Dante Pettis",
-    "team": "New Orleans Saints",
-    "team_code": "NO",
-    "position": "WR"
-  },
-  {
-    "name": "Devaughn Vele",
     "team": "New Orleans Saints",
     "team_code": "NO",
     "position": "WR"
@@ -12030,6 +12000,12 @@
     "position": "LB"
   },
   {
+    "name": "Cal Adomitis",
+    "team": "Pittsburgh Steelers",
+    "team_code": "PIT",
+    "position": "LS"
+  },
+  {
     "name": "Christian Kuntz",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -12799,12 +12775,6 @@
   },
   {
     "name": "Ty Okada",
-    "team": "Seattle Seahawks",
-    "team_code": "SEA",
-    "position": "DB"
-  },
-  {
-    "name": "Tyler Hall",
     "team": "Seattle Seahawks",
     "team_code": "SEA",
     "position": "DB"

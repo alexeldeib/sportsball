@@ -87493,6 +87493,18 @@
     }
   },
   {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "DEN",
+    "season": 2025,
+    "week": 5,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "125",
     "player_name": "Calais Campbell",
     "team": "ARI",
@@ -106005,6 +106017,18 @@
     }
   },
   {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "NYG",
+    "season": 2025,
+    "week": 6,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "125",
     "player_name": "Calais Campbell",
     "team": "ARI",
@@ -118464,7 +118488,7 @@
   },
   {
     "player_id": "5347",
-    "player_name": "Nyheim Hines",
+    "player_name": "Nyheim Miller-Hines",
     "team": "NO",
     "position": "RB",
     "opponent": "MIA",
@@ -125840,6 +125864,18 @@
     "team": "DAL",
     "position": "DB",
     "opponent": "WAS",
+    "season": 2025,
+    "week": 7,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "MIN",
     "season": 2025,
     "week": 7,
     "stats": {
@@ -138347,7 +138383,7 @@
   },
   {
     "player_id": "5347",
-    "player_name": "Nyheim Hines",
+    "player_name": "Nyheim Miller-Hines",
     "team": "NO",
     "position": "RB",
     "opponent": "IND",
@@ -145358,6 +145394,18 @@
       "xpm": 1.0,
       "xpa": 1.0,
       "pts_ppr": 10.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "NYG",
+    "season": 2025,
+    "week": 8,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -156358,7 +156406,7 @@
   },
   {
     "player_id": "5347",
-    "player_name": "Nyheim Hines",
+    "player_name": "Nyheim Miller-Hines",
     "team": "NO",
     "position": "RB",
     "opponent": "MIN",
@@ -181854,6 +181902,18 @@
     }
   },
   {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 10,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "125",
     "player_name": "Calais Campbell",
     "team": "ARI",
@@ -200567,6 +200627,18 @@
       "xpm": 1.0,
       "xpa": 1.0,
       "pts_ppr": 15.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "DET",
+    "season": 2025,
+    "week": 11,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -220549,6 +220621,18 @@
     }
   },
   {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "DAL",
+    "season": 2025,
+    "week": 12,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "125",
     "player_name": "Calais Campbell",
     "team": "ARI",
@@ -239129,6 +239213,18 @@
     }
   },
   {
+    "player_id": "10928",
+    "player_name": "Brodric Martin-Rhodes",
+    "team": "LV",
+    "position": "DT",
+    "opponent": "BUF",
+    "season": 2025,
+    "week": 13,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "1113",
     "player_name": "Bryan Anger",
     "team": "DAL",
@@ -239552,6 +239648,18 @@
       "xpm": 3.0,
       "xpa": 3.0,
       "pts_ppr": 6.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 13,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -260401,6 +260509,18 @@
       "xpm": 1.0,
       "xpa": 1.0,
       "pts_ppr": 8.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8785",
+    "player_name": "Cal Adomitis",
+    "team": "PIT",
+    "position": "LS",
+    "opponent": "LAC",
+    "season": 2025,
+    "week": 14,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -298404,18 +298524,6 @@
     }
   },
   {
-    "player_id": "5854",
-    "player_name": "Drew Lock",
-    "team": "SEA",
-    "position": "QB",
-    "opponent": "LAR",
-    "season": 2025,
-    "week": 16,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
     "player_id": "10882",
     "player_name": "Emmanuel Forbes",
     "team": "LAR",
@@ -298589,18 +298697,6 @@
     "week": 16,
     "stats": {
       "idp_tkl": 2.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "1837",
-    "player_name": "Jimmy Garoppolo",
-    "team": "LAR",
-    "position": "QB",
-    "opponent": "SEA",
-    "season": 2025,
-    "week": 16,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -298969,18 +299065,6 @@
     "team": "LAR",
     "position": "TE",
     "opponent": "SEA",
-    "season": 2025,
-    "week": 16,
-    "stats": {
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "10979",
-    "player_name": "Olu Oluwatimi",
-    "team": "SEA",
-    "position": "C",
-    "opponent": "LAR",
     "season": 2025,
     "week": 16,
     "stats": {

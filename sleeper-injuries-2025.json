@@ -8,6 +8,13 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Quenton Nelson",
+      "position": "OL",
+      "status": "Questionable",
+      "short_comment": "Wrist injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Daniel Jones",
       "position": "QB",
       "status": "Injured Reserve",
@@ -41,13 +48,6 @@
       "status": "Injured Reserve",
       "short_comment": "Concussion injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Alec Pierce",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Achilles injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Hunter Wohler",
@@ -327,25 +327,11 @@
       "type": "Out"
     },
     {
-      "player_name": "Mike Evans",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Collarbone injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Josh Williams",
       "position": "RB",
       "status": "Suspended",
       "short_comment": "Suspension injury",
       "type": "Suspended"
-    },
-    {
-      "player_name": "Lavonte David",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
     },
     {
       "player_name": "David Walker",
@@ -462,141 +448,6 @@
       "type": "Injured Reserve"
     }
   ],
-  "DAL": [
-    {
-      "player_name": "CeeDee Lamb",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "DaRon Bland",
-      "position": "DB",
-      "status": "Doubtful",
-      "short_comment": "Foot injury",
-      "type": "Doubtful"
-    },
-    {
-      "player_name": "Jack Sanborn",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Groin injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Hunter Luepke",
-      "position": "FB",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Tyler Guyton",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Sprain",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Shavon Revel",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Payton Turner",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Fracture",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Donovan Wilson",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Trevon Diggs",
-      "position": "CB",
-      "status": "Injured Reserve",
-      "short_comment": "Concussion injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Josh Butler",
-      "position": "CB",
-      "status": "PUP",
-      "short_comment": "Surgery",
-      "type": "PUP"
-    },
-    {
-      "player_name": "Trevor Keegan",
-      "position": "OL",
-      "status": "Injured Reserve",
-      "short_comment": "Neck injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Rob Jones",
-      "position": "G",
-      "status": "Injured Reserve",
-      "short_comment": "Fracture",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Caelen Carson",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Ajani Cornelius",
-      "position": "OL",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Miles Sanders",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Quinnen Williams",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Phil Mafah",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Shoulder injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Javonte Williams",
-      "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Neck injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Juanyeh Thomas",
-      "position": "DB",
-      "status": "PUP",
-      "short_comment": "Migraine injury",
-      "type": "PUP"
-    }
-  ],
   "LAR": [
     {
       "player_name": "Kevin Dotson",
@@ -708,23 +559,9 @@
     {
       "player_name": "Jack Conklin",
       "position": "OT",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Concussion injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Joel Bitonio",
-      "position": "OG",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Brenden Bates",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Winston Reid",
@@ -736,22 +573,15 @@
     {
       "player_name": "Denzel Ward",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Calf injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Sam Kamara",
       "position": "LB",
       "status": "Questionable",
       "short_comment": "Elbow injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Teven Jenkins",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
       "type": "Questionable"
     },
     {
@@ -804,27 +634,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Adin Huntington",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Quadriceps injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Grant Delpit",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Groin injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Mason Graham",
-      "position": "DL",
-      "status": "Questionable",
-      "short_comment": "Ribs injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Ethan Pocic",
       "position": "OL",
       "status": "Injured Reserve",
@@ -834,16 +643,9 @@
     {
       "player_name": "Dylan Sampson",
       "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Calf injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Mike Hall",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Hand injury",
+      "type": "Out"
     },
     {
       "player_name": "Jeremiah Owusu-Koramoah",
@@ -851,13 +653,6 @@
       "status": "PUP",
       "short_comment": "Neck injury",
       "type": "PUP"
-    },
-    {
-      "player_name": "Carson Schwesinger",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Ankle injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Deshaun Watson",
@@ -869,16 +664,9 @@
     {
       "player_name": "David Njoku",
       "position": "TE",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Zak Zinter",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Back injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Maliek Collins",
@@ -974,21 +762,7 @@
       "type": "Out"
     },
     {
-      "player_name": "Tyler Linderbaum",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Roquan Smith",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Keondre Jackson",
+      "player_name": "Kyle Hamilton",
       "position": "DB",
       "status": "Questionable",
       "short_comment": "Ankle injury",
@@ -1002,18 +776,11 @@
       "type": "Questionable"
     },
     {
-      "player_name": "Kyle Van Noy",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Quadriceps injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Chidobe Awuzie",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Doubtful",
       "short_comment": "Foot injury",
-      "type": "Questionable"
+      "type": "Doubtful"
     },
     {
       "player_name": "Ronnie Stanley",
@@ -1034,9 +801,9 @@
     {
       "player_name": "Nick Herbig",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Doubtful",
       "short_comment": "Hamstring injury",
-      "type": "Questionable"
+      "type": "Doubtful"
     },
     {
       "player_name": "Christian Kuntz",
@@ -1090,37 +857,23 @@
     {
       "player_name": "T.J. Watt",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Surgery",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "James Pierre",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Calf injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Keeanu Benton",
-      "position": "NT",
-      "status": "Questionable",
-      "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Isaac Seumalo",
       "position": "G",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Triceps injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Andrus Peat",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Calvin Anderson",
@@ -1137,25 +890,11 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Ben Skowronek",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Daniel Ekuale",
       "position": "DT",
       "status": "Injured Reserve",
       "short_comment": "Surgery",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jabrill Peppers",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Donald Parham",
@@ -1165,13 +904,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Zach Frazier",
-      "position": "OL",
-      "status": "Questionable",
-      "short_comment": "Triceps injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Dean Lowry",
       "position": "DE",
       "status": "Injured Reserve",
@@ -1179,176 +911,13 @@
       "type": "Injured Reserve"
     }
   ],
-  "ATL": [
-    {
-      "player_name": "Kyle Pitts",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Zach Harrison",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Kaleb McGary",
-      "position": "T",
-      "status": "Injured Reserve",
-      "short_comment": "Leg injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Bralen Trice",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Brandon Dorlus",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "KhaDarel Hodge",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "DeAngelo Malone",
-      "position": "DL",
-      "status": "Injured Reserve",
-      "short_comment": "Ankle injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Emory Jones",
-      "position": "QB",
-      "status": "Injured Reserve",
-      "short_comment": "Concussion injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Troy Andersen",
-      "position": "LB",
-      "status": "PUP",
-      "short_comment": "Knee injury",
-      "type": "PUP"
-    },
-    {
-      "player_name": "Malik Verdon",
-      "position": "DB",
-      "status": "PUP",
-      "short_comment": "Undisclosed injury",
-      "type": "PUP"
-    },
-    {
-      "player_name": "Billy Bowman",
-      "position": "DB",
-      "status": "Injured Reserve",
-      "short_comment": "Achilles injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Duke Ejiofor",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Undisclosed injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Tyrone Wheatley",
-      "position": "OL",
-      "status": "Injured Reserve",
-      "short_comment": "Undisclosed injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Michael Penix",
-      "position": "QB",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Ruke Orhorhoro",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Groin injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Drake London",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Sprain",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Ryan Hayes",
-      "position": "OL",
-      "status": "Out",
-      "short_comment": "Undisclosed injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "LaCale London",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Clark Phillips",
-      "position": "CB",
-      "status": "Injured Reserve",
-      "short_comment": "Triceps injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Sam Roberts",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Mike Hughes",
-      "position": "CB",
-      "status": "Out",
-      "short_comment": "Ankle injury",
-      "type": "Out"
-    },
-    {
-      "player_name": "Storm Norton",
-      "position": "T",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "DeMarcco Hellams",
-      "position": "DB",
-      "status": "Injured Reserve",
-      "short_comment": "Hamstring injury",
-      "type": "Injured Reserve"
-    }
-  ],
   "LAC": [
     {
       "player_name": "RJ Mickens",
       "position": "DB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Shoulder injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Josh Fuga",
@@ -1365,13 +934,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Tre' Harris",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Hip injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Teair Tart",
       "position": "DT",
       "status": "Questionable",
@@ -1381,9 +943,9 @@
     {
       "player_name": "Derius Davis",
       "position": "WR",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Elijah Molden",
@@ -1477,13 +1039,6 @@
       "status": "Injured Reserve",
       "short_comment": "Shoulder injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Kenneth Grant",
-      "position": "DL",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Jalin Conyers",
@@ -1600,9 +1155,9 @@
     {
       "player_name": "Minkah Fitzpatrick",
       "position": "DB",
-      "status": "Doubtful",
+      "status": "Out",
       "short_comment": "Calf injury",
-      "type": "Doubtful"
+      "type": "Out"
     },
     {
       "player_name": "Germain Ifedi",
@@ -1610,13 +1165,6 @@
       "status": "Injured Reserve",
       "short_comment": "Undisclosed injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Darren Waller",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Storm Duck",
@@ -1679,9 +1227,9 @@
     {
       "player_name": "Kerby Joseph",
       "position": "DB",
-      "status": "Doubtful",
+      "status": "Out",
       "short_comment": "Knee injury",
-      "type": "Doubtful"
+      "type": "Out"
     },
     {
       "player_name": "Giovanni Manu",
@@ -1759,13 +1307,6 @@
       "status": "Injured Reserve",
       "short_comment": "Undisclosed injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Thomas Harper",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Josh Paschal",
@@ -1856,9 +1397,9 @@
     {
       "player_name": "Max Melton",
       "position": "DB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Heel injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Joey Blount",
@@ -1905,9 +1446,9 @@
     {
       "player_name": "Evan Brown",
       "position": "C",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Personal injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Marvin Harrison",
@@ -1940,9 +1481,9 @@
     {
       "player_name": "Darren Hall",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Concussion injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Jonah Williams",
@@ -2024,13 +1565,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "DaQuan Jones",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Calf injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Curtis Samuel",
       "position": "WR",
       "status": "Injured Reserve",
@@ -2059,13 +1593,6 @@
       "type": "Questionable"
     },
     {
-      "player_name": "Dion Dawkins",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Matt Prater",
       "position": "K",
       "status": "Out",
@@ -2087,20 +1614,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Christian Benford",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Toe injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Dalton Kincaid",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Landon Jackson",
       "position": "DL",
       "status": "Injured Reserve",
@@ -2115,18 +1628,11 @@
       "type": "DNR"
     },
     {
-      "player_name": "Mitch Wishnowsky",
-      "position": "P",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Chase Lundt",
       "position": "OL",
-      "status": "Questionable",
+      "status": "Injured Reserve",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Tyler Bass",
@@ -2134,13 +1640,6 @@
       "status": "Injured Reserve",
       "short_comment": "Hip injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Taron Johnson",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Quadriceps injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Dorian Strong",
@@ -2203,9 +1702,9 @@
     {
       "player_name": "Leo Chenal",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Shoulder injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Ethan Driskell",
@@ -2224,16 +1723,16 @@
     {
       "player_name": "Rashee Rice",
       "position": "WR",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Concussion injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Derrick Nnadi",
       "position": "DT",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Illness injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Joe Forson",
@@ -2241,13 +1740,6 @@
       "status": "NA",
       "short_comment": "None injury",
       "type": "NA"
-    },
-    {
-      "player_name": "Chris Jones",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Hamstring injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Jake Briningstool",
@@ -2259,9 +1751,9 @@
     {
       "player_name": "Jaylon Moore",
       "position": "OL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Eric Scott",
@@ -2280,9 +1772,9 @@
     {
       "player_name": "Jawaan Taylor",
       "position": "OL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Triceps injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Brandon George",
@@ -2308,16 +1800,16 @@
     {
       "player_name": "Trent McDuffie",
       "position": "DB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Tyquan Thornton",
       "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Concussion",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Concussion injury",
+      "type": "Out"
     }
   ],
   "NO": [
@@ -2338,9 +1830,9 @@
     {
       "player_name": "Cesar Ruiz",
       "position": "OL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Vernon Broughton",
@@ -2368,6 +1860,13 @@
       "position": "WR",
       "status": "Questionable",
       "short_comment": "Illness injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Zaire Mitchell-Paden",
+      "position": "TE",
+      "status": "Questionable",
+      "short_comment": "Knee injury",
       "type": "Questionable"
     },
     {
@@ -2415,9 +1914,9 @@
     {
       "player_name": "Devaughn Vele",
       "position": "WR",
-      "status": "Out",
+      "status": "Injured Reserve",
       "short_comment": "Shoulder injury",
-      "type": "Out"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Bub Means",
@@ -2429,16 +1928,16 @@
     {
       "player_name": "Asim Richards",
       "position": "OL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Alvin Kamara",
       "position": "RB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Sprain",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Nick Saldiveri",
@@ -2506,13 +2005,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "E.J. Speed",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Kurt Hinish",
       "position": "DT",
       "status": "PUP",
@@ -2520,17 +2012,17 @@
       "type": "PUP"
     },
     {
+      "player_name": "Nick Chubb",
+      "position": "RB",
+      "status": "Questionable",
+      "short_comment": "Ribs injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Woody Marks",
       "position": "RB",
       "status": "Questionable",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Jake Hansen",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Chest injury",
       "type": "Questionable"
     },
     {
@@ -2562,13 +2054,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Kamari Lassiter",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Foot injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Jaylin Smith",
       "position": "CB",
       "status": "Injured Reserve",
@@ -2583,18 +2068,18 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "Christian Kirk",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Illness injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Joe Mixon",
       "position": "RB",
       "status": "PUP",
       "short_comment": "Ankle injury",
       "type": "PUP"
-    },
-    {
-      "player_name": "Denico Autry",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Tank Dell",
@@ -2608,13 +2093,6 @@
       "position": "DB",
       "status": "Questionable",
       "short_comment": "Oblique injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Sheldon Rankins",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
       "type": "Questionable"
     },
     {
@@ -2632,13 +2110,306 @@
       "type": "Injured Reserve"
     }
   ],
+  "ATL": [
+    {
+      "player_name": "Zach Harrison",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Kaleb McGary",
+      "position": "T",
+      "status": "Injured Reserve",
+      "short_comment": "Leg injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Bralen Trice",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Brandon Dorlus",
+      "position": "DE",
+      "status": "Questionable",
+      "short_comment": "Illness injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "KhaDarel Hodge",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Shoulder injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "DeAngelo Malone",
+      "position": "DL",
+      "status": "Injured Reserve",
+      "short_comment": "Ankle injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Emory Jones",
+      "position": "QB",
+      "status": "Injured Reserve",
+      "short_comment": "Concussion injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Troy Andersen",
+      "position": "LB",
+      "status": "PUP",
+      "short_comment": "Knee injury",
+      "type": "PUP"
+    },
+    {
+      "player_name": "Malik Verdon",
+      "position": "DB",
+      "status": "PUP",
+      "short_comment": "Undisclosed injury",
+      "type": "PUP"
+    },
+    {
+      "player_name": "Billy Bowman",
+      "position": "DB",
+      "status": "Injured Reserve",
+      "short_comment": "Achilles injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "James Pearce",
+      "position": "DL",
+      "status": "Questionable",
+      "short_comment": "Foot injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Duke Ejiofor",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Undisclosed injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Tyrone Wheatley",
+      "position": "OL",
+      "status": "Injured Reserve",
+      "short_comment": "Undisclosed injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Michael Penix",
+      "position": "QB",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Drake London",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Sprain",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Ryan Hayes",
+      "position": "OL",
+      "status": "Out",
+      "short_comment": "Undisclosed injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Clark Phillips",
+      "position": "CB",
+      "status": "Injured Reserve",
+      "short_comment": "Triceps injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Sam Roberts",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Mike Hughes",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "Ankle injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Storm Norton",
+      "position": "T",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "DeMarcco Hellams",
+      "position": "DB",
+      "status": "Injured Reserve",
+      "short_comment": "Hamstring injury",
+      "type": "Injured Reserve"
+    }
+  ],
+  "LV": [
+    {
+      "player_name": "Jordan Meredith",
+      "position": "OL",
+      "status": "Questionable",
+      "short_comment": "Ankle injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Jackson Powers-Johnson",
+      "position": "OL",
+      "status": "Injured Reserve",
+      "short_comment": "Ankle injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Kolton Miller",
+      "position": "T",
+      "status": "Injured Reserve",
+      "short_comment": "Sprain",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Brennan Jackson",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Foot injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Kyu Blu Kelly",
+      "position": "CB",
+      "status": "Injured Reserve",
+      "short_comment": "Ruptured",
+      "type": "Injured Reserve"
+    }
+  ],
+  "DAL": [
+    {
+      "player_name": "DaRon Bland",
+      "position": "DB",
+      "status": "Out",
+      "short_comment": "Foot injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Jack Sanborn",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Groin injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Hunter Luepke",
+      "position": "FB",
+      "status": "Questionable",
+      "short_comment": "Concussion injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Tyler Guyton",
+      "position": "OL",
+      "status": "Out",
+      "short_comment": "Sprain",
+      "type": "Out"
+    },
+    {
+      "player_name": "Payton Turner",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Fracture",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Trevon Diggs",
+      "position": "CB",
+      "status": "Injured Reserve",
+      "short_comment": "Concussion injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Josh Butler",
+      "position": "CB",
+      "status": "PUP",
+      "short_comment": "Surgery",
+      "type": "PUP"
+    },
+    {
+      "player_name": "Trevor Keegan",
+      "position": "OL",
+      "status": "Injured Reserve",
+      "short_comment": "Neck injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Rob Jones",
+      "position": "G",
+      "status": "Injured Reserve",
+      "short_comment": "Fracture",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Caelen Carson",
+      "position": "DB",
+      "status": "Questionable",
+      "short_comment": "Shoulder injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Ajani Cornelius",
+      "position": "OL",
+      "status": "Injured Reserve",
+      "short_comment": "Knee injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Miles Sanders",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Quinnen Williams",
+      "position": "DT",
+      "status": "Questionable",
+      "short_comment": "Concussion injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Phil Mafah",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Shoulder injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Juanyeh Thomas",
+      "position": "DB",
+      "status": "PUP",
+      "short_comment": "Migraine injury",
+      "type": "PUP"
+    }
+  ],
   "CIN": [
     {
       "player_name": "Charlie Jones",
       "position": "WR",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Erick All",
@@ -2671,9 +2442,9 @@
     {
       "player_name": "Kris Jenkins",
       "position": "DL",
-      "status": "Questionable",
+      "status": "Injured Reserve",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "B.J. Hill",
@@ -2681,13 +2452,6 @@
       "status": "Questionable",
       "short_comment": "Ankle injury",
       "type": "Questionable"
-    },
-    {
-      "player_name": "Shemar Stewart",
-      "position": "DL",
-      "status": "Injured Reserve",
-      "short_comment": "Knee injury",
-      "type": "Injured Reserve"
     },
     {
       "player_name": "Brian Asamoah",
@@ -2699,6 +2463,13 @@
     {
       "player_name": "Noah Fant",
       "position": "TE",
+      "status": "Out",
+      "short_comment": "Ankle injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "PJ Jules",
+      "position": "DB",
       "status": "Questionable",
       "short_comment": "Ankle injury",
       "type": "Questionable"
@@ -2706,9 +2477,9 @@
     {
       "player_name": "Joseph Ossai",
       "position": "DE",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Cam Taylor-Britt",
@@ -2874,50 +2645,6 @@
       "type": "Injured Reserve"
     }
   ],
-  "LV": [
-    {
-      "player_name": "Jackson Powers-Johnson",
-      "position": "OL",
-      "status": "Injured Reserve",
-      "short_comment": "Ankle injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Kolton Miller",
-      "position": "T",
-      "status": "Injured Reserve",
-      "short_comment": "Sprain",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Maxx Crosby",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Brennan Jackson",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Foot injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Kyu Blu Kelly",
-      "position": "CB",
-      "status": "Injured Reserve",
-      "short_comment": "Ruptured",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jeremy Chinn",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Back injury",
-      "type": "Questionable"
-    }
-  ],
   "GB": [
     {
       "player_name": "Chris Brooks",
@@ -2978,9 +2705,9 @@
     {
       "player_name": "Brenton Cox",
       "position": "LB",
-      "status": "Injured Reserve",
+      "status": "Questionable",
       "short_comment": "Groin injury",
-      "type": "Injured Reserve"
+      "type": "Questionable"
     },
     {
       "player_name": "Travis Glover",
@@ -3027,9 +2754,9 @@
     {
       "player_name": "MarShawn Lloyd",
       "position": "RB",
-      "status": "Out",
+      "status": "Injured Reserve",
       "short_comment": "Hamstring injury",
-      "type": "Out"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "DeAndre Thompkins",
@@ -3074,106 +2801,6 @@
       "type": "Questionable"
     }
   ],
-  "CAR": [
-    {
-      "player_name": "Taylor Moton",
-      "position": "T",
-      "status": "Questionable",
-      "short_comment": "Back injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Tershawn Wharton",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Hamstring injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Patrick Jones",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Ikem Ekwonu",
-      "position": "T",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Popo Aumavae",
-      "position": "DT",
-      "status": "Injured Reserve",
-      "short_comment": "Undisclosed injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Chandler Zavala",
-      "position": "G",
-      "status": "Injured Reserve",
-      "short_comment": "Calf injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jonathon Brooks",
-      "position": "RB",
-      "status": "PUP",
-      "short_comment": "Surgery",
-      "type": "PUP"
-    },
-    {
-      "player_name": "David Moore",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Elbow injury",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Trevin Wallace",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Damarri Mathis",
-      "position": "DB",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Corey Thornton",
-      "position": "CB",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Damien Lewis",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Brady Christensen",
-      "position": "T",
-      "status": "Injured Reserve",
-      "short_comment": "Surgery",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Robert Hunt",
-      "position": "OL",
-      "status": "Injured Reserve",
-      "short_comment": "Biceps injury",
-      "type": "Injured Reserve"
-    }
-  ],
   "MIN": [
     {
       "player_name": "Zeke Correll",
@@ -3197,13 +2824,6 @@
       "type": "Questionable"
     },
     {
-      "player_name": "Jalen Nailor",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Back injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Gavin Bartholomew",
       "position": "TE",
       "status": "PUP",
@@ -3213,9 +2833,9 @@
     {
       "player_name": "Christian Darrisaw",
       "position": "T",
-      "status": "Questionable",
+      "status": "Injured Reserve",
       "short_comment": "Knee injury",
-      "type": "Questionable"
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Matt Nelson",
@@ -3234,9 +2854,9 @@
     {
       "player_name": "Javon Hargrave",
       "position": "DT",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Groin injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Austin Keys",
@@ -3274,13 +2894,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Ryan Kelly",
-      "position": "C",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Brian O'Neill",
       "position": "T",
       "status": "Questionable",
@@ -3299,9 +2912,9 @@
     {
       "player_name": "Rakeem Nunez-Roches",
       "position": "DT",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Kyle Murphy",
@@ -3325,20 +2938,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Gunner Olszewski",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Dru Phillips",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Heel injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Nic Jones",
       "position": "CB",
       "status": "Injured Reserve",
@@ -3355,9 +2954,9 @@
     {
       "player_name": "Kayvon Thibodeaux",
       "position": "DL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Shoulder injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Malik Nabers",
@@ -3385,13 +2984,6 @@
       "position": "CB",
       "status": "Questionable",
       "short_comment": "Back injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Jamie Gillan",
-      "position": "P",
-      "status": "Questionable",
-      "short_comment": "Knee injury",
       "type": "Questionable"
     },
     {
@@ -3483,9 +3075,9 @@
     {
       "player_name": "Justin Strnad",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Duplicate Player",
@@ -3621,6 +3213,13 @@
       "status": "Injured Reserve",
       "short_comment": "Knee injury",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Derick Hall",
+      "position": "DE",
+      "status": "Suspended",
+      "short_comment": "Suspension injury",
+      "type": "Suspended"
     },
     {
       "player_name": "George Holani",
@@ -3807,18 +3406,11 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Christian Elliss",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
-    },
-    {
       "player_name": "Robert Spillane",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Foot injury",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Ankle injury",
+      "type": "Out"
     },
     {
       "player_name": "Harold Landry",
@@ -3849,6 +3441,13 @@
       "type": "Questionable"
     },
     {
+      "player_name": "Christian Barmore",
+      "position": "DT",
+      "status": "Questionable",
+      "short_comment": "Knee injury",
+      "type": "Questionable"
+    },
+    {
       "player_name": "Alex Redmond",
       "position": "OG",
       "status": "Questionable",
@@ -3860,6 +3459,92 @@
       "position": "DT",
       "status": "Injured Reserve",
       "short_comment": "Undisclosed injury",
+      "type": "Injured Reserve"
+    }
+  ],
+  "CAR": [
+    {
+      "player_name": "Tershawn Wharton",
+      "position": "DT",
+      "status": "Out",
+      "short_comment": "Hamstring injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Patrick Jones",
+      "position": "DE",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Ikem Ekwonu",
+      "position": "T",
+      "status": "Questionable",
+      "short_comment": "Knee injury",
+      "type": "Questionable"
+    },
+    {
+      "player_name": "Popo Aumavae",
+      "position": "DT",
+      "status": "Injured Reserve",
+      "short_comment": "Undisclosed injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Chandler Zavala",
+      "position": "G",
+      "status": "Injured Reserve",
+      "short_comment": "Calf injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Jonathon Brooks",
+      "position": "RB",
+      "status": "PUP",
+      "short_comment": "Surgery",
+      "type": "PUP"
+    },
+    {
+      "player_name": "David Moore",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Elbow injury",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Trevin Wallace",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Shoulder injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Damarri Mathis",
+      "position": "DB",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Corey Thornton",
+      "position": "CB",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Brady Christensen",
+      "position": "T",
+      "status": "Injured Reserve",
+      "short_comment": "Surgery",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Robert Hunt",
+      "position": "OL",
+      "status": "Injured Reserve",
+      "short_comment": "Biceps injury",
       "type": "Injured Reserve"
     }
   ],
@@ -4065,8 +3750,15 @@
     {
       "player_name": "Cedric Gray",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Concussion injury",
+      "type": "Out"
+    },
+    {
+      "player_name": "Arden Key",
+      "position": "DE",
+      "status": "Questionable",
+      "short_comment": "Illness injury",
       "type": "Questionable"
     },
     {
@@ -4081,13 +3773,6 @@
       "position": "TE",
       "status": "Questionable",
       "short_comment": "Toe injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Amani Hooker",
-      "position": "DB",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
       "type": "Questionable"
     },
     {
@@ -4179,23 +3864,9 @@
     {
       "player_name": "Bhayshul Tuten",
       "position": "RB",
-      "status": "Doubtful",
+      "status": "Out",
       "short_comment": "Surgery",
-      "type": "Doubtful"
-    },
-    {
-      "player_name": "Ezra Cleveland",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Shoulder injury",
-      "type": "Questionable"
-    },
-    {
-      "player_name": "Josh Hines-Allen",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Illness injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Caleb Ransaw",
@@ -4203,13 +3874,6 @@
       "status": "Injured Reserve",
       "short_comment": "Lower Body injury",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Walker Little",
-      "position": "T",
-      "status": "Questionable",
-      "short_comment": "Concussion injury",
-      "type": "Questionable"
     },
     {
       "player_name": "Joshua Cephus",
@@ -4221,9 +3885,9 @@
     {
       "player_name": "Danny Striggow",
       "position": "DL",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Ankle injury",
-      "type": "Questionable"
+      "type": "Out"
     }
   ],
   "NYJ": [
@@ -4328,23 +3992,23 @@
     {
       "player_name": "Eric Watts",
       "position": "DL",
-      "status": "Questionable",
-      "short_comment": "Concussion",
-      "type": "Questionable"
+      "status": "Out",
+      "short_comment": "Concussion injury",
+      "type": "Out"
     },
     {
       "player_name": "Mason Taylor",
       "position": "TE",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Neck injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Kiko Mauigoa",
       "position": "LB",
-      "status": "Questionable",
+      "status": "Out",
       "short_comment": "Neck injury",
-      "type": "Questionable"
+      "type": "Out"
     },
     {
       "player_name": "Keilan Robinson",

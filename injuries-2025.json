@@ -1,53 +1,67 @@
 {
   "ARI": [
     {
-      "player_name": "Xavier Weaver",
-      "position": "WR",
+      "player_name": "Dadrion Taylor-Demerson",
+      "position": "S",
       "status": "Questionable",
-      "short_comment": "Weaver (hamstring) practiced in a limited capacity Thursday, Zach Gershman of the Cardinals' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Marvin Harrison Jr.",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Harrison (heel) practiced in a limited fashion Thursday, Zach Gershman of the Cardinals' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Darren Hall",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Hall (concussion) did not practice Thursday, Tyler Drake of ArizonaSports.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Evan Brown",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Brown (personal) did not take part in Wednesday's walkthrough practice, Zach Gershman of the Cardinals' official site reports.",
+      "short_comment": "Taylor-Demerson (ankle) is listed as questionable ahead of Sunday's game against the Falcons, Bo Brack of GoPHNX.com reports.",
       "type": "questionable"
     },
     {
       "player_name": "Cody Simon",
       "position": "LB",
       "status": "Questionable",
-      "short_comment": "Simon (knee) was a limited participant at practice Wednesday, Zach Gershman of the Cardinals' official website reports.",
+      "short_comment": "Simon (knee) is listed as questionable ahead of Sunday's game against the Falcons, Bo Brack of GoPHNX.com reports.",
       "type": "questionable"
     },
     {
-      "player_name": "Dadrion Taylor-Demerson",
-      "position": "S",
+      "player_name": "Xavier Weaver",
+      "position": "WR",
       "status": "Questionable",
-      "short_comment": "Taylor-Demerson (ankle) was a limited participant at practice Wednesday, Zach Gershman of the Cardinals' official website reports.",
+      "short_comment": "Weaver (hamstring) is listed as questionable for Sunday's game against the Falcons, Bo Brack of GoPHNX.com reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Marvin Harrison Jr.",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Harrison (heel) is listed as questionable for Sunday's game against the Falcons, after telling reporters Friday that he expects to play, Bo Brack of GoPHNX.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Emari Demercado",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Demercado should have a role off the bench behind starter Michael Carter in Sunday's game against Atlanta, Tyler Drake of ArizonaSports.com reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Darren Hall",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "Hall (concussion) has been ruled out for Sunday's game against the Falcons, Darren Urban of the Cardinals' official site reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Evan Brown",
+      "position": "G",
+      "status": "Out",
+      "short_comment": "Brown (personal) has been ruled out for Sunday's game against the Falcons, Darren Urban of the Cardinals' official site reports.",
+      "type": "out"
     },
     {
       "player_name": "Max Melton",
       "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Melton (heel) did not participate at practice Wednesday, Zach Gershman of the Cardinals' official website reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Melton (heel) has been ruled out for Sunday's game against the Falcons, Darren Urban of the Cardinals' official site reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Michael Carter",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Head coach Jonathan Gannon confirmed Friday that Carter will start Sunday's game against the Falcons, Theo Mackie of AZCentral reports.",
+      "type": "active"
     },
     {
       "player_name": "Paris Johnson Jr.",
@@ -69,13 +83,6 @@
       "status": "Injured Reserve",
       "short_comment": "The Cardinals placed Baccellia (neck) on injured reserve Tuesday, Zach Gershman of the team's official site reports.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Michael Carter",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "Carter is expected to serve as the Cardinals' lead back in Sunday's game against the Falcons after Arizona placed Bam Knight (ankle) on injured reserve Tuesday, Zach Gershman of Arizona's official site reports.",
-      "type": "active"
     },
     {
       "player_name": "Jalen Brooks",
@@ -155,13 +162,6 @@
       "type": "active"
     },
     {
-      "player_name": "Emari Demercado",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "Demercado (ankle) is listed as active Sunday at Houston.",
-      "type": "active"
-    },
-    {
       "player_name": "L.J. Collier",
       "position": "DE",
       "status": "Injured Reserve",
@@ -185,17 +185,45 @@
       "type": "Injured Reserve"
     },
     {
+      "player_name": "LaCale London",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "London (shoulder) does not have an injury designation for Sunday's game against the Cardinals.",
+      "type": "active"
+    },
+    {
       "player_name": "Ruke Orhorhoro",
       "position": "DT",
+      "status": "Active",
+      "short_comment": "Orhorhoro (groin) does not carry an injury designation into Sunday's game against the Cardinals.",
+      "type": "active"
+    },
+    {
+      "player_name": "KhaDarel Hodge",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "The Falcons moved Hodge (shoulder) to injured reserve Friday, Tori McElhaney of the team's official site reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "James Pearce Jr.",
+      "position": "LB",
       "status": "Questionable",
-      "short_comment": "Orhorhoro (groin) was a limited participant in practice Thursday, Tori McElhaney of the Falcons' official site reports.",
+      "short_comment": "Pearce (foot) is listed as questionable ahead of Sunday's game against the Cardinals.",
       "type": "questionable"
     },
     {
-      "player_name": "LaCale London",
-      "position": "DE",
+      "player_name": "Kyle Pitts Sr.",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Pitts (knee) doesn't have an injury designation for Sunday's game at Arizona.",
+      "type": "active"
+    },
+    {
+      "player_name": "Drake London",
+      "position": "WR",
       "status": "Questionable",
-      "short_comment": "London (shoulder) was a limited participant in practice Thursday,  Tori McElhaney of the Falcons' official site reports.",
+      "short_comment": "London (knee) is listed as questionable for Sunday's game at Arizona, with Falcons coach Raheem Morris saying Friday that the expects the wideout to play, per Tom Pelissero of NFL Network.",
       "type": "questionable"
     },
     {
@@ -203,27 +231,6 @@
       "position": "DT",
       "status": "Questionable",
       "short_comment": "Dorlus (illness/shoulder) did not participate in practice Thursday, Tori McElhaney of the Falcons' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Kyle Pitts Sr.",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Pitts was a limited practice participant Thursday due to a knee injury, Tori McElhaney of the Falcons' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Drake London",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "London (knee) practiced in a limited capacity Thursday, Tori McElhaney of the Falcons' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "KhaDarel Hodge",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Hodge (shoulder) did not participate at practice Wednesday, Tori McElhaney of the Falcons' official site reports.",
       "type": "questionable"
     },
     {
@@ -259,13 +266,6 @@
       "position": "WR",
       "status": "Active",
       "short_comment": "",
-      "type": "active"
-    },
-    {
-      "player_name": "James Pearce Jr.",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Pearce recorded three total tackles (two solo), including 2.0 sacks, and two passes defensed during Thursday's 29-28 win over the Buccaneers.",
       "type": "active"
     },
     {
@@ -355,46 +355,67 @@
   ],
   "BAL": [
     {
-      "player_name": "Roquan Smith",
+      "player_name": "Jay Higgins IV",
       "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Higgins (knee) has been ruled out for Sunday's game against the Patriots.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Ronnie Stanley",
+      "position": "OT",
       "status": "Questionable",
-      "short_comment": "Smith (knee) was a full participant in Thursday's practice.",
+      "short_comment": "Stanley (knee) is listed as questionable  ahead of Sunday night's game against New England.",
       "type": "questionable"
     },
     {
       "player_name": "Kyle Van Noy",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Van Noy (quadriceps) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "John Jenkins",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Jenkins (illness) did not participate in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Tyler Linderbaum",
-      "position": "C",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Trenton Simpson",
-      "position": "LB",
       "status": "Active",
-      "short_comment": "Ravens defensive coordinator said Wednesday that Simpson will replace Teddye Buchanan (ACL) as the starting inside linebacker alongside Roquan Smith (knee), beginning Sunday versus the Patriots.",
+      "short_comment": "Van Noy (quadriceps) doesn't have an injury designation ahead of Sunday night's game against the Patriots.",
       "type": "active"
     },
     {
       "player_name": "Chidobe Awuzie",
       "position": "CB",
+      "status": "Doubtful",
+      "short_comment": "Awuzie (foot) is listed as doubtful ahead of Sunday's game against the Patriots.",
+      "type": "doubtful"
+    },
+    {
+      "player_name": "John Jenkins",
+      "position": "DT",
       "status": "Questionable",
-      "short_comment": "Awuzie (foot) remained a non-participant in practice Thursday, Ryan Mink of the Ravens' official site reports.",
+      "short_comment": "Jenkins (illness) is listed as questionable ahead of Sunday's game against the Patriots.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Kyle Hamilton",
+      "position": "S",
+      "status": "Questionable",
+      "short_comment": "Hamilton (ankle) is listed as questionable ahead of Sunday's game against the Patriots.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Justice Hill",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Head coach John Harbaugh said Friday that Hill (neck) coming back in Week 17 against the Packers or Week 18 against the Steelers is a \"real possibility.\"",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Roquan Smith",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Smith (knee) was a full participant in Thursday's practice.",
+      "type": "active"
+    },
+    {
+      "player_name": "Trenton Simpson",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Ravens defensive coordinator said Wednesday that Simpson will replace Teddye Buchanan (ACL) as the starting inside linebacker alongside Roquan Smith (knee) beginning Sunday versus the Patriots.",
+      "type": "active"
     },
     {
       "player_name": "Lamar Jackson",
@@ -402,27 +423,6 @@
       "status": "Active",
       "short_comment": "Jackson (illness) was on the field for practice Thursday, Jamison Hensley of ESPN.com reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Jay Higgins IV",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Higgins (knee) was designated to return from injured reserve Wednesday and logged a limited practice, Ryan Mink of the Ravens' official site reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Ronnie Stanley",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Keondre Jackson",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Rashod Bateman",
@@ -443,13 +443,6 @@
       "position": "WR",
       "status": "Active",
       "short_comment": "Walker failed to record a single target in Sunday's 24-0 win over the Bengals.",
-      "type": "active"
-    },
-    {
-      "player_name": "Kyle Hamilton",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "Hamilton tallied eight tackles (three solo) Sunday in a 24-0 win against Cincinnati.",
       "type": "active"
     },
     {
@@ -528,6 +521,13 @@
       "status": "Active",
       "short_comment": "Robinson (foot) is active for Sunday's Week 15 clash against the Bengals.",
       "type": "active"
+    },
+    {
+      "player_name": "Ar'Darius Washington",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Washington (Achilles) is active for Sunday's matchup against Cincinnati.",
+      "type": "active"
     }
   ],
   "BUF": [
@@ -539,6 +539,48 @@
       "type": "out"
     },
     {
+      "player_name": "Chase Lundt",
+      "position": "OT",
+      "status": "Injured Reserve",
+      "short_comment": "Lundt (knee) was placed on injured reserve Friday.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Cam Lewis",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Lewis (hamstring) is listed as questionable ahead of Sunday's matchup against the Browns.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "DaQuan Jones",
+      "position": "DT",
+      "status": "Active",
+      "short_comment": "Jones (calf) has no injury designation ahead of Sunday's matchup against the Browns.",
+      "type": "active"
+    },
+    {
+      "player_name": "Christian Benford",
+      "position": "CB",
+      "status": "Active",
+      "short_comment": "Benford (toe) has no injury designation ahead of Sunday's matchup against the Browns.",
+      "type": "active"
+    },
+    {
+      "player_name": "Mecole Hardman",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Hardman (calf) is listed as questionable ahead of Sunday's matchup against the Browns.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Dalton Kincaid",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Kincaid (knee) doesn't have a designation for Sunday's game at Cleveland.",
+      "type": "active"
+    },
+    {
       "player_name": "Terrel Bernard",
       "position": "LB",
       "status": "Active",
@@ -548,44 +590,9 @@
     {
       "player_name": "Taron Johnson",
       "position": "CB",
-      "status": "Questionable",
+      "status": "Active",
       "short_comment": "Johnson (quadriceps) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "DaQuan Jones",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Jones (calf) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Mitch Wishnowsky",
-      "position": "P",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Chase Lundt",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Cam Lewis",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Dalton Kincaid",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Kincaid (knee) isn't practicing Thursday, Alaina Getzenberg of ESPN.com reports.",
-      "type": "questionable"
+      "type": "active"
     },
     {
       "player_name": "Brandin Cooks",
@@ -593,27 +600,6 @@
       "status": "Active",
       "short_comment": "Cooks (undisclosed) was not listed on Wednesday's injury report.",
       "type": "active"
-    },
-    {
-      "player_name": "Christian Benford",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Benford (toe) was a limited participant in Wednesday's walkthrough practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Dion Dawkins",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Mecole Hardman",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Hardman (calf) was designated to return from the injured reserve list Wednesday, Maddy Glab of the Bills' official site reports.",
-      "type": "Injured Reserve"
     },
     {
       "player_name": "Matt Milano",
@@ -705,22 +691,71 @@
       "status": "Active",
       "short_comment": "Hairston will be one of Buffalo's starting cornerbacks in Week 15 versus New England as a result of Christian Benford missing the game due to a toe injury, Cameron Wolfe of NFL Network reports.",
       "type": "active"
+    },
+    {
+      "player_name": "Spencer Brown",
+      "position": "OT",
+      "status": "Active",
+      "short_comment": "Brown (shoulder) doesn't have an injury designation ahead of Sunday's game against the Patriots.",
+      "type": "active"
+    },
+    {
+      "player_name": "Joey Bosa",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "Bosa (hamstring/wrist) does not carry an injury designation for Sunday's game against New England.",
+      "type": "active"
     }
   ],
   "CAR": [
     {
+      "player_name": "Taylor Moton",
+      "position": "OT",
+      "status": "Active",
+      "short_comment": "Moton (back) has no injury designation ahead of Sunday's matchup against the Buccaneers.",
+      "type": "active"
+    },
+    {
       "player_name": "Damien Lewis",
       "position": "G",
+      "status": "Active",
+      "short_comment": "Lewis (illness) has no injury designation ahead of Sunday's matchup against the Buccaneers.",
+      "type": "active"
+    },
+    {
+      "player_name": "Tershawn Wharton",
+      "position": "DT",
+      "status": "Out",
+      "short_comment": "Wharton (hamstring) has been ruled out ahead of Sunday's matchup against the Buccaneers.",
+      "type": "out"
+    },
+    {
+      "player_name": "Ikem Ekwonu",
+      "position": "OT",
       "status": "Questionable",
-      "short_comment": "Lewis (illness) was a limited participant at practice Thursday.",
+      "short_comment": "Ekwonu (knee) is listed as questionable ahead of Sunday's matchup against the Buccaneers.",
       "type": "questionable"
+    },
+    {
+      "player_name": "David Moore",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Moore (elbow) is listed as questionable for Sunday's game against the Buccaneers.",
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Trevin Wallace",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Wallace (shoulder) was a limited participant in Thursday's practice.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Wallace (shoulder) has been ruled out for Sunday's game against the Buccaneers.",
+      "type": "out"
+    },
+    {
+      "player_name": "Claudin Cherelus",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Cherelus will start Sunday's game against the Buccaneers, Joe Person of The Athletic reports.",
+      "type": "active"
     },
     {
       "player_name": "Tetairoa McMillan",
@@ -728,34 +763,6 @@
       "status": "Active",
       "short_comment": "McMillan (foot/ankle) was a full participant in Thursday's practice, Joe Person of The Athletic reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Taylor Moton",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Moton (back) was a limited participant in Wednesday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "David Moore",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Moore (elbow) logged a full practice Wednesday.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Ikem Ekwonu",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Ekwonu (knee) didn't practice Wednesday, Darin Gantt of the Panthers' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Tershawn Wharton",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Wharton (hamstring) didn't practice Wednesday, Darin Gantt of the Panthers' official site reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Jimmy Horn Jr.",
@@ -863,13 +870,6 @@
       "type": "active"
     },
     {
-      "player_name": "Claudin Cherelus",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Cherelus (concussion) has no injury designation ahead of Sunday's matchup against the Saints.",
-      "type": "active"
-    },
-    {
       "player_name": "Jaycee Horn",
       "position": "CB",
       "status": "Active",
@@ -886,6 +886,13 @@
   ],
   "CHI": [
     {
+      "player_name": "Tremaine Edmunds",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Edmunds (groin) is likely to be activated from injured reserve ahead of Saturday's game against the Packers, Jeremy Fowler of ESPN.com reports.",
+      "type": "Injured Reserve"
+    },
+    {
       "player_name": "Olamide Zaccheaus",
       "position": "WR",
       "status": "Active",
@@ -898,13 +905,6 @@
       "status": "Out",
       "short_comment": "Ogbongbemiga (hamstring) is ruled out for Saturday's game against the Packers.",
       "type": "out"
-    },
-    {
-      "player_name": "Tremaine Edmunds",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Edmunds (groin) is listed as questionable for Saturday's game against the Packers after practicing fully Thursday.",
-      "type": "Injured Reserve"
     },
     {
       "player_name": "Joe Tryon-Shoyinka",
@@ -1063,31 +1063,66 @@
   ],
   "CIN": [
     {
-      "player_name": "Drew Sample",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Sample (neck) was a full participant in Thursday's practice.",
-      "type": "active"
+      "player_name": "PJ Jules",
+      "position": "S",
+      "status": "Questionable",
+      "short_comment": "Jules (ankle) is listed as questionable for Sunday's game against the Dolphins.",
+      "type": "questionable"
     },
     {
-      "player_name": "Noah Fant",
-      "position": "TE",
+      "player_name": "B.J. Hill",
+      "position": "DT",
       "status": "Questionable",
-      "short_comment": "Fant (ankle) was a limited participant in Thursday's practice.",
+      "short_comment": "Hill (ankle) is listed as questionable ahead of Sunday's game against the Dolphins.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Charlie Jones",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Jones (ankle) has been ruled out ahead of Sunday's game against the Dolphins.",
+      "type": "out"
     },
     {
       "player_name": "Tee Higgins",
       "position": "WR",
       "status": "Questionable",
-      "short_comment": "Higgins (concussion) wasn't spotted on the field during the early portion of Thursday's practice, Ben Baby of ESPN.com reports.",
+      "short_comment": "Higgins (concussion) was a full participant in practice Friday but is listed as questionable for Sunday's game against the Dolphins.",
       "type": "questionable"
     },
     {
-      "player_name": "PJ Jules",
-      "position": "S",
+      "player_name": "Kris Jenkins Jr.",
+      "position": "DT",
+      "status": "Injured Reserve",
+      "short_comment": "Jenkins (ankle) was placed on the injured reserve list Friday.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Noah Fant",
+      "position": "TE",
+      "status": "Out",
+      "short_comment": "Fant (ankle) has been ruled out for Sunday's game against the Dolphins.",
+      "type": "out"
+    },
+    {
+      "player_name": "Shemar Stewart",
+      "position": "DE",
       "status": "Active",
-      "short_comment": "Jules (ankle) logged a full practice Wednesday, Paul Dehner Jr. of The Athletic reports.",
+      "short_comment": "Stewart (knee) was activated from the injured reserve list Friday and has no injury designation ahead of Sunday's matchup against the Dolphins.",
+      "type": "active"
+    },
+    {
+      "player_name": "Joseph Ossai",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Ossai (ankle) won't play Sunday against the Dolphins, Geoff Hobson of the Bengals' official site reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Drew Sample",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Sample (neck) was a full participant in Thursday's practice.",
       "type": "active"
     },
     {
@@ -1096,27 +1131,6 @@
       "status": "Active",
       "short_comment": "Mims (knee) was a full participant at practice Wednesday, Paul Dehner Jr. of The Athletic reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Joseph Ossai",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Ossai (ankle) did not participate at practice Wednesday, Paul Dehner Jr. of The Athletic reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Charlie Jones",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Jones (ankle) did not participate at practice Wednesday, Paul Dehner Jr. of The Athletic reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "B.J. Hill",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Hill (ankle) did not participate at practice Wednesday, Paul Dehner Jr. of The Athletic reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Tanner Hudson",
@@ -1217,20 +1231,6 @@
       "type": "active"
     },
     {
-      "player_name": "Kris Jenkins Jr.",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Jenkins departed Sunday's game against the Ravens with a left ankle injury and is doubtful to return.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Shemar Stewart",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Stewart (knee) has been downgraded and ruled out ahead of Sunday's matchup against the Ravens.",
-      "type": "Injured Reserve"
-    },
-    {
       "player_name": "Shaka Heyward",
       "position": "LB",
       "status": "Active",
@@ -1240,109 +1240,95 @@
   ],
   "CLE": [
     {
-      "player_name": "Denzel Ward",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Ward (calf) did not participate in Thursday's practice, Daniel Oyefusi of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "David Njoku",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Njoku (knee) remained sidelined at practice Thursday, Scott Petrak of the Elyria Chronicle-Telegram reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Dylan Sampson",
-      "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Sampson (hand/calf) is not participating in Thursday's practice, Scott Petrak of the Elyria Chronicle-Telegram reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Mason Graham",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Grant Delpit",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Delpit (groin) was limited in Wednesday's practice, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Carson Schwesinger",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Schwesinger (ankle) was limited in Wednesday's practice, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Sam Kamara",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Joel Bitonio",
+      "player_name": "Wyatt Teller",
       "position": "G",
       "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Brenden Bates",
-      "position": "TE",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Winston Reid",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Reid (back) had his practice window opened to return from the injured reserve list Wednesday, Scott Petrak of the Elyria Chronicle-Telegram reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Mike Hall Jr.",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Teller (calf) is listed as questionable ahead of Sunday's game against the Bills, Kelsey Russo of the Browns' official site reports.",
       "type": "questionable"
     },
     {
       "player_name": "Zak Zinter",
       "position": "G",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Zinter (back) does not carry an injury designation into Sunday's game against the Bills, Chris Easterling of the Akron Beacon Journal reports.",
+      "type": "active"
     },
     {
-      "player_name": "Wyatt Teller",
+      "player_name": "Teven Jenkins",
       "position": "G",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Jenkins (shoulder) does not have an injury designation for Sunday's game against the Bills, Chris Easterling of the Akron Beacon Journal reports.",
+      "type": "active"
     },
     {
       "player_name": "Adin Huntington",
       "position": "DE",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Huntington (quadriceps) does not have an injury designation for Sunday's game against the Bills, Chris Easterling of the Akron Beacon Journal reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Grant Delpit",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Delpit (groin) has no injury designation ahead of Sunday's matchup against the Bills, Chris Easterling of the Akron Beacon Journal reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Carson Schwesinger",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Schwesinger (ankle) has no injury designation ahead of Sunday's matchup against the Bills, Chris Easterling of the Akron Beacon Journal reports.",
+      "type": "active"
     },
     {
       "player_name": "Jack Conklin",
       "position": "OT",
+      "status": "Out",
+      "short_comment": "Conklin (concussion) has been ruled out ahead of Sunday's matchup against the Bills, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Winston Reid",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Reid (back) has been ruled out ahead of Sunday's matchup against the Bills, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Sam Kamara",
+      "position": "DT",
       "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Kamara (elbow) is listed as questionable ahead of Sunday's matchup against the Bills, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Deshaun Watson",
+      "position": "QB",
+      "status": "Out",
+      "short_comment": "Watson (Achilles) has been ruled out for Sunday's game against the Bills, Daniel Oyefusi of ESPN.com reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "David Njoku",
+      "position": "TE",
+      "status": "Out",
+      "short_comment": "Njoku (knee) won't play Sunday against the Bills, Mary Kay Cabot of The Cleveland Plain Dealer reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Dylan Sampson",
+      "position": "RB",
+      "status": "Out",
+      "short_comment": "Sampson (hand/calf) has been ruled out for Sunday's game against the Bills, Mary Kay Cabot of the Cleveland Plain Dealer reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Denzel Ward",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "Ward (calf) did not participate in Thursday's practice, Daniel Oyefusi of ESPN.com reports.",
+      "type": "out"
     },
     {
       "player_name": "Myles Garrett",
@@ -1413,78 +1399,106 @@
       "status": "Active",
       "short_comment": "Fannin recorded seven receptions on 14 targets for 48 yards in Sunday's 31-1 loss to the Bears. He added one rush for two yards.",
       "type": "active"
+    },
+    {
+      "player_name": "Jerry Jeudy",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Jeudy caught two of four targets for 22 yards in Sunday's 31-3 loss to the Bears.",
+      "type": "active"
+    },
+    {
+      "player_name": "Quinshon Judkins",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Judkins rushed the ball 12 times for 21 yards in Sunday's 31-3 loss to the Bears. He added three receptions on four targets for minus-4 yards.",
+      "type": "active"
     }
   ],
   "DAL": [
     {
-      "player_name": "DaRon Bland",
+      "player_name": "Tyler Guyton",
+      "position": "OT",
+      "status": "Out",
+      "short_comment": "Guyton (ankle) has been ruled out for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Donovan Wilson",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Wilson (knee/hip) does not carry an injury designation into Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Shavon Revel Jr.",
       "position": "CB",
-      "status": "Doubtful",
-      "short_comment": "Bland is expected to require surgery on his left foot, but he's seeking a second opinion, Todd Archer of ESPN.com reports.",
-      "type": "doubtful"
+      "status": "Active",
+      "short_comment": "Revel (knee) does not carry an injury designation into Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "active"
     },
     {
       "player_name": "Quinnen Williams",
       "position": "DT",
       "status": "Questionable",
-      "short_comment": "Williams (concussion) was a limited participant in Thursday's practice, Nick Harris of the Fort Worth Star-Telegram reports.",
+      "short_comment": "Williams (concussion) is listed as questionable for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Phil Mafah",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Mafah (shoulder) is listed as questionable for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Hunter Luepke",
       "position": "RB",
       "status": "Questionable",
-      "short_comment": "Luepke (concussion) was a limited participant in Thursday's practice, Nick Harris of the Fort Worth Star-Telegram reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Javonte Williams",
-      "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Williams (neck) practiced on a limited basis Thursday, Nick Harris of the Fort Worth Star-Telegram reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "CeeDee Lamb",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Lamb (illness) did not practice Thursday, Joe Hoyt of The Dallas Morning News reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Tyler Guyton",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Guyton (ankle) did not practice Wednesday, Clarence Hill Jr. of AllDLLS.com reports.",
+      "short_comment": "Luepke (concussion) is listed as questionable for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
       "type": "questionable"
     },
     {
       "player_name": "Trevon Diggs",
       "position": "CB",
       "status": "Injured Reserve",
-      "short_comment": "Diggs (knee) was a limited participant at practice Wednesday, Clarence Hill Jr. of AllDLLS.com reports.",
+      "short_comment": "Diggs (knee) is listed as questionable for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Donovan Wilson",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Wilson (knee/hip) was a limited participant in Wednesday's practice, Clarence Hill Jr. of AllDLLS.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Shavon Revel Jr.",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Revel (knee) was a limited participant at practice Wednesday, Clarence Hill Jr. of AllDLLS.com reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Caelen Carson",
       "position": "CB",
       "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Carson (shoulder/hamstring) is listed as questionable for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "DaRon Bland",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "Bland (foot) has been ruled out for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "CeeDee Lamb",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Lamb (illness) doesn't have an injury designation for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Javonte Williams",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Williams (neck) doesn't have an injury designation for Sunday's game against the Chargers, Jon Machota of The Athletic reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Juanyeh Thomas",
+      "position": "S",
+      "status": "Out",
+      "short_comment": "Thomas (migraine) won't return this season, head coach Brian Schottenheimer revealed Friday, Clarence Hill Jr. of alldlls.com reports.",
+      "type": "out"
     },
     {
       "player_name": "Josh Butler",
@@ -1498,13 +1512,6 @@
       "position": "DE",
       "status": "Injured Reserve",
       "short_comment": "Turner (ribs) had his 21-day window opened to return from the injured reserve list Wednesday.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Phil Mafah",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Mafah (shoulder) was designated to return from the injured reserve list Wednesday.",
       "type": "Injured Reserve"
     },
     {
@@ -1583,29 +1590,29 @@
       "status": "Active",
       "short_comment": "Tolbert (coach's decision) is inactive for Sunday's game against the Vikings.",
       "type": "active"
-    },
-    {
-      "player_name": "DeMarvion Overshown",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Head coach Brian Schottenheimer told reporters Friday that Overshown won't be on a snap count during Sunday's matchup against the Vikings, Todd Archer of ESPN.com reports.",
-      "type": "active"
     }
   ],
   "DEN": [
+    {
+      "player_name": "Justin Strnad",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Strnad (foot) has been ruled out for Sunday's game against the Jaguars.",
+      "type": "out"
+    },
+    {
+      "player_name": "Jaleel McLaughlin",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Head coach Sean Payton said Wednesday that he plans to get McLaughlin more touches moving forward, Jon Heath of USA Today Broncos Wire reports.",
+      "type": "active"
+    },
     {
       "player_name": "Karene Reid",
       "position": "LB",
       "status": "Injured Reserve",
       "short_comment": "Reid (hamstring) logged a full practice Wednesday, Aric DiLalla of the Broncos' official site reports.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Justin Strnad",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Strnad (ankle) did not practice Wednesday, Aric DiLalla of the Broncos' official site reports.",
-      "type": "questionable"
     },
     {
       "player_name": "RJ Harvey",
@@ -1692,13 +1699,6 @@
       "type": "active"
     },
     {
-      "player_name": "Jaleel McLaughlin",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "McLaughlin rushed two times for four yards in Sunday's 34-26 win over the Packers.",
-      "type": "active"
-    },
-    {
       "player_name": "Evan Engram",
       "position": "TE",
       "status": "Active",
@@ -1771,6 +1771,41 @@
   ],
   "DET": [
     {
+      "player_name": "Graham Glasgow",
+      "position": "C",
+      "status": "Questionable",
+      "short_comment": "Glasgow (knee) is listed as questionable for Sunday's game against the Steelers.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Taylor Decker",
+      "position": "OT",
+      "status": "Questionable",
+      "short_comment": "Decker (shoulder) is listed as questionable for Sunday's game against the Steelers.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Amik Robertson",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Robertson (hand) is listed as questionable ahead of Sunday's game against the Steelers.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Thomas Harper",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Harper (concussion) doesn't carry an injury designation ahead of Sunday's game against the Steelers.",
+      "type": "active"
+    },
+    {
+      "player_name": "Kerby Joseph",
+      "position": "S",
+      "status": "Out",
+      "short_comment": "Joseph (knee) has been ruled out ahead of Sunday's game against the Steelers.",
+      "type": "out"
+    },
+    {
       "player_name": "Giovanni Manu",
       "position": "OT",
       "status": "Injured Reserve",
@@ -1778,32 +1813,11 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Graham Glasgow",
-      "position": "C",
-      "status": "Questionable",
-      "short_comment": "Glasgow (knee) did not participate at practice Thursday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Taylor Decker",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Decker (shoulder) was a limited participant at practice Thursday.",
-      "type": "questionable"
-    },
-    {
       "player_name": "Sione Vaki",
       "position": "RB",
       "status": "Active",
       "short_comment": "Vaki (thumb) was a full participant in Thursday's practice.",
       "type": "active"
-    },
-    {
-      "player_name": "Kerby Joseph",
-      "position": "S",
-      "status": "Doubtful",
-      "short_comment": "doubtful",
-      "type": "doubtful"
     },
     {
       "player_name": "Christian Mahogany",
@@ -1818,20 +1832,6 @@
       "status": "Active",
       "short_comment": "Awosika (foot) was a estimated to be a full participant at Wednesday's walkthrough practice.",
       "type": "active"
-    },
-    {
-      "player_name": "Thomas Harper",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Harper (concussion) was a Richard Silva of The Detroit News in Wednesday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Amik Robertson",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Robertson (hand) was limited in Wednesday's practice.",
-      "type": "questionable"
     },
     {
       "player_name": "Trystan Colon",
@@ -1948,6 +1948,27 @@
   ],
   "GB": [
     {
+      "player_name": "Collin Oliver",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Oliver (hamstring) has been downgraded to out for Saturday's game against the Bears, Paul Bretl of the Wisconsin State Journal reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Brenton Cox Jr.",
+      "position": "DE",
+      "status": "Questionable",
+      "short_comment": "The Packers activated Cox (groin) from injured reserve Friday, but he is still listed as questionable for Saturday's game against Chicago, Paul Bretl of the Wisconsin State Journal reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "MarShawn Lloyd",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "The Packers placed Lloyd (hamstring) on injured reserve Friday, Rob Demovsky of ESPN.com reports.",
+      "type": "Injured Reserve"
+    },
+    {
       "player_name": "John Williams",
       "position": "G",
       "status": "Out",
@@ -1967,13 +1988,6 @@
       "status": "Questionable",
       "short_comment": "Tom (back/knee) is questionable to play in Saturday's contest against the Bears, Wes Hodkiewicz of the Packers' official website reports.",
       "type": "questionable"
-    },
-    {
-      "player_name": "Brenton Cox Jr.",
-      "position": "DE",
-      "status": "Injured Reserve",
-      "short_comment": "Cox (groin) is listed as questionable for Saturday's game against the Bears, Wes Hodkiewicz of the Packers' official site reports.",
-      "type": "Injured Reserve"
     },
     {
       "player_name": "Kingsley Enagbare",
@@ -2004,13 +2018,6 @@
       "type": "out"
     },
     {
-      "player_name": "Collin Oliver",
-      "position": "DE",
-      "status": "Out",
-      "short_comment": "Oliver (hamstring) is listed as questionable for Saturday's road game against the Bears, Wes Hodkiewicz of the Packers' official site reports.",
-      "type": "out"
-    },
-    {
       "player_name": "Dontayvion Wicks",
       "position": "WR",
       "status": "Questionable",
@@ -2023,13 +2030,6 @@
       "status": "Questionable",
       "short_comment": "Brooks (chest) is listed as questionable for Saturday's game against the Bears, Wes Hodkiewicz of the Packers' official site reports.",
       "type": "questionable"
-    },
-    {
-      "player_name": "MarShawn Lloyd",
-      "position": "RB",
-      "status": "Out",
-      "short_comment": "Lloyd (hamstring) is officially ruled out for Saturday's road game against the Bears, Wes Hodkiewicz of the Packers' official site reports.",
-      "type": "out"
     },
     {
       "player_name": "Savion Williams",
@@ -2127,64 +2127,57 @@
     {
       "player_name": "E.J. Speed",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Speed (knee) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Sheldon Rankins",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Rankins (knee) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Kamari Lassiter",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Lassiter (foot) was a limited participant in Thursday's practice.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Speed (knee) has  no injury designation heading into Sunday's matchup against the Raiders.",
+      "type": "active"
     },
     {
       "player_name": "Azeez Al-Shaair",
       "position": "LB",
       "status": "Questionable",
-      "short_comment": "Al-Shaair (ankle) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Nick Chubb",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "Chubb (ribs) was a full practice participant in Thursday's practice.",
-      "type": "active"
-    },
-    {
-      "player_name": "Jake Hansen",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Woody Marks",
-      "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Marks (ankle) wasn't spotted at practice Thursday, Jonathan M. Alexander of the Houston Chronicle reports.",
+      "short_comment": "Al-Shaair (ankle) is questionable for Sunday's matchup against the Raiders.",
       "type": "questionable"
     },
     {
       "player_name": "Derek Stingley Jr.",
       "position": "CB",
       "status": "Questionable",
-      "short_comment": "Stingley (oblique) did not participate at practice Wednesday.",
+      "short_comment": "Stingley (oblique) is questionable for Sunday's matchup against the Raiders.",
       "type": "questionable"
     },
     {
-      "player_name": "Denico Autry",
-      "position": "DE",
+      "player_name": "Kamari Lassiter",
+      "position": "CB",
+      "status": "Active",
+      "short_comment": "Lassiter (foot) doesn't have an injury designation ahead of Sunday's game against the Raiders.",
+      "type": "active"
+    },
+    {
+      "player_name": "Sheldon Rankins",
+      "position": "DT",
+      "status": "Active",
+      "short_comment": "Rankins (knee) doesn't have an injury designation ahead of Sunday's game against the Raiders.",
+      "type": "active"
+    },
+    {
+      "player_name": "Nick Chubb",
+      "position": "RB",
       "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Chubb (ribs) is listed as questionable for Sunday's game against the Raiders after practicing fully Thursday and Friday.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Woody Marks",
+      "position": "RB",
+      "status": "Questionable",
+      "short_comment": "Marks (ankle) is listed as questionable for Sunday's game against the Raiders after returning to a limited practice Friday.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Christian Kirk",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Kirk (illness) is listed as questionable for Sunday's game against the Raiders.",
       "type": "questionable"
     },
     {
@@ -2244,13 +2237,6 @@
       "type": "active"
     },
     {
-      "player_name": "Christian Kirk",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Kirk was not targeted and played 16 snaps in Sunday's 40-20 win over the Cardinals in Week 15.",
-      "type": "active"
-    },
-    {
       "player_name": "Jayden Higgins",
       "position": "WR",
       "status": "Active",
@@ -2298,9 +2284,44 @@
       "status": "Active",
       "short_comment": "Mertz (coach's decision) is inactive for Sunday's game against the Cardinals.",
       "type": "active"
+    },
+    {
+      "player_name": "Justin Watson",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Watson (calf) has been ruled out for Sunday's matchup versus the Cardinals.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Jamal Hill",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Hill (hamstring) was a full participant in Thursday's practice.",
+      "type": "active"
     }
   ],
   "IND": [
+    {
+      "player_name": "Quenton Nelson",
+      "position": "G",
+      "status": "Questionable",
+      "short_comment": "Nelson (wrist) was limited in practice Friday.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Bernhard Raimann",
+      "position": "OT",
+      "status": "Questionable",
+      "short_comment": "Raimann (elbow) did not participate in practice Friday.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Alec Pierce",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Pierce (Achilles) was a full participant at Friday's practice.",
+      "type": "active"
+    },
     {
       "player_name": "Anthony Richardson Sr.",
       "position": "QB",
@@ -2313,13 +2334,6 @@
       "position": "WR",
       "status": "Questionable",
       "short_comment": "Gould (foot) did not participate in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Alec Pierce",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Pierce was a limited participant at practice Thursday due to an Achilles injury.",
       "type": "questionable"
     },
     {
@@ -2435,13 +2449,6 @@
       "type": "active"
     },
     {
-      "player_name": "Bernhard Raimann",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Raimann (elbow) is questionable to return to Sunday's matchup against Seattle.",
-      "type": "questionable"
-    },
-    {
       "player_name": "Daniel Jones",
       "position": "QB",
       "status": "Injured Reserve",
@@ -2468,16 +2475,44 @@
       "status": "Active",
       "short_comment": "Leonard is expected to serve as the Colts' backup quarterback in Sunday's game against the Seahawks, Ian Rapoport of NFL Network reports.",
       "type": "active"
-    },
-    {
-      "player_name": "DeForest Buckner",
-      "position": "DT",
-      "status": "Injured Reserve",
-      "short_comment": "Buckner (neck) has been ruled out ahead of Sunday's matchup against the Seahawks, JJ Stankevitz of the Colts' official site reports.",
-      "type": "Injured Reserve"
     }
   ],
   "JAX": [
+    {
+      "player_name": "Walker Little",
+      "position": "OT",
+      "status": "Active",
+      "short_comment": "Little (concussion) does not have an injury designation ahead of Sunday's game against the Broncos.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jalen McLeod",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "McLeod (ankle) has been ruled out  ahead of Sunday's game against the Broncos.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Danny Striggow",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Striggow (ankle) has been ruled out  ahead of Sunday's matchup against the Broncos.",
+      "type": "out"
+    },
+    {
+      "player_name": "Josh Hines-Allen",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "Hines-Allen (illness) has no injury designation ahead of Sunday's matchup against the Broncos.",
+      "type": "active"
+    },
+    {
+      "player_name": "Bhayshul Tuten",
+      "position": "RB",
+      "status": "Out",
+      "short_comment": "Tuten (finger) has been ruled out for Sunday's game against the Broncos.",
+      "type": "out"
+    },
     {
       "player_name": "Jakobi Meyers",
       "position": "WR",
@@ -2486,39 +2521,11 @@
       "type": "active"
     },
     {
-      "player_name": "Josh Hines-Allen",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Hines-Allen (illness/shoulder) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
       "player_name": "LeQuint Allen Jr.",
       "position": "RB",
       "status": "Active",
       "short_comment": "Allen is poised to operate as the No. 2 running back behind Travis Etienne beginning Sunday at Denver, and as long as Bhayshul Tuten (finger) has to be sidelined, Paul Bretl of USA Today reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Danny Striggow",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Striggow (ankle) did not practice Wednesday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Bhayshul Tuten",
-      "position": "RB",
-      "status": "Doubtful",
-      "short_comment": "Tuten (finger) did not practice Wednesday.",
-      "type": "doubtful"
-    },
-    {
-      "player_name": "Ezra Cleveland",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Foyesade Oluokun",
@@ -2535,13 +2542,6 @@
       "type": "active"
     },
     {
-      "player_name": "Jalen McLeod",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "The Jaguars designated McLeod (lower body) for return from injured reserve Tuesday.",
-      "type": "Injured Reserve"
-    },
-    {
       "player_name": "DeeJay Dallas",
       "position": "RB",
       "status": "Active",
@@ -2554,13 +2554,6 @@
       "status": "Injured Reserve",
       "short_comment": "The Jaguars placed Kiser (undisclosed) on injured reserve Tuesday.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Walker Little",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Dyami Brown",
@@ -2652,36 +2645,92 @@
       "status": "Active",
       "short_comment": "Murray (neck) is active for Sunday's game against the Colts.",
       "type": "active"
+    },
+    {
+      "player_name": "Travon Walker",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "Walker (knee) is active for Sunday's game against the Colts.",
+      "type": "active"
     }
   ],
   "KC": [
     {
-      "player_name": "Trent McDuffie",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "McDuffie (knee) was a limited participant in Thursday's practice, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
+      "player_name": "Jawaan Taylor",
+      "position": "OT",
+      "status": "Out",
+      "short_comment": "Taylor (elbow) has been ruled out for Sunday's game against the Titans.",
+      "type": "out"
+    },
+    {
+      "player_name": "Travis Kelce",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Kelce is expected to play in the Chiefs' last three games of the regular season, Adam Schefter of ESPN reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jaylon Moore",
+      "position": "OT",
+      "status": "Out",
+      "short_comment": "Moore (knee) has been ruled out ahead of Sunday's game against the Titans.",
+      "type": "out"
+    },
+    {
+      "player_name": "Nazeeh Johnson",
+      "position": "S",
+      "status": "Injured Reserve",
+      "short_comment": "Johnson (shoulder) has been ruled out ahead of Sunday's game against the Titans.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Chris Jones",
+      "position": "DT",
+      "status": "Active",
+      "short_comment": "Jones (hamstring) has  no injury designation ahead of Sunday's matchup against the Titans.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jake Briningstool",
+      "position": "TE",
+      "status": "Injured Reserve",
+      "short_comment": "Briningstool (hamstring) has been ruled out ahead of Sunday's matchup against the Titans.",
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Derrick Nnadi",
       "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Nnadi (illness) did not participate in Thursday's practice, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Nnadi (illness) has been ruled out ahead of Sunday's matchup against the Titans.",
+      "type": "out"
+    },
+    {
+      "player_name": "Trent McDuffie",
+      "position": "CB",
+      "status": "Out",
+      "short_comment": "McDuffie (knee) has been ruled out ahead of Sunday's matchup against the Titans.",
+      "type": "out"
+    },
+    {
+      "player_name": "Leo Chenal",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Chenal (shoulder) has been ruled out ahead of Sunday's matchup against the Titans.",
+      "type": "out"
     },
     {
       "player_name": "Rashee Rice",
       "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Rice (concussion) won't practice Thursday, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Rice (concussion) has been ruled out for Sunday's game against the Titans.",
+      "type": "out"
     },
     {
       "player_name": "Tyquan Thornton",
       "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Thornton (concussion) will not practice Thursday, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Thornton (concussion) has been ruled out for Sunday's game against the Titans.",
+      "type": "out"
     },
     {
       "player_name": "Patrick Mahomes",
@@ -2698,53 +2747,11 @@
       "type": "active"
     },
     {
-      "player_name": "Jaylon Moore",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Moore (knee) did not participate at practice Wednesday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Chris Jones",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Jones (hamstring) was a limited participant at practice Wednesday.",
-      "type": "questionable"
-    },
-    {
       "player_name": "Hollywood Brown",
       "position": "WR",
       "status": "Active",
       "short_comment": "Brown (personal) practiced fully Wednesday.",
       "type": "active"
-    },
-    {
-      "player_name": "Nazeeh Johnson",
-      "position": "S",
-      "status": "Injured Reserve",
-      "short_comment": "The Chiefs announced Wednesday that Johnson (shoulder) had his practice window opened to return from IR..",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jake Briningstool",
-      "position": "TE",
-      "status": "Injured Reserve",
-      "short_comment": "The Chiefs announced Wednesday that Briningstool (hamstring) had his practice window opened to return from IR.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Jawaan Taylor",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Taylor (triceps) won't practice Wednesday, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Leo Chenal",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Chenal (shoulder) won't practice Wednesday, Matt McMullen of the Chiefs' official site reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Noah Gray",
@@ -2822,42 +2829,56 @@
       "status": "Active",
       "short_comment": "Butker made both field-goal tries and his only extra-point attempt in Sunday's 16-13 loss to the Chargers.",
       "type": "active"
-    },
-    {
-      "player_name": "Travis Kelce",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Kelce brought in seven of nine targets for 70 yards in the Chiefs' 16-13 loss to the Chargers on Sunday.",
-      "type": "active"
     }
   ],
   "LV": [
     {
+      "player_name": "Kolton Miller",
+      "position": "OT",
+      "status": "Injured Reserve",
+      "short_comment": "Miller (ankle) has been ruled out for Sunday's game against the Texans, Paul Gutierrez of the Raiders' official site reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Jordan Meredith",
+      "position": "C",
+      "status": "Questionable",
+      "short_comment": "Meredith (ankle) is listed as questionable for Sunday's game against the Texans.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Brodric Martin-Rhodes",
+      "position": "DT",
+      "status": "Active",
+      "short_comment": "The Raiders claimed Martin off waivers from the Steelers on Friday, per the NFL's transaction log.",
+      "type": "active"
+    },
+    {
       "player_name": "Maxx Crosby",
       "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Crosby (knee) was a limited participant in Thursday's practice.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Crosby (knee) doesn't have an injury designation ahead of Sunday's game against the Texans.",
+      "type": "active"
     },
     {
       "player_name": "Jeremy Chinn",
       "position": "S",
-      "status": "Questionable",
-      "short_comment": "Chinn (back) was a limited participant in Thursday's practice.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Chinn (back) doesn't have an injury designation ahead of Sunday's game against the Texans.",
+      "type": "active"
+    },
+    {
+      "player_name": "Geno Smith",
+      "position": "QB",
+      "status": "Active",
+      "short_comment": "Head coach Pete Carroll confirmed Friday that Smith will start Sunday's game against the Texans, Ryan McFadden of ESPN.com reports.",
+      "type": "active"
     },
     {
       "player_name": "Tyler Lockett",
       "position": "WR",
       "status": "Active",
       "short_comment": "Lockett (knee) practiced fully Thursday.",
-      "type": "active"
-    },
-    {
-      "player_name": "Jordan Meredith",
-      "position": "C",
-      "status": "Active",
-      "short_comment": "Meredith (ankle) logged a full practice Wednesday.",
       "type": "active"
     },
     {
@@ -2872,13 +2893,6 @@
       "position": "WR",
       "status": "Active",
       "short_comment": "Bachman (thumb) practiced in full Wednesday.",
-      "type": "active"
-    },
-    {
-      "player_name": "Geno Smith",
-      "position": "QB",
-      "status": "Active",
-      "short_comment": "Smith (shoulder/back) practiced fully Wednesday.",
       "type": "active"
     },
     {
@@ -2959,13 +2973,6 @@
       "type": "active"
     },
     {
-      "player_name": "Kolton Miller",
-      "position": "OT",
-      "status": "Injured Reserve",
-      "short_comment": "Miller (ankle) has been ruled out   ahead of Sunday's game against the Eagles.",
-      "type": "Injured Reserve"
-    },
-    {
       "player_name": "Jamal Adams",
       "position": "LB",
       "status": "Active",
@@ -2999,49 +3006,63 @@
       "status": "Active",
       "short_comment": "",
       "type": "active"
-    },
-    {
-      "player_name": "Adam Butler",
-      "position": "DT",
-      "status": "Active",
-      "short_comment": "Butler (illness) is active for Sunday's game against the Chargers.",
-      "type": "active"
     }
   ],
   "LAC": [
     {
-      "player_name": "Bud Dupree",
-      "position": "LB",
+      "player_name": "Trey Pipkins III",
+      "position": "OT",
       "status": "Questionable",
-      "short_comment": "Dupree (back) did not practice Thursday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Quentin Johnston",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Johnston (groin) was limited at practice Thursday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Tre' Harris",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Harris (hip) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "RJ Mickens",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Mickens (shoulder) did not participate in Wednesday's practice.",
+      "short_comment": "Pipkins (ankle) is listed as questionable ahead of Sunday's game against the Cowboys.",
       "type": "questionable"
     },
     {
       "player_name": "Teair Tart",
       "position": "DT",
       "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Tart (shin) is questionable for Sunday's matchup against the Cowboys.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Bud Dupree",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Dupree (back) is questionable for Sunday's matchup against the Cowboys.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "RJ Mickens",
+      "position": "S",
+      "status": "Out",
+      "short_comment": "Mickens (shoulder) has been ruled out for Sunday's matchup against the Cowboys.",
+      "type": "out"
+    },
+    {
+      "player_name": "Elijah Molden",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Molden (hamstring) is questionable for Sunday's game against the Cowboys.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Derius Davis",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Davis (ankle) has been  ruled out for Sunday's matchup against the Cowboys.",
+      "type": "out"
+    },
+    {
+      "player_name": "Tre' Harris",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Harris (hip) doesn't have a designation for Sunday's game in Dallas.",
+      "type": "active"
+    },
+    {
+      "player_name": "Quentin Johnston",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Johnston (groin) is listed as questionable for Sunday's game at Dallas.",
       "type": "questionable"
     },
     {
@@ -3050,13 +3071,6 @@
       "status": "Active",
       "short_comment": "Matlock played 36 of the Chargers' 66 snaps on offense and recorded two catches for nine yards in Sunday's 16-13 win over the Chiefs.",
       "type": "active"
-    },
-    {
-      "player_name": "Derius Davis",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Davis (ankle) didn't practice Wednesday, Kris Rhim of ESPN.com reports.",
-      "type": "questionable"
     },
     {
       "player_name": "KeAndre Lambert-Smith",
@@ -3085,20 +3099,6 @@
       "status": "Active",
       "short_comment": "James recorded 10 tackles (two solo) and two pass breakups, including one interception, in the Chargers' win over the Chiefs on Sunday.",
       "type": "active"
-    },
-    {
-      "player_name": "Trey Pipkins III",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Elijah Molden",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Ladd McConkey",
@@ -3187,11 +3187,116 @@
   ],
   "LAR": [
     {
+      "player_name": "Omar Speights",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Speights recorded seven tackles (four solo) in Thursday's 38-37 loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Nate Landman",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Landman recorded five tackles (two solo) and 1.0 sacks in Thursday's 38-37 loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Kam Curl",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Curl recorded five tackles (two solo) and forced a fumble in Thursday's 38-37 loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Josh Wallace",
+      "position": "CB",
+      "status": "Active",
+      "short_comment": "Wallace logged six tackles (six solo) and an interception in Thursday's 38-37 loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Kobie Turner",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "Turner recorded three tackles (one solo), including 1.5 sacks, while also logging an interception and two passes defensed in Thursday's 38-37 loss to the Seahawks.",
+      "type": "active"
+    },
+    {
       "player_name": "Kevin Dotson",
       "position": "G",
       "status": "Questionable",
-      "short_comment": "Dotson (ankle) was spotted on crutches and was wearing a walking boot following Thursday's loss to the Seahawks, Adam Grosbard of The Orange County Register reports.",
+      "short_comment": "Head coach Sean McVay said Friday that Dotson is nursing a sprained left ankle and is doubtful to play in Week 17 against the Falcons on Monday, Dec. 29, Sarah Barshop of ESPN.com reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Davante Adams",
+      "position": "WR",
+      "status": "Out",
+      "short_comment": "Rams coach Sean McVay said Friday that Adams is unlikely to return for Week 17 against the Falcons on Monday, Dec. 29, Sarah Barshop of ESPN.com reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Terrance Ferguson",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Ferguson secured three of four targets for 33 yards and a touchdown during Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Davis Allen",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Allen secured two of five targets for 34 yards during Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jordan Whittington",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Whittington secured his only target for 19 yards and returned two kicks for 41 yards during Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Xavier Smith",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Smith secured both of his targets for 57 yards and returned one punt for 31 yards during Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Colby Parkinson",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Parkinson secured two of four targets for 21 yards during Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Harrison Mevis",
+      "position": "PK",
+      "status": "Active",
+      "short_comment": "Mevis made three of four field-goal attempts and all four PAT tries in Thursday's 38-37 overtime loss to the Seahawks.",
+      "type": "active"
+    },
+    {
+      "player_name": "Konata Mumpfield",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Mumpfield secured three of eight targets for 40 yards in the Rams' 38-37 overtime loss to the Seahawks on Thursday night.",
+      "type": "active"
+    },
+    {
+      "player_name": "Blake Corum",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Corum rushed 14 times for 48 yards and a touchdown and brought in one of two targets for 13 yards in the Rams' 38-37 overtime loss to the Seahawks on Thursday night.",
+      "type": "active"
+    },
+    {
+      "player_name": "Kyren Williams",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Williams rushed 23 times for 70 yards and brought in three of six targets for 15 yards in the Rams' 38-37 overtime loss to the Seahawks on Thursday night.",
+      "type": "active"
     },
     {
       "player_name": "Puka Nacua",
@@ -3250,132 +3355,48 @@
       "type": "out"
     },
     {
-      "player_name": "Davante Adams",
-      "position": "WR",
-      "status": "Out",
-      "short_comment": "Adams (knee/hamstring) is listed as inactive Thursday at Seattle.",
-      "type": "out"
-    },
-    {
       "player_name": "Nick Vannett",
       "position": "TE",
       "status": "Active",
       "short_comment": "Vannett (oblique) does not carry an injury designation into Thursday's game against the Seahawks, Gregg Bell of The Tacoma News Tribune reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Alaric Jackson",
-      "position": "OT",
-      "status": "Active",
-      "short_comment": "Jackson (ankle) was a full participant in Tuesday's walkthrough practice, John Boyle of the Seahawks' official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Jaylen McCollough",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "McCollough (illness) was estimated as a full participant in Tuesday's practice walkthrough, John Boyle of the Seahawks' official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Jordan Whittington",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Whittington (back) was deemed a full participant in Tuesday's practice walkthrough, John Boyle of the Seahawks' official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Konata Mumpfield",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Mumpfield failed to haul in his lone target while playing 32 of the Rams' 72 snaps on offense in Sunday's 41-34 win over the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Tyler Higbee",
-      "position": "TE",
-      "status": "Injured Reserve",
-      "short_comment": "Rams head coach Sean McVay said that Higbee (ankle) won't be activated from injured reserve ahead of Thursday's game against the Seahawks, Adam Grosbard of The Orange County Register reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Kam Curl",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "Curl registered six tackles (three solo) during the Rams' 41-34 win over the Lions on Sunday.",
-      "type": "active"
-    },
-    {
-      "player_name": "Nate Landman",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Landman tallied 10 tackles (six solo), including one tackle for a loss, during the Rams' 41-34 win over the Lions on Sunday.",
-      "type": "active"
-    },
-    {
-      "player_name": "Terrance Ferguson",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Ferguson secured one of two targets for six yards during Sunday's 41-34 win against the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Davis Allen",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Allen secured three of four targets for 16 yards during Sunday's 41-34 win against the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Tutu Atwell",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Atwell secured one of two targets for nine yards during Sunday's 41-34 victory against the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Xavier Smith",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Smith failed to record a target during Sunday's 41-34 victory against the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Tanner Ingle",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "",
-      "type": "active"
-    },
-    {
-      "player_name": "Colby Parkinson",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Parkinson had five receptions on seven targets for 75 yards and two touchdowns in Sunday's 41-34 win over the Lions.",
-      "type": "active"
-    },
-    {
-      "player_name": "Blake Corum",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "Corum took 11 carries for 71 yards and a touchdown without garnering a target in Sunday's 41-34 win over Detroit.",
-      "type": "active"
     }
   ],
   "MIA": [
     {
+      "player_name": "Elijah Campbell",
+      "position": "S",
+      "status": "Questionable",
+      "short_comment": "Campbell (ankle/knee) is listed as questionable ahead of Sunday's game against the Bengals, Marcel Louis-Jacques of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Jordyn Brooks",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Brooks (foot) is listed as questionable for Sunday's matchup against the Bengals, Marcel Louis-Jacques of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
       "player_name": "Darren Waller",
       "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Waller (knee/rest) was a limited participation in Thursday's practice, Jay Morrison of SI.com reports.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Waller (rest/knee) doesn't have an injury designation for Sunday's game versus the Bengals, David Furones of the South Florida Sun Sentinel reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jason Sanders",
+      "position": "PK",
+      "status": "Injured Reserve",
+      "short_comment": "Sanders (hip) isn't expected to play Sunday against the Bengals, but he may return in Week 17 against the Buccaneers or Week 18 against the Patriots, Travis Wingfield of the Dolphins' official site reports.",
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Minkah Fitzpatrick",
       "position": "S",
-      "status": "Doubtful",
-      "short_comment": "doubtful",
-      "type": "doubtful"
+      "status": "Out",
+      "short_comment": "Fitzpatrick (calf) won't play Sunday against the Bengals, Marcel Louis-Jacques of ESPN.com reports.",
+      "type": "out"
     },
     {
       "player_name": "Larry Borom",
@@ -3392,29 +3413,8 @@
       "type": "active"
     },
     {
-      "player_name": "Jordyn Brooks",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Brooks (foot) did not participate at practice Wednesday, David Furones of the South Florida Sun Sentinel reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Jason Sanders",
-      "position": "PK",
-      "status": "Injured Reserve",
-      "short_comment": "Sanders (hip) had his 21-day window opened to return from injured reserve Wednesday, Alain Poupart of SI.com reports.",
-      "type": "Injured Reserve"
-    },
-    {
       "player_name": "Isaiah Johnson",
       "position": "CB",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Kenneth Grant",
-      "position": "DT",
       "status": "Questionable",
       "short_comment": "questionable",
       "type": "questionable"
@@ -3525,75 +3525,75 @@
       "type": "active"
     },
     {
-      "player_name": "Elijah Campbell",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Campbell (ankle/knee) is inactive for Monday's game against Pittsburgh.",
-      "type": "questionable"
-    },
-    {
       "player_name": "Aaron Brewer",
       "position": "C",
       "status": "Active",
       "short_comment": "Brewer (ankle) does not have an injury designation for Monday's tilt against Pittsburgh, C. Isaiah Smalls II of the Miami Herald reports.",
       "type": "active"
+    },
+    {
+      "player_name": "Chop Robinson",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Robinson (oblique) does not carry an injury designation for Monday's matchup against Pittsburgh, C. Isaiah Smalls II of the Miami Herald reports.",
+      "type": "active"
     }
   ],
   "MIN": [
     {
+      "player_name": "Ryan Kelly",
+      "position": "C",
+      "status": "Active",
+      "short_comment": "Kelly (knee) does not carry an injury designation into Sunday's game against the Giants.",
+      "type": "active"
+    },
+    {
       "player_name": "Brian O'Neill",
       "position": "OT",
       "status": "Questionable",
-      "short_comment": "O'Neill (heel) was a limited participant at practice Thursday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Ryan Kelly",
-      "position": "C",
-      "status": "Questionable",
-      "short_comment": "Kelly (knee) was a limited participant at practice Thursday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Gavin Bartholomew",
-      "position": "TE",
-      "status": "Out",
-      "short_comment": "Bartholomew (back) was a full participant in Thursday's practice.",
-      "type": "out"
-    },
-    {
-      "player_name": "Jalen Nailor",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Nailor (back) was a limited participant in Thursday's practice.",
+      "short_comment": "O'Neill (heel) is listed as questionable ahead of Sunday's game against the Giants, Alec Lewis of The Athletic reports.",
       "type": "questionable"
     },
     {
       "player_name": "Christian Darrisaw",
       "position": "OT",
-      "status": "Questionable",
-      "short_comment": "Darrisaw (knee) did not practice Wednesday.",
-      "type": "questionable"
+      "status": "Injured Reserve",
+      "short_comment": "The Vikings moved Darrisaw (knee) to injured reserve Friday.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Gavin Bartholomew",
+      "position": "TE",
+      "status": "Out",
+      "short_comment": "Bartholomew (back) is listed as questionable for Sunday's game against the Giants.",
+      "type": "out"
+    },
+    {
+      "player_name": "Ty Chandler",
+      "position": "RB",
+      "status": "Injured Reserve",
+      "short_comment": "Chandler (knee) is listed as questionable for Sunday's game against the Giants.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Jalen Nailor",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Nailor (back) doesn't have an injury designation for Sunday's game against the Giants.",
+      "type": "active"
+    },
+    {
+      "player_name": "Javon Hargrave",
+      "position": "DT",
+      "status": "Out",
+      "short_comment": "Hargrave (thigh) has been ruled out for Sunday's game against the Giants, Alec Lewis of The Athletic reports.",
+      "type": "out"
     },
     {
       "player_name": "Jonathan Greenard",
       "position": "LB",
       "status": "Injured Reserve",
       "short_comment": "The Vikings placed Greenard (shoulder) on injured reserve Wednesday, Craig Peters of the team's official site reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Javon Hargrave",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Hargrave (thigh) did not practice  Wednesday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Ty Chandler",
-      "position": "RB",
-      "status": "Injured Reserve",
-      "short_comment": "Chandler (knee) logged a full practice Wednesday.",
       "type": "Injured Reserve"
     },
     {
@@ -3720,37 +3720,44 @@
     {
       "player_name": "Christian Elliss",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Elliss (illness) was a  limited participant in practice Thursday.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "Elliss (illness) doesn't have an injury designation ahead of Sunday night's game against the Ravens.",
+      "type": "active"
     },
     {
-      "player_name": "Robert Spillane",
-      "position": "LB",
+      "player_name": "Christian Barmore",
+      "position": "DT",
       "status": "Questionable",
-      "short_comment": "Spillane (ankle) did not practice Wednesday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Harold Landry III",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Landry (knee) did not practice Wednesday.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Marcus Jones",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Jones (knee) did not practice Wednesday.",
+      "short_comment": "Barmore (knee) is listed as questionable for Sunday night's game against the Ravens.",
       "type": "questionable"
     },
     {
       "player_name": "Carlton Davis III",
       "position": "CB",
       "status": "Questionable",
-      "short_comment": "Davis (hip) did not practice Wednesday.",
+      "short_comment": "Davis (hip) is questionable for Sunday's game against the Ravens, Mike Reiss of ESPN.com reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Marcus Jones",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Jones (knee) is questionable for Sunday's game against the Ravens, Mike Reiss of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Harold Landry III",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Landry (knee) is questionable for Sunday's game against the Ravens, Mike Reiss of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Robert Spillane",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Spillane (ankle) has been ruled out for Sunday's game against the Ravens, Mike Reiss of ESPN.com reports.",
+      "type": "out"
     },
     {
       "player_name": "Jaylinn Hawkins",
@@ -3884,22 +3891,50 @@
       "status": "Active",
       "short_comment": "Williams recorded one catch (on one target) for 33 yards and a touchdown in Monday's 33-15 win over the Giants.",
       "type": "active"
-    },
-    {
-      "player_name": "Garrett Bradbury",
-      "position": "C",
-      "status": "Active",
-      "short_comment": "Bradbury (illness) is active for Monday night's game against the Giants.",
-      "type": "active"
     }
   ],
   "NO": [
     {
+      "player_name": "Zaire Mitchell-Paden",
+      "position": "TE",
+      "status": "Questionable",
+      "short_comment": "Mitchell-Paden (knee) is listed as questionable for Sunday's game against the Jets, Ross Jackson of WWL Louisiana reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Asim Richards",
+      "position": "OT",
+      "status": "Out",
+      "short_comment": "Richards (ankle) has been ruled out for Sunday's game against the Jets, Ross Jackson of WWL Louisiana reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Cesar Ruiz",
+      "position": "G",
+      "status": "Out",
+      "short_comment": "Ruiz (ankle) has been ruled out for Sunday's game against the Jets, Ross Jackson of WWL Louisiana reports.",
+      "type": "out"
+    },
+    {
       "player_name": "Charlie Smyth",
       "position": "PK",
       "status": "Active",
-      "short_comment": "Saints head coach Kellen Moore said Thursday that Smyth will be signed from the practice squad to the active roster in advance of Sunday's game against the Jets, Katherine Terrell of ESPN.com reports.",
+      "short_comment": "The Saints signed Smyth to the active roster Friday.",
       "type": "active"
+    },
+    {
+      "player_name": "Devaughn Vele",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "The Saints placed Vele (shoulder) on injured reserve Friday, WWLAM's Jeff Nowak reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Alvin Kamara",
+      "position": "RB",
+      "status": "Out",
+      "short_comment": "Kamara (knee) has been ruled out for Sunday's game against the Jets, Matthew Paras of The New Orleans Times-Picayune reports.",
+      "type": "out"
     },
     {
       "player_name": "Justin Reid",
@@ -3930,20 +3965,6 @@
       "type": "Injured Reserve"
     },
     {
-      "player_name": "Alvin Kamara",
-      "position": "RB",
-      "status": "Questionable",
-      "short_comment": "Kamara (knee/ankle) didn't take part in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Cesar Ruiz",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Ruiz (ankle) did not practice Wednesday.",
-      "type": "questionable"
-    },
-    {
       "player_name": "Nathan Shepherd",
       "position": "DT",
       "status": "Questionable",
@@ -3951,25 +3972,11 @@
       "type": "questionable"
     },
     {
-      "player_name": "Devaughn Vele",
-      "position": "WR",
-      "status": "Out",
-      "short_comment": "Saints head coach Kellen Moore said Wednesday that Vele (shoulder) is ruled out for Sunday's game against New York, Matthew Paras of The New Orleans Times-Picayune reports.",
-      "type": "out"
-    },
-    {
       "player_name": "Demario Davis",
       "position": "LB",
       "status": "Active",
       "short_comment": "Davis finished Sunday's 20-17 victory over Carolina with five tackles (four solo).",
       "type": "active"
-    },
-    {
-      "player_name": "Asim Richards",
-      "position": "OT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Foster Moreau",
@@ -4061,13 +4068,6 @@
       "status": "Active",
       "short_comment": "",
       "type": "active"
-    },
-    {
-      "player_name": "Alontae Taylor",
-      "position": "CB",
-      "status": "Active",
-      "short_comment": "Taylor recorded six total tackles (five solo) in Sunday's 24-10 loss to Atlanta.",
-      "type": "active"
     }
   ],
   "NYG": [
@@ -4079,24 +4079,59 @@
       "type": "out"
     },
     {
+      "player_name": "Dru Phillips",
+      "position": "CB",
+      "status": "Active",
+      "short_comment": "Phillips (heel) has no injury designation ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
+      "type": "active"
+    },
+    {
       "player_name": "Gunner Olszewski",
       "position": "WR",
+      "status": "Active",
+      "short_comment": "Olszewski (concussion) has no injury designation ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jamie Gillan",
+      "position": "P",
+      "status": "Active",
+      "short_comment": "Gillan (knee) has no injury designation ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Demetrius Flannigan-Fowles",
+      "position": "LB",
       "status": "Questionable",
-      "short_comment": "Olszewski (concussion) was a full participant in practice Thursday, Dan Salomone of the Giants' official site reports.",
+      "short_comment": "Flannigan-Fowles (illness) is listed as questionable ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
       "type": "questionable"
     },
     {
       "player_name": "Evan Neal",
       "position": "OT",
       "status": "Injured Reserve",
-      "short_comment": "Neal (back) will not practice Thursday due to soreness, Evan Barnes of Newsday reports.",
+      "short_comment": "Neal (back) has been ruled out ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
       "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Kayvon Thibodeaux",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Thibodeaux (shoulder) has been ruled out ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Rakeem Nunez-Roches",
+      "position": "DT",
+      "status": "Out",
+      "short_comment": "Nunez-Roches (ankle) has been ruled out ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
+      "type": "out"
     },
     {
       "player_name": "Beaux Collins",
       "position": "WR",
       "status": "Injured Reserve",
-      "short_comment": "Collins (neck/concussion) will not practice Thursday, Evan Barnes of Newsday reports.",
+      "short_comment": "Collins (neck/concussion) has been ruled out ahead of Sunday's matchup against the Vikings, Dan Salomone of the Giants' official site reports.",
       "type": "Injured Reserve"
     },
     {
@@ -4105,34 +4140,6 @@
       "status": "Injured Reserve",
       "short_comment": "Ezeudu (calf) was a full participant at practice Wednesday, Dan Salomone of the Giants' official site reports.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Dru Phillips",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Phillips (heel) turned in a limited practice Wednesday, Dan Salomone of the Giants' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Kayvon Thibodeaux",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Thibodeaux (shoulder) did not practice Wednesday, Dan Salomone of the Giants' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Demetrius Flannigan-Fowles",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Flannigan-Fowles (illness) did not participate at practice Wednesday, Dan Salomone of the Giants' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Rakeem Nunez-Roches",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "Nunez-Roches (ankle) did not participate at practice Wednesday, Dan Salomone of the Giants' official site reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Rico Payton",
@@ -4182,13 +4189,6 @@
       "status": "Active",
       "short_comment": "Belton recorded eight tackles (four solo), including 1.0 sacks, and two forced fumbles during the Giants' loss to the Commanders on Sunday.",
       "type": "active"
-    },
-    {
-      "player_name": "Jamie Gillan",
-      "position": "P",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Daniel Bellinger",
@@ -4249,25 +4249,46 @@
   ],
   "NYJ": [
     {
-      "player_name": "Justin Fields",
-      "position": "QB",
-      "status": "Questionable",
-      "short_comment": "Fields (knee) was listed as limited at Thursday's practice, Rich Cimini of ESPN.com reports.",
-      "type": "questionable"
+      "player_name": "Eric Watts",
+      "position": "DE",
+      "status": "Out",
+      "short_comment": "Watts (concussion) has been ruled out for Sunday's game against the Saints.",
+      "type": "out"
+    },
+    {
+      "player_name": "Kiko Mauigoa",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Mauigoa (neck) has been ruled out for Sunday's game against the Saints.",
+      "type": "out"
     },
     {
       "player_name": "Tyrod Taylor",
       "position": "QB",
       "status": "Questionable",
-      "short_comment": "Taylor (groin/knee) was listed as limited at Thursday's practice, Rich Cimini of ESPN.com reports.",
+      "short_comment": "Taylor (groin/knee) is listed as questionable for Sunday's game against the Saints.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Justin Fields",
+      "position": "QB",
+      "status": "Questionable",
+      "short_comment": "Fields (knee) is listed as questionable for Sunday's game against the Saints.",
       "type": "questionable"
     },
     {
       "player_name": "Mason Taylor",
       "position": "TE",
-      "status": "Questionable",
-      "short_comment": "Taylor (neck) remained a non-participant at Thursday's practice, Rich Cimini of ESPN.com reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Taylor (neck) has been ruled out for Sunday's game against the Saints.",
+      "type": "out"
+    },
+    {
+      "player_name": "Garrett Wilson",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Coach Aaron Glenn said Friday that Wilson (knee) will remain on IR for the rest of the season, Eric Allen of the Jets' official site reports.",
+      "type": "Injured Reserve"
     },
     {
       "player_name": "Tony Adams",
@@ -4275,20 +4296,6 @@
       "status": "Injured Reserve",
       "short_comment": "The Jets placed Adams (groin) on injured reserve Thursday.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Eric Watts",
-      "position": "DE",
-      "status": "Questionable",
-      "short_comment": "Watts (concussion) was estimated to be a non-participant at the Jets' walkthrough practice Wednesday, Rich Cimini of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Kiko Mauigoa",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Mauigoa (neck) was estimated to be a non-participant at the Jets' walkthrough Wednesday, Rich Cimini of ESPN.com reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Brady Cook",
@@ -4415,16 +4422,16 @@
       "status": "Injured Reserve",
       "short_comment": "The Jets placed Baron (knee) on injured reserve Wednesday, Susanna Welr of the team's official site reports.",
       "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Garrett Wilson",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Wilson (knee) won't have his window to resume practicing opened Wednesday, and head coach Aaron Glenn reiterated that a decision on Wilson's status moving forward will be made by team doctors, Rich Cimini of ESPN.com reports.",
-      "type": "Injured Reserve"
     }
   ],
   "PHI": [
+    {
+      "player_name": "E.J. Jenkins",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "The Eagles elevated Jenkins from the practice squad to the active roster Friday.",
+      "type": "active"
+    },
     {
       "player_name": "Fred Johnson",
       "position": "OT",
@@ -4592,57 +4599,64 @@
       "status": "Active",
       "short_comment": "Granson didn't draw a target while playing two snaps on offense in Monday's 22-19 overtime loss to the Chargers.",
       "type": "active"
-    },
-    {
-      "player_name": "Reed Blankenship",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "Blankenship made eight tackles (six solo) in Monday's overtime loss to the Chargers.",
-      "type": "active"
     }
   ],
   "PIT": [
     {
-      "player_name": "Zach Frazier",
-      "position": "C",
-      "status": "Questionable",
-      "short_comment": "Frazier (triceps) did not practice Thursday, Brooke Pryor of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "T.J. Watt",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Watt (chest) did not practice Thursday, Brooke Pryor of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Jabrill Peppers",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
+      "player_name": "Andrus Peat",
+      "position": "G",
+      "status": "Active",
+      "short_comment": "Peat (concussion) does not have an injury designation ahead of Sunday's game against the Lions, Mike DeFabo of The Athletic reports.",
+      "type": "active"
     },
     {
       "player_name": "Christian Kuntz",
       "position": "LS",
       "status": "Questionable",
-      "short_comment": "questionable",
+      "short_comment": "Kuntz is listed as questionable for Sunday's game against the Lions due to a knee injury, Brooke Pryor of ESPN.com reports.",
       "type": "questionable"
     },
     {
-      "player_name": "Keeanu Benton",
-      "position": "DT",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
+      "player_name": "Zach Frazier",
+      "position": "C",
+      "status": "Active",
+      "short_comment": "Frazier (triceps) does not have an injury designation ahead of Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Isaac Seumalo",
+      "position": "G",
+      "status": "Out",
+      "short_comment": "Seumalo (triceps) has been ruled out for Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "Ben Skowronek",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Skowronek (illness/hand) doesn't have an injury designation ahead of Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "active"
+    },
+    {
+      "player_name": "Nick Herbig",
+      "position": "LB",
+      "status": "Doubtful",
+      "short_comment": "Herbig (hamstring) is listed as doubtful for Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "doubtful"
     },
     {
       "player_name": "James Pierre",
       "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Pierre (calf) did not participate at practice Wednesday, Brooke Pryor of ESPN.com reports.",
-      "type": "questionable"
+      "status": "Out",
+      "short_comment": "Pierre (calf) has been ruled out for Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "out"
+    },
+    {
+      "player_name": "T.J. Watt",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Watt (chest) has been ruled out for Sunday's game against the Lions, Brooke Pryor of ESPN.com reports.",
+      "type": "out"
     },
     {
       "player_name": "Derrick Harmon",
@@ -4650,20 +4664,6 @@
       "status": "Active",
       "short_comment": "Harmon (knee) was a full participant in Wednesday's practice, Mike DeFabo of The Athletic reports.",
       "type": "active"
-    },
-    {
-      "player_name": "Nick Herbig",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Herbig (hamstring) did not participate at practice Wednesday, Brooke Pryor of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Ben Skowronek",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Skowronek (illness/hand) was limited in Wednesday's practice.",
-      "type": "questionable"
     },
     {
       "player_name": "Connor Heyward",
@@ -4699,13 +4699,6 @@
       "status": "Active",
       "short_comment": "Johnson gained four yards on two carries during Monday's 28-15 win over the Dolphins.",
       "type": "active"
-    },
-    {
-      "player_name": "Andrus Peat",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "questionable",
-      "type": "questionable"
     },
     {
       "player_name": "Jonnu Smith",
@@ -4771,14 +4764,35 @@
       "type": "active"
     },
     {
-      "player_name": "Isaac Seumalo",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Seumalo (triceps) has been ruled out for the rest of Monday's game against the Dolphins, Brooke Pryor of ESPN.com reports.",
-      "type": "questionable"
+      "player_name": "Malik Harrison",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Harrison (concussion) does not carry an injury designation for Monday's Week 15 game against Miami.",
+      "type": "active"
+    },
+    {
+      "player_name": "Cameron Heyward",
+      "position": "DT",
+      "status": "Active",
+      "short_comment": "Heyward (knee) does not have an injury designation for Monday's matchup against Miami.",
+      "type": "active"
     }
   ],
   "SF": [
+    {
+      "player_name": "Tatum Bethune",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Bethune (ankle) was a limited participant in Friday's practice, Nick Wagoner of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Ricky Pearsall",
+      "position": "WR",
+      "status": "Questionable",
+      "short_comment": "Pearsall (knee/ankle) isn't practicing Friday, Cam Inman of The San Jose Mercury News reports.",
+      "type": "questionable"
+    },
     {
       "player_name": "Spencer Burford",
       "position": "G",
@@ -4798,20 +4812,6 @@
       "position": "CB",
       "status": "Questionable",
       "short_comment": "Green (neck) practiced in limited fashion Thursday, Cam Inman of The San Jose Mercury News reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Tatum Bethune",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Bethune (ankle) will be limited at practice Thursday, Nick Wagoner of ESPN.com reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Ricky Pearsall",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Coach Kyle Shanahan said Pearsall (knee/ankle) won't practice Thursday, but the wide receiver is feeling much better and has a chance to play Monday at Indianapolis, Nick Wagoner of ESPN.com reports.",
       "type": "questionable"
     },
     {
@@ -4964,17 +4964,129 @@
       "type": "out"
     },
     {
-      "player_name": "Sam Darnold",
-      "position": "QB",
+      "player_name": "Julian Love",
+      "position": "S",
       "status": "Active",
-      "short_comment": "Darnold completed 22 of 34 passes for 270 yards with two touchdowns and two interceptions while adding three rushes for seven yards in the Seahawks' 38-37 overtime win over the Rams on Thursday night. He also threw a pair of two-point conversion passes.",
+      "short_comment": "Love recorded eight tackles (three solo) in Thursday's 38-37 win over the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "DeMarcus Lawrence",
+      "position": "DE",
+      "status": "Active",
+      "short_comment": "Lawrence recorded nine tackles (three solo) and one pass defensed in Thursday's 38-37 win over the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "Devon Witherspoon",
+      "position": "CB",
+      "status": "Active",
+      "short_comment": "Witherspoon posted nine tackles (five solo) during the Seahawks' 38-37 overtime win over the Rams on Thursday.",
       "type": "active"
     },
     {
       "player_name": "Nick Emmanwori",
       "position": "S",
       "status": "Active",
-      "short_comment": "Emmanwori cleared concussion protocol during Thursday's game against the Rams, Corbin K. Smith of SI.com reports.",
+      "short_comment": "Emmanwori registered 11 tackles (seven solo) during the Seahawks' 38-37 overtime win over the Rams on Thursday.",
+      "type": "active"
+    },
+    {
+      "player_name": "Ernest Jones IV",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Jones posted 12 tackles (four solo) during the Seahawks' 38-37 overtime win over the Rams on Thursday.",
+      "type": "active"
+    },
+    {
+      "player_name": "Drake Thomas",
+      "position": "LB",
+      "status": "Active",
+      "short_comment": "Thomas posted 13 tackles (six solo) during the Seahawks' 38-37 overtime win over the Rams on Thursday.",
+      "type": "active"
+    },
+    {
+      "player_name": "Dareke Young",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Young didn't play an offensive snap in Thursday's 38-37 overtime win versus the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "Cody White",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "White wasn't targeted in Thursday's 38-37 overtime win versus the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "Eric Saubert",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Saubert wasn't targeted in Thursday's 38-37 overtime win versus the Rams. He caught a two-point conversion in overtime.",
+      "type": "active"
+    },
+    {
+      "player_name": "Derick Hall",
+      "position": "LB",
+      "status": "Suspension",
+      "short_comment": "Hall was given a one-game suspension by the NFL on Friday for an act of unnecessary roughness and unsportsmanlike conduct during Thursday's 38-37 overtime win over the Rams, Mike Garafolo of NFL Network reports.",
+      "type": "Suspension"
+    },
+    {
+      "player_name": "Coby Bryant",
+      "position": "S",
+      "status": "Questionable",
+      "short_comment": "Bryant (knee) is expected to miss \"some time\" based on initial tests, Jeremy Fowler of ESPN.com reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Riq Woolen",
+      "position": "CB",
+      "status": "Questionable",
+      "short_comment": "Woolen (knee) and safety Coby Bryant (knee) are getting MRIs on Friday, Curtis Crabtree of Fox 13 Seattle reports.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Rashid Shaheed",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Shaheed didn't catch his only target in Thursday's 38-37 overtime win over the Rams, but he had a 31-yard run and a 58-yard punt return touchdown.",
+      "type": "active"
+    },
+    {
+      "player_name": "Cooper Kupp",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Kupp caught three of four targets for 39 yards, lost a fumble and caught a two-point conversion in Thursday's 38-37 overtime win over the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "Jason Myers",
+      "position": "PK",
+      "status": "Active",
+      "short_comment": "Myers didn't attempt a field goal and made both PAT attempts in Thursday's 38-37 overtime win over the Rams.",
+      "type": "active"
+    },
+    {
+      "player_name": "AJ Barner",
+      "position": "TE",
+      "status": "Active",
+      "short_comment": "Barner brought in four of six targets for 49 yards and a touchdown and rushed once for one yard in the Seahawks' 38-37 overtime win over the Rams on Thursday night.",
+      "type": "active"
+    },
+    {
+      "player_name": "Zach Charbonnet",
+      "position": "RB",
+      "status": "Active",
+      "short_comment": "Charbonnet rushed nine times for 32 yards and a touchdown and brought in all four targets for 22 yards in the Seahawks' 38-37 overtime win over the Rams on Thursday night. He was also credited with a two-point conversion run.",
+      "type": "active"
+    },
+    {
+      "player_name": "Sam Darnold",
+      "position": "QB",
+      "status": "Active",
+      "short_comment": "Darnold completed 22 of 34 passes for 270 yards with two touchdowns and two interceptions while adding three rushes for seven yards in the Seahawks' 38-37 overtime win over the Rams on Thursday night. He also threw a pair of two-point conversion passes.",
       "type": "active"
     },
     {
@@ -4990,20 +5102,6 @@
       "status": "Active",
       "short_comment": "Walker rushed 11 times for 100 yards and a touchdown and brought in all three targets for 64 yards in the Seahawks' 38-37 overtime win over the Rams on Thursday night.",
       "type": "active"
-    },
-    {
-      "player_name": "Riq Woolen",
-      "position": "CB",
-      "status": "Questionable",
-      "short_comment": "Woolen is questionable to return to Thursday's Week 16 matchup against the Rams due to a knee issue.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Coby Bryant",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Bryant (knee) has been ruled out for the remainder of Thursday night's contest against the Rams, John Boyle of the Seahawks' official site reports.",
-      "type": "questionable"
     },
     {
       "player_name": "Jake Bobo",
@@ -5032,107 +5130,16 @@
       "status": "Out",
       "short_comment": "inactive",
       "type": "out"
-    },
-    {
-      "player_name": "Charles Cross",
-      "position": "OT",
-      "status": "Out",
-      "short_comment": "inactive",
-      "type": "out"
-    },
-    {
-      "player_name": "Bryce Cabeldue",
-      "position": "G",
-      "status": "Out",
-      "short_comment": "inactive",
-      "type": "out"
-    },
-    {
-      "player_name": "Cam Akers",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "The Seahawks have elevated Akers for Thursday's game against the Rams, John Boyle of the team's official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Dareke Young",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Young has been activated from injured reserve and does not carry an injury designation for Thursday's home game against the Rams, John Boyle of the Seahawks' official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Cody White",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "White (abdomen) was a full participant in Seattle's walkthrough Tuesday, Michael-Shawn Dugar of The Athletic reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "DeMarcus Lawrence",
-      "position": "DE",
-      "status": "Active",
-      "short_comment": "Lawrence (quadriceps) was a full participant in Seattle's walkthrough Tuesday, Michael-Shawn Dugar of The Athletic reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Derick Hall",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Hall (finger) was considered a full participant at Monday's walkthrough practice, John Boyle of the Seahawks' official site reports.",
-      "type": "active"
-    },
-    {
-      "player_name": "Ernest Jones IV",
-      "position": "LB",
-      "status": "Active",
-      "short_comment": "Jones recorded 10 total tackles (five solo) in Sunday's 18-16 win over the Colts.",
-      "type": "active"
-    },
-    {
-      "player_name": "Tory Horton",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Seahawks head coach Mike Macdonald said \"we'll see\" when asked Monday whether Horton (shin/groin) will return from IR in 2025, Michael-Shawn Dugar of The Athletic reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Nick Kallerup",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Kallerup wasn't targeted while playing 10 snaps on offense in Sunday's 18-16 win over the Colts.",
-      "type": "active"
-    },
-    {
-      "player_name": "Eric Saubert",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Saubert caught his lone target for nine yards in Sunday's 18-16 win over the Colts.",
-      "type": "active"
-    },
-    {
-      "player_name": "AJ Barner",
-      "position": "TE",
-      "status": "Active",
-      "short_comment": "Barner caught three of six targets for 27 yards in Sunday's 18-16 win over the Colts.",
-      "type": "active"
-    },
-    {
-      "player_name": "Cooper Kupp",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Kupp had five receptions on seven targets for 46 yards in Sunday's 18-16 win over the Colts.",
-      "type": "active"
-    },
-    {
-      "player_name": "Rashid Shaheed",
-      "position": "WR",
-      "status": "Active",
-      "short_comment": "Shaheed caught five of seven targets for 74 yards, lost two yards on one carry and ran back six kicks for 137 yards in Sunday's 18-16 win over the Colts.",
-      "type": "active"
     }
   ],
   "TB": [
+    {
+      "player_name": "Mike Evans",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "Evans (collarbone/rest) doesn't have an injury designation for Sunday's game against the Panthers.",
+      "type": "active"
+    },
     {
       "player_name": "Cade Otton",
       "position": "TE",
@@ -5143,16 +5150,9 @@
     {
       "player_name": "Lavonte David",
       "position": "LB",
-      "status": "Questionable",
-      "short_comment": "David (knee) was a limited participant in Thursday's practice.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Mike Evans",
-      "position": "WR",
-      "status": "Questionable",
-      "short_comment": "Evans (collarbone/rest) was listed as a non-participant in Thursday's practice.",
-      "type": "questionable"
+      "status": "Active",
+      "short_comment": "David (knee) was a limited participant in Thursday's practice, Scott Smith of the team's official site reports.",
+      "type": "active"
     },
     {
       "player_name": "Rashad Wisdom",
@@ -5311,18 +5311,60 @@
   ],
   "TEN": [
     {
+      "player_name": "Kevin Zeitler",
+      "position": "G",
+      "status": "Questionable",
+      "short_comment": "Zeitler (groin) is listed as questionable for Sunday's game against the Chiefs.",
+      "type": "questionable"
+    },
+    {
+      "player_name": "Amani Hooker",
+      "position": "S",
+      "status": "Active",
+      "short_comment": "Hooker (illness) doesn't have an injury designation ahead of Sunday's game against the Chiefs.",
+      "type": "active"
+    },
+    {
+      "player_name": "Arden Key",
+      "position": "LB",
+      "status": "Questionable",
+      "short_comment": "Key (illness) is listed as questionable ahead of Sunday's game against the Chiefs.",
+      "type": "questionable"
+    },
+    {
       "player_name": "Van Jefferson",
       "position": "WR",
       "status": "Questionable",
-      "short_comment": "Jefferson (back) was a limited participant at Thursday's practice.",
+      "short_comment": "Jefferson (back) practiced fully Friday but is listed as questionable for Sunday's game against the Chiefs, Jim Wyatt of the Titans' official site reports.",
       "type": "questionable"
     },
     {
       "player_name": "Gunnar Helm",
       "position": "TE",
       "status": "Questionable",
-      "short_comment": "Helm (toe) remained a limited participant at Thursday's practice.",
+      "short_comment": "Helm (toe) logged a full practice Friday but is listed as questionable for Sunday's game against the Chiefs, Jim Wyatt of the Titans' official site reports.",
       "type": "questionable"
+    },
+    {
+      "player_name": "Oluwafemi Oladejo",
+      "position": "LB",
+      "status": "Injured Reserve",
+      "short_comment": "Oladejo (lower leg) has been ruled out ahead of Sunday's matchup against the Chiefs, Jim Wyatt of the Titans' official site reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Bryce Oliver",
+      "position": "WR",
+      "status": "Injured Reserve",
+      "short_comment": "Oliver (knee) won't be activated from injured reserve before Sunday's game against the Chiefs, Jim Wyatt of the Titans' official site reports.",
+      "type": "Injured Reserve"
+    },
+    {
+      "player_name": "Cedric Gray",
+      "position": "LB",
+      "status": "Out",
+      "short_comment": "Gray (concussion) won't play Sunday against the Chiefs, Jim Wyatt of the Titans' official site reports.",
+      "type": "out"
     },
     {
       "player_name": "Dan Moore Jr.",
@@ -5332,38 +5374,10 @@
       "type": "active"
     },
     {
-      "player_name": "Amani Hooker",
-      "position": "S",
-      "status": "Questionable",
-      "short_comment": "Hooker (illness) did not practice Wednesday, Jim Wyatt of the Titans' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Cedric Gray",
-      "position": "LB",
-      "status": "Questionable",
-      "short_comment": "Gray (concussion) did not practice Wednesday, Jim Wyatt of the Titans' official site reports.",
-      "type": "questionable"
-    },
-    {
-      "player_name": "Oluwafemi Oladejo",
-      "position": "LB",
-      "status": "Injured Reserve",
-      "short_comment": "Oladejo (leg) was designated to return from IR on Wednesday, Jim Wyatt of the Titans' official site reports.",
-      "type": "Injured Reserve"
-    },
-    {
       "player_name": "Ali Gaye",
       "position": "LB",
       "status": "Injured Reserve",
       "short_comment": "The Titans announced Wednesday that Gaye (knee) has had his 21-day practice window opened, Jim Wyatt of the team's official site reports.",
-      "type": "Injured Reserve"
-    },
-    {
-      "player_name": "Bryce Oliver",
-      "position": "WR",
-      "status": "Injured Reserve",
-      "short_comment": "Oliver (knee) was designated to return from the injured reserve list Wednesday, Jim Wyatt of the Titans' official site reports.",
       "type": "Injured Reserve"
     },
     {
@@ -5458,13 +5472,6 @@
       "type": "active"
     },
     {
-      "player_name": "Kevin Zeitler",
-      "position": "G",
-      "status": "Questionable",
-      "short_comment": "Zeitler (groin) is questionable to return to Sunday's matchup versus San Francisco.",
-      "type": "questionable"
-    },
-    {
       "player_name": "C.J. Ravenell",
       "position": "DE",
       "status": "Active",
@@ -5477,16 +5484,16 @@
       "status": "Active",
       "short_comment": "Cushenberry (foot) is active for Sunday's game against San Francisco.",
       "type": "active"
-    },
-    {
-      "player_name": "Kendell Brooks",
-      "position": "S",
-      "status": "Active",
-      "short_comment": "Brooks (concussion) is good to go for Tennessee's matchup versus the Browns on Sunday.",
-      "type": "active"
     }
   ],
   "WAS": [
+    {
+      "player_name": "Lawrence Cager",
+      "position": "WR",
+      "status": "Active",
+      "short_comment": "The Commanders elevated Cager from the practice squad to the active roster ahead of Saturday's game against the Eagles, Zach Selby of the team's official site reports.",
+      "type": "active"
+    },
     {
       "player_name": "Eddie Goldman",
       "position": "DT",
@@ -5653,13 +5660,6 @@
       "position": "RB",
       "status": "Active",
       "short_comment": "Croskey-Merritt carried the ball 18 times for 96 yards and a touchdown in Sunday's 29-21 win over the Giants.",
-      "type": "active"
-    },
-    {
-      "player_name": "Chase Edmonds",
-      "position": "RB",
-      "status": "Active",
-      "short_comment": "The Commanders signed Edmonds from the practice squad to the active roster Wednesday.",
       "type": "active"
     }
   ]
