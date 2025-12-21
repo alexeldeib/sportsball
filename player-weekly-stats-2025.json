@@ -14685,6 +14685,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "IND",
+    "season": 2025,
+    "week": 1,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -35973,6 +35986,19 @@
       "rush_yd": 15.0,
       "rec_tgt": 2.0,
       "pts_ppr": 1.5,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "NE",
+    "season": 2025,
+    "week": 2,
+    "stats": {
+      "idp_tkl": 1.0,
       "gp": 1.0
     }
   },
@@ -57290,6 +57316,18 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "BUF",
+    "season": 2025,
+    "week": 3,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -78553,6 +78591,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "NYJ",
+    "season": 2025,
+    "week": 4,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -97760,6 +97811,18 @@
     "player_name": "Matthew Butler",
     "team": "MIA",
     "position": "DL",
+    "opponent": "CAR",
+    "season": 2025,
+    "week": 5,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
     "opponent": "CAR",
     "season": 2025,
     "week": 5,
@@ -117140,6 +117203,18 @@
       "rec_yd": 86.0,
       "rec_tgt": 5.0,
       "pts_ppr": 13.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "LAC",
+    "season": 2025,
+    "week": 6,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -155121,6 +155196,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "ATL",
+    "season": 2025,
+    "week": 8,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12775",
     "player_name": "Max Brosmer",
     "team": "MIN",
@@ -173625,6 +173713,19 @@
       "rec_yd": 9.0,
       "rec_tgt": 3.0,
       "pts_ppr": 2.9,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "BAL",
+    "season": 2025,
+    "week": 9,
+    "stats": {
+      "idp_tkl": 4.0,
       "gp": 1.0
     }
   },
@@ -192191,6 +192292,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "BUF",
+    "season": 2025,
+    "week": 10,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -193336,18 +193450,6 @@
     "stats": {
       "idp_tkl": 3.0,
       "idp_sack": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "13187",
-    "player_name": "Nick Jackson",
-    "team": "TB",
-    "position": "LB",
-    "opponent": "NE",
-    "season": 2025,
-    "week": 10,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -211844,6 +211946,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 11,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -212962,18 +213077,6 @@
     "stats": {
       "idp_tkl": 2.0,
       "idp_sack": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "13187",
-    "player_name": "Nick Jackson",
-    "team": "TB",
-    "position": "LB",
-    "opponent": "BUF",
-    "season": 2025,
-    "week": 11,
-    "stats": {
       "gp": 1.0
     }
   },
@@ -251514,6 +251617,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "NO",
+    "season": 2025,
+    "week": 13,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -271120,6 +271236,19 @@
     "week": 14,
     "stats": {
       "rec_tgt": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "NYJ",
+    "season": 2025,
+    "week": 14,
+    "stats": {
+      "idp_tkl": 3.0,
       "gp": 1.0
     }
   },
@@ -291719,6 +291848,19 @@
     }
   },
   {
+    "player_id": "3303",
+    "player_name": "Matthew Judon",
+    "team": "BUF",
+    "position": "LB",
+    "opponent": "PIT",
+    "season": 2025,
+    "week": 15,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -292995,19 +293137,6 @@
     "team": "PIT",
     "position": "LB",
     "opponent": "MIA",
-    "season": 2025,
-    "week": 15,
-    "stats": {
-      "idp_tkl": 1.0,
-      "gp": 1.0
-    }
-  },
-  {
-    "player_id": "13187",
-    "player_name": "Nick Jackson",
-    "team": "TB",
-    "position": "LB",
-    "opponent": "ATL",
     "season": 2025,
     "week": 15,
     "stats": {
@@ -298091,6 +298220,22 @@
     }
   },
   {
+    "player_id": "5859",
+    "player_name": "A.J. Brown",
+    "team": "PHI",
+    "position": "WR",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 9.0,
+      "rec_yd": 95.0,
+      "rec_tgt": 12.0,
+      "pts_ppr": 18.5,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11603",
     "player_name": "AJ Barner",
     "team": "SEA",
@@ -298110,6 +298255,18 @@
     }
   },
   {
+    "player_id": "7654",
+    "player_name": "Aaron Banks",
+    "team": "GB",
+    "position": "OL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8457",
     "player_name": "Abraham Lucas",
     "team": "SEA",
@@ -298118,6 +298275,19 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4078",
+    "player_name": "Adoree' Jackson",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 4.0,
       "gp": 1.0
     }
   },
@@ -298134,11 +298304,60 @@
     }
   },
   {
+    "player_id": "13176",
+    "player_name": "Ale Kaho",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "13035",
     "player_name": "Amari Kight",
     "team": "SEA",
     "position": "OT",
     "opponent": "LAR",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3207",
+    "player_name": "Andrew Billings",
+    "team": "CHI",
+    "position": "DT",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4693",
+    "player_name": "Andrew Wylie",
+    "team": "WAS",
+    "position": "G",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12577",
+    "player_name": "Anthony Belton",
+    "team": "GB",
+    "position": "OT",
+    "opponent": "CHI",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -298159,6 +298378,74 @@
     }
   },
   {
+    "player_id": "3838",
+    "player_name": "Antonio Hamilton",
+    "team": "WAS",
+    "position": "CB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8569",
+    "player_name": "Arron Mosby",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11760",
+    "player_name": "Austin Booker",
+    "team": "CHI",
+    "position": "DL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 7.0,
+      "idp_sack": 0.5,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12644",
+    "player_name": "Barryn Sorrell",
+    "team": "GB",
+    "position": "DE",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11596",
+    "player_name": "Ben Sinnott",
+    "team": "WAS",
+    "position": "TE",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 1.0,
+      "rec_yd": 5.0,
+      "rec_tgt": 2.0,
+      "pts_ppr": 1.5,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11586",
     "player_name": "Blake Corum",
     "team": "LAR",
@@ -298174,6 +298461,32 @@
       "rec_yd": 13.0,
       "rec_tgt": 2.0,
       "pts_ppr": 13.1,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8204",
+    "player_name": "Bo Melton",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "1233",
+    "player_name": "Bobby Wagner",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 10.0,
+      "idp_sack": 1.0,
       "gp": 1.0
     }
   },
@@ -298202,11 +298515,115 @@
     }
   },
   {
+    "player_id": "6950",
+    "player_name": "Braden Mann",
+    "team": "PHI",
+    "position": "P",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11280",
     "player_name": "Brady Russell",
     "team": "SEA",
     "position": "TE",
     "opponent": "LAR",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11702",
+    "player_name": "Brandon Coleman",
+    "team": "WAS",
+    "position": "OL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "583",
+    "player_name": "Brandon Graham",
+    "team": "PHI",
+    "position": "DE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "idp_sack": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12877",
+    "player_name": "Brandon Johnson",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "1433",
+    "player_name": "Brandon McManus",
+    "team": "GB",
+    "position": "K",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "fgm": 3.0,
+      "fga": 3.0,
+      "xpm": 1.0,
+      "xpa": 1.0,
+      "pts_ppr": 10.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11193",
+    "player_name": "Brenton Cox",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6740",
+    "player_name": "Brett Toth",
+    "team": "PHI",
+    "position": "OL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8414",
+    "player_name": "Britain Covey",
+    "team": "PHI",
+    "position": "WR",
+    "opponent": "WAS",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -298240,6 +298657,69 @@
     }
   },
   {
+    "player_id": "10925",
+    "player_name": "Byron Young",
+    "team": "PHI",
+    "position": "DL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "idp_sack": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5893",
+    "player_name": "C.J. Gardner-Johnson",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "2020",
+    "player_name": "Cairo Santos",
+    "team": "CHI",
+    "position": "K",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "fgm": 3.0,
+      "fga": 3.0,
+      "xpm": 1.0,
+      "xpa": 1.0,
+      "pts_ppr": 14.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11560",
+    "player_name": "Caleb Williams",
+    "team": "CHI",
+    "position": "QB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 34.0,
+      "pass_cmp": 19.0,
+      "pass_yd": 250.0,
+      "pass_td": 2.0,
+      "rush_att": 3.0,
+      "rush_yd": 30.0,
+      "pts_ppr": 21.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "6938",
     "player_name": "Cam Akers",
     "team": "SEA",
@@ -298248,6 +298728,139 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8453",
+    "player_name": "Cam Jurgens",
+    "team": "PHI",
+    "position": "OL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11042",
+    "player_name": "Carrington Valentine",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "2305",
+    "player_name": "Charley Hughlett",
+    "team": "PHI",
+    "position": "LS",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "TEAM_CHI",
+    "player_name": "Chicago Bears",
+    "team": "CHI",
+    "position": "TEAM",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 34.0,
+      "pass_cmp": 19.0,
+      "pass_yd": 250.0,
+      "pass_td": 2.0,
+      "rush_att": 26.0,
+      "rush_yd": 150.0,
+      "rec": 19.0,
+      "rec_yd": 250.0,
+      "rec_td": 2.0,
+      "rec_tgt": 28.0,
+      "fgm": 3.0,
+      "fga": 3.0,
+      "pts_ppr": 94.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "CHI",
+    "player_name": "Chicago Bears",
+    "team": "CHI",
+    "position": "DEF",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pts_ppr": 5.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11370",
+    "player_name": "Chris Brooks",
+    "team": "GB",
+    "position": "RB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 1.0,
+      "rush_yd": 4.0,
+      "pts_ppr": 0.4,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3269",
+    "player_name": "Chris Moore",
+    "team": "WAS",
+    "position": "WR",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8522",
+    "player_name": "Chris Paul",
+    "team": "WAS",
+    "position": "OL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10219",
+    "player_name": "Chris Rodriguez",
+    "team": "WAS",
+    "position": "RB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 15.0,
+      "rush_yd": 63.0,
+      "rush_td": 1.0,
+      "rec": 1.0,
+      "rec_yd": 6.0,
+      "rec_tgt": 1.0,
+      "pts_ppr": 13.9,
       "gp": 1.0
     }
   },
@@ -298276,6 +298889,18 @@
     }
   },
   {
+    "player_id": "7283",
+    "player_name": "Chris Williams",
+    "team": "CHI",
+    "position": "DT",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11704",
     "player_name": "Christian Haynes",
     "team": "SEA",
@@ -298284,6 +298909,22 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8167",
+    "player_name": "Christian Watson",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 17.0,
+      "rec_tgt": 6.0,
+      "pts_ppr": 3.7,
       "gp": 1.0
     }
   },
@@ -298342,6 +298983,35 @@
     }
   },
   {
+    "player_id": "10952",
+    "player_name": "Colby Wooden",
+    "team": "GB",
+    "position": "DE",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6826",
+    "player_name": "Cole Kmet",
+    "team": "CHI",
+    "position": "TE",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 14.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 3.4,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "5454",
     "player_name": "Coleman Shelton",
     "team": "LAR",
@@ -298354,6 +299024,22 @@
     }
   },
   {
+    "player_id": "12517",
+    "player_name": "Colston Loveland",
+    "team": "CHI",
+    "position": "TE",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 30.0,
+      "rec_tgt": 4.0,
+      "pts_ppr": 6.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "13037",
     "player_name": "Connor O'Toole",
     "team": "SEA",
@@ -298362,6 +299048,20 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11678",
+    "player_name": "Cooper DeJean",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 4.0,
+      "idp_int": 1.0,
       "gp": 1.0
     }
   },
@@ -298382,11 +299082,101 @@
     }
   },
   {
+    "player_id": "6790",
+    "player_name": "D'Andre Swift",
+    "team": "CHI",
+    "position": "RB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 13.0,
+      "rush_yd": 58.0,
+      "rec": 2.0,
+      "rec_yd": 12.0,
+      "rec_tgt": 2.0,
+      "pts_ppr": 9.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8367",
+    "player_name": "D'Marco Jackson",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "2329",
     "player_name": "D.J. Humphries",
     "team": "LAR",
     "position": "OL",
     "opponent": "SEA",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4983",
+    "player_name": "DJ Moore",
+    "team": "CHI",
+    "position": "WR",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 1.0,
+      "rush_yd": 12.0,
+      "rec": 5.0,
+      "rec_yd": 97.0,
+      "rec_td": 1.0,
+      "rec_tgt": 7.0,
+      "pts_ppr": 21.9,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5022",
+    "player_name": "Dallas Goedert",
+    "team": "PHI",
+    "position": "TE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 32.0,
+      "rec_td": 1.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 12.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8520",
+    "player_name": "Daniel Hardy",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8674",
+    "player_name": "Daniel Whelan",
+    "team": "GB",
+    "position": "P",
+    "opponent": "CHI",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -298406,6 +299196,18 @@
     }
   },
   {
+    "player_id": "8472",
+    "player_name": "Darian Kinnard",
+    "team": "GB",
+    "position": "T",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "5526",
     "player_name": "Darious Williams",
     "team": "LAR",
@@ -298415,6 +299217,43 @@
     "week": 16,
     "stats": {
       "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "13150",
+    "player_name": "Darius Cooper",
+    "team": "PHI",
+    "position": "WR",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10887",
+    "player_name": "Darnell Wright",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4976",
+    "player_name": "Daron Payne",
+    "team": "WAS",
+    "position": "DT",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 5.0,
       "gp": 1.0
     }
   },
@@ -298460,6 +299299,39 @@
     }
   },
   {
+    "player_id": "7525",
+    "player_name": "DeVonta Smith",
+    "team": "PHI",
+    "position": "WR",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 6.0,
+      "rec_yd": 42.0,
+      "rec_td": 1.0,
+      "rec_tgt": 8.0,
+      "pts_ppr": 16.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5872",
+    "player_name": "Deebo Samuel",
+    "team": "WAS",
+    "position": "WR",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 35.0,
+      "rec_tgt": 4.0,
+      "pts_ppr": 6.5,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "10911",
     "player_name": "Derick Hall",
     "team": "SEA",
@@ -298498,6 +299370,18 @@
     }
   },
   {
+    "player_id": "6847",
+    "player_name": "Devin Duvernay",
+    "team": "CHI",
+    "position": "WR",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "10891",
     "player_name": "Devon Witherspoon",
     "team": "SEA",
@@ -298511,6 +299395,48 @@
     }
   },
   {
+    "player_id": "8391",
+    "player_name": "Dominique Robinson",
+    "team": "CHI",
+    "position": "DL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "9486",
+    "player_name": "Dontayvion Wicks",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 12.0,
+      "rec_tgt": 2.0,
+      "pts_ppr": 3.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8351",
+    "player_name": "Drake Jackson",
+    "team": "WAS",
+    "position": "DL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11470",
     "player_name": "Drake Thomas",
     "team": "SEA",
@@ -298520,6 +299446,94 @@
     "week": 16,
     "stats": {
       "idp_tkl": 13.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7725",
+    "player_name": "Drew Dalman",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12663",
+    "player_name": "Drew Kendall",
+    "team": "PHI",
+    "position": "C",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5008",
+    "player_name": "Durham Smythe",
+    "team": "CHI",
+    "position": "TE",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11304",
+    "player_name": "E.J. Jenkins",
+    "team": "PHI",
+    "position": "TE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11687",
+    "player_name": "Edgerrin Cooper",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8509",
+    "player_name": "Elijah Hicks",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11435",
+    "player_name": "Emanuel Wilson",
+    "team": "GB",
+    "position": "RB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 14.0,
+      "rush_yd": 82.0,
+      "pts_ppr": 8.2,
       "gp": 1.0
     }
   },
@@ -298575,6 +299589,106 @@
     }
   },
   {
+    "player_id": "5580",
+    "player_name": "Frankie Luvu",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 8.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6024",
+    "player_name": "Fred Johnson",
+    "team": "PHI",
+    "position": "T",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10899",
+    "player_name": "Gervon Dexter",
+    "team": "CHI",
+    "position": "DL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "2592",
+    "player_name": "Grady Jarrett",
+    "team": "CHI",
+    "position": "DT",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 7.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8177",
+    "player_name": "Grant Calcaterra",
+    "team": "PHI",
+    "position": "TE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "TEAM_GB",
+    "player_name": "Green Bay Packers",
+    "team": "GB",
+    "position": "TEAM",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 24.0,
+      "pass_cmp": 17.0,
+      "pass_yd": 198.0,
+      "pass_td": 1.0,
+      "rush_att": 44.0,
+      "rush_yd": 192.0,
+      "rec": 17.0,
+      "rec_yd": 198.0,
+      "rec_td": 1.0,
+      "rec_tgt": 24.0,
+      "fgm": 3.0,
+      "fga": 3.0,
+      "pts_ppr": 71.9,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "GB",
+    "player_name": "Green Bay Packers",
+    "team": "GB",
+    "position": "DEF",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12563",
     "player_name": "Grey Zabel",
     "team": "SEA",
@@ -298605,6 +299719,124 @@
     }
   },
   {
+    "player_id": "7782",
+    "player_name": "Isaiah McDuffie",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 5.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5378",
+    "player_name": "Jacob Martin",
+    "team": "WAS",
+    "position": "DE",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "idp_sack": 1.0,
+      "idp_ff": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11776",
+    "player_name": "Jacob Monk",
+    "team": "GB",
+    "position": "OL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12533",
+    "player_name": "Jacory Croskey-Merritt",
+    "team": "WAS",
+    "position": "RB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 8.0,
+      "rush_yd": 25.0,
+      "rush_td": 1.0,
+      "pts_ppr": 8.5,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7635",
+    "player_name": "Jaelan Phillips",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8119",
+    "player_name": "Jahan Dotson",
+    "team": "PHI",
+    "position": "WR",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 13.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 4.3,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "13079",
+    "player_name": "Jahdae Walker",
+    "team": "CHI",
+    "position": "WR",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 21.0,
+      "rec_td": 1.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 10.1,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4195",
+    "player_name": "Jake Elliott",
+    "team": "PHI",
+    "position": "K",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "fga": 2.0,
+      "xpm": 3.0,
+      "xpa": 3.0,
+      "pts_ppr": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "965",
     "player_name": "Jake McQuaide",
     "team": "LAR",
@@ -298617,6 +299849,54 @@
     }
   },
   {
+    "player_id": "10937",
+    "player_name": "Jake Moody",
+    "team": "WAS",
+    "position": "K",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "fgm": 1.0,
+      "fga": 1.0,
+      "xpm": 1.0,
+      "xpa": 1.0,
+      "pts_ppr": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10963",
+    "player_name": "Jakorian Bennett",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6904",
+    "player_name": "Jalen Hurts",
+    "team": "PHI",
+    "position": "QB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 30.0,
+      "pass_cmp": 22.0,
+      "pass_yd": 185.0,
+      "pass_td": 2.0,
+      "rush_att": 7.0,
+      "rush_yd": 40.0,
+      "pts_ppr": 19.4,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12082",
     "player_name": "Jalen Sundell",
     "team": "SEA",
@@ -298625,6 +299905,45 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5333",
+    "player_name": "Jalyn Holmes",
+    "team": "WAS",
+    "position": "DE",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11703",
+    "player_name": "Jalyx Hunt",
+    "team": "PHI",
+    "position": "DE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8323",
+    "player_name": "Jaquan Brisker",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 8.0,
       "gp": 1.0
     }
   },
@@ -298671,6 +299990,32 @@
     }
   },
   {
+    "player_id": "11686",
+    "player_name": "Javon Bullard",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 9.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6792",
+    "player_name": "Javon Kinlaw",
+    "team": "WAS",
+    "position": "DT",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "9488",
     "player_name": "Jaxon Smith-Njigba",
     "team": "SEA",
@@ -298688,6 +300033,24 @@
     }
   },
   {
+    "player_id": "10222",
+    "player_name": "Jayden Reed",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 1.0,
+      "rush_yd": 6.0,
+      "rec": 3.0,
+      "rec_yd": 35.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 7.1,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12142",
     "player_name": "Jaylen McCollough",
     "team": "LAR",
@@ -298697,6 +300060,279 @@
     "week": 16,
     "stats": {
       "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12641",
+    "player_name": "Jaylin Lane",
+    "team": "WAS",
+    "position": "WR",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6839",
+    "player_name": "Jaylon Johnson",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8702",
+    "player_name": "Jaylon Jones",
+    "team": "CHI",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11699",
+    "player_name": "Jer'Zhan Newton",
+    "team": "WAS",
+    "position": "DL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11752",
+    "player_name": "Jeremiah Trotter",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4219",
+    "player_name": "Jeremy McNichols",
+    "team": "WAS",
+    "position": "RB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 1.0,
+      "rush_yd": 3.0,
+      "rec": 2.0,
+      "rec_yd": 9.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 5.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5792",
+    "player_name": "Jeremy Reaves",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12566",
+    "player_name": "Jihaad Campbell",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 5.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3247",
+    "player_name": "Joe Thuney",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7625",
+    "player_name": "Joe Tryon-Shoyinka",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7716",
+    "player_name": "John Bates",
+    "team": "WAS",
+    "position": "TE",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec_tgt": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8500",
+    "player_name": "John FitzPatrick",
+    "team": "GB",
+    "position": "TE",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec_tgt": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6952",
+    "player_name": "Jonah Jackson",
+    "team": "CHI",
+    "position": "G",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "3415",
+    "player_name": "Jonathan Jones",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 8.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5520",
+    "player_name": "Jonathan Owens",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8269",
+    "player_name": "Jordan Davis",
+    "team": "PHI",
+    "position": "DL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 6.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6804",
+    "player_name": "Jordan Love",
+    "team": "GB",
+    "position": "QB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 13.0,
+      "pass_cmp": 8.0,
+      "pass_yd": 77.0,
+      "rush_att": 2.0,
+      "rush_yd": 7.0,
+      "pts_ppr": 3.8,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11778",
+    "player_name": "Jordan Magee",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5362",
+    "player_name": "Jordan Mailata",
+    "team": "PHI",
+    "position": "T",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10977",
+    "player_name": "Jordan McFadden",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11660",
+    "player_name": "Jordan Morgan",
+    "team": "GB",
+    "position": "OL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -298717,6 +300353,19 @@
     }
   },
   {
+    "player_id": "11035",
+    "player_name": "Jordon Riley",
+    "team": "GB",
+    "position": "DL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "12621",
     "player_name": "Josaiah Stewart",
     "team": "LAR",
@@ -298730,6 +300379,48 @@
     }
   },
   {
+    "player_id": "8714",
+    "player_name": "Josh Blackwell",
+    "team": "CHI",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12558",
+    "player_name": "Josh Conerly",
+    "team": "WAS",
+    "position": "OL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5850",
+    "player_name": "Josh Jacobs",
+    "team": "GB",
+    "position": "RB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 12.0,
+      "rush_yd": 36.0,
+      "rec": 2.0,
+      "rec_yd": 12.0,
+      "rec_tgt": 2.0,
+      "pts_ppr": 4.8,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8275",
     "player_name": "Josh Jobe",
     "team": "SEA",
@@ -298739,6 +300430,24 @@
     "week": 16,
     "stats": {
       "idp_tkl": 5.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "260",
+    "player_name": "Josh Johnson",
+    "team": "WAS",
+    "position": "QB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 9.0,
+      "pass_cmp": 5.0,
+      "pass_yd": 43.0,
+      "pass_int": 1.0,
+      "rush_att": 1.0,
+      "pts_ppr": 0.7,
       "gp": 1.0
     }
   },
@@ -298794,6 +300503,19 @@
     }
   },
   {
+    "player_id": "12684",
+    "player_name": "Kain Medrano",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pts_ppr": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "7136",
     "player_name": "Kam Curl",
     "team": "LAR",
@@ -298808,6 +300530,18 @@
     }
   },
   {
+    "player_id": "11787",
+    "player_name": "Kamal Hadden",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11726",
     "player_name": "Kamren Kinchens",
     "team": "LAR",
@@ -298817,6 +300551,44 @@
     "week": 16,
     "stats": {
       "idp_tkl": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11009",
+    "player_name": "Karl Brooks",
+    "team": "GB",
+    "position": "DT",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6333",
+    "player_name": "Keisean Nixon",
+    "team": "GB",
+    "position": "CB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10962",
+    "player_name": "Kelee Ringo",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -298841,11 +300613,49 @@
     }
   },
   {
+    "player_id": "3233",
+    "player_name": "Kevin Byard",
+    "team": "CHI",
+    "position": "DB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 9.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "7116",
     "player_name": "Kevin Dotson",
     "team": "LAR",
     "position": "OL",
     "opponent": "SEA",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8382",
+    "player_name": "Kingsley Enagbare",
+    "team": "GB",
+    "position": "DL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11763",
+    "player_name": "Kitan Oladapo",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -298884,6 +300694,48 @@
     }
   },
   {
+    "player_id": "7197",
+    "player_name": "Kristian Welch",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12534",
+    "player_name": "Kyle Monangai",
+    "team": "CHI",
+    "position": "RB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 9.0,
+      "rush_yd": 50.0,
+      "rec": 3.0,
+      "rec_yd": 43.0,
+      "rec_tgt": 4.0,
+      "pts_ppr": 12.3,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7602",
+    "player_name": "Kylen Granson",
+    "team": "PHI",
+    "position": "TE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8150",
     "player_name": "Kyren Williams",
     "team": "LAR",
@@ -298902,11 +300754,35 @@
     }
   },
   {
+    "player_id": "7665",
+    "player_name": "Landon Dickerson",
+    "team": "PHI",
+    "position": "OL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "6887",
     "player_name": "Larrell Murchison",
     "team": "LAR",
     "position": "DT",
     "opponent": "SEA",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7106",
+    "player_name": "Lawrence Cager",
+    "team": "WAS",
+    "position": "TE",
+    "opponent": "PHI",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -298966,6 +300842,124 @@
     }
   },
   {
+    "player_id": "10885",
+    "player_name": "Lukas Van Ness",
+    "team": "GB",
+    "position": "DL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "9481",
+    "player_name": "Luke Musgrave",
+    "team": "GB",
+    "position": "TE",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 38.0,
+      "rec_tgt": 3.0,
+      "pts_ppr": 6.8,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8161",
+    "player_name": "Malik Willis",
+    "team": "GB",
+    "position": "QB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 11.0,
+      "pass_cmp": 9.0,
+      "pass_yd": 121.0,
+      "pass_td": 1.0,
+      "rush_att": 10.0,
+      "rush_yd": 44.0,
+      "pts_ppr": 13.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6284",
+    "player_name": "Marcus Epps",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "2307",
+    "player_name": "Marcus Mariota",
+    "team": "WAS",
+    "position": "QB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 14.0,
+      "pass_cmp": 7.0,
+      "pass_yd": 95.0,
+      "rush_att": 1.0,
+      "rush_yd": -1.0,
+      "pts_ppr": 3.7,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6461",
+    "player_name": "Matt Orzech",
+    "team": "GB",
+    "position": "LS",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5363",
+    "player_name": "Matt Pryor",
+    "team": "PHI",
+    "position": "T",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12501",
+    "player_name": "Matthew Golden",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 2.0,
+      "rush_yd": 4.0,
+      "rec_tgt": 1.0,
+      "pts_ppr": 0.4,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "421",
     "player_name": "Matthew Stafford",
     "team": "LAR",
@@ -298981,6 +300975,30 @@
       "rush_att": 2.0,
       "rush_yd": 6.0,
       "pts_ppr": 30.9,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8921",
+    "player_name": "Maurice Alexander",
+    "team": "CHI",
+    "position": "WR",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7835",
+    "player_name": "Michael Carter",
+    "team": "PHI",
+    "position": "CB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -299009,6 +301027,88 @@
     }
   },
   {
+    "player_id": "11676",
+    "player_name": "Mike Sainristil",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "idp_ff": 1.0,
+      "pts_ppr": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6124",
+    "player_name": "Montez Sweat",
+    "team": "CHI",
+    "position": "DE",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 5.0,
+      "idp_sack": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11030",
+    "player_name": "Moro Ojomo",
+    "team": "PHI",
+    "position": "DE",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7687",
+    "player_name": "Nahshon Wright",
+    "team": "CHI",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 8.0,
+      "idp_ff": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8267",
+    "player_name": "Nakobe Dean",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "7823",
+    "player_name": "Nate Hobbs",
+    "team": "GB",
+    "position": "CB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 6.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8659",
     "player_name": "Nate Landman",
     "team": "LAR",
@@ -299028,6 +301128,30 @@
     "team": "SEA",
     "position": "CB",
     "opponent": "LAR",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6292",
+    "player_name": "Nick Allegretti",
+    "team": "WAS",
+    "position": "G",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "815",
+    "player_name": "Nick Bellore",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -299060,6 +301184,19 @@
     }
   },
   {
+    "player_id": "7974",
+    "player_name": "Nick McCloud",
+    "team": "CHI",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "3258",
     "player_name": "Nick Vannett",
     "team": "LAR",
@@ -299068,6 +301205,59 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6817",
+    "player_name": "Noah Igbinoghene",
+    "team": "WAS",
+    "position": "CB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10984",
+    "player_name": "Noah Sewell",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10873",
+    "player_name": "Nolan Smith",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6271",
+    "player_name": "Olamide Zaccheaus",
+    "team": "CHI",
+    "position": "WR",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 33.0,
+      "rec_tgt": 5.0,
+      "pts_ppr": 5.3,
       "gp": 1.0
     }
   },
@@ -299085,6 +301275,18 @@
     }
   },
   {
+    "player_id": "12606",
+    "player_name": "Ozzy Trapilo",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11230",
     "player_name": "Patrick O'Connell",
     "team": "SEA",
@@ -299093,6 +301295,56 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8394",
+    "player_name": "Percy Butler",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "PHI",
+    "player_name": "Philadelphia Eagles",
+    "team": "PHI",
+    "position": "DEF",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pts_ppr": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "TEAM_PHI",
+    "player_name": "Philadelphia Eagles",
+    "team": "PHI",
+    "position": "TEAM",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 30.0,
+      "pass_cmp": 22.0,
+      "pass_yd": 185.0,
+      "pass_td": 2.0,
+      "rush_att": 34.0,
+      "rush_yd": 207.0,
+      "rush_td": 2.0,
+      "rec": 22.0,
+      "rec_yd": 185.0,
+      "rec_td": 2.0,
+      "rec_tgt": 29.0,
+      "fga": 2.0,
+      "pts_ppr": 102.6,
       "gp": 1.0
     }
   },
@@ -299107,6 +301359,19 @@
     "stats": {
       "idp_tkl": 4.0,
       "idp_sack": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "2343",
+    "player_name": "Preston Smith",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
       "gp": 1.0
     }
   },
@@ -299128,6 +301393,69 @@
     }
   },
   {
+    "player_id": "10903",
+    "player_name": "Quan Martin",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8266",
+    "player_name": "Quay Walker",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 14.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11662",
+    "player_name": "Quinyon Mitchell",
+    "team": "PHI",
+    "position": "CB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5839",
+    "player_name": "Rashan Gary",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8511",
+    "player_name": "Rasheed Walker",
+    "team": "GB",
+    "position": "OL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8676",
     "player_name": "Rashid Shaheed",
     "team": "SEA",
@@ -299140,6 +301468,19 @@
       "rush_yd": 31.0,
       "rec_tgt": 1.0,
       "pts_ppr": 9.1,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8406",
+    "player_name": "Reed Blankenship",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
       "gp": 1.0
     }
   },
@@ -299169,11 +301510,40 @@
     }
   },
   {
+    "player_id": "8121",
+    "player_name": "Romeo Doubs",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 5.0,
+      "rec_yd": 84.0,
+      "rec_td": 1.0,
+      "rec_tgt": 6.0,
+      "pts_ppr": 19.4,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "8195",
     "player_name": "Ronnie Rivers",
     "team": "LAR",
     "position": "RB",
     "opponent": "SEA",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6000",
+    "player_name": "Ryan Bates",
+    "team": "CHI",
+    "position": "OL",
+    "opponent": "GB",
     "season": 2025,
     "week": 16,
     "stats": {
@@ -299194,6 +301564,18 @@
     }
   },
   {
+    "player_id": "7652",
+    "player_name": "Sam Cosmi",
+    "team": "WAS",
+    "position": "OL",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "4943",
     "player_name": "Sam Darnold",
     "team": "SEA",
@@ -299210,6 +301592,62 @@
       "rush_att": 3.0,
       "rush_yd": 7.0,
       "pts_ppr": 21.5,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4866",
+    "player_name": "Saquon Barkley",
+    "team": "PHI",
+    "position": "RB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 21.0,
+      "rush_yd": 132.0,
+      "rush_td": 1.0,
+      "rec_tgt": 2.0,
+      "pts_ppr": 21.2,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12482",
+    "player_name": "Savion Williams",
+    "team": "GB",
+    "position": "WR",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 2.0,
+      "rush_yd": 9.0,
+      "pts_ppr": 0.9,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4959",
+    "player_name": "Scott Daly",
+    "team": "CHI",
+    "position": "LS",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8460",
+    "player_name": "Sean Rhyan",
+    "team": "GB",
+    "position": "OL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
       "gp": 1.0
     }
   },
@@ -299264,6 +301702,31 @@
     }
   },
   {
+    "player_id": "3265",
+    "player_name": "Sheldon Day",
+    "team": "WAS",
+    "position": "DT",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12667",
+    "player_name": "Smael Mondon",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "10912",
     "player_name": "Steve Avila",
     "team": "LAR",
@@ -299272,6 +301735,63 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10919",
+    "player_name": "Sydney Brown",
+    "team": "PHI",
+    "position": "DB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5960",
+    "player_name": "T.J. Edwards",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 10.0,
+      "idp_sack": 0.5,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "9225",
+    "player_name": "Tank Bigsby",
+    "team": "PHI",
+    "position": "RB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 4.0,
+      "rush_yd": 37.0,
+      "rush_td": 1.0,
+      "pts_ppr": 9.7,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "9230",
+    "player_name": "Tanner McKee",
+    "team": "PHI",
+    "position": "QB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rush_att": 2.0,
+      "rush_yd": -2.0,
+      "pts_ppr": -0.2,
       "gp": 1.0
     }
   },
@@ -299289,6 +301809,112 @@
       "rec_td": 1.0,
       "rec_tgt": 4.0,
       "pts_ppr": 12.3,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5927",
+    "player_name": "Terry McLaurin",
+    "team": "WAS",
+    "position": "WR",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 3.0,
+      "rec_yd": 53.0,
+      "rec_tgt": 4.0,
+      "pts_ppr": 8.3,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12208",
+    "player_name": "Theo Benedet",
+    "team": "CHI",
+    "position": "OT",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11732",
+    "player_name": "Tory Taylor",
+    "team": "CHI",
+    "position": "P",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6012",
+    "player_name": "Travis Homer",
+    "team": "CHI",
+    "position": "RB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "4968",
+    "player_name": "Tremaine Edmunds",
+    "team": "CHI",
+    "position": "LB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 6.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5423",
+    "player_name": "Trent Scott",
+    "team": "WAS",
+    "position": "T",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "1506",
+    "player_name": "Tress Way",
+    "team": "WAS",
+    "position": "P",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8135",
+    "player_name": "Treylon Burks",
+    "team": "WAS",
+    "position": "WR",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 2.0,
+      "rec_yd": 30.0,
+      "rec_tgt": 5.0,
+      "idp_tkl": 1.0,
+      "pts_ppr": 5.0,
       "gp": 1.0
     }
   },
@@ -299343,6 +301969,42 @@
     }
   },
   {
+    "player_id": "12651",
+    "player_name": "Ty Robinson",
+    "team": "PHI",
+    "position": "DT",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11712",
+    "player_name": "Ty'Ron Hopper",
+    "team": "GB",
+    "position": "LB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6835",
+    "player_name": "Tyler Biadasz",
+    "team": "WAS",
+    "position": "C",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11799",
     "player_name": "Tyler Davis",
     "team": "LAR",
@@ -299356,6 +302018,42 @@
     }
   },
   {
+    "player_id": "1844",
+    "player_name": "Tyler Ott",
+    "team": "WAS",
+    "position": "LS",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11934",
+    "player_name": "Tyler Owens",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10920",
+    "player_name": "Tyler Steen",
+    "team": "PHI",
+    "position": "OL",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "11734",
     "player_name": "Tyrice Knight",
     "team": "SEA",
@@ -299364,6 +302062,19 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "10897",
+    "player_name": "Tyrique Stevenson",
+    "team": "CHI",
+    "position": "CB",
+    "opponent": "GB",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 2.0,
       "gp": 1.0
     }
   },
@@ -299381,6 +302092,32 @@
     }
   },
   {
+    "player_id": "871",
+    "player_name": "Von Miller",
+    "team": "WAS",
+    "position": "LB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "12704",
+    "player_name": "Warren Brinson",
+    "team": "GB",
+    "position": "DL",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 1.0,
+      "gp": 1.0
+    }
+  },
+  {
     "player_id": "10965",
     "player_name": "Warren McClendon",
     "team": "LAR",
@@ -299389,6 +302126,86 @@
     "season": 2025,
     "week": 16,
     "stats": {
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "WAS",
+    "player_name": "Washington Commanders",
+    "team": "WAS",
+    "position": "DEF",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pts_ppr": 4.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "TEAM_WAS",
+    "player_name": "Washington Commanders",
+    "team": "WAS",
+    "position": "TEAM",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "pass_att": 23.0,
+      "pass_cmp": 12.0,
+      "pass_yd": 138.0,
+      "pass_int": 1.0,
+      "rush_att": 26.0,
+      "rush_yd": 90.0,
+      "rush_td": 2.0,
+      "rec": 12.0,
+      "rec_yd": 138.0,
+      "rec_tgt": 20.0,
+      "fgm": 1.0,
+      "fga": 1.0,
+      "pts_ppr": 59.3,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "5920",
+    "player_name": "Will Harris",
+    "team": "WAS",
+    "position": "DB",
+    "opponent": "PHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 3.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "11577",
+    "player_name": "Will Shipley",
+    "team": "PHI",
+    "position": "RB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "rec": 1.0,
+      "rec_yd": 3.0,
+      "rec_tgt": 1.0,
+      "pts_ppr": -0.7,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6788",
+    "player_name": "Xavier McKinney",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 6.0,
       "gp": 1.0
     }
   },
@@ -299424,6 +302241,31 @@
       "rec_yd": 22.0,
       "rec_tgt": 4.0,
       "pts_ppr": 17.4,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "6815",
+    "player_name": "Zack Baun",
+    "team": "PHI",
+    "position": "LB",
+    "opponent": "WAS",
+    "season": 2025,
+    "week": 16,
+    "stats": {
+      "idp_tkl": 9.0,
+      "gp": 1.0
+    }
+  },
+  {
+    "player_id": "8000",
+    "player_name": "Zayne Anderson",
+    "team": "GB",
+    "position": "DB",
+    "opponent": "CHI",
+    "season": 2025,
+    "week": 16,
+    "stats": {
       "gp": 1.0
     }
   }

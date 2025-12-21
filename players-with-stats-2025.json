@@ -2319,22 +2319,6 @@
     }
   },
   {
-    "name": "Teddye Buchanan",
-    "team": "Baltimore Ravens",
-    "team_code": "BAL",
-    "position": "LB",
-    "number": 40,
-    "stats": {
-      "gp": 14.0,
-      "gs": 13.0,
-      "def_snp": 651.0,
-      "st_snp": 237.0,
-      "idp_tkl": 85.0,
-      "idp_sack": 0.5,
-      "idp_ff": 1.0
-    }
-  },
-  {
     "name": "Trenton Simpson",
     "team": "Baltimore Ravens",
     "team_code": "BAL",
@@ -3304,6 +3288,20 @@
     }
   },
   {
+    "name": "Matthew Judon",
+    "team": "Buffalo Bills",
+    "team_code": "BUF",
+    "position": "LB",
+    "number": 8,
+    "stats": {
+      "gp": 13.0,
+      "gs": 3.0,
+      "def_snp": 314.0,
+      "st_snp": 102.0,
+      "idp_tkl": 16.0
+    }
+  },
+  {
     "name": "Shaq Thompson",
     "team": "Buffalo Bills",
     "team_code": "BUF",
@@ -3711,6 +3709,18 @@
       "rec_yd": 650.0,
       "rec_td": 4.0,
       "rush_yd": 5.0
+    }
+  },
+  {
+    "name": "Mecole Hardman",
+    "team": "Buffalo Bills",
+    "team_code": "BUF",
+    "position": "WR",
+    "number": 16,
+    "stats": {
+      "gp": 1.0,
+      "off_snp": 4.0,
+      "st_snp": 7.0
     }
   },
   {
@@ -5182,6 +5192,22 @@
       "def_snp": 355.0,
       "st_snp": 13.0,
       "idp_tkl": 44.0
+    }
+  },
+  {
+    "name": "Tremaine Edmunds",
+    "team": "Chicago Bears",
+    "team_code": "CHI",
+    "position": "LB",
+    "number": 49,
+    "stats": {
+      "gp": 10.0,
+      "gs": 10.0,
+      "def_snp": 604.0,
+      "st_snp": 9.0,
+      "idp_tkl": 89.0,
+      "idp_sack": 1.0,
+      "idp_int": 4.0
     }
   },
   {
@@ -7157,19 +7183,6 @@
     }
   },
   {
-    "name": "Jack Conklin",
-    "team": "Cleveland Browns",
-    "team_code": "CLE",
-    "position": "OT",
-    "number": 78,
-    "stats": {
-      "gp": 8.0,
-      "gs": 8.0,
-      "off_snp": 382.0,
-      "st_snp": 19.0
-    }
-  },
-  {
     "name": "Corey Bojorquez",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -7560,6 +7573,19 @@
     }
   },
   {
+    "name": "Trevon Diggs",
+    "team": "Dallas Cowboys",
+    "team_code": "DAL",
+    "position": "CB",
+    "number": 7,
+    "stats": {
+      "gp": 6.0,
+      "gs": 4.0,
+      "def_snp": 329.0,
+      "idp_tkl": 18.0
+    }
+  },
+  {
     "name": "Alijah Clark",
     "team": "Dallas Cowboys",
     "team_code": "DAL",
@@ -7586,20 +7612,6 @@
       "def_snp": 143.0,
       "st_snp": 45.0,
       "idp_tkl": 11.0
-    }
-  },
-  {
-    "name": "DaRon Bland",
-    "team": "Dallas Cowboys",
-    "team_code": "DAL",
-    "position": "DB",
-    "number": 26,
-    "stats": {
-      "gp": 12.0,
-      "gs": 12.0,
-      "def_snp": 746.0,
-      "idp_tkl": 73.0,
-      "idp_int": 1.0
     }
   },
   {
@@ -8780,6 +8792,19 @@
     }
   },
   {
+    "name": "Ben Powers",
+    "team": "Denver Broncos",
+    "team_code": "DEN",
+    "position": "G",
+    "number": 74,
+    "stats": {
+      "gp": 5.0,
+      "gs": 5.0,
+      "off_snp": 341.0,
+      "st_snp": 20.0
+    }
+  },
+  {
     "name": "Tristen Hoge",
     "team": "Denver Broncos",
     "team_code": "DEN",
@@ -9551,21 +9576,6 @@
     }
   },
   {
-    "name": "Kerby Joseph",
-    "team": "Detroit Lions",
-    "team_code": "DET",
-    "position": "DB",
-    "number": 31,
-    "stats": {
-      "gp": 6.0,
-      "gs": 6.0,
-      "def_snp": 316.0,
-      "st_snp": 11.0,
-      "idp_tkl": 18.0,
-      "idp_int": 3.0
-    }
-  },
-  {
     "name": "Loren Strickland",
     "team": "Detroit Lions",
     "team_code": "DET",
@@ -9942,6 +9952,19 @@
       "gp": 2.0,
       "off_snp": 39.0,
       "st_snp": 16.0
+    }
+  },
+  {
+    "name": "Christian Mahogany",
+    "team": "Detroit Lions",
+    "team_code": "DET",
+    "position": "OL",
+    "number": 73,
+    "stats": {
+      "gp": 8.0,
+      "gs": 8.0,
+      "off_snp": 495.0,
+      "st_snp": 41.0
     }
   },
   {
@@ -14551,22 +14574,6 @@
     "number": 42
   },
   {
-    "name": "Leo Chenal",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "LB",
-    "number": 54,
-    "stats": {
-      "gp": 14.0,
-      "gs": 12.0,
-      "def_snp": 440.0,
-      "st_snp": 227.0,
-      "idp_tkl": 54.0,
-      "idp_sack": 2.0,
-      "idp_int": 1.0
-    }
-  },
-  {
     "name": "Nick Bolton",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
@@ -14653,19 +14660,6 @@
       "gp": 8.0,
       "off_snp": 26.0,
       "st_snp": 32.0
-    }
-  },
-  {
-    "name": "Jawaan Taylor",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "OL",
-    "number": 74,
-    "stats": {
-      "gp": 12.0,
-      "gs": 12.0,
-      "off_snp": 760.0,
-      "st_snp": 10.0
     }
   },
   {
@@ -15238,13 +15232,6 @@
       "st_snp": 13.0,
       "idp_tkl": 4.0
     }
-  },
-  {
-    "name": "Jahfari Harvey",
-    "team": "Las Vegas Raiders",
-    "team_code": "LV",
-    "position": "DE",
-    "number": 91
   },
   {
     "name": "Malcolm Koonce",
@@ -16952,8 +16939,8 @@
     "stats": {
       "gp": 13.0,
       "gs": 11.0,
-      "off_snp": 604.0,
-      "st_snp": 58.0
+      "off_snp": 696.0,
+      "st_snp": 66.0
     }
   },
   {
@@ -16986,8 +16973,8 @@
     "stats": {
       "gp": 12.0,
       "gs": 3.0,
-      "def_snp": 424.0,
-      "st_snp": 32.0,
+      "def_snp": 458.0,
+      "st_snp": 34.0,
       "idp_tkl": 25.0,
       "idp_int": 1.0
     }
@@ -17001,8 +16988,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 12.0,
-      "def_snp": 682.0,
-      "st_snp": 66.0,
+      "def_snp": 733.0,
+      "st_snp": 68.0,
       "idp_tkl": 41.0,
       "idp_int": 3.0,
       "idp_ff": 1.0
@@ -17024,7 +17011,7 @@
     "stats": {
       "gp": 13.0,
       "def_snp": 3.0,
-      "st_snp": 201.0,
+      "st_snp": 221.0,
       "idp_tkl": 1.0
     }
   },
@@ -17037,8 +17024,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 13.0,
-      "def_snp": 684.0,
-      "st_snp": 76.0,
+      "def_snp": 739.0,
+      "st_snp": 81.0,
       "idp_tkl": 37.0,
       "idp_int": 3.0
     }
@@ -17058,8 +17045,8 @@
     "number": 21,
     "stats": {
       "gp": 13.0,
-      "def_snp": 122.0,
-      "st_snp": 66.0,
+      "def_snp": 127.0,
+      "st_snp": 82.0,
       "idp_tkl": 7.0,
       "idp_int": 2.0
     }
@@ -17073,8 +17060,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 4.0,
-      "def_snp": 398.0,
-      "st_snp": 258.0,
+      "def_snp": 419.0,
+      "st_snp": 282.0,
       "idp_tkl": 35.0,
       "idp_sack": 2.0
     }
@@ -17087,8 +17074,8 @@
     "number": 30,
     "stats": {
       "gp": 15.0,
-      "def_snp": 239.0,
-      "st_snp": 149.0,
+      "def_snp": 270.0,
+      "st_snp": 154.0,
       "idp_tkl": 17.0,
       "idp_int": 1.0
     }
@@ -17102,8 +17089,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 936.0,
-      "st_snp": 27.0,
+      "def_snp": 1004.0,
+      "st_snp": 31.0,
       "idp_tkl": 108.0,
       "idp_sack": 2.0,
       "idp_int": 2.0,
@@ -17119,8 +17106,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 7.0,
-      "def_snp": 703.0,
-      "st_snp": 54.0,
+      "def_snp": 764.0,
+      "st_snp": 57.0,
       "idp_tkl": 70.0,
       "idp_int": 2.0
     }
@@ -17159,8 +17146,8 @@
     "number": 10,
     "stats": {
       "gp": 15.0,
-      "def_snp": 325.0,
-      "st_snp": 98.0,
+      "def_snp": 336.0,
+      "st_snp": 106.0,
       "idp_tkl": 21.0,
       "idp_sack": 2.0
     }
@@ -17181,7 +17168,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 14.0,
-      "def_snp": 484.0,
+      "def_snp": 505.0,
       "st_snp": 51.0,
       "idp_tkl": 28.0,
       "idp_sack": 2.0
@@ -17196,8 +17183,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 726.0,
-      "st_snp": 53.0,
+      "def_snp": 784.0,
+      "st_snp": 55.0,
       "idp_tkl": 49.0,
       "idp_sack": 6.5,
       "idp_ff": 3.0
@@ -17211,8 +17198,8 @@
     "number": 94,
     "stats": {
       "gp": 4.0,
-      "def_snp": 55.0,
-      "st_snp": 32.0,
+      "def_snp": 65.0,
+      "st_snp": 51.0,
       "idp_tkl": 7.0
     }
   },
@@ -17232,8 +17219,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 623.0,
-      "st_snp": 73.0,
+      "def_snp": 680.0,
+      "st_snp": 77.0,
       "idp_tkl": 42.0,
       "idp_sack": 7.0,
       "idp_int": 1.0
@@ -17247,8 +17234,8 @@
     "number": 52,
     "stats": {
       "gp": 15.0,
-      "def_snp": 118.0,
-      "st_snp": 31.0,
+      "def_snp": 122.0,
+      "st_snp": 35.0,
       "idp_tkl": 7.0,
       "idp_sack": 2.0
     }
@@ -17262,8 +17249,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 9.0,
-      "def_snp": 410.0,
-      "st_snp": 55.0,
+      "def_snp": 453.0,
+      "st_snp": 57.0,
       "idp_tkl": 44.0,
       "idp_sack": 2.0
     }
@@ -17276,7 +17263,7 @@
     "number": 57,
     "stats": {
       "gp": 12.0,
-      "def_snp": 103.0,
+      "def_snp": 113.0,
       "idp_tkl": 9.0
     }
   },
@@ -17289,8 +17276,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 1.0,
-      "def_snp": 393.0,
-      "st_snp": 20.0,
+      "def_snp": 423.0,
+      "st_snp": 22.0,
       "idp_tkl": 40.0,
       "idp_sack": 1.0
     }
@@ -17310,7 +17297,7 @@
     "number": 92,
     "stats": {
       "gp": 7.0,
-      "st_snp": 39.0,
+      "st_snp": 47.0,
       "fgm": 8.0,
       "fga": 9.0,
       "xpm": 32.0,
@@ -17341,8 +17328,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 720.0,
-      "st_snp": 21.0,
+      "def_snp": 778.0,
+      "st_snp": 23.0,
       "idp_tkl": 72.0,
       "idp_sack": 11.0,
       "idp_ff": 1.0
@@ -17375,8 +17362,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 859.0,
-      "st_snp": 73.0,
+      "def_snp": 926.0,
+      "st_snp": 77.0,
       "idp_tkl": 123.0,
       "idp_sack": 2.5,
       "idp_int": 1.0,
@@ -17405,8 +17392,8 @@
     "stats": {
       "gp": 14.0,
       "gs": 14.0,
-      "def_snp": 544.0,
-      "st_snp": 223.0,
+      "def_snp": 597.0,
+      "st_snp": 243.0,
       "idp_tkl": 67.0
     }
   },
@@ -17419,7 +17406,7 @@
     "stats": {
       "gp": 15.0,
       "def_snp": 42.0,
-      "st_snp": 213.0,
+      "st_snp": 234.0,
       "idp_tkl": 7.0
     }
   },
@@ -17433,7 +17420,7 @@
       "gp": 15.0,
       "gs": 1.0,
       "def_snp": 70.0,
-      "st_snp": 265.0,
+      "st_snp": 288.0,
       "idp_tkl": 8.0
     }
   },
@@ -17445,7 +17432,7 @@
     "number": 44,
     "stats": {
       "gp": 7.0,
-      "st_snp": 51.0
+      "st_snp": 63.0
     }
   },
   {
@@ -17457,8 +17444,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 887.0,
-      "st_snp": 74.0
+      "off_snp": 979.0,
+      "st_snp": 82.0
     }
   },
   {
@@ -17489,8 +17476,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 891.0,
-      "st_snp": 48.0
+      "off_snp": 983.0,
+      "st_snp": 56.0
     }
   },
   {
@@ -17502,7 +17489,7 @@
     "stats": {
       "gp": 6.0,
       "off_snp": 16.0,
-      "st_snp": 12.0
+      "st_snp": 20.0
     }
   },
   {
@@ -17514,7 +17501,7 @@
     "stats": {
       "gp": 11.0,
       "off_snp": 15.0,
-      "st_snp": 54.0
+      "st_snp": 62.0
     }
   },
   {
@@ -17533,8 +17520,8 @@
     "stats": {
       "gp": 14.0,
       "gs": 4.0,
-      "off_snp": 285.0,
-      "st_snp": 72.0
+      "off_snp": 356.0,
+      "st_snp": 80.0
     }
   },
   {
@@ -17546,7 +17533,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 865.0,
+      "off_snp": 886.0,
       "st_snp": 73.0
     }
   },
@@ -17559,8 +17546,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 8.0,
-      "off_snp": 438.0,
-      "st_snp": 74.0
+      "off_snp": 530.0,
+      "st_snp": 82.0
     }
   },
   {
@@ -17578,7 +17565,7 @@
     "number": 42,
     "stats": {
       "gp": 15.0,
-      "st_snp": 158.0
+      "st_snp": 178.0
     }
   },
   {
@@ -17602,7 +17589,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 888.0,
+      "off_snp": 980.0,
       "pass_yd": 4179.0,
       "pass_td": 40.0,
       "pass_int": 5.0,
@@ -17624,8 +17611,8 @@
     "number": 22,
     "stats": {
       "gp": 15.0,
-      "off_snp": 264.0,
-      "st_snp": 63.0,
+      "off_snp": 291.0,
+      "st_snp": 64.0,
       "rush_yd": 669.0,
       "rush_td": 6.0,
       "rec": 7.0,
@@ -17652,7 +17639,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 614.0,
+      "off_snp": 679.0,
       "st_snp": 9.0,
       "rush_yd": 1100.0,
       "rush_td": 10.0,
@@ -17670,7 +17657,7 @@
     "stats": {
       "gp": 9.0,
       "off_snp": 13.0,
-      "st_snp": 54.0,
+      "st_snp": 64.0,
       "rush_yd": 41.0
     }
   },
@@ -17683,7 +17670,7 @@
     "stats": {
       "gp": 13.0,
       "gs": 8.0,
-      "off_snp": 428.0,
+      "off_snp": 507.0,
       "st_snp": 18.0,
       "rec": 33.0,
       "rec_yd": 319.0,
@@ -17699,8 +17686,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 3.0,
-      "off_snp": 445.0,
-      "st_snp": 173.0,
+      "off_snp": 505.0,
+      "st_snp": 188.0,
       "rec": 24.0,
       "rec_yd": 208.0,
       "rec_td": 3.0
@@ -17723,7 +17710,7 @@
       "gp": 8.0,
       "gs": 1.0,
       "off_snp": 41.0,
-      "st_snp": 40.0
+      "st_snp": 53.0
     }
   },
   {
@@ -17735,8 +17722,8 @@
     "stats": {
       "gp": 13.0,
       "gs": 2.0,
-      "off_snp": 254.0,
-      "st_snp": 61.0,
+      "off_snp": 324.0,
+      "st_snp": 67.0,
       "rec": 9.0,
       "rec_yd": 177.0,
       "rec_td": 2.0
@@ -17778,8 +17765,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 6.0,
-      "off_snp": 415.0,
-      "st_snp": 128.0,
+      "off_snp": 430.0,
+      "st_snp": 149.0,
       "rec": 18.0,
       "rec_yd": 171.0,
       "rush_yd": 12.0
@@ -17793,8 +17780,8 @@
     "number": 15,
     "stats": {
       "gp": 15.0,
-      "off_snp": 254.0,
-      "st_snp": 70.0,
+      "off_snp": 296.0,
+      "st_snp": 73.0,
       "rec": 8.0,
       "rec_yd": 82.0,
       "rec_td": 1.0
@@ -17809,7 +17796,7 @@
     "stats": {
       "gp": 14.0,
       "gs": 13.0,
-      "off_snp": 555.0,
+      "off_snp": 627.0,
       "st_snp": 2.0,
       "rec": 114.0,
       "rec_yd": 1592.0,
@@ -17833,7 +17820,7 @@
     "stats": {
       "gp": 8.0,
       "gs": 4.0,
-      "off_snp": 156.0,
+      "off_snp": 164.0,
       "rec": 5.0,
       "rec_yd": 173.0,
       "rec_td": 1.0
@@ -17855,8 +17842,8 @@
     "stats": {
       "gp": 14.0,
       "gs": 3.0,
-      "off_snp": 153.0,
-      "st_snp": 132.0,
+      "off_snp": 175.0,
+      "st_snp": 138.0,
       "rec": 13.0,
       "rec_yd": 230.0
     }
@@ -17981,18 +17968,6 @@
       "st_snp": 219.0,
       "idp_tkl": 36.0,
       "idp_ff": 1.0
-    }
-  },
-  {
-    "name": "Elijah Campbell",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "DB",
-    "number": 22,
-    "stats": {
-      "gp": 10.0,
-      "def_snp": 16.0,
-      "st_snp": 183.0
     }
   },
   {
@@ -21553,6 +21528,17 @@
     "number": 89
   },
   {
+    "name": "Art Green",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "CB",
+    "number": 23,
+    "stats": {
+      "gp": 8.0,
+      "st_snp": 166.0
+    }
+  },
+  {
     "name": "Jarrick Bernard-Converse",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -21831,21 +21817,6 @@
       "def_snp": 292.0,
       "st_snp": 11.0,
       "idp_tkl": 13.0,
-      "idp_sack": 2.5
-    }
-  },
-  {
-    "name": "Kayvon Thibodeaux",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "DL",
-    "number": 5,
-    "stats": {
-      "gp": 10.0,
-      "gs": 10.0,
-      "def_snp": 494.0,
-      "st_snp": 49.0,
-      "idp_tkl": 25.0,
       "idp_sack": 2.5
     }
   },
@@ -24762,13 +24733,6 @@
     }
   },
   {
-    "name": "Kana'i Mauga",
-    "team": "Pittsburgh Steelers",
-    "team_code": "PIT",
-    "position": "LB",
-    "number": 57
-  },
-  {
     "name": "Malik Harrison",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -25783,20 +25747,6 @@
     }
   },
   {
-    "name": "Nick Martin",
-    "team": "San Francisco 49ers",
-    "team_code": "SF",
-    "position": "LB",
-    "number": 45,
-    "stats": {
-      "gp": 7.0,
-      "def_snp": 15.0,
-      "st_snp": 74.0,
-      "idp_tkl": 6.0,
-      "idp_ff": 1.0
-    }
-  },
-  {
     "name": "Robert Beal",
     "team": "San Francisco 49ers",
     "team_code": "SF",
@@ -26275,8 +26225,8 @@
     "stats": {
       "gp": 11.0,
       "gs": 11.0,
-      "off_snp": 532.0,
-      "st_snp": 56.0
+      "off_snp": 600.0,
+      "st_snp": 58.0
     }
   },
   {
@@ -26299,8 +26249,8 @@
     "number": 28,
     "stats": {
       "gp": 15.0,
-      "def_snp": 75.0,
-      "st_snp": 209.0,
+      "def_snp": 87.0,
+      "st_snp": 232.0,
       "idp_tkl": 4.0
     }
   },
@@ -26333,8 +26283,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 921.0,
-      "st_snp": 54.0,
+      "def_snp": 977.0,
+      "st_snp": 59.0,
       "idp_tkl": 64.0,
       "idp_int": 4.0,
       "idp_ff": 1.0
@@ -26364,7 +26314,7 @@
     "stats": {
       "gp": 10.0,
       "gs": 10.0,
-      "def_snp": 542.0,
+      "def_snp": 630.0,
       "st_snp": 8.0,
       "idp_tkl": 64.0,
       "idp_sack": 0.5,
@@ -26380,8 +26330,8 @@
     "stats": {
       "gp": 14.0,
       "gs": 13.0,
-      "def_snp": 702.0,
-      "st_snp": 19.0,
+      "def_snp": 767.0,
+      "st_snp": 20.0,
       "idp_tkl": 52.0,
       "idp_sack": 0.5,
       "idp_int": 1.0
@@ -26396,8 +26346,8 @@
     "stats": {
       "gp": 6.0,
       "gs": 6.0,
-      "def_snp": 274.0,
-      "st_snp": 12.0,
+      "def_snp": 363.0,
+      "st_snp": 20.0,
       "idp_tkl": 28.0,
       "idp_sack": 1.0
     }
@@ -26418,8 +26368,8 @@
     "stats": {
       "gp": 12.0,
       "gs": 9.0,
-      "def_snp": 603.0,
-      "st_snp": 29.0,
+      "def_snp": 678.0,
+      "st_snp": 36.0,
       "idp_tkl": 71.0,
       "idp_sack": 2.5,
       "idp_int": 1.0
@@ -26448,7 +26398,7 @@
     "stats": {
       "gp": 14.0,
       "gs": 7.0,
-      "def_snp": 705.0,
+      "def_snp": 747.0,
       "st_snp": 13.0,
       "idp_tkl": 37.0,
       "idp_int": 1.0
@@ -26463,8 +26413,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 9.0,
-      "def_snp": 621.0,
-      "st_snp": 96.0,
+      "def_snp": 653.0,
+      "st_snp": 117.0,
       "idp_tkl": 55.0,
       "idp_sack": 1.5,
       "idp_int": 1.0
@@ -26486,7 +26436,7 @@
     "stats": {
       "gp": 6.0,
       "def_snp": 24.0,
-      "st_snp": 55.0
+      "st_snp": 73.0
     }
   },
   {
@@ -26498,8 +26448,8 @@
     "stats": {
       "gp": 14.0,
       "gs": 14.0,
-      "def_snp": 498.0,
-      "st_snp": 34.0,
+      "def_snp": 563.0,
+      "st_snp": 42.0,
       "idp_tkl": 46.0,
       "idp_sack": 5.0,
       "idp_ff": 2.0
@@ -26514,8 +26464,8 @@
     "stats": {
       "gp": 13.0,
       "gs": 3.0,
-      "def_snp": 357.0,
-      "st_snp": 40.0,
+      "def_snp": 399.0,
+      "st_snp": 48.0,
       "idp_tkl": 29.0,
       "idp_sack": 1.0
     }
@@ -26552,8 +26502,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 672.0,
-      "st_snp": 43.0,
+      "def_snp": 745.0,
+      "st_snp": 51.0,
       "idp_tkl": 59.0,
       "idp_sack": 7.0
     }
@@ -26566,8 +26516,8 @@
     "number": 94,
     "stats": {
       "gp": 15.0,
-      "def_snp": 151.0,
-      "st_snp": 294.0,
+      "def_snp": 156.0,
+      "st_snp": 314.0,
       "idp_tkl": 9.0
     }
   },
@@ -26580,8 +26530,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 4.0,
-      "def_snp": 498.0,
-      "st_snp": 43.0,
+      "def_snp": 522.0,
+      "st_snp": 50.0,
       "idp_tkl": 26.0,
       "idp_sack": 1.0,
       "idp_ff": 1.0
@@ -26596,8 +26546,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "def_snp": 645.0,
-      "st_snp": 46.0,
+      "def_snp": 716.0,
+      "st_snp": 54.0,
       "idp_tkl": 57.0,
       "idp_sack": 7.0
     }
@@ -26617,7 +26567,7 @@
     "number": 98,
     "stats": {
       "gp": 2.0,
-      "def_snp": 7.0,
+      "def_snp": 13.0,
       "idp_tkl": 1.0
     }
   },
@@ -26652,8 +26602,8 @@
     "stats": {
       "gp": 11.0,
       "gs": 2.0,
-      "def_snp": 316.0,
-      "st_snp": 25.0,
+      "def_snp": 362.0,
+      "st_snp": 33.0,
       "idp_tkl": 27.0,
       "idp_sack": 1.5
     }
@@ -26666,7 +26616,7 @@
     "number": 5,
     "stats": {
       "gp": 15.0,
-      "st_snp": 173.0,
+      "st_snp": 181.0,
       "fgm": 37.0,
       "fga": 42.0,
       "xpm": 44.0,
@@ -26689,8 +26639,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 12.0,
-      "def_snp": 614.0,
-      "st_snp": 136.0,
+      "def_snp": 691.0,
+      "st_snp": 143.0,
       "idp_tkl": 79.0,
       "idp_sack": 3.5
     }
@@ -26711,8 +26661,8 @@
     "stats": {
       "gp": 13.0,
       "gs": 13.0,
-      "def_snp": 722.0,
-      "st_snp": 39.0,
+      "def_snp": 814.0,
+      "st_snp": 47.0,
       "idp_tkl": 116.0,
       "idp_sack": 0.5,
       "idp_int": 5.0
@@ -26745,7 +26695,7 @@
     "stats": {
       "gp": 7.0,
       "def_snp": 53.0,
-      "st_snp": 101.0,
+      "st_snp": 124.0,
       "idp_tkl": 10.0,
       "idp_sack": 1.0
     }
@@ -26760,7 +26710,7 @@
       "gp": 14.0,
       "gs": 4.0,
       "def_snp": 303.0,
-      "st_snp": 111.0,
+      "st_snp": 133.0,
       "idp_tkl": 49.0,
       "idp_sack": 2.0,
       "idp_ff": 2.0
@@ -26775,7 +26725,7 @@
     "stats": {
       "gp": 14.0,
       "gs": 10.0,
-      "def_snp": 476.0,
+      "def_snp": 528.0,
       "st_snp": 11.0,
       "idp_tkl": 32.0,
       "idp_sack": 6.0
@@ -26789,7 +26739,7 @@
     "number": 41,
     "stats": {
       "gp": 15.0,
-      "st_snp": 130.0
+      "st_snp": 137.0
     }
   },
   {
@@ -26808,7 +26758,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 858.0,
+      "off_snp": 926.0,
       "st_snp": 81.0
     }
   },
@@ -26821,8 +26771,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 835.0,
-      "st_snp": 85.0
+      "off_snp": 903.0,
+      "st_snp": 87.0
     }
   },
   {
@@ -26847,7 +26797,7 @@
     "stats": {
       "gp": 6.0,
       "off_snp": 32.0,
-      "st_snp": 14.0
+      "st_snp": 16.0
     }
   },
   {
@@ -26866,8 +26816,8 @@
     "stats": {
       "gp": 12.0,
       "gs": 1.0,
-      "off_snp": 56.0,
-      "st_snp": 69.0
+      "off_snp": 124.0,
+      "st_snp": 71.0
     }
   },
   {
@@ -26898,7 +26848,7 @@
     "stats": {
       "gp": 2.0,
       "off_snp": 2.0,
-      "st_snp": 6.0
+      "st_snp": 8.0
     }
   },
   {
@@ -26922,8 +26872,8 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 848.0,
-      "st_snp": 78.0
+      "off_snp": 916.0,
+      "st_snp": 80.0
     }
   },
   {
@@ -26941,7 +26891,7 @@
     "number": 4,
     "stats": {
       "gp": 15.0,
-      "st_snp": 130.0
+      "st_snp": 137.0
     }
   },
   {
@@ -26978,7 +26928,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 823.0,
+      "off_snp": 891.0,
       "pass_yd": 3703.0,
       "pass_td": 24.0,
       "pass_int": 13.0,
@@ -27001,7 +26951,7 @@
     "stats": {
       "gp": 4.0,
       "off_snp": 8.0,
-      "st_snp": 7.0,
+      "st_snp": 11.0,
       "rush_yd": 19.0
     }
   },
@@ -27027,7 +26977,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 408.0,
+      "off_snp": 438.0,
       "rush_yd": 879.0,
       "rush_td": 5.0,
       "rec": 25.0,
@@ -27043,8 +26993,8 @@
     "stats": {
       "gp": 10.0,
       "gs": 2.0,
-      "off_snp": 158.0,
-      "st_snp": 42.0
+      "off_snp": 168.0,
+      "st_snp": 51.0
     }
   },
   {
@@ -27055,7 +27005,7 @@
     "number": 26,
     "stats": {
       "gp": 14.0,
-      "off_snp": 377.0,
+      "off_snp": 415.0,
       "st_snp": 3.0,
       "rush_yd": 546.0,
       "rush_td": 9.0,
@@ -27072,7 +27022,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 669.0,
+      "off_snp": 733.0,
       "st_snp": 44.0,
       "rec": 47.0,
       "rec_yd": 462.0,
@@ -27089,7 +27039,7 @@
       "gp": 15.0,
       "gs": 1.0,
       "off_snp": 54.0,
-      "st_snp": 336.0
+      "st_snp": 361.0
     }
   },
   {
@@ -27101,8 +27051,8 @@
     "stats": {
       "gp": 9.0,
       "gs": 3.0,
-      "off_snp": 146.0,
-      "st_snp": 101.0,
+      "off_snp": 172.0,
+      "st_snp": 120.0,
       "rec": 2.0,
       "rec_yd": 21.0
     }
@@ -27115,8 +27065,8 @@
     "number": 89,
     "stats": {
       "gp": 8.0,
-      "off_snp": 122.0,
-      "st_snp": 42.0
+      "off_snp": 123.0,
+      "st_snp": 51.0
     }
   },
   {
@@ -27127,8 +27077,8 @@
     "number": 82,
     "stats": {
       "gp": 9.0,
-      "off_snp": 159.0,
-      "st_snp": 98.0,
+      "off_snp": 165.0,
+      "st_snp": 115.0,
       "rec": 3.0,
       "rec_yd": 90.0,
       "rec_td": 1.0
@@ -27143,7 +27093,7 @@
     "stats": {
       "gp": 14.0,
       "gs": 14.0,
-      "off_snp": 594.0,
+      "off_snp": 657.0,
       "st_snp": 2.0,
       "rec": 44.0,
       "rec_yd": 558.0,
@@ -27166,7 +27116,7 @@
     "stats": {
       "gp": 7.0,
       "off_snp": 34.0,
-      "st_snp": 108.0,
+      "st_snp": 131.0,
       "rec": 2.0,
       "rec_yd": 48.0
     }
@@ -27194,7 +27144,7 @@
     "stats": {
       "gp": 15.0,
       "gs": 15.0,
-      "off_snp": 648.0,
+      "off_snp": 713.0,
       "st_snp": 2.0,
       "rec": 104.0,
       "rec_yd": 1637.0,
@@ -27211,8 +27161,8 @@
     "stats": {
       "gp": 16.0,
       "gs": 12.0,
-      "off_snp": 623.0,
-      "st_snp": 79.0,
+      "off_snp": 660.0,
+      "st_snp": 91.0,
       "rec": 57.0,
       "rec_yd": 677.0,
       "rec_td": 2.0,
@@ -27730,20 +27680,6 @@
       "idp_sack": 2.5,
       "idp_int": 1.0,
       "idp_ff": 2.0
-    }
-  },
-  {
-    "name": "Nick Jackson",
-    "team": "Tampa Bay Buccaneers",
-    "team_code": "TB",
-    "position": "LB",
-    "number": 53,
-    "stats": {
-      "gp": 3.0,
-      "gs": 1.0,
-      "def_snp": 18.0,
-      "st_snp": 35.0,
-      "idp_tkl": 1.0
     }
   },
   {

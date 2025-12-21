@@ -1134,12 +1134,6 @@
     "position": "LB"
   },
   {
-    "name": "Teddye Buchanan",
-    "team": "Baltimore Ravens",
-    "team_code": "BAL",
-    "position": "LB"
-  },
-  {
     "name": "Trenton Simpson",
     "team": "Baltimore Ravens",
     "team_code": "BAL",
@@ -1608,6 +1602,12 @@
     "position": "LB"
   },
   {
+    "name": "Matthew Judon",
+    "team": "Buffalo Bills",
+    "team_code": "BUF",
+    "position": "LB"
+  },
+  {
     "name": "Shaq Thompson",
     "team": "Buffalo Bills",
     "team_code": "BUF",
@@ -1789,6 +1789,12 @@
   },
   {
     "name": "Khalil Shakir",
+    "team": "Buffalo Bills",
+    "team_code": "BUF",
+    "position": "WR"
+  },
+  {
+    "name": "Mecole Hardman",
     "team": "Buffalo Bills",
     "team_code": "BUF",
     "position": "WR"
@@ -2503,6 +2509,12 @@
   },
   {
     "name": "T.J. Edwards",
+    "team": "Chicago Bears",
+    "team_code": "CHI",
+    "position": "LB"
+  },
+  {
+    "name": "Tremaine Edmunds",
     "team": "Chicago Bears",
     "team_code": "CHI",
     "position": "LB"
@@ -3480,12 +3492,6 @@
     "position": "OL"
   },
   {
-    "name": "Jack Conklin",
-    "team": "Cleveland Browns",
-    "team_code": "CLE",
-    "position": "OT"
-  },
-  {
     "name": "Corey Bojorquez",
     "team": "Cleveland Browns",
     "team_code": "CLE",
@@ -3672,6 +3678,12 @@
     "position": "CB"
   },
   {
+    "name": "Trevon Diggs",
+    "team": "Dallas Cowboys",
+    "team_code": "DAL",
+    "position": "CB"
+  },
+  {
     "name": "Alijah Clark",
     "team": "Dallas Cowboys",
     "team_code": "DAL",
@@ -3679,12 +3691,6 @@
   },
   {
     "name": "Caelen Carson",
-    "team": "Dallas Cowboys",
-    "team_code": "DAL",
-    "position": "DB"
-  },
-  {
-    "name": "DaRon Bland",
     "team": "Dallas Cowboys",
     "team_code": "DAL",
     "position": "DB"
@@ -4242,6 +4248,12 @@
     "position": "FB"
   },
   {
+    "name": "Ben Powers",
+    "team": "Denver Broncos",
+    "team_code": "DEN",
+    "position": "G"
+  },
+  {
     "name": "Tristen Hoge",
     "team": "Denver Broncos",
     "team_code": "DEN",
@@ -4620,12 +4632,6 @@
     "position": "DB"
   },
   {
-    "name": "Kerby Joseph",
-    "team": "Detroit Lions",
-    "team_code": "DET",
-    "position": "DB"
-  },
-  {
     "name": "Loren Strickland",
     "team": "Detroit Lions",
     "team_code": "DET",
@@ -4798,6 +4804,12 @@
     "team": "Detroit Lions",
     "team_code": "DET",
     "position": "OG"
+  },
+  {
+    "name": "Christian Mahogany",
+    "team": "Detroit Lions",
+    "team_code": "DET",
+    "position": "OL"
   },
   {
     "name": "Devin Cochran",
@@ -7026,12 +7038,6 @@
     "position": "LB"
   },
   {
-    "name": "Leo Chenal",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "LB"
-  },
-  {
     "name": "Nick Bolton",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
@@ -7075,12 +7081,6 @@
   },
   {
     "name": "Hunter Nourzad",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "OL"
-  },
-  {
-    "name": "Jawaan Taylor",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
     "position": "OL"
@@ -7357,12 +7357,6 @@
   },
   {
     "name": "Boogie Basham",
-    "team": "Las Vegas Raiders",
-    "team_code": "LV",
-    "position": "DE"
-  },
-  {
-    "name": "Jahfari Harvey",
     "team": "Las Vegas Raiders",
     "team_code": "LV",
     "position": "DE"
@@ -8671,12 +8665,6 @@
   },
   {
     "name": "Dante Trader",
-    "team": "Miami Dolphins",
-    "team_code": "MIA",
-    "position": "DB"
-  },
-  {
-    "name": "Elijah Campbell",
     "team": "Miami Dolphins",
     "team_code": "MIA",
     "position": "DB"
@@ -10416,6 +10404,12 @@
     "position": "WR"
   },
   {
+    "name": "Art Green",
+    "team": "New York Giants",
+    "team_code": "NYG",
+    "position": "CB"
+  },
+  {
     "name": "Jarrick Bernard-Converse",
     "team": "New York Giants",
     "team_code": "NYG",
@@ -10537,12 +10531,6 @@
   },
   {
     "name": "Darius Alexander",
-    "team": "New York Giants",
-    "team_code": "NYG",
-    "position": "DL"
-  },
-  {
-    "name": "Kayvon Thibodeaux",
     "team": "New York Giants",
     "team_code": "NYG",
     "position": "DL"
@@ -11964,12 +11952,6 @@
     "position": "LB"
   },
   {
-    "name": "Kana'i Mauga",
-    "team": "Pittsburgh Steelers",
-    "team_code": "PIT",
-    "position": "LB"
-  },
-  {
     "name": "Malik Harrison",
     "team": "Pittsburgh Steelers",
     "team_code": "PIT",
@@ -12451,12 +12433,6 @@
   },
   {
     "name": "Luke Gifford",
-    "team": "San Francisco 49ers",
-    "team_code": "SF",
-    "position": "LB"
-  },
-  {
-    "name": "Nick Martin",
     "team": "San Francisco 49ers",
     "team_code": "SF",
     "position": "LB"
@@ -13387,12 +13363,6 @@
   },
   {
     "name": "Lavonte David",
-    "team": "Tampa Bay Buccaneers",
-    "team_code": "TB",
-    "position": "LB"
-  },
-  {
-    "name": "Nick Jackson",
     "team": "Tampa Bay Buccaneers",
     "team_code": "TB",
     "position": "LB"
