@@ -882,12 +882,6 @@
     "position": "WR"
   },
   {
-    "name": "Jamal Agnew",
-    "team": "Atlanta Falcons",
-    "team_code": "ATL",
-    "position": "WR"
-  },
-  {
     "name": "K.J. Osborn",
     "team": "Atlanta Falcons",
     "team_code": "ATL",
@@ -1483,12 +1477,6 @@
   },
   {
     "name": "Jordan Phillips",
-    "team": "Buffalo Bills",
-    "team_code": "BUF",
-    "position": "DE"
-  },
-  {
-    "name": "Morgan Fox",
     "team": "Buffalo Bills",
     "team_code": "BUF",
     "position": "DE"
@@ -7165,12 +7153,6 @@
   },
   {
     "name": "Elijah McGuire",
-    "team": "Kansas City Chiefs",
-    "team_code": "KC",
-    "position": "RB"
-  },
-  {
-    "name": "Elijah Mitchell",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
     "position": "RB"
@@ -13771,12 +13753,6 @@
   },
   {
     "name": "Sebastian Joseph-Day",
-    "team": "Tennessee Titans",
-    "team_code": "TEN",
-    "position": "DT"
-  },
-  {
-    "name": "Shy Tuttle",
     "team": "Tennessee Titans",
     "team_code": "TEN",
     "position": "DT"
