@@ -54,12 +54,6 @@
     "position": "DB"
   },
   {
-    "name": "Garrett Williams",
-    "team": "Arizona Cardinals",
-    "team_code": "ARI",
-    "position": "DB"
-  },
-  {
     "name": "Jaden Davis",
     "team": "Arizona Cardinals",
     "team_code": "ARI",
@@ -145,12 +139,6 @@
   },
   {
     "name": "Jordan Burch",
-    "team": "Arizona Cardinals",
-    "team_code": "ARI",
-    "position": "DL"
-  },
-  {
-    "name": "Walter Nolen",
     "team": "Arizona Cardinals",
     "team_code": "ARI",
     "position": "DL"
@@ -325,12 +313,6 @@
   },
   {
     "name": "Jacoby Brissett",
-    "team": "Arizona Cardinals",
-    "team_code": "ARI",
-    "position": "QB"
-  },
-  {
-    "name": "Jeff Driskel",
     "team": "Arizona Cardinals",
     "team_code": "ARI",
     "position": "QB"
@@ -535,6 +517,12 @@
   },
   {
     "name": "Ronnie Harrison",
+    "team": "Atlanta Falcons",
+    "team_code": "ATL",
+    "position": "DB"
+  },
+  {
+    "name": "Tysheem Johnson",
     "team": "Atlanta Falcons",
     "team_code": "ATL",
     "position": "DB"
@@ -1687,12 +1675,6 @@
   },
   {
     "name": "Mitchell Trubisky",
-    "team": "Buffalo Bills",
-    "team_code": "BUF",
-    "position": "QB"
-  },
-  {
-    "name": "Shane Buechele",
     "team": "Buffalo Bills",
     "team_code": "BUF",
     "position": "QB"
@@ -5058,6 +5040,12 @@
     "position": "DE"
   },
   {
+    "name": "Collin Oliver",
+    "team": "Green Bay Packers",
+    "team_code": "GB",
+    "position": "DE"
+  },
+  {
     "name": "Dante Barnett",
     "team": "Green Bay Packers",
     "team_code": "GB",
@@ -5335,12 +5323,6 @@
   },
   {
     "name": "Drake Dabney",
-    "team": "Green Bay Packers",
-    "team_code": "GB",
-    "position": "TE"
-  },
-  {
-    "name": "John FitzPatrick",
     "team": "Green Bay Packers",
     "team_code": "GB",
     "position": "TE"
@@ -6067,6 +6049,12 @@
   },
   {
     "name": "Chris Wormley",
+    "team": "Indianapolis Colts",
+    "team_code": "IND",
+    "position": "DT"
+  },
+  {
+    "name": "DeForest Buckner",
     "team": "Indianapolis Colts",
     "team_code": "IND",
     "position": "DT"
@@ -7122,7 +7110,7 @@
     "position": "QB"
   },
   {
-    "name": "Gardner Minshew",
+    "name": "Shane Buechele",
     "team": "Kansas City Chiefs",
     "team_code": "KC",
     "position": "QB"
@@ -12318,6 +12306,12 @@
     "position": "DE"
   },
   {
+    "name": "Yetur Gross-Matos",
+    "team": "San Francisco 49ers",
+    "team_code": "SF",
+    "position": "DE"
+  },
+  {
     "name": "Alfred Collins",
     "team": "San Francisco 49ers",
     "team_code": "SF",
@@ -13716,6 +13710,12 @@
     "position": "DL"
   },
   {
+    "name": "Isaiah Raikes",
+    "team": "Tennessee Titans",
+    "team_code": "TEN",
+    "position": "DL"
+  },
+  {
     "name": "Nate Lynn",
     "team": "Tennessee Titans",
     "team_code": "TEN",
@@ -13780,6 +13780,12 @@
     "team": "Tennessee Titans",
     "team_code": "TEN",
     "position": "K"
+  },
+  {
+    "name": "Cam Riley",
+    "team": "Tennessee Titans",
+    "team_code": "TEN",
+    "position": "LB"
   },
   {
     "name": "Cedric Gray",
@@ -14172,12 +14178,6 @@
     "position": "DT"
   },
   {
-    "name": "Eddie Goldman",
-    "team": "Washington Commanders",
-    "team_code": "WAS",
-    "position": "DT"
-  },
-  {
     "name": "Gabe Wright",
     "team": "Washington Commanders",
     "team_code": "WAS",
@@ -14197,6 +14197,12 @@
   },
   {
     "name": "Sheldon Day",
+    "team": "Washington Commanders",
+    "team_code": "WAS",
+    "position": "DT"
+  },
+  {
+    "name": "Shy Tuttle",
     "team": "Washington Commanders",
     "team_code": "WAS",
     "position": "DT"
@@ -14316,12 +14322,6 @@
     "position": "OL"
   },
   {
-    "name": "Sam Cosmi",
-    "team": "Washington Commanders",
-    "team_code": "WAS",
-    "position": "OL"
-  },
-  {
     "name": "George Fant",
     "team": "Washington Commanders",
     "team_code": "WAS",
@@ -14335,6 +14335,12 @@
   },
   {
     "name": "Jayden Daniels",
+    "team": "Washington Commanders",
+    "team_code": "WAS",
+    "position": "QB"
+  },
+  {
+    "name": "Jeff Driskel",
     "team": "Washington Commanders",
     "team_code": "WAS",
     "position": "QB"
@@ -14466,7 +14472,7 @@
     "position": "WR"
   },
   {
-    "name": "Jaylin Lane",
+    "name": "Jamal Agnew",
     "team": "Washington Commanders",
     "team_code": "WAS",
     "position": "WR"
