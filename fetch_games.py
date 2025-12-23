@@ -144,13 +144,17 @@ def parse_game(event):
         home_quarters = extract_linescores(home_comp)
         away_quarters = extract_linescores(away_comp)
 
-    # Extract date
-    game_date = event.get("date", "")[:10]  # Just YYYY-MM-DD
+    # Extract date and time - preserve full ISO timestamp
+    game_datetime = event.get("date", "")  # Full ISO 8601: "2025-09-05T20:20Z"
+    game_date = game_datetime[:10] if game_datetime else ""  # YYYY-MM-DD
+    game_time = game_datetime[11:16] if len(game_datetime) >= 16 else ""  # HH:MM (UTC)
 
     game = {
         "home_team": home_team,
         "away_team": away_team,
         "game_date": game_date,
+        "game_time": game_time,  # UTC time HH:MM
+        "game_datetime": game_datetime,  # Full ISO 8601 timestamp
         "is_completed": is_completed,
     }
 
