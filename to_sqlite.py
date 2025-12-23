@@ -90,6 +90,8 @@ def create_games_table(conn):
             season INTEGER NOT NULL,
             week INTEGER NOT NULL,
             game_date TEXT,
+            game_time TEXT,
+            game_datetime TEXT,
             home_team TEXT NOT NULL,
             away_team TEXT NOT NULL,
             home_score INTEGER,
@@ -108,7 +110,8 @@ def create_games_table(conn):
 def insert_games(conn, games):
     """Insert games into database."""
     cols = [
-        "season", "week", "game_date", "home_team", "away_team",
+        "season", "week", "game_date", "game_time", "game_datetime",
+        "home_team", "away_team",
         "home_score", "away_score", "total_points",
         "home_q1", "home_q2", "home_q3", "home_q4", "home_ot",
         "away_q1", "away_q2", "away_q3", "away_q4", "away_ot",
@@ -121,6 +124,7 @@ def insert_games(conn, games):
     for g in games:
         row = [
             g.get("season"), g.get("week"), g.get("game_date"),
+            g.get("game_time"), g.get("game_datetime"),
             g.get("home_team"), g.get("away_team"),
             g.get("home_score"), g.get("away_score"), g.get("total_points"),
             g.get("home_q1"), g.get("home_q2"), g.get("home_q3"), g.get("home_q4"), g.get("home_ot"),

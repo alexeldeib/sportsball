@@ -1087,6 +1087,39 @@
       });
     }
 
+    /**
+     * Format game datetime for display in Eastern timezone.
+     * @param {string} gameDate - YYYY-MM-DD format
+     * @param {string} gameDatetime - ISO 8601 format (e.g., "2025-09-05T20:20Z")
+     * @returns {string} Formatted string like "Sat, Sep 6, 8:20 PM ET"
+     */
+    function formatGameDateTime(gameDate, gameDatetime) {
+      if (!gameDate) return '';
+
+      // If we have full datetime, use it for accurate timezone conversion
+      if (gameDatetime) {
+        const date = new Date(gameDatetime);
+        return date.toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        }) + ' ET';
+      }
+
+      // Fallback: parse YYYY-MM-DD as local date parts to avoid timezone shift
+      const [year, month, day] = gameDate.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
     function getMatchupQuality(position, stat, opponent) {
       if (!defenseRankings[position] || !defenseRankings[position][stat]) return null;
 
@@ -1178,7 +1211,7 @@
 
     function loadMatchups() {
       const result = db.exec(`
-        SELECT week, home_team, away_team, game_date
+        SELECT week, home_team, away_team, game_date, game_datetime
         FROM games
         WHERE season = 2025 AND is_completed = 0
         ORDER BY week, game_date
@@ -1188,10 +1221,11 @@
       select.innerHTML = '<option value="">Select a matchup...</option>';
 
       if (result.length && result[0].values) {
-        result[0].values.forEach(([week, home, away, date]) => {
+        result[0].values.forEach(([week, home, away, date, datetime]) => {
           const opt = document.createElement('option');
           opt.value = `${home}|${away}|${week}`;
-          opt.textContent = `Week ${week}: ${away} @ ${home}`;
+          const dateStr = formatGameDateTime(date, datetime);
+          opt.textContent = `Week ${week}: ${away} @ ${home}${dateStr ? ' - ' + dateStr : ''}`;
           select.appendChild(opt);
         });
       }

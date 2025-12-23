@@ -1054,6 +1054,39 @@
       return `<span class="profile-badge ${profile}"><span class="profile-icon">${icons[profile] || ''}</span>${labels[profile] || profile}</span>`;
     }
 
+    /**
+     * Format game datetime for display in Eastern timezone.
+     * @param {string} gameDate - YYYY-MM-DD format
+     * @param {string} gameDatetime - ISO 8601 format (e.g., "2025-09-05T20:20Z")
+     * @returns {string} Formatted string like "Sat, Sep 6, 8:20 PM ET"
+     */
+    function formatGameDateTime(gameDate, gameDatetime) {
+      if (!gameDate) return '';
+
+      // If we have full datetime, use it for accurate timezone conversion
+      if (gameDatetime) {
+        const date = new Date(gameDatetime);
+        return date.toLocaleString('en-US', {
+          timeZone: 'America/New_York',
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        }) + ' ET';
+      }
+
+      // Fallback: parse YYYY-MM-DD as local date parts to avoid timezone shift
+      const [year, month, day] = gameDate.split('-').map(Number);
+      const date = new Date(year, month - 1, day);
+      return date.toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      });
+    }
+
     async function loadInjuryData() {
       if (injuryData) return injuryData;
       try {
@@ -1253,7 +1286,7 @@
 
       const sql = `
         SELECT
-          g.week, g.game_date, g.home_team, g.away_team, g.is_completed,
+          g.week, g.game_date, g.game_datetime, g.home_team, g.away_team, g.is_completed,
           g.home_score, g.away_score,
           ts_home.ppg_scored as home_ppg, ts_home.ppg_allowed as home_allowed,
           ts_home.scoring_std_dev as home_std, ts_home.last_5_ppg as home_last5,
@@ -1324,9 +1357,7 @@
         g._homeStats = homeStats;
         g._awayStats = awayStats;
 
-        const dateStr = g.game_date ? new Date(g.game_date).toLocaleDateString('en-US', {
-          weekday: 'short', month: 'short', day: 'numeric'
-        }) : '';
+        const dateStr = formatGameDateTime(g.game_date, g.game_datetime);
 
         const homeProb = Math.round(odds.homeWinProb * 100);
         const awayProb = 100 - homeProb;
@@ -1404,9 +1435,7 @@
       document.getElementById('detail-title').innerHTML =
         `${g.away_team}<span class="at">@</span>${g.home_team}`;
 
-      const dateStr = g.game_date ? new Date(g.game_date).toLocaleDateString('en-US', {
-        weekday: 'short', month: 'short', day: 'numeric'
-      }) : '';
+      const dateStr = formatGameDateTime(g.game_date, g.game_datetime);
       document.getElementById('detail-date').textContent = dateStr;
 
       // Odds
